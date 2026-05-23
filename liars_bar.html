@@ -1,0 +1,1190 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Liar's Bar</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Special+Elite&family=Playfair+Display:wght@400;700&display=swap');
+
+  :root {
+    --bg: #1a0e0a;
+    --bg-2: #2a1a14;
+    --brass: #b8862a;
+    --brass-bright: #d4a93f;
+    --blood: #8b0000;
+    --blood-bright: #b91c1c;
+    --bone: #e8dcc4;
+    --bone-dim: #a89878;
+    --dead: #4a3838;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    min-height: 100vh;
+    background: var(--bg);
+    background-image:
+      radial-gradient(ellipse at 50% 0%, rgba(184,134,42,0.08) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 100%, rgba(139,0,0,0.1) 0%, transparent 50%);
+    font-family: 'Playfair Display', serif;
+    color: var(--bone);
+    padding: 1.5rem;
+  }
+
+  .container { max-width: 1200px; margin: 0 auto; }
+
+  h1 {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(1.6rem, 5vw, 2.8rem);
+    letter-spacing: 0.25em;
+    color: var(--brass-bright);
+    text-align: center;
+    margin-bottom: 0.3rem;
+    text-shadow: 0 0 30px rgba(212,169,63,0.3);
+  }
+
+  .subtitle {
+    font-family: 'Special Elite', serif;
+    text-align: center;
+    color: var(--bone-dim);
+    font-size: 0.85rem;
+    letter-spacing: 0.2em;
+    margin-bottom: 2rem;
+  }
+
+  .panel {
+    background: linear-gradient(180deg, var(--bg-2), var(--bg));
+    border: 1px solid rgba(184,134,42,0.3);
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+  }
+
+  .panel.setup-panel {
+    width: fit-content;
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .panel-title {
+    font-family: 'Cinzel', serif;
+    font-size: 0.8rem;
+    letter-spacing: 0.2em;
+    color: var(--brass);
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    text-align: center;
+  }
+
+  .setup-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    align-items: flex-start;
+    justify-content: center;
+  }
+
+  .setup-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: center;
+  }
+
+  .prob-hint {
+    font-family: 'Special Elite', serif;
+    color: var(--bone-dim);
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+  }
+
+  .player-count {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .count-btn {
+    width: 36px;
+    height: 36px;
+    border: 1px solid var(--brass);
+    background: transparent;
+    color: var(--brass-bright);
+    font-family: 'Cinzel', serif;
+    font-size: 1.3rem;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: all 0.2s;
+  }
+
+  .count-btn:hover:not(:disabled) { background: rgba(184,134,42,0.2); }
+  .count-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+
+  .count-val {
+    font-family: 'Cinzel', serif;
+    font-size: 1.6rem;
+    color: var(--brass-bright);
+    min-width: 36px;
+    text-align: center;
+  }
+
+  /* Active card display */
+  .deck-display {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.6rem 0.9rem;
+    background: rgba(0,0,0,0.25);
+    border: 1px solid rgba(184,134,42,0.25);
+    border-radius: 4px;
+    min-height: 48px;
+  }
+
+  .active-cards {
+    display: flex;
+    gap: 0.9rem;
+    flex: 1;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  .active-card {
+    display: flex;
+    align-items: baseline;
+    gap: 0.25rem;
+    font-family: 'Cinzel', serif;
+    font-size: 1.1rem;
+    letter-spacing: 0.05em;
+    color: var(--brass-bright);
+  }
+
+  .active-card .suit { font-size: 1.4rem; line-height: 1; }
+  .active-card .rank { font-weight: 600; }
+
+  .edit-btn {
+    width: 34px;
+    height: 34px;
+    border: 1px solid rgba(184,134,42,0.4);
+    background: transparent;
+    color: var(--brass);
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    padding: 0;
+    flex-shrink: 0;
+  }
+
+  .edit-btn:hover {
+    border-color: var(--brass);
+    background: rgba(184,134,42,0.1);
+    color: var(--brass-bright);
+  }
+
+  .edit-btn svg { width: 16px; height: 16px; }
+
+  /* Edit modal */
+  .modal-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.7);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 50;
+    backdrop-filter: blur(6px);
+    padding: 1rem;
+  }
+
+  .modal-backdrop.active { display: flex; animation: fadeIn 0.25s; }
+
+  .modal {
+    background: linear-gradient(180deg, var(--bg-2), var(--bg));
+    border: 1px solid var(--brass);
+    border-radius: 8px;
+    padding: 1.8rem;
+    max-width: 420px;
+    width: 100%;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.7);
+  }
+
+  .modal-title {
+    font-family: 'Cinzel', serif;
+    font-size: 0.85rem;
+    letter-spacing: 0.25em;
+    color: var(--brass);
+    margin-bottom: 0.3rem;
+    text-transform: uppercase;
+  }
+
+  .modal-sub {
+    font-family: 'Special Elite', serif;
+    font-size: 0.75rem;
+    color: var(--bone-dim);
+    letter-spacing: 0.1em;
+    margin-bottom: 1.4rem;
+  }
+
+  .card-toggles {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .card-toggle {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    padding: 0.75rem 1rem;
+    background: rgba(0,0,0,0.3);
+    border: 1px solid rgba(184,134,42,0.25);
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: 'Cinzel', serif;
+    font-size: 0.95rem;
+    letter-spacing: 0.08em;
+    user-select: none;
+  }
+
+  .card-toggle:hover { border-color: var(--brass); }
+
+  .card-toggle.active {
+    background: rgba(184,134,42,0.12);
+    border-color: var(--brass);
+    color: var(--brass-bright);
+  }
+
+  .card-toggle input {
+    accent-color: var(--brass);
+    cursor: pointer;
+    width: 18px;
+    height: 18px;
+  }
+
+  .card-toggle .toggle-suit {
+    font-size: 1.4rem;
+    line-height: 1;
+    min-width: 24px;
+    text-align: center;
+  }
+
+  .card-toggle .toggle-rank {
+    font-weight: 600;
+    min-width: 18px;
+  }
+
+  .modal-actions {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .suit-red { color: #c0392b; }
+
+  /* Table card */
+  .table-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.2rem;
+    margin: 2rem 0;
+  }
+
+  .table-label {
+    font-family: 'Cinzel', serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.3em;
+    color: var(--brass);
+  }
+
+  .table-card-wrap {
+    perspective: 1000px;
+    width: 180px;
+    height: 260px;
+  }
+
+  .table-card {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.6s cubic-bezier(0.4,0,0.2,1);
+  }
+
+  .table-card.flipped { transform: rotateY(180deg); }
+
+  .card-face {
+    position: absolute;
+    inset: 0;
+    border-radius: 12px;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    border: 3px solid var(--brass);
+    box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+  }
+
+  .card-back {
+    background: var(--bone);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .back-pattern {
+    width: calc(100% - 16px);
+    height: calc(100% - 16px);
+    border: 2px solid rgba(139,0,0,0.4);
+    border-radius: 6px;
+    background:
+      repeating-linear-gradient(45deg, rgba(139,0,0,0.1) 0 2px, transparent 2px 12px),
+      repeating-linear-gradient(-45deg, rgba(139,0,0,0.1) 0 2px, transparent 2px 12px);
+  }
+
+  .card-front {
+    background: var(--bone);
+    transform: rotateY(180deg);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 12px 10px;
+  }
+
+  .card-corner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    line-height: 1;
+    gap: 2px;
+  }
+
+  .card-corner.bottom { transform: rotate(180deg); align-self: flex-end; }
+
+  .corner-rank {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+  }
+
+  .corner-suit { font-size: 1rem; }
+
+  .card-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    font-size: 4.5rem;
+    line-height: 1;
+  }
+
+  .red-card .corner-rank, .red-card .corner-suit, .red-card .card-center { color: var(--blood); }
+  .black-card .corner-rank, .black-card .corner-suit, .black-card .card-center { color: #1a1a1a; }
+
+  .table-name {
+    font-family: 'Cinzel', serif;
+    font-size: 1.3rem;
+    letter-spacing: 0.15em;
+    color: var(--brass-bright);
+    min-height: 1.5em;
+    text-align: center;
+  }
+
+  /* Buttons */
+  button.action {
+    font-family: 'Cinzel', serif;
+    font-size: 0.9rem;
+    letter-spacing: 0.15em;
+    color: var(--bg);
+    background: linear-gradient(135deg, var(--brass), var(--brass-bright), var(--brass));
+    border: none;
+    padding: 0.85rem 2rem;
+    border-radius: 4px;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(184,134,42,0.3);
+    transition: all 0.2s;
+    font-weight: 600;
+    width: 100%;
+  }
+
+  button.action:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 6px 25px rgba(184,134,42,0.5); }
+  button.action:active:not(:disabled) { transform: translateY(0); }
+  button.action:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+
+  button.danger {
+    background: linear-gradient(135deg, var(--blood), var(--blood-bright), var(--blood));
+    color: var(--bone);
+    box-shadow: 0 4px 15px rgba(139,0,0,0.4);
+  }
+
+  button.draw-table {
+    width: auto;
+    padding: 0.9rem 2.4rem;
+  }
+
+  button.ghost {
+    background: transparent;
+    border: 1px solid var(--brass);
+    color: var(--brass);
+    padding: 0.6rem 1.4rem;
+    font-family: 'Cinzel', serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.15em;
+    border-radius: 4px;
+    cursor: pointer;
+    box-shadow: none;
+    transition: background 0.2s;
+  }
+
+  button.ghost:hover { background: rgba(184,134,42,0.1); }
+
+  button.ghost.danger-ghost {
+    border-color: rgba(185,28,28,0.6);
+    color: var(--blood-bright);
+  }
+
+  button.ghost.danger-ghost:hover {
+    background: rgba(139,0,0,0.15);
+    border-color: var(--blood-bright);
+  }
+
+  button.ghost.danger-ghost:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+  }
+
+  /* Players */
+  .players-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 220px);
+    gap: 1rem;
+    justify-content: center;
+  }
+
+  .player {
+    background: linear-gradient(180deg, var(--bg-2), var(--bg));
+    border: 1px solid rgba(184,134,42,0.3);
+    border-radius: 8px;
+    padding: 1.1rem 1rem;
+    text-align: center;
+    position: relative;
+    transition: all 0.3s;
+  }
+
+  .player.dead {
+    opacity: 0.45;
+    filter: grayscale(0.7);
+    border-color: var(--dead);
+  }
+
+  .player.dead::after {
+    content: '☠';
+    position: absolute;
+    top: 0.5rem;
+    right: 0.7rem;
+    font-size: 1.4rem;
+    color: var(--blood-bright);
+    opacity: 0.8;
+  }
+
+  .player-name-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    margin-bottom: 0.7rem;
+  }
+
+  .player-name {
+    font-family: 'Cinzel', serif;
+    font-size: 0.95rem;
+    letter-spacing: 0.1em;
+    color: var(--brass-bright);
+    background: transparent;
+    border: none;
+    text-align: center;
+    padding: 2px 0;
+    font-weight: 600;
+    cursor: pointer;
+  }
+
+  .player.dead .player-name { color: var(--bone-dim); }
+
+  .name-edit-btn {
+    width: 22px;
+    height: 22px;
+    border: 1px solid rgba(184,134,42,0.35);
+    background: transparent;
+    color: var(--brass);
+    border-radius: 3px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    transition: all 0.2s;
+    flex-shrink: 0;
+  }
+
+  .name-edit-btn:hover:not(:disabled) {
+    border-color: var(--brass);
+    color: var(--brass-bright);
+    background: rgba(184,134,42,0.1);
+  }
+
+  .name-edit-btn:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+  }
+
+  .name-edit-btn svg { width: 11px; height: 11px; }
+
+  /* Name input in rename modal */
+  .name-input {
+    width: 100%;
+    background: rgba(0,0,0,0.4);
+    border: 1px solid var(--brass);
+    border-radius: 4px;
+    padding: 0.8rem 1rem;
+    font-family: 'Cinzel', serif;
+    font-size: 1.05rem;
+    letter-spacing: 0.08em;
+    color: var(--brass-bright);
+    text-align: center;
+    margin-bottom: 1.5rem;
+    outline: none;
+  }
+
+  .name-input:focus { border-color: var(--brass-bright); box-shadow: 0 0 0 2px rgba(184,134,42,0.2); }
+
+  .modal-actions-split {
+    display: flex;
+    gap: 0.6rem;
+    align-items: center;
+  }
+
+  .icon-btn {
+    width: 40px;
+    height: 40px;
+    border: 1px solid var(--brass);
+    background: transparent;
+    color: var(--brass);
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    transition: all 0.2s;
+    flex-shrink: 0;
+  }
+
+  .icon-btn:hover:not(:disabled) {
+    background: rgba(184,134,42,0.12);
+    color: var(--brass-bright);
+    border-color: var(--brass-bright);
+  }
+
+  .icon-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+
+  .icon-btn svg { width: 18px; height: 18px; }
+
+  .icon-btn.icon-danger {
+    border-color: rgba(185,28,28,0.6);
+    color: var(--blood-bright);
+  }
+
+  .icon-btn.icon-danger:hover:not(:disabled) {
+    background: rgba(139,0,0,0.18);
+    border-color: var(--blood-bright);
+    color: var(--blood-bright);
+  }
+
+  .icon-btn.icon-danger.confirming {
+    background: rgba(139,0,0,0.25);
+    border-color: var(--blood-bright);
+    animation: confirmPulse 0.8s ease-in-out infinite alternate;
+  }
+
+  @keyframes confirmPulse {
+    from { box-shadow: 0 0 0 0 rgba(185,28,28,0.4); }
+    to   { box-shadow: 0 0 0 6px rgba(185,28,28,0); }
+  }
+
+  .icon-btn.icon-confirm {
+    background: linear-gradient(135deg, var(--brass), var(--brass-bright));
+    border-color: var(--brass);
+    color: var(--bg);
+  }
+
+  .icon-btn.icon-confirm:hover:not(:disabled) {
+    box-shadow: 0 4px 15px rgba(184,134,42,0.4);
+    transform: translateY(-1px);
+    color: var(--bg);
+  }
+
+  .revolver {
+    width: 130px;
+    height: 130px;
+    margin: 0 auto 0.5rem;
+    display: block;
+  }
+
+  .player-status {
+    font-family: 'Special Elite', serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    color: var(--bone-dim);
+    margin-bottom: 0.8rem;
+    min-height: 1em;
+  }
+
+  .player-status.danger { color: var(--blood-bright); }
+  .player-status.dead { color: var(--blood); font-weight: bold; }
+
+  /* Winner overlay */
+  .overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.92);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+    backdrop-filter: blur(8px);
+  }
+
+  .overlay.active { display: flex; animation: fadeIn 0.4s; }
+
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+  .winner-box {
+    text-align: center;
+    padding: 2.5rem 3rem;
+    border: 2px solid var(--brass);
+    border-radius: 12px;
+    background: linear-gradient(180deg, var(--bg-2), var(--bg));
+    max-width: 90%;
+    box-shadow: 0 0 80px rgba(184,134,42,0.3);
+  }
+
+  .winner-label {
+    font-family: 'Cinzel', serif;
+    font-size: 0.8rem;
+    letter-spacing: 0.4em;
+    color: var(--brass);
+    margin-bottom: 1rem;
+  }
+
+  .winner-name {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--brass-bright);
+    margin-bottom: 1.8rem;
+    text-shadow: 0 0 40px rgba(212,169,63,0.5);
+  }
+
+  .game-controls {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 2rem;
+    flex-wrap: wrap;
+  }
+
+  /* Animations */
+  @keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    20% { transform: translateX(-10px); }
+    40% { transform: translateX(10px); }
+    60% { transform: translateX(-8px); }
+    80% { transform: translateX(8px); }
+  }
+  .shake { animation: shake 0.5s; }
+
+  @keyframes bulletPulse {
+    0% { transform: scale(1); filter: brightness(2); }
+    100% { transform: scale(1); filter: brightness(1); }
+  }
+  .bullet-pulse { animation: bulletPulse 0.8s ease-out; transform-box: fill-box; transform-origin: center; }
+
+  @keyframes clickFlash {
+    0% { box-shadow: 0 0 30px rgba(184,134,42,0.6); }
+    100% { box-shadow: none; }
+  }
+  .click-flash { animation: clickFlash 0.5s; }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <h1>LIAR'S BAR</h1>
+  <p class="subtitle">— ein Schuss pro Lüge —</p>
+
+  <!-- Setup -->
+  <div class="panel setup-panel">
+    <div class="panel-title">Setup</div>
+    <div class="setup-row">
+      <div class="setup-group">
+        <span class="prob-hint">Spieler (2–8)</span>
+        <div class="player-count">
+          <button class="count-btn" id="minusBtn" onclick="changePlayers(-1)">−</button>
+          <span class="count-val" id="playerCount">4</span>
+          <button class="count-btn" id="plusBtn" onclick="changePlayers(1)">+</button>
+        </div>
+      </div>
+
+      <div class="setup-group">
+        <span class="prob-hint">Deck · <span id="probHint">P = 1/4 je Karte</span></span>
+        <div class="deck-display">
+          <div class="active-cards" id="activeCards"></div>
+          <button class="edit-btn" onclick="openDeckModal()" title="Deck bearbeiten" aria-label="Deck bearbeiten">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 20h9"/>
+              <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Deck edit modal -->
+  <div class="modal-backdrop" id="deckModal" onclick="if(event.target===this) closeDeckModal()">
+    <div class="modal">
+      <div class="modal-title">Deck bearbeiten</div>
+      <div class="modal-sub">An/aus — die Tischkarte wird gleichverteilt gezogen</div>
+      <div class="card-toggles" id="cardToggles"></div>
+      <div class="modal-actions-split" style="justify-content: flex-end">
+        <button class="icon-btn icon-confirm" onclick="closeDeckModal()" title="Fertig" aria-label="Fertig">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Rename modal -->
+  <div class="modal-backdrop" id="renameModal" onclick="if(event.target===this) closeRenameModal()">
+    <div class="modal">
+      <div class="modal-title">Spieler bearbeiten</div>
+      <div class="modal-sub" id="renameSub">—</div>
+      <input type="text" class="name-input" id="renameInput" maxlength="20" autocomplete="off">
+      <div class="modal-actions-split">
+        <button class="icon-btn icon-danger" id="removePlayerBtn" onclick="confirmRemovePlayer()" title="Spieler entfernen" aria-label="Spieler entfernen">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="3 6 5 6 21 6"/>
+            <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/>
+            <path d="M10 11v6"/>
+            <path d="M14 11v6"/>
+            <path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/>
+          </svg>
+        </button>
+        <div style="flex: 1"></div>
+        <button class="icon-btn" onclick="closeRenameModal()" title="Abbrechen" aria-label="Abbrechen">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"/>
+            <line x1="6" y1="6" x2="18" y2="18"/>
+          </svg>
+        </button>
+        <button class="icon-btn icon-confirm" onclick="saveRename()" title="Speichern" aria-label="Speichern">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Table card -->
+  <div class="table-section">
+    <span class="table-label">— DIE TISCHKARTE —</span>
+    <div class="table-card-wrap">
+      <div class="table-card" id="tableCard">
+        <div class="card-face card-back">
+          <div class="back-pattern"></div>
+        </div>
+        <div class="card-face card-front" id="tableFront">
+          <div class="card-corner">
+            <span class="corner-rank" id="trankTL"></span>
+            <span class="corner-suit" id="tsuitTL"></span>
+          </div>
+          <div class="card-center" id="tcenter"></div>
+          <div class="card-corner bottom">
+            <span class="corner-rank" id="trankBR"></span>
+            <span class="corner-suit" id="tsuitBR"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="table-name" id="tableName">— noch keine Karte —</div>
+    <button class="action draw-table" onclick="drawTable()">TISCHKARTE ZIEHEN</button>
+  </div>
+
+  <!-- Players -->
+  <div class="players-grid" id="playersGrid"></div>
+
+  <div class="game-controls">
+    <button class="ghost" onclick="resetRevolvers()">Revolver neu laden</button>
+    <button class="ghost" onclick="fullReset()">Komplett zurücksetzen</button>
+  </div>
+</div>
+
+<!-- Winner overlay -->
+<div class="overlay" id="overlay">
+  <div class="winner-box">
+    <div class="winner-label">— LETZTER ÜBERLEBENDER —</div>
+    <div class="winner-name" id="winnerName"></div>
+    <button class="action" onclick="fullReset(); closeOverlay()">NEUES SPIEL</button>
+  </div>
+</div>
+
+<script>
+  const CARDS = {
+    J: { rank: 'J', name: 'Bube',  suit: '♠', color: 'black' },
+    Q: { rank: 'Q', name: 'Dame',  suit: '♥', color: 'red'   },
+    K: { rank: 'K', name: 'König', suit: '♣', color: 'black' },
+    A: { rank: 'A', name: 'Ass',   suit: '♦', color: 'red'   },
+  };
+
+  const state = {
+    playerCount: 4,
+    enabledCards: { J: true, Q: true, K: true, A: true },
+    players: [],
+    tableShown: false,
+  };
+
+  function makePlayer(i) {
+    return {
+      name: 'Spieler ' + (i + 1),
+      bulletPos: Math.floor(Math.random() * 6),
+      shotsFired: 0,
+      alive: true,
+    };
+  }
+
+  function initPlayers() {
+    state.players = [];
+    for (let i = 0; i < state.playerCount; i++) state.players.push(makePlayer(i));
+  }
+
+  function changePlayers(delta) {
+    const newCount = state.playerCount + delta;
+    if (newCount < 2 || newCount > 8) return;
+    if (delta > 0) {
+      // Add new player at the end, preserve existing
+      for (let i = state.playerCount; i < newCount; i++) {
+        state.players.push(makePlayer(i));
+      }
+    } else {
+      // Remove from the end
+      state.players = state.players.slice(0, newCount);
+    }
+    state.playerCount = newCount;
+    updatePlayerCountUI();
+    renderPlayers();
+  }
+
+  function removePlayer(idx) {
+    if (state.playerCount <= 2) return;
+    state.players.splice(idx, 1);
+    state.playerCount = state.players.length;
+    updatePlayerCountUI();
+    closeRenameModal();
+    renderPlayers();
+    // Check if game already won after removal
+    setTimeout(checkWinner, 50);
+  }
+
+  function updatePlayerCountUI() {
+    document.getElementById('playerCount').textContent = state.playerCount;
+    document.getElementById('minusBtn').disabled = state.playerCount <= 2;
+    document.getElementById('plusBtn').disabled = state.playerCount >= 8;
+  }
+
+  function renderCardToggles() {
+    const wrap = document.getElementById('cardToggles');
+    wrap.innerHTML = '';
+    Object.entries(CARDS).forEach(([key, card]) => {
+      const enabled = state.enabledCards[key];
+      const label = document.createElement('label');
+      label.className = 'card-toggle' + (enabled ? ' active' : '');
+      const suitClass = card.color === 'red' ? 'suit-red' : '';
+      label.innerHTML = `
+        <input type="checkbox" ${enabled ? 'checked' : ''} data-key="${key}">
+        <span class="toggle-suit ${suitClass}">${card.suit}</span>
+        <span class="toggle-rank">${card.rank}</span>
+        <span>${card.name}</span>
+      `;
+      label.querySelector('input').addEventListener('change', (e) => {
+        const k = e.target.dataset.key;
+        const newVal = e.target.checked;
+        const count = Object.values(state.enabledCards).filter(Boolean).length;
+        if (!newVal && count <= 1) {
+          e.target.checked = true;
+          return;
+        }
+        state.enabledCards[k] = newVal;
+        renderCardToggles();
+        renderActiveCards();
+        updateProbHint();
+      });
+      wrap.appendChild(label);
+    });
+  }
+
+  function renderActiveCards() {
+    const wrap = document.getElementById('activeCards');
+    wrap.innerHTML = '';
+    Object.entries(CARDS).forEach(([key, card]) => {
+      if (!state.enabledCards[key]) return;
+      const span = document.createElement('span');
+      span.className = 'active-card';
+      const suitClass = card.color === 'red' ? 'suit-red' : '';
+      span.innerHTML = `<span class="suit ${suitClass}">${card.suit}</span><span class="rank">${card.rank}</span>`;
+      wrap.appendChild(span);
+    });
+  }
+
+  function openDeckModal() {
+    document.getElementById('deckModal').classList.add('active');
+  }
+
+  function closeDeckModal() {
+    document.getElementById('deckModal').classList.remove('active');
+  }
+
+  function updateProbHint() {
+    const n = Object.values(state.enabledCards).filter(Boolean).length;
+    document.getElementById('probHint').textContent = `P = 1/${n} je Karte`;
+  }
+
+  function drawTable() {
+    const enabled = Object.entries(state.enabledCards).filter(([k,v]) => v).map(([k]) => k);
+    if (enabled.length === 0) return;
+    const key = enabled[Math.floor(Math.random() * enabled.length)];
+    const card = CARDS[key];
+
+    const front = document.getElementById('tableFront');
+    front.className = 'card-face card-front ' + card.color + '-card';
+    document.getElementById('trankTL').textContent = card.rank;
+    document.getElementById('tsuitTL').textContent = card.suit;
+    document.getElementById('trankBR').textContent = card.rank;
+    document.getElementById('tsuitBR').textContent = card.suit;
+    document.getElementById('tcenter').textContent = card.suit;
+
+    const tc = document.getElementById('tableCard');
+    if (state.tableShown) {
+      tc.classList.remove('flipped');
+      document.getElementById('tableName').textContent = '...';
+      setTimeout(() => {
+        tc.classList.add('flipped');
+        document.getElementById('tableName').textContent = card.name + ' ' + card.suit;
+      }, 650);
+    } else {
+      tc.classList.add('flipped');
+      document.getElementById('tableName').textContent = card.name + ' ' + card.suit;
+      state.tableShown = true;
+    }
+  }
+
+  function revolverSVG(player, index) {
+    const cx = 70, cy = 70, r = 42, chamberR = 12;
+    let chambers = '';
+    for (let i = 0; i < 6; i++) {
+      const angle = (i / 6) * Math.PI * 2 - Math.PI / 2;
+      const x = cx + r * Math.cos(angle);
+      const y = cy + r * Math.sin(angle);
+      const isFired = i < player.shotsFired;
+      const isBullet = i === player.bulletPos && isFired;
+      const justFired = i === player.shotsFired - 1;
+      let fill = '#0d0604';
+      if (isBullet) fill = '#8b0000';
+      else if (isFired) fill = '#4a3838';
+      const pulseClass = (isBullet && justFired) ? ' bullet-pulse' : '';
+      chambers += `<circle class="chamber${pulseClass}" cx="${x}" cy="${y}" r="${chamberR}" fill="${fill}" stroke="#b8862a" stroke-width="1.5"/>`;
+      if (isBullet) {
+        chambers += `<circle cx="${x}" cy="${y}" r="5" fill="#d4a93f"/>`;
+      }
+    }
+    return `
+      <svg class="revolver" viewBox="0 0 140 140">
+        <defs>
+          <radialGradient id="hub-${index}" cx="50%" cy="40%">
+            <stop offset="0%" stop-color="#5a3520"/>
+            <stop offset="100%" stop-color="#2a1a14"/>
+          </radialGradient>
+        </defs>
+        <circle cx="70" cy="70" r="62" fill="none" stroke="#b8862a" stroke-width="2" opacity="0.4"/>
+        <circle cx="70" cy="70" r="58" fill="url(#hub-${index})" stroke="#b8862a" stroke-width="1"/>
+        ${chambers}
+        <circle cx="70" cy="70" r="8" fill="#0d0604" stroke="#b8862a" stroke-width="1.5"/>
+        <circle cx="70" cy="70" r="2" fill="#b8862a"/>
+      </svg>
+    `;
+  }
+
+  function renderPlayers() {
+    const grid = document.getElementById('playersGrid');
+    grid.innerHTML = '';
+    state.players.forEach((p, i) => {
+      const div = document.createElement('div');
+      div.className = 'player' + (p.alive ? '' : ' dead');
+      div.id = 'player-' + i;
+      const shotsLeft = 6 - p.shotsFired;
+      let status = '';
+      let statusClass = '';
+      if (!p.alive) {
+        status = '✟ TOT ✟';
+        statusClass = 'dead';
+      } else if (shotsLeft === 0) {
+        status = '— Trommel leer —';
+      } else {
+        const probPct = Math.round((1 / shotsLeft) * 100);
+        status = `${shotsLeft} Kammer${shotsLeft === 1 ? '' : 'n'} · ${probPct}% Bang`;
+        if (probPct >= 50) statusClass = 'danger';
+      }
+
+      const escapedName = p.name.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+
+      div.innerHTML = `
+        <div class="player-name-row">
+          <span class="player-name">${escapedName}</span>
+          <button class="name-edit-btn" onclick="openRenameModal(${i})" aria-label="Spieler bearbeiten" title="Spieler bearbeiten">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 20h9"/>
+              <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>
+            </svg>
+          </button>
+        </div>
+        ${revolverSVG(p, i)}
+        <div class="player-status ${statusClass}">${status}</div>
+        <button class="action ${p.alive ? 'danger' : ''}"
+                onclick="fire(${i})"
+                ${p.alive ? '' : 'disabled'}>
+          ${p.alive ? 'ABDRÜCKEN' : '—'}
+        </button>
+      `;
+      grid.appendChild(div);
+    });
+  }
+
+  let renameTargetIdx = null;
+
+  function openRenameModal(idx) {
+    renameTargetIdx = idx;
+    const p = state.players[idx];
+    document.getElementById('renameSub').textContent = p.name;
+    const input = document.getElementById('renameInput');
+    input.value = p.name;
+    const removeBtn = document.getElementById('removePlayerBtn');
+    removeBtn.disabled = state.playerCount <= 2;
+    removeBtn.classList.remove('confirming');
+    removeBtn.onclick = confirmRemovePlayer;
+    document.getElementById('renameModal').classList.add('active');
+    setTimeout(() => { input.focus(); input.select(); }, 50);
+  }
+
+  function closeRenameModal() {
+    document.getElementById('renameModal').classList.remove('active');
+    const removeBtn = document.getElementById('removePlayerBtn');
+    removeBtn.classList.remove('confirming');
+    removeBtn.onclick = confirmRemovePlayer;
+    renameTargetIdx = null;
+  }
+
+  function saveRename() {
+    if (renameTargetIdx === null) return;
+    const input = document.getElementById('renameInput');
+    const newName = input.value.trim();
+    state.players[renameTargetIdx].name = newName || `Spieler ${renameTargetIdx + 1}`;
+    closeRenameModal();
+    renderPlayers();
+  }
+
+  function confirmRemovePlayer() {
+    const btn = document.getElementById('removePlayerBtn');
+    btn.classList.add('confirming');
+    btn.onclick = () => {
+      if (renameTargetIdx !== null) removePlayer(renameTargetIdx);
+    };
+    setTimeout(() => {
+      if (btn.classList.contains('confirming') && document.getElementById('renameModal').classList.contains('active')) {
+        btn.classList.remove('confirming');
+        btn.onclick = confirmRemovePlayer;
+      }
+    }, 3000);
+  }
+
+  // Save on Enter
+  document.getElementById('renameInput').addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') saveRename();
+    if (e.key === 'Escape') closeRenameModal();
+  });
+
+  function fire(idx) {
+    const p = state.players[idx];
+    if (!p.alive || p.shotsFired >= 6) return;
+
+    const isBullet = p.shotsFired === p.bulletPos;
+    p.shotsFired++;
+
+    if (isBullet) {
+      p.alive = false;
+      renderPlayers();
+      const el = document.getElementById('player-' + idx);
+      if (el) el.classList.add('shake');
+      setTimeout(checkWinner, 900);
+    } else {
+      renderPlayers();
+      const el = document.getElementById('player-' + idx);
+      if (el) el.classList.add('click-flash');
+    }
+  }
+
+  function checkWinner() {
+    const alive = state.players.filter(p => p.alive);
+    if (alive.length === 1) {
+      document.getElementById('winnerName').textContent = alive[0].name;
+      document.getElementById('overlay').classList.add('active');
+    }
+  }
+
+  function closeOverlay() {
+    document.getElementById('overlay').classList.remove('active');
+  }
+
+  function resetRevolvers() {
+    state.players.forEach(p => {
+      p.bulletPos = Math.floor(Math.random() * 6);
+      p.shotsFired = 0;
+      p.alive = true;
+    });
+    renderPlayers();
+  }
+
+  function fullReset() {
+    initPlayers();
+    state.tableShown = false;
+    document.getElementById('tableCard').classList.remove('flipped');
+    document.getElementById('tableName').textContent = '— noch keine Karte —';
+    renderPlayers();
+    closeOverlay();
+  }
+
+  // Init
+  renderCardToggles();
+  renderActiveCards();
+  updateProbHint();
+  initPlayers();
+  renderPlayers();
+</script>
+</body>
+</html>
