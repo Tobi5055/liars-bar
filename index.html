@@ -854,6 +854,8 @@
     A: { rank: 'A', name: 'Ass',   suit: '♦', color: 'red'   },
   };
 
+  const LS_KEY = 'liars-bar-setup-v1';
+
   const state = {
     playerCount: 4,
     enabledCards: { J: true, Q: true, K: true, A: true },
@@ -861,35 +863,55 @@
     tableShown: false,
   };
 
-  function makePlayer(i) {
+  function saveSetup() {
+    try {
+      const data = {
+        playerNames: state.players.map(p => p.name),
+        enabledCards: state.enabledCards,
+      };
+      localStorage.setItem(LS_KEY, JSON.stringify(data));
+    } catch (e) { /* storage disabled or full — ignore */ }
+  }
+
+  function loadSetup() {
+    try {
+      const raw = localStorage.getItem(LS_KEY);
+      if (!raw) return null;
+      return JSON.parse(raw);
+    } catch (e) { return null; }
+  }
+
+  function makePlayer(i, name) {
     return {
-      name: 'Spieler ' + (i + 1),
+      name: name || ('Spieler ' + (i + 1)),
       bulletPos: Math.floor(Math.random() * 6),
       shotsFired: 0,
       alive: true,
     };
   }
 
-  function initPlayers() {
+  function initPlayers(savedNames) {
     state.players = [];
-    for (let i = 0; i < state.playerCount; i++) state.players.push(makePlayer(i));
+    for (let i = 0; i < state.playerCount; i++) {
+      const name = savedNames && savedNames[i];
+      state.players.push(makePlayer(i, name));
+    }
   }
 
   function changePlayers(delta) {
     const newCount = state.playerCount + delta;
     if (newCount < 2 || newCount > 8) return;
     if (delta > 0) {
-      // Add new player at the end, preserve existing
       for (let i = state.playerCount; i < newCount; i++) {
         state.players.push(makePlayer(i));
       }
     } else {
-      // Remove from the end
       state.players = state.players.slice(0, newCount);
     }
     state.playerCount = newCount;
     updatePlayerCountUI();
     renderPlayers();
+    saveSetup();
   }
 
   function removePlayer(idx) {
@@ -899,7 +921,7 @@
     updatePlayerCountUI();
     closeRenameModal();
     renderPlayers();
-    // Check if game already won after removal
+    saveSetup();
     setTimeout(checkWinner, 50);
   }
 
@@ -935,6 +957,7 @@
         renderCardToggles();
         renderActiveCards();
         updateProbHint();
+        saveSetup();
       });
       wrap.appendChild(label);
     });
@@ -1107,6 +1130,7 @@
     state.players[renameTargetIdx].name = newName || `Spieler ${renameTargetIdx + 1}`;
     closeRenameModal();
     renderPlayers();
+    saveSetup();
   }
 
   function confirmRemovePlayer() {
@@ -1171,7 +1195,8 @@
   }
 
   function fullReset() {
-    initPlayers();
+    const names = state.players.map(p => p.name);
+    initPlayers(names);
     state.tableShown = false;
     document.getElementById('tableCard').classList.remove('flipped');
     document.getElementById('tableName').textContent = '— noch keine Karte —';
@@ -1179,11 +1204,25 @@
     closeOverlay();
   }
 
-  // Init
+  // Init — load saved setup if any
+  const saved = loadSetup();
+  if (saved) {
+    if (saved.enabledCards) {
+      Object.keys(state.enabledCards).forEach(k => {
+        if (typeof saved.enabledCards[k] === 'boolean') state.enabledCards[k] = saved.enabledCards[k];
+      });
+    }
+    if (Array.isArray(saved.playerNames) && saved.playerNames.length >= 2 && saved.playerNames.length <= 8) {
+      state.playerCount = saved.playerNames.length;
+    }
+    initPlayers(saved.playerNames);
+  } else {
+    initPlayers();
+  }
+  updatePlayerCountUI();
   renderCardToggles();
   renderActiveCards();
   updateProbHint();
-  initPlayers();
   renderPlayers();
 </script>
 </body>
