@@ -50,8 +50,85 @@
     color: var(--bone-dim);
     font-size: 0.85rem;
     letter-spacing: 0.2em;
+    margin-bottom: 0.8rem;
+  }
+
+  .header-actions {
+    display: flex;
+    justify-content: center;
     margin-bottom: 2rem;
   }
+
+  .rules-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: transparent;
+    border: 1px solid rgba(184,134,42,0.4);
+    color: var(--brass);
+    font-family: 'Cinzel', serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .rules-btn:hover {
+    background: rgba(184,134,42,0.1);
+    color: var(--brass-bright);
+    border-color: var(--brass);
+  }
+
+  .rules-btn svg { width: 14px; height: 14px; }
+
+  /* Rules modal content */
+  .modal-rules {
+    max-width: 540px;
+    max-height: 85vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .rules-content {
+    overflow-y: auto;
+    margin: 0 -0.5rem 1.2rem;
+    padding: 0 0.5rem;
+    font-family: 'Playfair Display', serif;
+    color: var(--bone);
+    font-size: 0.92rem;
+    line-height: 1.55;
+    flex: 1;
+  }
+
+  .rules-content h3 {
+    font-family: 'Cinzel', serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.2em;
+    color: var(--brass);
+    text-transform: uppercase;
+    margin: 1.1rem 0 0.4rem;
+    font-weight: 600;
+  }
+
+  .rules-content h3:first-child { margin-top: 0; }
+
+  .rules-content p { margin-bottom: 0.5rem; }
+
+  .rules-content ul {
+    margin: 0.3rem 0 0.5rem 1.2rem;
+    padding: 0;
+  }
+
+  .rules-content li { margin-bottom: 0.3rem; }
+
+  .rules-content strong { color: var(--brass-bright); font-weight: 600; }
+  .rules-content em { color: var(--bone-dim); font-style: italic; }
+
+  .rules-content::-webkit-scrollbar { width: 6px; }
+  .rules-content::-webkit-scrollbar-track { background: rgba(0,0,0,0.3); border-radius: 3px; }
+  .rules-content::-webkit-scrollbar-thumb { background: var(--brass-dim, rgba(184,134,42,0.4)); border-radius: 3px; }
 
   .panel {
     background: linear-gradient(180deg, var(--bg-2), var(--bg));
@@ -719,6 +796,149 @@
     100% { box-shadow: none; }
   }
   .click-flash { animation: clickFlash 0.5s; }
+
+  /* ========== Mobile (< 600px) ========== */
+  @media (max-width: 599px) {
+    body { padding: 0.8rem; }
+
+    h1 {
+      font-size: 1.5rem;
+      letter-spacing: 0.2em;
+    }
+
+    .subtitle {
+      font-size: 0.7rem;
+      margin-bottom: 1.2rem;
+    }
+
+    .panel {
+      padding: 1rem 0.9rem;
+      margin-bottom: 1rem;
+      border-radius: 6px;
+    }
+
+    .panel-title {
+      font-size: 0.7rem;
+      margin-bottom: 0.7rem;
+    }
+
+    .setup-row {
+      gap: 1rem;
+    }
+
+    .prob-hint { font-size: 0.65rem; }
+
+    .count-btn { width: 30px; height: 30px; font-size: 1.1rem; }
+    .count-val { font-size: 1.3rem; min-width: 28px; }
+
+    .deck-display {
+      padding: 0.4rem 0.6rem;
+      gap: 0.6rem;
+      min-height: 38px;
+    }
+
+    .active-card { font-size: 0.95rem; }
+    .active-card .suit { font-size: 1.15rem; }
+    .active-cards { gap: 0.6rem; }
+
+    .edit-btn { width: 28px; height: 28px; }
+    .edit-btn svg { width: 13px; height: 13px; }
+
+    /* Table card mobile */
+    .table-section { gap: 0.9rem; margin: 1.2rem 0; }
+    .table-label { font-size: 0.65rem; }
+    .table-card-wrap { width: 130px; height: 188px; }
+    .corner-rank { font-size: 1rem; }
+    .corner-suit { font-size: 0.8rem; }
+    .card-center { font-size: 3.3rem; }
+    .table-name { font-size: 1rem; }
+
+    button.action {
+      font-size: 0.78rem;
+      padding: 0.7rem 1.4rem;
+      letter-spacing: 0.12em;
+    }
+    button.draw-table { padding: 0.75rem 1.6rem; }
+
+    /* Players grid 2 columns */
+    .players-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.6rem;
+      max-width: 360px;
+      margin: 0 auto;
+    }
+
+    .player {
+      padding: 0.75rem 0.5rem;
+      border-radius: 6px;
+    }
+
+    .player.dead::after {
+      font-size: 1.1rem;
+      top: 0.3rem;
+      right: 0.4rem;
+    }
+
+    .player-name-row { margin-bottom: 0.5rem; gap: 0.3rem; }
+    .player-name { font-size: 0.78rem; letter-spacing: 0.05em; }
+    .name-edit-btn { width: 18px; height: 18px; }
+    .name-edit-btn svg { width: 9px; height: 9px; }
+
+    .revolver { width: 95px; height: 95px; margin-bottom: 0.4rem; }
+
+    .player-status {
+      font-size: 0.62rem;
+      letter-spacing: 0.08em;
+      margin-bottom: 0.55rem;
+    }
+
+    /* Game controls */
+    .game-controls { gap: 0.5rem; margin-top: 1.2rem; }
+    button.ghost {
+      padding: 0.5rem 0.9rem;
+      font-size: 0.68rem;
+      letter-spacing: 0.1em;
+    }
+
+    /* Modals */
+    .modal {
+      padding: 1.3rem 1.1rem;
+      border-radius: 6px;
+    }
+    .modal-title { font-size: 0.78rem; }
+    .modal-sub { font-size: 0.7rem; margin-bottom: 1rem; }
+    .name-input { font-size: 1rem; padding: 0.7rem 0.9rem; margin-bottom: 1.1rem; }
+    .icon-btn { width: 38px; height: 38px; }
+    .icon-btn svg { width: 16px; height: 16px; }
+
+    .card-toggle {
+      padding: 0.6rem 0.8rem;
+      font-size: 0.88rem;
+    }
+    .card-toggle .toggle-suit { font-size: 1.25rem; }
+
+    /* Winner overlay */
+    .winner-box { padding: 2rem 1.5rem; }
+    .winner-label { font-size: 0.72rem; letter-spacing: 0.3em; }
+    .winner-name { font-size: 1.8rem; margin-bottom: 1.3rem; }
+
+    /* Rules */
+    .header-actions { margin-bottom: 1.2rem; }
+    .rules-btn { font-size: 0.68rem; padding: 0.4rem 0.85rem; }
+    .rules-btn svg { width: 12px; height: 12px; }
+    .rules-content { font-size: 0.85rem; line-height: 1.5; }
+    .rules-content h3 { font-size: 0.72rem; margin: 0.9rem 0 0.3rem; }
+  }
+
+  /* Very narrow phones */
+  @media (max-width: 360px) {
+    .players-grid { gap: 0.5rem; }
+    .player { padding: 0.6rem 0.4rem; }
+    .revolver { width: 82px; height: 82px; }
+    .player-name { font-size: 0.72rem; }
+    .player-status { font-size: 0.58rem; }
+    button.action { font-size: 0.7rem; padding: 0.6rem 1rem; }
+  }
 </style>
 </head>
 <body>
@@ -726,6 +946,15 @@
 <div class="container">
   <h1>LIAR'S BAR</h1>
   <p class="subtitle">— ein Schuss pro Lüge —</p>
+  <div class="header-actions">
+    <button class="rules-btn" onclick="openRules()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
+        <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+      </svg>
+      <span>REGELN</span>
+    </button>
+  </div>
 
   <!-- Setup -->
   <div class="panel setup-panel">
@@ -834,6 +1063,56 @@
   <div class="game-controls">
     <button class="ghost" onclick="resetRevolvers()">Revolver neu laden</button>
     <button class="ghost" onclick="fullReset()">Komplett zurücksetzen</button>
+  </div>
+</div>
+
+<!-- Rules modal -->
+<div class="modal-backdrop" id="rulesModal" onclick="if(event.target===this) closeRules()">
+  <div class="modal modal-rules">
+    <div class="modal-title">Liar's Bar — Regeln</div>
+    <div class="modal-sub">— so wird gespielt —</div>
+
+    <div class="rules-content">
+      <h3>Ziel</h3>
+      <p>Letzter Überlebender am Tisch sein. Wer bei der russischen Roulette die Kugel zieht, scheidet aus.</p>
+
+      <h3>Setup</h3>
+      <p>Jeder Spieler bekommt einen Revolver mit <strong>einer Kugel</strong> an zufälliger Position in der Trommel (6 Kammern). Die Trommel wird zwischen den Schüssen <em>nicht</em> neu gespinnt — der erste Schuss hat 1/6 Chance, der zweite 1/5, usw.</p>
+
+      <h3>Die Tischkarte</h3>
+      <p>Vor jeder Runde wird gleichverteilt eine Karte aus dem Deck (Bube, Dame, König, Ass) als <strong>Tischkarte</strong> aufgedeckt. Das ist die "gültige" Karte für diese Runde.</p>
+
+      <h3>Spielzug</h3>
+      <p>Reihum legt jeder Spieler 1–3 Handkarten verdeckt ab und behauptet, es seien lauter Tischkarten ("zwei König"). Der nächste Spieler hat zwei Optionen:</p>
+      <ul>
+        <li><strong>Selbst legen</strong> — er glaubt es und ist nun dran.</li>
+        <li><strong>"Lügner!" rufen</strong> — er challenged den vorherigen Spieler.</li>
+      </ul>
+
+      <h3>Auflösung beim Bluff-Call</h3>
+      <p>Die zuletzt gelegten Karten werden aufgedeckt:</p>
+      <ul>
+        <li>Waren <strong>alle</strong> Karten Tischkarten? → Der Caller hat falsch gerufen und muss abdrücken.</li>
+        <li>War <strong>mindestens eine</strong> keine Tischkarte? → Der Lügner muss abdrücken.</li>
+      </ul>
+
+      <h3>Russisches Roulette</h3>
+      <p>Wer abdrücken muss, tippt auf seinen Revolver in der App und drückt <em>Abdrücken</em>. Die nächste Kammer feuert. Klick → überlebt. Bang → ausgeschieden.</p>
+
+      <h3>Rundenende & Sieg</h3>
+      <p>Nach jedem Schuss (oder wenn alle Karten weg sind) startet eine neue Runde mit neuer Tischkarte. Wer alleine übrig bleibt, gewinnt.</p>
+
+      <h3>Optional</h3>
+      <p>Bei weniger Spielern kann man Karten aus dem Deck nehmen (z.B. nur Dame + König) — über den Stift im Deck-Feld einstellbar.</p>
+    </div>
+
+    <div class="modal-actions-split" style="justify-content: flex-end">
+      <button class="icon-btn icon-confirm" onclick="closeRules()" title="Schließen" aria-label="Schließen">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="20 6 9 17 4 12"/>
+        </svg>
+      </button>
+    </div>
   </div>
 </div>
 
@@ -982,6 +1261,14 @@
 
   function closeDeckModal() {
     document.getElementById('deckModal').classList.remove('active');
+  }
+
+  function openRules() {
+    document.getElementById('rulesModal').classList.add('active');
+  }
+
+  function closeRules() {
+    document.getElementById('rulesModal').classList.remove('active');
   }
 
   function updateProbHint() {
