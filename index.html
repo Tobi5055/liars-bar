@@ -3,9 +3,176 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Liar's Bar</title>
+<title>Game Hub</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Special+Elite&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Special+Elite&family=Playfair+Display:wght@400;700&display=swap');
+  /* ====================== GLOBAL ====================== */
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  .app { display: none; }
+  .app.visible { display: block; }
+
+  /* ====================== APP CONTAINERS ====================== */
+  .app-liarsbar {
+    min-height: 100vh;
+    background: var(--bg);
+    background-image:
+      radial-gradient(ellipse at 50% 0%, rgba(184,134,42,0.08) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 100%, rgba(139,0,0,0.1) 0%, transparent 50%);
+    font-family: 'Playfair Display', serif;
+    color: var(--bone);
+    padding: 1.5rem;
+  }
+
+  .app-poker {
+    min-height: 100vh;
+    font-family: 'Outfit', sans-serif;
+    background: var(--felt-deep);
+    color: var(--cream);
+    background:
+      radial-gradient(ellipse at top, var(--felt-light) 0%, var(--felt-mid) 35%, var(--felt-deep) 75%);
+    background-attachment: fixed;
+    position: relative;
+    padding: 24px 16px 60px;
+  }
+
+  .app-poker.visible::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,0.04) 1px, transparent 0);
+    background-size: 4px 4px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ====================== BURGER MENU ====================== */
+  .burger {
+    position: fixed;
+    top: 14px;
+    left: 14px;
+    width: 44px;
+    height: 44px;
+    border: 1px solid rgba(255,255,255,0.25);
+    background: rgba(20,12,8,0.7);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-radius: 6px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    z-index: 1000;
+    padding: 0;
+    transition: all 0.2s;
+  }
+  .burger:hover { background: rgba(40,24,16,0.85); border-color: rgba(255,255,255,0.4); }
+  .burger span {
+    display: block;
+    width: 20px;
+    height: 2px;
+    background: #e8dcc4;
+    border-radius: 1px;
+    transition: all 0.3s;
+  }
+  .burger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .burger.open span:nth-child(2) { opacity: 0; }
+  .burger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  .menu-drawer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 280px;
+    height: 100vh;
+    background: linear-gradient(180deg, #1a0e0a, #0d0604);
+    border-right: 1px solid rgba(184,134,42,0.3);
+    padding: 80px 0 24px;
+    transform: translateX(-100%);
+    transition: transform 0.3s cubic-bezier(0.4,0,0.2,1);
+    z-index: 999;
+    box-shadow: 8px 0 30px rgba(0,0,0,0.6);
+  }
+  .menu-drawer.open { transform: translateX(0); }
+
+  .menu-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 998;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+  }
+  .menu-backdrop.open { opacity: 1; pointer-events: auto; }
+
+  .menu-header {
+    padding: 0 24px 18px;
+    border-bottom: 1px solid rgba(184,134,42,0.2);
+    font-family: 'Cinzel', serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    color: #b8862a;
+    text-transform: uppercase;
+  }
+
+  .menu-items {
+    padding-top: 18px;
+  }
+
+  .menu-item {
+    width: 100%;
+    background: transparent;
+    border: none;
+    border-left: 3px solid transparent;
+    color: #e8dcc4;
+    text-align: left;
+    padding: 14px 24px;
+    font-family: 'Cinzel', serif;
+    font-size: 0.95rem;
+    letter-spacing: 0.1em;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    transition: all 0.2s;
+  }
+  .menu-item:hover { background: rgba(184,134,42,0.08); }
+  .menu-item.active {
+    background: rgba(184,134,42,0.15);
+    border-left-color: #d4a843;
+    color: #d4a843;
+  }
+  .menu-item .icon {
+    font-size: 1.4rem;
+    width: 28px;
+    text-align: center;
+  }
+
+  @media (max-width: 599px) {
+    .burger { top: 10px; left: 10px; width: 40px; height: 40px; }
+    .menu-drawer { width: 240px; padding-top: 70px; }
+  }
+
+  /* Push down the app titles so they don't sit under the burger */
+  .app-liarsbar > .container > h1 { padding-top: 38px; }
+  .app-poker > .wrap > header { padding-top: 38px; }
+  @media (max-width: 599px) {
+    .app-liarsbar > .container > h1 { padding-top: 30px; }
+    .app-poker > .wrap > header { padding-top: 30px; }
+  }
+
+  /* ====================== LIAR'S BAR STYLES ====================== */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Special+Elite&family=Playfair+Display:wght@400;700&display=swap');
 
   :root {
     --bg: #1a0e0a;
@@ -20,17 +187,6 @@
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
-
-  body {
-    min-height: 100vh;
-    background: var(--bg);
-    background-image:
-      radial-gradient(ellipse at 50% 0%, rgba(184,134,42,0.08) 0%, transparent 60%),
-      radial-gradient(ellipse at 80% 100%, rgba(139,0,0,0.1) 0%, transparent 50%);
-    font-family: 'Playfair Display', serif;
-    color: var(--bone);
-    padding: 1.5rem;
-  }
 
   .container { max-width: 1200px; margin: 0 auto; }
 
@@ -799,7 +955,7 @@
 
   /* ========== Mobile (< 600px) ========== */
   @media (max-width: 599px) {
-    body { padding: 0.8rem; }
+    .app-liarsbar { padding: 0.8rem; }
 
     h1 {
       font-size: 1.5rem;
@@ -939,10 +1095,496 @@
     .player-status { font-size: 0.58rem; }
     button.action { font-size: 0.7rem; padding: 0.6rem 1rem; }
   }
+
+  /* ====================== POKER TRAINER STYLES ====================== */
+:root { 
+    --felt-deep:    #0a2e22;
+    --felt-mid:     #134736;
+    --felt-light:   #1a5d47;
+    --gold:         #d4a843;
+    --gold-soft:    #b89236;
+    --cream:        #f4ecd8;
+    --cream-dim:    #c9bf9f;
+    --card-white:   #fafaf6;
+    --card-shadow:  rgba(0,0,0,0.4);
+    --red-suit:     #c0392b;
+    --black-suit:   #1a1a1a;
+    --correct:      #6abf69;
+    --wrong:        #d96452;
+  }
+.app-poker .wrap { 
+    max-width: 880px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ── HEADER ─────────────────────────────────── */
+  .app-poker header { 
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding-bottom: 18px;
+    border-bottom: 1px solid rgba(212,168,67,0.2);
+    margin-bottom: 28px;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  .app-poker .title { 
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 500;
+    font-style: italic;
+    font-size: clamp(28px, 5vw, 42px);
+    color: var(--cream);
+    line-height: 1;
+    letter-spacing: 0.5px;
+  }
+  .app-poker .title span { 
+    color: var(--gold);
+    font-weight: 600;
+  }
+  .app-poker .subtitle { 
+    font-family: 'Outfit', sans-serif;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    color: var(--cream-dim);
+    margin-top: 6px;
+    margin-bottom: 0;
+    text-align: left;
+  }
+
+  .app-poker .stats { 
+    display: flex;
+    gap: 22px;
+    align-items: center;
+  }
+  .app-poker .stat { 
+    text-align: right;
+  }
+  .app-poker .stat-label { 
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--cream-dim);
+  }
+  .app-poker .stat-value { 
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 28px;
+    font-weight: 600;
+    color: var(--gold);
+    line-height: 1;
+  }
+
+  /* ── TABLE / FELT ────────────────────────────── */
+  .app-poker .table { 
+    background:
+      radial-gradient(ellipse at center, var(--felt-light) 0%, var(--felt-mid) 70%, var(--felt-deep) 100%);
+    border: 1px solid rgba(212,168,67,0.25);
+    border-radius: 28px;
+    padding: 32px 24px 36px;
+    box-shadow:
+      inset 0 0 60px rgba(0,0,0,0.35),
+      0 8px 30px rgba(0,0,0,0.25);
+    position: relative;
+  }
+  .app-poker .table::after { 
+    content: '';
+    position: absolute;
+    inset: 6px;
+    border: 1px solid rgba(212,168,67,0.1);
+    border-radius: 22px;
+    pointer-events: none;
+  }
+
+  .app-poker .phase-label { 
+    text-align: center;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 14px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 18px;
+  }
+  .app-poker .phase-label::before, .app-poker .phase-label::after { 
+    content: '◆';
+    color: var(--gold-soft);
+    margin: 0 12px;
+    font-size: 8px;
+    vertical-align: middle;
+  }
+
+  .app-poker .row-label { 
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    color: var(--cream-dim);
+    text-align: center;
+    margin-bottom: 12px;
+    font-weight: 500;
+  }
+
+  .app-poker .cards-row { 
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 28px;
+  }
+
+  /* ── PLAYING CARDS ───────────────────────────── */
+  .app-poker .card { 
+    width: clamp(56px, 11vw, 78px);
+    aspect-ratio: 5 / 7;
+    background: var(--card-white);
+    border-radius: 8px;
+    box-shadow:
+      0 4px 12px var(--card-shadow),
+      inset 0 0 0 1px rgba(0,0,0,0.08);
+    position: relative;
+    padding: 6px 7px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    user-select: none;
+    transform: translateY(0);
+    animation: dealIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) backwards;
+  }
+  @keyframes dealIn {
+    from {
+      opacity: 0;
+      transform: translateY(-30px) rotate(-8deg);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) rotate(0);
+    }
+  }
+  .app-poker .card:nth-child(1) {  animation-delay: 0.05s; }
+  .app-poker .card:nth-child(2) {  animation-delay: 0.15s; }
+  .app-poker .card:nth-child(3) {  animation-delay: 0.25s; }
+  .app-poker .card:nth-child(4) {  animation-delay: 0.35s; }
+  .app-poker .card:nth-child(5) {  animation-delay: 0.45s; }
+
+  .app-poker .card-rank { 
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 700;
+    font-size: clamp(14px, 2.5vw, 18px);
+    line-height: 1;
+  }
+  .app-poker .card-corner { 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    line-height: 1;
+    gap: 0;
+  }
+  .app-poker .card-corner.top { 
+    align-self: flex-start;
+  }
+  .app-poker .card-corner.bottom { 
+    transform: rotate(180deg);
+    align-self: flex-end;
+  }
+  .app-poker .card-corner-suit { 
+    font-size: clamp(11px, 2vw, 14px);
+    line-height: 1;
+    margin-top: 1px;
+  }
+  .app-poker .card-center-suit { 
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: clamp(24px, 5vw, 36px);
+    line-height: 1;
+  }
+  .app-poker .card.red {  color: var(--red-suit); }
+  .app-poker .card.black {  color: var(--black-suit); }
+
+  /* Hole cards visually distinguished — slightly larger, lifted */
+  .app-poker .hole-card { 
+    width: clamp(64px, 13vw, 90px);
+    box-shadow:
+      0 6px 18px rgba(0,0,0,0.5),
+      inset 0 0 0 1px rgba(0,0,0,0.08),
+      0 0 0 2px var(--gold);
+  }
+
+  /* ── QUESTION ───────────────────────────────── */
+  .app-poker .question { 
+    margin: 36px 0 18px;
+    text-align: center;
+  }
+  .app-poker .question h2 { 
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 500;
+    font-size: clamp(22px, 4vw, 28px);
+    color: var(--cream);
+    font-style: italic;
+  }
+
+  /* ── ANSWER GRID ─────────────────────────────── */
+  .app-poker .options { 
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    max-width: 720px;
+    margin: 0 auto;
+  }
+  .app-poker .option { 
+    background: rgba(0,0,0,0.25);
+    border: 1px solid rgba(212,168,67,0.3);
+    border-radius: 12px;
+    padding: 18px 16px;
+    color: var(--cream);
+    font-family: 'Outfit', sans-serif;
+    font-size: clamp(15px, 2.5vw, 18px);
+    font-weight: 500;
+    letter-spacing: 0.3px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: center;
+    position: relative;
+    backdrop-filter: blur(4px);
+  }
+  .app-poker .option:hover:not(:disabled) { 
+    background: rgba(212,168,67,0.15);
+    border-color: var(--gold);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 14px rgba(0,0,0,0.3);
+  }
+  .app-poker .option:disabled {  cursor: default; }
+  .app-poker .option.correct { 
+    background: rgba(106,191,105,0.2);
+    border-color: var(--correct);
+    color: #d8f0d3;
+    box-shadow: 0 0 20px rgba(106,191,105,0.3);
+  }
+  .app-poker .option.wrong { 
+    background: rgba(217,100,82,0.2);
+    border-color: var(--wrong);
+    color: #f5d3cb;
+  }
+  .app-poker .option .key { 
+    display: inline-block;
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 700;
+    font-size: 14px;
+    color: var(--gold);
+    margin-right: 8px;
+    opacity: 0.6;
+  }
+
+  /* ── FEEDBACK ───────────────────────────────── */
+  .app-poker .feedback { 
+    margin-top: 22px;
+    text-align: center;
+    min-height: 70px;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .app-poker .feedback.show {  opacity: 1; }
+  .app-poker .feedback-headline { 
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 600;
+    font-style: italic;
+    font-size: 22px;
+    margin-bottom: 4px;
+  }
+  .app-poker .feedback-headline.right {  color: var(--correct); }
+  .app-poker .feedback-headline.bad {  color: var(--wrong); }
+  .app-poker .feedback-detail { 
+    color: var(--cream-dim);
+    font-size: 14px;
+    line-height: 1.5;
+    max-width: 580px;
+    margin: 0 auto;
+  }
+  .app-poker .feedback-detail strong { 
+    color: var(--cream);
+    font-weight: 600;
+  }
+
+  .app-poker .fb-hand-line { 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 6px;
+  }
+  .app-poker .fb-hand-name { 
+    font-size: 17px;
+    color: var(--cream);
+  }
+  .app-poker .strength-badge { 
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 4px 11px;
+    border-radius: 50px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+  .app-poker .strength-badge.premium { 
+    background: rgba(212,168,67,0.2);
+    color: #f0d680;
+    border: 1px solid var(--gold);
+    box-shadow: 0 0 12px rgba(212,168,67,0.25);
+  }
+  .app-poker .strength-badge.strong { 
+    background: rgba(106,191,105,0.18);
+    color: #b8e0b1;
+    border: 1px solid var(--correct);
+  }
+  .app-poker .strength-badge.marginal { 
+    background: rgba(230,180,80,0.16);
+    color: #e6c478;
+    border: 1px solid #c89a3a;
+  }
+  .app-poker .strength-badge.weak { 
+    background: rgba(217,100,82,0.18);
+    color: #e8b1a3;
+    border: 1px solid var(--wrong);
+  }
+  .app-poker .fb-cards { 
+    font-size: 13px;
+    color: var(--cream-dim);
+    margin-bottom: 14px;
+  }
+  .app-poker .fb-strategy { 
+    margin: 14px auto 0;
+    padding: 12px 16px;
+    background: rgba(0,0,0,0.28);
+    border-left: 2px solid var(--gold);
+    border-radius: 4px;
+    text-align: left;
+    font-size: 13.5px;
+    color: var(--cream);
+    line-height: 1.55;
+  }
+  .app-poker .fb-strategy-headline { 
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    color: var(--gold);
+    font-size: 15px;
+    margin-bottom: 4px;
+    font-weight: 500;
+  }
+
+  .app-poker .next-btn { 
+    display: block;
+    margin: 22px auto 0;
+    background: var(--gold);
+    color: var(--felt-deep);
+    border: none;
+    padding: 14px 36px;
+    font-family: 'Outfit', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.2s;
+    box-shadow: 0 4px 14px rgba(212,168,67,0.3);
+  }
+  .app-poker .next-btn:hover { 
+    background: #e2b955;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(212,168,67,0.4);
+  }
+  .app-poker .next-btn.hidden {  display: none; }
+
+  /* ── HAND-RANK REFERENCE ─────────────────────── */
+  .app-poker .reference { 
+    margin-top: 36px;
+    padding: 20px 24px;
+    background: rgba(0,0,0,0.2);
+    border: 1px solid rgba(212,168,67,0.15);
+    border-radius: 14px;
+  }
+  .app-poker .reference summary { 
+    cursor: pointer;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 18px;
+    color: var(--gold);
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .app-poker .reference summary::after { 
+    content: '+';
+    font-size: 22px;
+    transition: transform 0.2s;
+  }
+  .app-poker .reference[open] summary::after {  transform: rotate(45deg); }
+  .app-poker .ref-list { 
+    margin-top: 16px;
+    display: grid;
+    gap: 10px;
+  }
+  .app-poker .ref-item { 
+    display: grid;
+    grid-template-columns: 28px 1fr;
+    gap: 12px;
+    align-items: baseline;
+    padding: 8px 0;
+    border-top: 1px solid rgba(212,168,67,0.1);
+    font-size: 14px;
+  }
+  .app-poker .ref-rank { 
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 700;
+    color: var(--gold);
+    font-size: 16px;
+  }
+  .app-poker .ref-name {  color: var(--cream); font-weight: 500; }
+  .app-poker .ref-desc {  color: var(--cream-dim); font-size: 12px; margin-top: 2px; }
+
+  @media (max-width: 480px) {
+    .app-poker .options {  grid-template-columns: 1fr; }
+    .app-poker header {  flex-direction: column; align-items: flex-start; }
+    .app-poker .stats {  width: 100%; justify-content: space-between; }
+    .app-poker .stat {  text-align: left; }
+  }
+
+
 </style>
 </head>
 <body>
 
+<!-- Burger menu -->
+<button class="burger" id="burger" onclick="toggleMenu()" aria-label="Menü">
+  <span></span><span></span><span></span>
+</button>
+
+<div class="menu-backdrop" id="menuBackdrop" onclick="toggleMenu()"></div>
+
+<nav class="menu-drawer" id="menuDrawer">
+  <div class="menu-header">Spiele</div>
+  <div class="menu-items">
+    <button class="menu-item" data-app="liarsbar" onclick="switchApp('liarsbar')">
+      <span class="icon">🎰</span>
+      <span>Liar's Bar</span>
+    </button>
+    <button class="menu-item" data-app="poker" onclick="switchApp('poker')">
+      <span class="icon">🃏</span>
+      <span>Poker Trainer</span>
+    </button>
+  </div>
+</nav>
+
+<!-- ====================== LIAR'S BAR ====================== -->
+<div class="app app-liarsbar" id="appLiarsbar">
 <div class="container">
   <h1>LIAR'S BAR</h1>
   <p class="subtitle">— ein Schuss pro Lüge —</p>
@@ -1124,9 +1766,108 @@
     <button class="action" onclick="fullReset(); closeOverlay()">NEUES SPIEL</button>
   </div>
 </div>
+</div>
+
+<!-- ====================== POKER TRAINER ====================== -->
+<div class="app app-poker" id="appPoker">
+<div class="wrap">
+
+  <header>
+    <div>
+      <h1 class="title">Poker <span>Trainer</span></h1>
+      <div class="subtitle">Texas Hold'em · Hände erkennen</div>
+    </div>
+    <div class="stats">
+      <div class="stat">
+        <div class="stat-label">Richtig</div>
+        <div class="stat-value" id="stat-correct">0</div>
+      </div>
+      <div class="stat">
+        <div class="stat-label">Versuche</div>
+        <div class="stat-value" id="stat-total">0</div>
+      </div>
+      <div class="stat">
+        <div class="stat-label">Streak</div>
+        <div class="stat-value" id="stat-streak">0</div>
+      </div>
+    </div>
+  </header>
+
+  <main class="table">
+    <div class="phase-label" id="phase">River</div>
+
+    <div class="row-label">Tisch</div>
+    <div class="cards-row" id="community"></div>
+
+    <div class="row-label">Deine Hand</div>
+    <div class="cards-row" id="hole"></div>
+
+    <div class="question">
+      <h2>Was ist deine beste Hand?</h2>
+    </div>
+
+    <div class="options" id="options"></div>
+
+    <div class="feedback" id="feedback">
+      <div class="feedback-headline" id="fb-headline"></div>
+      <div class="feedback-detail" id="fb-detail"></div>
+    </div>
+
+    <button class="next-btn hidden" id="next-btn">Nächste Hand →</button>
+  </main>
+
+  <details class="reference">
+    <summary>Spickzettel — Pokerhände vom höchsten zum niedrigsten</summary>
+    <div class="ref-list">
+      <div class="ref-item"><span class="ref-rank">1</span><div><div class="ref-name">Royal Flush</div><div class="ref-desc">A, K, Q, J, 10 — alle in derselben Farbe</div></div></div>
+      <div class="ref-item"><span class="ref-rank">2</span><div><div class="ref-name">Straight Flush</div><div class="ref-desc">Fünf aufeinanderfolgende Karten in derselben Farbe</div></div></div>
+      <div class="ref-item"><span class="ref-rank">3</span><div><div class="ref-name">Vierling (Four of a Kind)</div><div class="ref-desc">Vier Karten desselben Werts</div></div></div>
+      <div class="ref-item"><span class="ref-rank">4</span><div><div class="ref-name">Full House</div><div class="ref-desc">Drilling + Paar</div></div></div>
+      <div class="ref-item"><span class="ref-rank">5</span><div><div class="ref-name">Flush</div><div class="ref-desc">Fünf Karten derselben Farbe (nicht in Reihenfolge)</div></div></div>
+      <div class="ref-item"><span class="ref-rank">6</span><div><div class="ref-name">Straße (Straight)</div><div class="ref-desc">Fünf aufeinanderfolgende Karten (gemischte Farben). A kann hoch (10-J-Q-K-A) oder niedrig (A-2-3-4-5) sein</div></div></div>
+      <div class="ref-item"><span class="ref-rank">7</span><div><div class="ref-name">Drilling (Three of a Kind)</div><div class="ref-desc">Drei Karten desselben Werts</div></div></div>
+      <div class="ref-item"><span class="ref-rank">8</span><div><div class="ref-name">Zwei Paare</div><div class="ref-desc">Zwei verschiedene Paare</div></div></div>
+      <div class="ref-item"><span class="ref-rank">9</span><div><div class="ref-name">Paar</div><div class="ref-desc">Zwei Karten desselben Werts</div></div></div>
+      <div class="ref-item"><span class="ref-rank">10</span><div><div class="ref-name">Hohe Karte</div><div class="ref-desc">Keine der obigen Kombinationen — höchste Einzelkarte zählt</div></div></div>
+    </div>
+  </details>
+
+</div>
+</div>
 
 <script>
-  const CARDS = {
+  // ============ APP SWITCHER ============
+  const APP_KEY = 'active-app-v1';
+
+  function toggleMenu() {
+    document.getElementById('burger').classList.toggle('open');
+    document.getElementById('menuDrawer').classList.toggle('open');
+    document.getElementById('menuBackdrop').classList.toggle('open');
+  }
+
+  function switchApp(name) {
+    document.querySelectorAll('.app').forEach(a => a.classList.remove('visible'));
+    document.getElementById(name === 'poker' ? 'appPoker' : 'appLiarsbar').classList.add('visible');
+    document.querySelectorAll('.menu-item').forEach(b => b.classList.toggle('active', b.dataset.app === name));
+    try { localStorage.setItem(APP_KEY, name); } catch (e) {}
+    // Close menu if open
+    if (document.getElementById('menuDrawer').classList.contains('open')) {
+      toggleMenu();
+    }
+  }
+
+  // Load saved app or default to liarsbar
+  (function() {
+    let active = 'liarsbar';
+    try {
+      const saved = localStorage.getItem(APP_KEY);
+      if (saved === 'poker' || saved === 'liarsbar') active = saved;
+    } catch (e) {}
+    switchApp(active);
+  })();
+
+  // ============ LIAR'S BAR JS ============
+const CARDS = {
     J: { rank: 'J', name: 'Bube',  suit: '♠', color: 'black' },
     Q: { rank: 'Q', name: 'Dame',  suit: '♥', color: 'red'   },
     K: { rank: 'K', name: 'König', suit: '♣', color: 'black' },
@@ -1276,29 +2017,43 @@
     document.getElementById('probHint').textContent = `P = 1/${n} je Karte`;
   }
 
+  let drawingTable = false;
+
   function drawTable() {
+    if (drawingTable) return;
     const enabled = Object.entries(state.enabledCards).filter(([k,v]) => v).map(([k]) => k);
     if (enabled.length === 0) return;
     const key = enabled[Math.floor(Math.random() * enabled.length)];
     const card = CARDS[key];
-
-    const front = document.getElementById('tableFront');
-    front.className = 'card-face card-front ' + card.color + '-card';
-    document.getElementById('trankTL').textContent = card.rank;
-    document.getElementById('tsuitTL').textContent = card.suit;
-    document.getElementById('trankBR').textContent = card.rank;
-    document.getElementById('tsuitBR').textContent = card.suit;
-    document.getElementById('tcenter').textContent = card.suit;
-
     const tc = document.getElementById('tableCard');
+
+    const applyFront = () => {
+      const front = document.getElementById('tableFront');
+      front.className = 'card-face card-front ' + card.color + '-card';
+      document.getElementById('trankTL').textContent = card.rank;
+      document.getElementById('tsuitTL').textContent = card.suit;
+      document.getElementById('trankBR').textContent = card.rank;
+      document.getElementById('tsuitBR').textContent = card.suit;
+      document.getElementById('tcenter').textContent = card.suit;
+    };
+
     if (state.tableShown) {
+      drawingTable = true;
       tc.classList.remove('flipped');
       document.getElementById('tableName').textContent = '...';
+      // Wait for flip-back to complete BEFORE writing the new front content,
+      // otherwise the new card flashes through the still-visible front.
       setTimeout(() => {
+        applyFront();
+        // Force a reflow so the content update commits before re-flipping
+        void tc.offsetWidth;
         tc.classList.add('flipped');
         document.getElementById('tableName').textContent = card.name + ' ' + card.suit;
+        drawingTable = false;
       }, 650);
     } else {
+      // Back side currently faces user — safe to write the front and flip.
+      applyFront();
       tc.classList.add('flipped');
       document.getElementById('tableName').textContent = card.name + ' ' + card.suit;
       state.tableShown = true;
@@ -1511,6 +2266,556 @@
   renderActiveCards();
   updateProbHint();
   renderPlayers();
+
+  // ============ POKER TRAINER JS (IIFE-scoped) ============
+(function() {
+// ─── CONSTANTS ────────────────────────────────────────────────
+const SUITS = [
+  { sym: '♠', name: 'spades', color: 'black' },
+  { sym: '♥', name: 'hearts', color: 'red' },
+  { sym: '♦', name: 'diamonds', color: 'red' },
+  { sym: '♣', name: 'clubs', color: 'black' }
+];
+const RANKS = [
+  { sym: '2', val: 2 }, { sym: '3', val: 3 }, { sym: '4', val: 4 },
+  { sym: '5', val: 5 }, { sym: '6', val: 6 }, { sym: '7', val: 7 },
+  { sym: '8', val: 8 }, { sym: '9', val: 9 }, { sym: '10', val: 10 },
+  { sym: 'J', val: 11 }, { sym: 'Q', val: 12 }, { sym: 'K', val: 13 },
+  { sym: 'A', val: 14 }
+];
+
+const HAND_TYPES = {
+  HIGH_CARD:       { rank: 0, name: 'Hohe Karte' },
+  PAIR:            { rank: 1, name: 'Paar' },
+  TWO_PAIR:        { rank: 2, name: 'Zwei Paare' },
+  THREE_OF_A_KIND: { rank: 3, name: 'Drilling' },
+  STRAIGHT:        { rank: 4, name: 'Straße' },
+  FLUSH:           { rank: 5, name: 'Flush' },
+  FULL_HOUSE:      { rank: 6, name: 'Full House' },
+  FOUR_OF_A_KIND:  { rank: 7, name: 'Vierling' },
+  STRAIGHT_FLUSH:  { rank: 8, name: 'Straight Flush' },
+  ROYAL_FLUSH:     { rank: 9, name: 'Royal Flush' }
+};
+const HAND_KEYS = Object.keys(HAND_TYPES);
+
+const PHASES = [
+  { name: 'Flop',  community: 3 },
+  { name: 'Turn',  community: 4 },
+  { name: 'River', community: 5 }
+];
+
+// ─── DECK & DEAL ──────────────────────────────────────────────
+function makeDeck() {
+  const d = [];
+  for (const s of SUITS) for (const r of RANKS) d.push({ ...r, suit: s.sym, color: s.color });
+  return d;
+}
+function shuffle(arr) {
+  const a = arr.slice();
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+// ─── HAND EVALUATION ──────────────────────────────────────────
+function combinations(arr, k) {
+  const result = [];
+  const helper = (start, combo) => {
+    if (combo.length === k) { result.push(combo.slice()); return; }
+    for (let i = start; i < arr.length; i++) {
+      combo.push(arr[i]);
+      helper(i + 1, combo);
+      combo.pop();
+    }
+  };
+  helper(0, []);
+  return result;
+}
+
+function evaluate5(cards) {
+  // expects exactly 5 cards
+  const sorted = cards.slice().sort((a, b) => b.val - a.val);
+  const vals = sorted.map(c => c.val);
+  const suits = sorted.map(c => c.suit);
+
+  const isFlush = suits.every(s => s === suits[0]);
+
+  // Straight check
+  let isStraight = vals.every((v, i) => i === 0 || vals[i - 1] - v === 1);
+  let straightHigh = vals[0];
+  // Wheel: A-5-4-3-2 (A counted as 1)
+  if (!isStraight && vals[0] === 14 && vals[1] === 5 && vals[2] === 4 && vals[3] === 3 && vals[4] === 2) {
+    isStraight = true;
+    straightHigh = 5;
+  }
+
+  // Rank counts
+  const counts = {};
+  for (const v of vals) counts[v] = (counts[v] || 0) + 1;
+  const grouped = Object.entries(counts)
+    .map(([v, c]) => ({ val: +v, count: c }))
+    .sort((a, b) => b.count - a.count || b.val - a.val);
+  const countSig = grouped.map(g => g.count).join('');
+
+  if (isFlush && isStraight && straightHigh === 14) {
+    return { type: 'ROYAL_FLUSH', cards: sorted, tiebreak: [14] };
+  }
+  if (isFlush && isStraight) {
+    return { type: 'STRAIGHT_FLUSH', cards: sorted, tiebreak: [straightHigh] };
+  }
+  if (countSig === '41') {
+    return { type: 'FOUR_OF_A_KIND', cards: sorted, tiebreak: [grouped[0].val, grouped[1].val] };
+  }
+  if (countSig === '32') {
+    return { type: 'FULL_HOUSE', cards: sorted, tiebreak: [grouped[0].val, grouped[1].val] };
+  }
+  if (isFlush) {
+    return { type: 'FLUSH', cards: sorted, tiebreak: vals };
+  }
+  if (isStraight) {
+    return { type: 'STRAIGHT', cards: sorted, tiebreak: [straightHigh] };
+  }
+  if (countSig === '311') {
+    return { type: 'THREE_OF_A_KIND', cards: sorted, tiebreak: [grouped[0].val, grouped[1].val, grouped[2].val] };
+  }
+  if (countSig === '221') {
+    return { type: 'TWO_PAIR', cards: sorted, tiebreak: [grouped[0].val, grouped[1].val, grouped[2].val] };
+  }
+  if (countSig === '2111') {
+    return { type: 'PAIR', cards: sorted, tiebreak: [grouped[0].val, ...grouped.slice(1).map(g => g.val)] };
+  }
+  return { type: 'HIGH_CARD', cards: sorted, tiebreak: vals };
+}
+
+function compareEval(a, b) {
+  const ra = HAND_TYPES[a.type].rank;
+  const rb = HAND_TYPES[b.type].rank;
+  if (ra !== rb) return ra - rb;
+  for (let i = 0; i < Math.max(a.tiebreak.length, b.tiebreak.length); i++) {
+    const av = a.tiebreak[i] || 0, bv = b.tiebreak[i] || 0;
+    if (av !== bv) return av - bv;
+  }
+  return 0;
+}
+
+function bestHandFrom(cards) {
+  if (cards.length === 5) return evaluate5(cards);
+  const combos = combinations(cards, 5);
+  let best = evaluate5(combos[0]);
+  for (let i = 1; i < combos.length; i++) {
+    const e = evaluate5(combos[i]);
+    if (compareEval(e, best) > 0) best = e;
+  }
+  return best;
+}
+
+// ─── SCENARIO GENERATION ──────────────────────────────────────
+// Bias toward more interesting hands so the trainee sees variety.
+// Pure random 7-card draws skew heavily toward Pair / Two Pair.
+const TYPE_WEIGHTS = {
+  HIGH_CARD: 1.0,
+  PAIR: 1.5,
+  TWO_PAIR: 2.0,
+  THREE_OF_A_KIND: 2.0,
+  STRAIGHT: 2.5,
+  FLUSH: 2.5,
+  FULL_HOUSE: 2.5,
+  FOUR_OF_A_KIND: 1.5,
+  STRAIGHT_FLUSH: 1.0,
+  ROYAL_FLUSH: 0.6
+};
+
+function pickTargetType() {
+  const total = Object.values(TYPE_WEIGHTS).reduce((s, w) => s + w, 0);
+  let r = Math.random() * total;
+  for (const [k, w] of Object.entries(TYPE_WEIGHTS)) {
+    r -= w;
+    if (r <= 0) return k;
+  }
+  return 'PAIR';
+}
+
+function generateScenario() {
+  // Pick phase: bias slightly toward River (most realistic for full evaluation)
+  const phaseRoll = Math.random();
+  const phase = phaseRoll < 0.25 ? PHASES[0] : phaseRoll < 0.55 ? PHASES[1] : PHASES[2];
+
+  // For Flop (only 5 cards total), some hand types are impossible or rare.
+  // Just generate randomly until we get a valid scenario matching a target.
+  const targetType = pickTargetType();
+  const totalCards = 2 + phase.community;
+
+  // Generate up to 200 attempts to hit target
+  for (let attempt = 0; attempt < 200; attempt++) {
+    const deck = shuffle(makeDeck());
+    const dealt = deck.slice(0, totalCards);
+    const evalResult = bestHandFrom(dealt);
+    if (evalResult.type === targetType) {
+      return {
+        phase,
+        hole: dealt.slice(0, 2),
+        community: dealt.slice(2),
+        result: evalResult
+      };
+    }
+  }
+  // Fallback: take whatever we get
+  const deck = shuffle(makeDeck());
+  const dealt = deck.slice(0, totalCards);
+  return {
+    phase,
+    hole: dealt.slice(0, 2),
+    community: dealt.slice(2),
+    result: bestHandFrom(dealt)
+  };
+}
+
+// ─── DISTRACTORS ──────────────────────────────────────────────
+function generateOptions(correctType) {
+  const correctRank = HAND_TYPES[correctType].rank;
+  // Other types sorted by closeness in rank
+  const others = HAND_KEYS
+    .filter(k => k !== correctType)
+    .map(k => ({ key: k, dist: Math.abs(HAND_TYPES[k].rank - correctRank) }))
+    .sort((a, b) => a.dist - b.dist);
+
+  // Take from the closest 5, randomly pick 3
+  const pool = others.slice(0, 5).sort(() => Math.random() - 0.5);
+  const distractors = pool.slice(0, 3).map(o => o.key);
+
+  // Mix correct with distractors
+  const all = [correctType, ...distractors].sort(() => Math.random() - 0.5);
+  return all;
+}
+
+// ─── RENDERING ────────────────────────────────────────────────
+function cardHTML(card, isHole = false) {
+  return `
+    <div class="card ${card.color} ${isHole ? 'hole-card' : ''}">
+      <div class="card-corner top">
+        <div class="card-rank">${card.sym}</div>
+        <div class="card-corner-suit">${card.suit}</div>
+      </div>
+      <div class="card-center-suit">${card.suit}</div>
+      <div class="card-corner bottom">
+        <div class="card-rank">${card.sym}</div>
+        <div class="card-corner-suit">${card.suit}</div>
+      </div>
+    </div>
+  `;
+}
+
+function renderScenario(scenario) {
+  document.getElementById('phase').textContent = scenario.phase.name;
+  document.getElementById('community').innerHTML =
+    scenario.community.map(c => cardHTML(c)).join('');
+  document.getElementById('hole').innerHTML =
+    scenario.hole.map(c => cardHTML(c, true)).join('');
+}
+
+function renderOptions(options, correctType) {
+  const container = document.getElementById('options');
+  container.innerHTML = '';
+  const letters = ['A', 'B', 'C', 'D'];
+  options.forEach((key, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'option';
+    btn.dataset.key = key;
+    btn.innerHTML = `<span class="key">${letters[i]}</span>${HAND_TYPES[key].name}`;
+    btn.addEventListener('click', () => handleAnswer(btn, key, correctType));
+    container.appendChild(btn);
+  });
+}
+
+// ─── EXPLANATIONS ─────────────────────────────────────────────
+function explainHand(result) {
+  const five = result.cards.map(c => `${c.sym}${c.suit}`).join(' ');
+  const t = result.type;
+  const tb = result.tiebreak;
+  const valName = (v) => {
+    const r = RANKS.find(r => r.val === v);
+    return r ? r.sym : v;
+  };
+
+  switch (t) {
+    case 'ROYAL_FLUSH':
+      return `Die höchstmögliche Hand: 10-J-Q-K-A in einer Farbe (${five}).`;
+    case 'STRAIGHT_FLUSH':
+      return `Fünf aufeinanderfolgende Karten in derselben Farbe — top Karte ist ${valName(tb[0])} (${five}).`;
+    case 'FOUR_OF_A_KIND':
+      return `Vier ${valName(tb[0])}er — Kicker: ${valName(tb[1])} (${five}).`;
+    case 'FULL_HOUSE':
+      return `Drei ${valName(tb[0])}er + Paar ${valName(tb[1])}er (${five}).`;
+    case 'FLUSH':
+      return `Fünf Karten in einer Farbe — höchste Karte ${valName(tb[0])} (${five}).`;
+    case 'STRAIGHT':
+      return `Fünf aufeinanderfolgende Karten — top Karte ${valName(tb[0])} (${five}).`;
+    case 'THREE_OF_A_KIND':
+      return `Drei ${valName(tb[0])}er — Kicker: ${valName(tb[1])}, ${valName(tb[2])} (${five}).`;
+    case 'TWO_PAIR':
+      return `Paar ${valName(tb[0])}er + Paar ${valName(tb[1])}er — Kicker ${valName(tb[2])} (${five}).`;
+    case 'PAIR':
+      return `Paar ${valName(tb[0])}er (${five}).`;
+    case 'HIGH_CARD':
+      return `Keine Kombination — höchste Karte ${valName(tb[0])} (${five}).`;
+  }
+}
+
+// ─── STRENGTH ASSESSMENT ──────────────────────────────────────
+function mkStrength(level, advice) {
+  const labels = {
+    premium:  { label: 'Monster',  emoji: '💎', headline: 'Bet/Raise — gewinnt fast immer' },
+    strong:   { label: 'Stark',    emoji: '🟢', headline: 'Auf Value spielen — betten/callen' },
+    marginal: { label: 'Marginal', emoji: '🟡', headline: 'Vorsichtig — meist check/call' },
+    weak:     { label: 'Schwach',  emoji: '🔴', headline: 'Meistens folden bei Aggression' }
+  };
+  return { level, advice, ...labels[level] };
+}
+
+function assessStrength(scenario) {
+  const { result, hole, community, phase } = scenario;
+  const t = result.type;
+  const valName = (v) => RANKS.find(r => r.val === v)?.sym || v;
+  const holeCount = (val) => hole.filter(c => c.val === val).length;
+  const boardCount = (val) => community.filter(c => c.val === val).length;
+  const topBoard = community.length ? Math.max(...community.map(c => c.val)) : 0;
+
+  if (t === 'ROYAL_FLUSH') {
+    return mkStrength('premium', 'Die nicht zu schlagende Hand. Setze maximal — du gewinnst zu 100 %.');
+  }
+  if (t === 'STRAIGHT_FLUSH') {
+    return mkStrength('premium', 'Praktisch unschlagbar. Nur ein höherer Straight Flush käme dran. Auf Maximum spielen.');
+  }
+  if (t === 'FOUR_OF_A_KIND') {
+    const quadVal = result.tiebreak[0];
+    if (boardCount(quadVal) === 4) {
+      return mkStrength('marginal', `Der Vierling liegt komplett auf dem Tisch — alle Spieler haben ihn. Nur dein Kicker entscheidet, und der schlägt oft die fünfte Board-Karte nicht.`);
+    }
+    return mkStrength('premium', 'Vierling. Nahezu unschlagbar — versuche Wert rauszuholen, ohne den Gegner abzuschrecken.');
+  }
+  if (t === 'FULL_HOUSE') {
+    return mkStrength('premium', 'Full House. Sehr stark. Nur höhere Full Houses oder Vierling schlagen dich.');
+  }
+
+  if (t === 'FLUSH') {
+    const flushSuit = result.cards[0].suit;
+    const playerFlushCards = hole.filter(c => c.suit === flushSuit).length;
+    const highFlushCard = result.cards[0].val;
+    if (playerFlushCards === 0) {
+      return mkStrength('weak', 'Der Flush liegt komplett auf dem Tisch — alle Spieler haben ihn. Nur die höchste Flush-Karte in der Hand zählt.');
+    }
+    if (highFlushCard === 14 && playerFlushCards >= 1) {
+      return mkStrength('premium', 'Nut Flush — du hältst das Ass in der Flush-Farbe. Niemand kann höher.');
+    }
+    if (highFlushCard >= 12) {
+      return mkStrength('strong', 'Hoher Flush. Stark. Achtung wenn ein Ass derselben Farbe im Spiel ist — Gegner könnte den Nut Flush halten.');
+    }
+    return mkStrength('strong', 'Flush. Generell stark, aber je niedriger deine Flush-Karten, desto eher hat ein Gegner einen höheren Flush.');
+  }
+
+  if (t === 'STRAIGHT') {
+    const high = result.tiebreak[0];
+    if (high === 14) {
+      return mkStrength('strong', 'Broadway-Straße (10-J-Q-K-A) — die höchstmögliche Straße. Stark.');
+    }
+    if (high === 5) {
+      return mkStrength('strong', 'Wheel-Straße (A-2-3-4-5) — die niedrigste Straße. Stark, aber jede andere Straße schlägt dich.');
+    }
+    return mkStrength('strong', `Straße bis ${valName(high)}. Stark, aber achte auf höhere mögliche Straßen und auf Flush-Drohungen am Board.`);
+  }
+
+  if (t === 'THREE_OF_A_KIND') {
+    const tripVal = result.tiebreak[0];
+    const holeMatch = holeCount(tripVal);
+    const bMatch = boardCount(tripVal);
+    if (bMatch === 3) {
+      return mkStrength('weak', `Der Drilling (${valName(tripVal)}er) liegt komplett auf dem Tisch — jeder Spieler hat ihn auch. Nur dein Kicker entscheidet.`);
+    }
+    if (holeMatch === 2) {
+      return mkStrength('premium', `Set ${valName(tripVal)}er! Eine der bestversteckten Hände im Poker. Gegner mit Top Pair zahlen oft, ohne zu merken, dass du sie schlägst.`);
+    }
+    return mkStrength('strong', `Trips ${valName(tripVal)}er. Stark, aber weniger getarnt — das Paar auf dem Board sieht jeder.`);
+  }
+
+  if (t === 'TWO_PAIR') {
+    const high = result.tiebreak[0], low = result.tiebreak[1];
+    const highHole = holeCount(high), lowHole = holeCount(low);
+    if (highHole === 0 && lowHole === 0) {
+      return mkStrength('weak', 'Beide Paare liegen auf dem Tisch — du hast nur einen Kicker. Schwach gegen aktive Gegner.');
+    }
+    if (high >= 12 || (highHole > 0 && lowHole > 0)) {
+      return mkStrength('strong', `Zwei Paare (${valName(high)}er & ${valName(low)}er). Solide Value-Hand. Vorsicht bei Sets oder Straßen-/Flush-Drohungen.`);
+    }
+    if (high >= 10) {
+      return mkStrength('strong', `Zwei Paare mit ${valName(high)}er oben. Gut für Value, aber anfällig.`);
+    }
+    return mkStrength('marginal', `Niedrige Zwei Paare (${valName(high)}er & ${valName(low)}er). Vorsichtig — höhere Paare oder Drillinge schlagen dich oft.`);
+  }
+
+  if (t === 'PAIR') {
+    const pairVal = result.tiebreak[0];
+    const holeMatch = holeCount(pairVal);
+    const bMatch = boardCount(pairVal);
+
+    if (bMatch === 2 && holeMatch === 0) {
+      return mkStrength('weak', `Das Paar (${valName(pairVal)}er) liegt auf dem Tisch — alle haben es. Nur dein Kicker zählt; meistens folden gegen Aggression.`);
+    }
+    if (hole[0].val === hole[1].val && hole[0].val === pairVal) {
+      if (pairVal > topBoard) {
+        return mkStrength('strong', `Overpair (Pocket ${valName(pairVal)}er, höher als alles auf dem Board). Starke Value-Hand. Vorsicht bei Drilling-, Straßen- oder Flush-Drohungen.`);
+      }
+      return mkStrength('marginal', `Pocket Pair ${valName(pairVal)}er, aber niedriger als Karten auf dem Board. Gegen Top Pair des Gegners hast du oft das Nachsehen.`);
+    }
+    if (holeMatch === 1 && bMatch === 1) {
+      const isTopPair = pairVal === topBoard;
+      const kicker = hole.find(c => c.val !== pairVal)?.val || 0;
+      if (isTopPair && kicker >= 13) {
+        return mkStrength('strong', `Top Pair, Top Kicker (${valName(pairVal)}er mit ${valName(kicker)}-Kicker). Klassische Value-Hand — betten für Wert.`);
+      }
+      if (isTopPair && kicker >= 11) {
+        return mkStrength('strong', `Top Pair mit gutem Kicker (${valName(kicker)}). Solide, aber Vorsicht bei großer Aggression.`);
+      }
+      if (isTopPair) {
+        return mkStrength('marginal', `Top Pair, aber schwacher Kicker (${valName(kicker)}). Gegen Bets vorsichtig — viele Gegner haben dasselbe Paar mit höherem Kicker.`);
+      }
+      return mkStrength('weak', `${pairVal === [...community].sort((a,b)=>b.val-a.val)[1]?.val ? 'Mittleres' : 'Unteres'} Paar (${valName(pairVal)}er). Selten gut genug für große Pötte; meist check/fold.`);
+    }
+    return mkStrength('marginal', `Paar ${valName(pairVal)}er. Solide, aber je nach Position schwach gegen Aggression.`);
+  }
+
+  if (t === 'HIGH_CARD') {
+    // Detect draws (only meaningful on flop/turn)
+    const allCards = [...hole, ...community];
+    const suitCounts = {};
+    for (const c of allCards) suitCounts[c.suit] = (suitCounts[c.suit] || 0) + 1;
+    const flushDrawSuit = Object.entries(suitCounts).find(([, c]) => c === 4)?.[0];
+    const playerInFlushDraw = flushDrawSuit && hole.some(c => c.suit === flushDrawSuit);
+
+    const uniqueVals = [...new Set(allCards.map(c => c.val))].sort((a, b) => a - b);
+    let oesd = false;
+    for (let i = 0; i <= uniqueVals.length - 4; i++) {
+      if (uniqueVals[i + 3] - uniqueVals[i] === 3) { oesd = true; break; }
+    }
+
+    if (phase.name !== 'River' && playerInFlushDraw && oesd) {
+      return mkStrength('marginal', 'Keine fertige Hand — aber Flush-Draw und Straight-Draw kombiniert. Mit guten Pot Odds weiterspielen.');
+    }
+    if (phase.name !== 'River' && playerInFlushDraw) {
+      return mkStrength('marginal', 'Keine fertige Hand — aber Flush-Draw (4 Karten einer Farbe). Bei guten Pot Odds weiterspielen.');
+    }
+    if (phase.name !== 'River' && oesd) {
+      return mkStrength('marginal', 'Keine fertige Hand — aber Straight-Draw (4 zusammenhängende Karten). Bei guten Pot Odds weiterspielen.');
+    }
+    return mkStrength('weak', 'Keine Kombination — nur hohe Karte. In den meisten Situationen folden, wenn der Gegner bettet.');
+  }
+
+  return mkStrength('marginal', '');
+}
+
+// ─── GAME STATE ───────────────────────────────────────────────
+let state = {
+  correct: 0,
+  total: 0,
+  streak: 0,
+  current: null,
+  answered: false
+};
+
+function updateStats() {
+  document.getElementById('stat-correct').textContent = state.correct;
+  document.getElementById('stat-total').textContent = state.total;
+  document.getElementById('stat-streak').textContent = state.streak;
+}
+
+function handleAnswer(btn, picked, correct) {
+  if (state.answered) return;
+  state.answered = true;
+  state.total++;
+  const buttons = document.querySelectorAll('.option');
+  buttons.forEach(b => {
+    b.disabled = true;
+    if (b.dataset.key === correct) b.classList.add('correct');
+    else if (b === btn) b.classList.add('wrong');
+  });
+
+  const fb = document.getElementById('feedback');
+  const head = document.getElementById('fb-headline');
+  const detail = document.getElementById('fb-detail');
+  const strength = assessStrength(state.current);
+
+  if (picked === correct) {
+    state.correct++;
+    state.streak++;
+    head.textContent = streakHeadline();
+    head.className = 'feedback-headline right';
+  } else {
+    state.streak = 0;
+    head.textContent = 'Knapp daneben.';
+    head.className = 'feedback-headline bad';
+  }
+
+  const handLine = picked === correct
+    ? `<strong>${HAND_TYPES[correct].name}</strong>`
+    : `Richtig wäre <strong>${HAND_TYPES[correct].name}</strong>`;
+
+  detail.innerHTML = `
+    <div class="fb-hand-line">
+      <span class="fb-hand-name">${handLine}</span>
+      <span class="strength-badge ${strength.level}">${strength.emoji} ${strength.label}</span>
+    </div>
+    <div class="fb-cards">${explainHand(state.current.result)}</div>
+    <div class="fb-strategy">
+      <div class="fb-strategy-headline">${strength.headline}</div>
+      ${strength.advice}
+    </div>
+  `;
+
+  fb.classList.add('show');
+  document.getElementById('next-btn').classList.remove('hidden');
+  updateStats();
+}
+
+function streakHeadline() {
+  const phrases = ['Richtig.', 'Sauber.', 'Bravo.', 'Genau das.', 'Perfekt.'];
+  if (state.streak >= 5) return `${phrases[Math.floor(Math.random() * phrases.length)]} Streak: ${state.streak} 🔥`;
+  return phrases[Math.floor(Math.random() * phrases.length)];
+}
+
+function nextRound() {
+  state.answered = false;
+  document.getElementById('feedback').classList.remove('show');
+  document.getElementById('next-btn').classList.add('hidden');
+
+  state.current = generateScenario();
+  renderScenario(state.current);
+  const options = generateOptions(state.current.result.type);
+  renderOptions(options, state.current.result.type);
+}
+
+document.getElementById('next-btn').addEventListener('click', nextRound);
+
+// Keyboard shortcuts: A/B/C/D and Space/Enter for next
+document.addEventListener('keydown', (e) => {
+  // Only respond to keys when poker is visible
+  const _pokerApp = document.querySelector('.app-poker');
+  if (!_pokerApp || !_pokerApp.classList.contains('visible')) return;
+  const key = e.key.toUpperCase();
+  if (['A', 'B', 'C', 'D'].includes(key) && !state.answered) {
+    const idx = ['A', 'B', 'C', 'D'].indexOf(key);
+    const btns = document.querySelectorAll('.option');
+    if (btns[idx]) btns[idx].click();
+  } else if ((e.key === ' ' || e.key === 'Enter') && state.answered) {
+    e.preventDefault();
+    nextRound();
+  }
+});
+
+// Start
+nextRound();
+})();
 </script>
+
 </body>
 </html>
