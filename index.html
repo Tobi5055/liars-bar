@@ -1698,13 +1698,16 @@
 
   /* Background — neon party gradient with animated radials */
   .app-alki {
+    min-height: 100vh;
     background: var(--p-bg);
     background-image:
       radial-gradient(ellipse 60% 50% at 20% 0%, rgba(181,88,255,0.35) 0%, transparent 60%),
       radial-gradient(ellipse 50% 50% at 80% 100%, rgba(255,62,136,0.3) 0%, transparent 60%),
       radial-gradient(ellipse 70% 60% at 50% 50%, rgba(0,229,255,0.1) 0%, transparent 70%);
+    background-attachment: fixed;
     font-family: 'Outfit', sans-serif;
     color: var(--p-cream);
+    padding: 24px 16px 60px;
   }
 
   /* Title — rainbow gradient with neon glow */
@@ -2475,90 +2478,6 @@
     .app-alki button.action { font-size: 0.85rem; }
   }
 
-  /* Desktop/Tablet: dashboard layout — fit without scroll */
-  @media (min-width: 900px) {
-    .app-alki { padding: 0.8rem 1.2rem 1.2rem; }
-
-    .app-alki h1 {
-      font-size: 2.2rem;
-      padding-top: 8px;
-      margin-bottom: 0;
-    }
-    .app-alki .subtitle { margin-bottom: 0.4rem; font-size: 0.75rem; }
-    .app-alki .header-actions { margin-bottom: 0.7rem; }
-    .app-alki .rules-btn { font-size: 0.78rem; padding: 0.35rem 0.9rem; }
-
-    /* Top dashboard row: setup + table + controls side by side */
-    .app-alki .container {
-      display: grid;
-      grid-template-columns: minmax(280px, 1fr) 1fr minmax(280px, 1fr);
-      grid-template-rows: auto auto auto 1fr;
-      grid-template-areas:
-        "header header header"
-        "subtitle subtitle subtitle"
-        "rulesbtn rulesbtn rulesbtn"
-        "setup table players"
-        "controls table players";
-      gap: 0.8rem 1.2rem;
-      max-width: 1400px;
-      align-items: start;
-    }
-
-    .app-alki .container > h1 { grid-area: header; }
-    .app-alki .container > .subtitle { grid-area: subtitle; }
-    .app-alki .container > .header-actions { grid-area: rulesbtn; }
-    .app-alki .container > .panel.setup-panel { grid-area: setup; margin-bottom: 0; }
-    .app-alki .container > .table-section { grid-area: table; margin: 0; gap: 0.8rem; }
-    .app-alki .container > .players-grid { grid-area: players; }
-    .app-alki .container > .game-controls { grid-area: controls; margin-top: 0; flex-direction: column; gap: 0.5rem; }
-
-    .app-alki .container > .game-controls button { width: 100%; }
-
-    /* Modals stay full-screen so leave them alone */
-    .app-alki .container > .modal-backdrop { grid-area: unset; position: fixed; }
-
-    /* Compact setup */
-    .app-alki .panel { padding: 1rem 1.1rem; }
-    .app-alki .setup-row { flex-direction: column; gap: 0.8rem; align-items: stretch; }
-    .app-alki .setup-group { width: 100%; align-items: stretch; }
-    .app-alki .alki-mode-display { min-width: 0; }
-    .app-alki .deck-display { padding: 0.45rem 0.7rem; min-height: 40px; }
-
-    /* Compact table card */
-    .app-alki .table-card-wrap { width: 140px; height: 200px; }
-    .app-alki .card-center { font-size: 3.5rem; }
-    .app-alki .corner-rank { font-size: 1.05rem; }
-    .app-alki .corner-suit { font-size: 0.85rem; }
-    .app-alki .table-name { font-size: 1.15rem; }
-    .app-alki button.draw-table { padding: 0.7rem 1.6rem; font-size: 0.85rem; }
-    .app-alki .table-label { font-size: 0.7rem; }
-
-    /* Compact players grid: 2 columns inside the players area */
-    .app-alki .players-grid {
-      grid-template-columns: 1fr 1fr;
-      gap: 0.7rem;
-    }
-    .app-alki .player { padding: 0.7rem 0.6rem; }
-    .app-alki .alki-tray { width: 130px; height: 100px; margin-bottom: 0.3rem; }
-    .app-alki .player-name { font-size: 0.95rem; }
-    .app-alki .name-edit-btn { width: 18px; height: 18px; }
-    .app-alki .name-edit-btn svg { width: 10px; height: 10px; }
-    .app-alki .player-status { font-size: 0.7rem; margin-bottom: 0.3rem; }
-    .app-alki .alki-last-drunk { font-size: 0.7rem; margin-bottom: 0.3rem; }
-    .app-alki button.action { font-size: 0.85rem; padding: 0.55rem 1rem; }
-    .app-alki .alki-double { font-size: 0.62rem; padding: 0.35rem; margin-top: 0.3rem; }
-  }
-
-  /* Wide desktop: 3-column players grid */
-  @media (min-width: 1200px) {
-    .app-alki .container {
-      grid-template-columns: 280px 1fr minmax(580px, 1.8fr);
-    }
-    .app-alki .players-grid {
-      grid-template-columns: 1fr 1fr 1fr;
-    }
-    .app-alki .table-card-wrap { width: 160px; height: 228px; }
-  }
 </style>
 </head>
 <body>
