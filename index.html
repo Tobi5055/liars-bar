@@ -6,7 +6,7 @@
 <title>Game Hub</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Special+Elite&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Special+Elite&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Outfit:wght@300;400;500;600;700;800;900&family=Bebas+Neue&family=Righteous&display=swap" rel="stylesheet">
 <style>
   /* ====================== GLOBAL ====================== */
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -953,6 +953,115 @@
   }
   .click-flash { animation: clickFlash 0.5s; }
 
+  /* ====================== SUSPENSE MODAL (liars) ====================== */
+  .suspense-modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.88);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 200;
+    padding: 1rem;
+  }
+  .suspense-modal.active { display: flex; animation: fadeIn 0.25s; }
+
+  .suspense-card {
+    background: linear-gradient(180deg, var(--bg-2), var(--bg));
+    border: 2px solid var(--brass);
+    border-radius: 12px;
+    padding: 2.3rem 3rem;
+    text-align: center;
+    min-width: 280px;
+    max-width: 90%;
+    box-shadow: 0 0 80px rgba(184,134,42,0.35);
+  }
+
+  .suspense-name {
+    font-family: 'Cinzel', serif;
+    font-size: 1.25rem;
+    letter-spacing: 0.18em;
+    color: var(--brass-bright);
+    margin-bottom: 1.5rem;
+    text-shadow: 0 0 20px rgba(212,169,63,0.3);
+  }
+
+  .suspense-content {
+    min-height: 90px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.8rem;
+  }
+
+  .suspense-dots {
+    display: flex;
+    gap: 0.7rem;
+    justify-content: center;
+  }
+  .suspense-dots span {
+    width: 14px;
+    height: 14px;
+    background: var(--brass);
+    border-radius: 50%;
+    animation: dotPulse 0.9s infinite ease-in-out;
+    box-shadow: 0 0 12px var(--brass);
+  }
+  .suspense-dots span:nth-child(2) { animation-delay: 0.15s; }
+  .suspense-dots span:nth-child(3) { animation-delay: 0.3s; }
+  @keyframes dotPulse {
+    0%, 80%, 100% { opacity: 0.25; transform: scale(0.6); }
+    40% { opacity: 1; transform: scale(1.15); }
+  }
+
+  .suspense-sub {
+    font-family: 'Special Elite', serif;
+    font-size: 0.82rem;
+    letter-spacing: 0.18em;
+    color: var(--bone-dim);
+    text-transform: uppercase;
+  }
+
+  .suspense-result {
+    font-family: 'Cinzel', serif;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+  }
+  .suspense-result.click {
+    font-size: 2.4rem;
+    color: var(--brass-bright);
+    text-shadow: 0 0 40px rgba(212,169,63,0.7);
+    animation: revealScale 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  .suspense-result.bang {
+    font-size: 3rem;
+    color: var(--blood-bright);
+    text-shadow: 0 0 60px rgba(185,28,28,0.9);
+    animation: revealBang 0.7s;
+  }
+  @keyframes revealScale {
+    from { opacity: 0; transform: scale(0.3); }
+    to { opacity: 1; transform: scale(1); }
+  }
+  @keyframes revealBang {
+    0% { opacity: 0; transform: scale(2.5); }
+    35% { opacity: 1; transform: scale(0.85); }
+    50% { transform: scale(1.1) translateX(-8px); }
+    62% { transform: scale(1.1) translateX(8px); }
+    75% { transform: scale(1.1) translateX(-6px); }
+    100% { transform: scale(1) translateX(0); }
+  }
+
+  @media (max-width: 599px) {
+    .suspense-card { padding: 1.6rem 1.4rem; min-width: 240px; }
+    .suspense-name { font-size: 1.05rem; margin-bottom: 1rem; }
+    .suspense-result.click { font-size: 1.8rem; }
+    .suspense-result.bang { font-size: 2.2rem; }
+  }
+
   /* ========== Mobile (< 600px) ========== */
   @media (max-width: 599px) {
     .app-liarsbar { padding: 0.8rem; }
@@ -1558,6 +1667,897 @@
   }
 
 
+
+  /* ====================== ALKI EDITION — PARTY MODE ====================== */
+  .app-alki {
+    --p-bg:       #150826;
+    --p-bg-2:    #261347;
+    --p-bg-3:    #1f0e3d;
+    --p-pink:    #ff3e88;
+    --p-pink-br: #ff6bb5;
+    --p-cyan:    #00e5ff;
+    --p-yellow:  #ffd60a;
+    --p-purple:  #b558ff;
+    --p-orange:  #ff8a2b;
+    --p-danger:  #ff3838;
+    --p-cream:   #faf4e8;
+    --p-cream-dim: #c9b8d8;
+    --p-dark:    #0a0418;
+    /* override liars-bar vars used by shared classes inside .app-alki */
+    --bg:           #150826;
+    --bg-2:         #261347;
+    --brass:        #ff3e88;
+    --brass-bright: #ff6bb5;
+    --blood:        #ff3838;
+    --blood-bright: #ff5252;
+    --bone:         #faf4e8;
+    --bone-dim:     #c9b8d8;
+    --dead:         #3a2557;
+  }
+
+  /* Background — neon party gradient with animated radials */
+  .app-alki {
+    background: var(--p-bg);
+    background-image:
+      radial-gradient(ellipse 60% 50% at 20% 0%, rgba(181,88,255,0.35) 0%, transparent 60%),
+      radial-gradient(ellipse 50% 50% at 80% 100%, rgba(255,62,136,0.3) 0%, transparent 60%),
+      radial-gradient(ellipse 70% 60% at 50% 50%, rgba(0,229,255,0.1) 0%, transparent 70%);
+    font-family: 'Outfit', sans-serif;
+    color: var(--p-cream);
+  }
+
+  /* Title — rainbow gradient with neon glow */
+  .app-alki h1 {
+    font-family: 'Bebas Neue', 'Outfit', sans-serif;
+    font-weight: 400;
+    font-size: clamp(2rem, 7vw, 3.6rem);
+    letter-spacing: 0.12em;
+    color: var(--p-pink-br);
+    text-shadow:
+      0 0 20px var(--p-pink),
+      0 0 40px rgba(255,62,136,0.6),
+      0 0 60px rgba(181,88,255,0.4);
+    text-align: center;
+    margin-bottom: 0.1rem;
+    padding-top: 38px;
+  }
+
+  .app-alki .subtitle {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 300;
+    font-size: 0.95rem;
+    color: var(--p-cream-dim);
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    text-align: center;
+    margin-bottom: 0.8rem;
+  }
+
+  .app-alki .rules-btn {
+    background: transparent;
+    border: 1px solid var(--p-cyan);
+    color: var(--p-cyan);
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 0.95rem;
+    letter-spacing: 0.2em;
+    padding: 0.45rem 1.1rem;
+    border-radius: 20px;
+    text-shadow: 0 0 8px rgba(0,229,255,0.5);
+    box-shadow: 0 0 12px rgba(0,229,255,0.15), inset 0 0 12px rgba(0,229,255,0.05);
+  }
+  .app-alki .rules-btn:hover {
+    background: rgba(0,229,255,0.08);
+    border-color: var(--p-cyan);
+    color: var(--p-cyan);
+    box-shadow: 0 0 20px rgba(0,229,255,0.4), inset 0 0 12px rgba(0,229,255,0.1);
+  }
+
+  /* Panels */
+  .app-alki .panel {
+    background: linear-gradient(180deg, rgba(38,19,71,0.85), rgba(21,8,38,0.95));
+    border: 1px solid var(--p-pink);
+    border-radius: 12px;
+    box-shadow:
+      0 0 30px rgba(255,62,136,0.2),
+      inset 0 1px 0 rgba(255,107,181,0.15);
+  }
+
+  .app-alki .panel-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1rem;
+    letter-spacing: 0.35em;
+    color: var(--p-yellow);
+    text-shadow: 0 0 10px rgba(255,214,10,0.5);
+  }
+
+  .app-alki .prob-hint {
+    font-family: 'Outfit', sans-serif;
+    color: var(--p-cream-dim);
+    font-size: 0.78rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+
+  /* Counters / steppers */
+  .app-alki .count-btn {
+    border: 1px solid var(--p-cyan);
+    color: var(--p-cyan);
+    background: rgba(0,229,255,0.06);
+    font-family: 'Bebas Neue', sans-serif;
+  }
+  .app-alki .count-btn:hover:not(:disabled) {
+    background: rgba(0,229,255,0.2);
+    box-shadow: 0 0 12px rgba(0,229,255,0.4);
+  }
+
+  .app-alki .count-val {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.9rem;
+    color: var(--p-yellow);
+    text-shadow: 0 0 12px rgba(255,214,10,0.5);
+  }
+
+  /* Deck/mode display */
+  .app-alki .deck-display {
+    background: rgba(10,4,24,0.5);
+    border: 1px solid rgba(181,88,255,0.4);
+    border-radius: 8px;
+  }
+
+  .app-alki .active-card {
+    font-family: 'Bebas Neue', sans-serif;
+    color: var(--p-pink-br);
+    font-size: 1.15rem;
+  }
+  .app-alki .active-card .suit { font-size: 1.5rem; }
+  .app-alki .suit-red { color: var(--p-pink) !important; }
+  .app-alki .active-card .suit:not(.suit-red) { color: var(--p-cyan); }
+
+  .app-alki .alki-mode-label {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.1rem;
+    letter-spacing: 0.18em;
+    color: var(--p-yellow);
+    text-shadow: 0 0 10px rgba(255,214,10,0.4);
+  }
+  .app-alki .alki-mode-detail {
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.85rem;
+    color: var(--p-cream-dim);
+  }
+  .app-alki .alki-mode-display { min-width: 220px; }
+  .app-alki .alki-mode-display .active-cards {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.1rem;
+  }
+
+  .app-alki .edit-btn {
+    border: 1px solid var(--p-cyan);
+    color: var(--p-cyan);
+    background: rgba(0,229,255,0.05);
+  }
+  .app-alki .edit-btn:hover {
+    background: rgba(0,229,255,0.15);
+    border-color: var(--p-cyan);
+    color: var(--p-cyan);
+    box-shadow: 0 0 12px rgba(0,229,255,0.4);
+  }
+
+  /* Mode pills */
+  .app-alki .alki-modes {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.7rem;
+    margin-bottom: 1rem;
+  }
+  .app-alki .alki-mode-pill {
+    background: linear-gradient(180deg, rgba(38,19,71,0.6), rgba(21,8,38,0.8));
+    border: 1.5px solid rgba(181,88,255,0.4);
+    border-radius: 10px;
+    padding: 0.9rem 1rem;
+    cursor: pointer;
+    text-align: left;
+    color: var(--p-cream);
+    transition: all 0.2s;
+  }
+  .app-alki .alki-mode-pill:hover {
+    border-color: var(--p-pink);
+    background: linear-gradient(180deg, rgba(255,62,136,0.15), rgba(38,19,71,0.7));
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255,62,136,0.3);
+  }
+  .app-alki .alki-mode-pill.active {
+    border-color: var(--p-yellow);
+    background: linear-gradient(180deg, rgba(255,214,10,0.12), rgba(181,88,255,0.18));
+    box-shadow:
+      0 0 20px rgba(255,214,10,0.3),
+      inset 0 0 15px rgba(255,214,10,0.08);
+  }
+  .app-alki .alki-mode-pill-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.15rem;
+    letter-spacing: 0.18em;
+    color: var(--p-yellow);
+    margin-bottom: 0.3rem;
+    text-shadow: 0 0 8px rgba(255,214,10,0.4);
+  }
+  .app-alki .alki-mode-pill-detail {
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.85rem;
+    color: var(--p-cream);
+    margin-bottom: 0.2rem;
+  }
+  .app-alki .alki-mode-pill-hint {
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.72rem;
+    color: var(--p-cream-dim);
+    font-style: italic;
+    opacity: 0.85;
+  }
+
+  /* Custom mode */
+  .app-alki .alki-custom-area {
+    background: rgba(10,4,24,0.5);
+    border: 1px solid rgba(181,88,255,0.3);
+    border-radius: 8px;
+  }
+  .app-alki .alki-custom-area.visible { display: block; }
+  .app-alki .alki-custom-label {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 500;
+    color: var(--p-cream);
+  }
+  .app-alki .alki-custom-total {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 500;
+    color: var(--p-cream-dim);
+    letter-spacing: 0.1em;
+  }
+  .app-alki .alki-custom-total.invalid { color: var(--p-danger); font-weight: bold; }
+  .app-alki .alki-stepper .count-val { font-size: 1.3rem; min-width: 28px; }
+  .app-alki .alki-stepper .count-btn { width: 28px; height: 28px; font-size: 1rem; }
+
+  /* Card toggles in deck modal */
+  .app-alki .card-toggle {
+    background: rgba(10,4,24,0.5);
+    border: 1.5px solid rgba(181,88,255,0.3);
+    color: var(--p-cream);
+    font-family: 'Outfit', sans-serif;
+  }
+  .app-alki .card-toggle:hover { border-color: var(--p-pink); }
+  .app-alki .card-toggle.active {
+    background: rgba(255,62,136,0.15);
+    border-color: var(--p-pink);
+    color: var(--p-yellow);
+    box-shadow: 0 0 12px rgba(255,62,136,0.2);
+  }
+
+  /* Table card */
+  .app-alki .table-label {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 0.95rem;
+    letter-spacing: 0.4em;
+    color: var(--p-cyan);
+    text-shadow: 0 0 10px rgba(0,229,255,0.4);
+  }
+  .app-alki .card-face {
+    border: 3px solid var(--p-pink);
+    box-shadow:
+      0 10px 50px rgba(255,62,136,0.4),
+      0 0 30px rgba(181,88,255,0.3);
+  }
+  .app-alki .table-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.5rem;
+    letter-spacing: 0.18em;
+    color: var(--p-yellow);
+    text-shadow: 0 0 15px rgba(255,214,10,0.4);
+  }
+  .app-alki .red-card .corner-rank,
+  .app-alki .red-card .corner-suit,
+  .app-alki .red-card .card-center { color: #d63384; }
+
+  /* Main action buttons — gradient with glow */
+  .app-alki button.action {
+    background: linear-gradient(135deg, var(--p-pink) 0%, var(--p-purple) 100%);
+    color: white;
+    border: none;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.05rem;
+    letter-spacing: 0.18em;
+    box-shadow:
+      0 4px 20px rgba(255,62,136,0.4),
+      0 0 30px rgba(181,88,255,0.2),
+      inset 0 1px 0 rgba(255,255,255,0.2);
+    transition: all 0.2s;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+  }
+  .app-alki button.action:hover:not(:disabled) {
+    transform: translateY(-2px) scale(1.02);
+    box-shadow:
+      0 8px 28px rgba(255,62,136,0.55),
+      0 0 40px rgba(181,88,255,0.3),
+      inset 0 1px 0 rgba(255,255,255,0.3);
+  }
+  .app-alki button.action.danger {
+    background: linear-gradient(135deg, var(--p-orange) 0%, var(--p-danger) 100%);
+    box-shadow:
+      0 4px 20px rgba(255,56,56,0.45),
+      0 0 30px rgba(255,138,43,0.25);
+  }
+  .app-alki button.action.danger:hover:not(:disabled) {
+    box-shadow:
+      0 8px 28px rgba(255,56,56,0.6),
+      0 0 40px rgba(255,138,43,0.4);
+  }
+
+  .app-alki button.ghost {
+    border-color: rgba(0,229,255,0.5);
+    color: var(--p-cyan);
+    font-family: 'Bebas Neue', sans-serif;
+    letter-spacing: 0.2em;
+    border-radius: 20px;
+  }
+  .app-alki button.ghost:hover {
+    background: rgba(0,229,255,0.1);
+    border-color: var(--p-cyan);
+    box-shadow: 0 0 15px rgba(0,229,255,0.3);
+  }
+
+  /* Players */
+  .app-alki .player {
+    background: linear-gradient(180deg, rgba(38,19,71,0.8), rgba(21,8,38,0.9));
+    border: 2px solid var(--p-pink);
+    border-radius: 12px;
+    box-shadow:
+      0 4px 20px rgba(0,0,0,0.4),
+      0 0 25px rgba(255,62,136,0.15),
+      inset 0 1px 0 rgba(255,107,181,0.2);
+    padding: 1.2rem 1rem;
+    transition: all 0.3s;
+  }
+  .app-alki .player.dead {
+    opacity: 0.5;
+    border-color: #4a3a5a;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+  }
+  .app-alki .player.dead::after {
+    content: '💀';
+    font-size: 1.3rem;
+    color: var(--p-danger);
+    opacity: 0.9;
+  }
+  .app-alki .player-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.15rem;
+    letter-spacing: 0.12em;
+    color: var(--p-yellow);
+    text-shadow: 0 0 10px rgba(255,214,10,0.3);
+  }
+  .app-alki .player.dead .player-name { color: var(--p-cream-dim); }
+  .app-alki .name-edit-btn {
+    border-color: rgba(0,229,255,0.5);
+    color: var(--p-cyan);
+  }
+  .app-alki .name-edit-btn:hover:not(:disabled) {
+    background: rgba(0,229,255,0.12);
+    border-color: var(--p-cyan);
+    color: var(--p-cyan);
+  }
+
+  .app-alki .player-status {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 500;
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+    color: var(--p-cream-dim);
+    text-transform: uppercase;
+  }
+  .app-alki .player-status.danger { color: var(--p-yellow); }
+  .app-alki .player-status.dead {
+    color: var(--p-danger);
+    font-weight: 700;
+    text-shadow: 0 0 12px rgba(255,56,56,0.4);
+  }
+
+  /* Glass tray */
+  .app-alki .alki-tray {
+    display: block;
+    width: 160px;
+    height: 125px;
+    margin: 0 auto 0.5rem;
+    filter: drop-shadow(0 0 8px rgba(255,62,136,0.2));
+  }
+
+  .app-alki .alki-glass { transition: all 0.3s; }
+
+  @keyframes glassReveal {
+    0%   { opacity: 0; transform: scale(0.4) rotate(-180deg); }
+    60%  { opacity: 1; transform: scale(1.3) rotate(8deg); }
+    100% { transform: scale(1) rotate(0); }
+  }
+
+  .app-alki .alki-glass.revealed-now {
+    animation: glassReveal 0.7s cubic-bezier(0.34, 1.56, 0.64, 1);
+    transform-origin: center;
+    transform-box: fill-box;
+  }
+
+  .app-alki .alki-last-drunk {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 600;
+    font-size: 0.85rem;
+    letter-spacing: 0.08em;
+    color: var(--p-cream-dim);
+    margin-bottom: 0.6rem;
+    min-height: 1.2em;
+    text-transform: uppercase;
+  }
+  .app-alki .alki-last-drunk.recent {
+    color: var(--p-yellow);
+    text-shadow: 0 0 8px rgba(255,214,10,0.4);
+  }
+  .app-alki .alki-last-drunk.ex {
+    color: var(--p-danger);
+    font-weight: 700;
+    text-shadow: 0 0 12px rgba(255,56,56,0.5);
+    animation: pulseRed 1s infinite alternate;
+  }
+  @keyframes pulseRed {
+    from { text-shadow: 0 0 12px rgba(255,56,56,0.5); }
+    to { text-shadow: 0 0 20px rgba(255,56,56,0.9); }
+  }
+
+  /* Doppelt-Button */
+  .app-alki .alki-double {
+    margin-top: 0.5rem;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.18em;
+    color: var(--p-yellow);
+    background: transparent;
+    border: 1.5px dashed var(--p-yellow);
+    padding: 0.5rem 0.6rem;
+    border-radius: 20px;
+    cursor: pointer;
+    width: 100%;
+    transition: all 0.2s;
+  }
+  .app-alki .alki-double:hover:not(:disabled) {
+    background: rgba(255,214,10,0.1);
+    border-style: solid;
+    box-shadow: 0 0 18px rgba(255,214,10,0.4);
+    transform: scale(1.03);
+  }
+  .app-alki .alki-double:disabled { opacity: 0.25; cursor: not-allowed; }
+
+  /* Modals */
+  .app-alki .modal {
+    background: linear-gradient(180deg, var(--p-bg-2), var(--p-bg));
+    border: 2px solid var(--p-pink);
+    border-radius: 14px;
+    box-shadow:
+      0 20px 70px rgba(0,0,0,0.7),
+      0 0 50px rgba(255,62,136,0.25);
+  }
+  .app-alki .modal-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.2rem;
+    letter-spacing: 0.3em;
+    color: var(--p-yellow);
+    text-shadow: 0 0 12px rgba(255,214,10,0.4);
+  }
+  .app-alki .modal-sub {
+    font-family: 'Outfit', sans-serif;
+    font-style: italic;
+    color: var(--p-cream-dim);
+    letter-spacing: 0.08em;
+  }
+
+  /* Icon buttons */
+  .app-alki .icon-btn {
+    border-color: var(--p-cyan);
+    color: var(--p-cyan);
+  }
+  .app-alki .icon-btn:hover:not(:disabled) {
+    background: rgba(0,229,255,0.12);
+    border-color: var(--p-cyan);
+    color: var(--p-cyan);
+    box-shadow: 0 0 15px rgba(0,229,255,0.4);
+  }
+  .app-alki .icon-btn.icon-confirm {
+    background: linear-gradient(135deg, var(--p-pink), var(--p-purple));
+    border-color: var(--p-pink);
+    color: white;
+    box-shadow: 0 0 15px rgba(255,62,136,0.4);
+  }
+  .app-alki .icon-btn.icon-confirm:hover:not(:disabled) {
+    color: white;
+    box-shadow: 0 4px 20px rgba(255,62,136,0.6);
+    transform: translateY(-1px) scale(1.05);
+  }
+  .app-alki .icon-btn.icon-danger {
+    border-color: var(--p-danger);
+    color: var(--p-danger);
+  }
+  .app-alki .icon-btn.icon-danger:hover:not(:disabled) {
+    background: rgba(255,56,56,0.15);
+    border-color: var(--p-danger);
+    color: var(--p-danger);
+    box-shadow: 0 0 15px rgba(255,56,56,0.4);
+  }
+
+  /* Name input */
+  .app-alki .name-input {
+    background: rgba(10,4,24,0.6);
+    border: 1.5px solid var(--p-cyan);
+    color: var(--p-yellow);
+    font-family: 'Bebas Neue', sans-serif;
+    letter-spacing: 0.15em;
+    font-size: 1.15rem;
+  }
+  .app-alki .name-input:focus {
+    border-color: var(--p-pink);
+    box-shadow: 0 0 0 3px rgba(255,62,136,0.2);
+  }
+
+  /* Winner overlay */
+  .app-alki .winner-box {
+    background: linear-gradient(180deg, var(--p-bg-2), var(--p-bg));
+    border: 2px solid var(--p-yellow);
+    border-radius: 14px;
+    box-shadow:
+      0 0 100px rgba(255,214,10,0.3),
+      0 0 60px rgba(255,62,136,0.25);
+  }
+  .app-alki .winner-label {
+    font-family: 'Bebas Neue', sans-serif;
+    color: var(--p-cyan);
+    letter-spacing: 0.45em;
+    text-shadow: 0 0 12px rgba(0,229,255,0.4);
+  }
+  .app-alki .winner-name {
+    font-family: 'Bebas Neue', sans-serif;
+    background: linear-gradient(90deg, var(--p-pink), var(--p-yellow), var(--p-cyan));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    filter: drop-shadow(0 0 25px rgba(255,214,10,0.5));
+    font-size: 3.2rem;
+    letter-spacing: 0.05em;
+  }
+
+  /* Stats table */
+  .app-alki .alki-stats-area {
+    margin: 1rem 0 1.5rem;
+    max-height: 45vh;
+    overflow-y: auto;
+    text-align: left;
+    border: 1px solid rgba(181,88,255,0.4);
+    border-radius: 8px;
+    background: rgba(10,4,24,0.4);
+  }
+  .app-alki .alki-stat-row {
+    display: grid;
+    grid-template-columns: 1.5rem 1fr 2.2rem 2.2rem 2.2rem;
+    gap: 0.6rem;
+    align-items: center;
+    padding: 0.6rem 0.9rem;
+    border-bottom: 1px solid rgba(181,88,255,0.15);
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.95rem;
+  }
+  .app-alki .alki-stat-row:last-child { border-bottom: none; }
+  .app-alki .alki-stat-row.alki-stat-header {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 0.85rem;
+    letter-spacing: 0.18em;
+    color: var(--p-yellow);
+    background: rgba(255,214,10,0.06);
+    border-bottom-color: var(--p-yellow);
+  }
+  .app-alki .alki-stat-rank {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.1rem;
+    color: var(--p-pink-br);
+  }
+  .app-alki .alki-stat-name {
+    color: var(--p-cream);
+    font-weight: 600;
+  }
+  .app-alki .alki-stat-name.winner {
+    background: linear-gradient(90deg, var(--p-pink), var(--p-yellow));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    font-weight: 700;
+  }
+  .app-alki .alki-stat-cell {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.15rem;
+    color: var(--p-cream-dim);
+    text-align: center;
+  }
+
+  /* Game controls */
+  .app-alki .game-controls { margin-top: 2rem; }
+
+  /* ============ Drink popup ============ */
+  .alki-popup {
+    position: fixed;
+    inset: 0;
+    background: radial-gradient(ellipse at center, rgba(38,19,71,0.75), rgba(10,4,24,0.92));
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 200;
+    padding: 1rem;
+  }
+  .alki-popup.active { display: flex; animation: fadeIn 0.25s; }
+
+  .alki-popup-card {
+    background: linear-gradient(180deg, var(--p-bg-2), var(--p-bg));
+    border: 2px solid var(--p-pink);
+    border-radius: 16px;
+    padding: 2.2rem 2.8rem;
+    text-align: center;
+    min-width: 320px;
+    max-width: 95%;
+    box-shadow:
+      0 0 100px rgba(255,62,136,0.4),
+      0 0 60px rgba(181,88,255,0.3);
+  }
+
+  .alki-popup-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.6rem;
+    letter-spacing: 0.18em;
+    background: linear-gradient(90deg, var(--p-pink), var(--p-yellow));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    margin-bottom: 1.4rem;
+    filter: drop-shadow(0 0 15px rgba(255,107,181,0.4));
+  }
+
+  .alki-popup-content {
+    min-height: 110px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+  }
+
+  .alki-popup-dots {
+    display: flex;
+    gap: 0.8rem;
+    justify-content: center;
+  }
+  .alki-popup-dots span {
+    width: 16px;
+    height: 16px;
+    background: var(--p-pink);
+    border-radius: 50%;
+    animation: alkiDots 0.9s infinite ease-in-out;
+    box-shadow: 0 0 14px var(--p-pink);
+  }
+  .alki-popup-dots span:nth-child(2) { background: var(--p-yellow); box-shadow: 0 0 14px var(--p-yellow); animation-delay: 0.15s; }
+  .alki-popup-dots span:nth-child(3) { background: var(--p-cyan); box-shadow: 0 0 14px var(--p-cyan); animation-delay: 0.3s; }
+  @keyframes alkiDots {
+    0%, 80%, 100% { opacity: 0.3; transform: scale(0.6); }
+    40% { opacity: 1; transform: scale(1.2); }
+  }
+
+  .alki-popup-sub {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1rem;
+    letter-spacing: 0.25em;
+    color: var(--p-cream-dim);
+    text-transform: uppercase;
+    margin-top: 0.5rem;
+  }
+
+  /* Result display in popup */
+  .alki-popup-results {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .alki-result {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0.8rem 1.2rem;
+    border-radius: 12px;
+    min-width: 110px;
+    transition: all 0.3s;
+  }
+  .alki-result.alki-result-new {
+    animation: alkiReveal 0.55s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  @keyframes alkiReveal {
+    0%   { opacity: 0; transform: scale(0.3) rotate(-15deg); }
+    60%  { opacity: 1; transform: scale(1.2) rotate(5deg); }
+    100% { transform: scale(1) rotate(0); }
+  }
+
+  .alki-result-icon {
+    font-size: 3rem;
+    line-height: 1;
+  }
+  .alki-result-text {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.5rem;
+    letter-spacing: 0.15em;
+  }
+  .alki-result-sub {
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.78rem;
+    color: var(--p-cream-dim);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  .alki-result-schluck {
+    background: rgba(0,229,255,0.12);
+    border: 2px solid var(--p-cyan);
+    box-shadow: 0 0 25px rgba(0,229,255,0.3);
+  }
+  .alki-result-schluck .alki-result-text { color: var(--p-cyan); }
+
+  .alki-result-shot {
+    background: rgba(255,214,10,0.15);
+    border: 2px solid var(--p-yellow);
+    box-shadow: 0 0 25px rgba(255,214,10,0.4);
+  }
+  .alki-result-shot .alki-result-text { color: var(--p-yellow); }
+
+  .alki-result-ex {
+    background: rgba(255,56,56,0.2);
+    border: 2px solid var(--p-danger);
+    box-shadow: 0 0 35px rgba(255,56,56,0.5);
+    animation: alkiExPulse 0.8s infinite alternate;
+  }
+  .alki-result-ex .alki-result-text { color: var(--p-danger); font-size: 2rem; }
+  .alki-result-ex .alki-result-icon { font-size: 3.5rem; }
+  @keyframes alkiExPulse {
+    from { box-shadow: 0 0 35px rgba(255,56,56,0.5); }
+    to   { box-shadow: 0 0 55px rgba(255,56,56,0.9); }
+  }
+
+  @media (max-width: 599px) {
+    .alki-popup-card { padding: 1.5rem 1.2rem; min-width: 260px; }
+    .alki-popup-name { font-size: 1.3rem; margin-bottom: 1rem; }
+    .alki-result { padding: 0.6rem 0.9rem; min-width: 90px; }
+    .alki-result-icon { font-size: 2.4rem; }
+    .alki-result-text { font-size: 1.2rem; }
+    .alki-result-ex .alki-result-text { font-size: 1.6rem; }
+    .alki-result-ex .alki-result-icon { font-size: 2.8rem; }
+  }
+
+  /* Rules content theming */
+  .app-alki .rules-content {
+    font-family: 'Outfit', sans-serif;
+    color: var(--p-cream);
+  }
+  .app-alki .rules-content h3 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 0.95rem;
+    letter-spacing: 0.25em;
+    color: var(--p-yellow);
+    text-shadow: 0 0 8px rgba(255,214,10,0.3);
+  }
+  .app-alki .rules-content strong { color: var(--p-pink-br); }
+  .app-alki .rules-content em { color: var(--p-cyan); font-style: italic; }
+
+  /* Mobile */
+  @media (max-width: 599px) {
+    .app-alki h1 { font-size: 2rem; padding-top: 30px; }
+    .app-alki .subtitle { font-size: 0.75rem; letter-spacing: 0.18em; }
+    .app-alki .alki-tray { width: 120px; height: 95px; }
+    .app-alki .alki-mode-display { min-width: 0; }
+    .app-alki .alki-modes { grid-template-columns: 1fr; }
+    .app-alki .alki-last-drunk { font-size: 0.7rem; }
+    .app-alki .alki-double { font-size: 0.65rem; padding: 0.4rem; }
+    .app-alki .winner-name { font-size: 2rem; }
+    .app-alki .alki-stat-row { font-size: 0.85rem; padding: 0.5rem 0.6rem; grid-template-columns: 1.3rem 1fr 1.9rem 1.9rem 1.9rem; gap: 0.4rem; }
+    .app-alki .alki-stat-cell { font-size: 0.95rem; }
+    .app-alki .player-name { font-size: 0.95rem; }
+    .app-alki button.action { font-size: 0.85rem; }
+  }
+
+  /* Desktop/Tablet: dashboard layout — fit without scroll */
+  @media (min-width: 900px) {
+    .app-alki { padding: 0.8rem 1.2rem 1.2rem; }
+
+    .app-alki h1 {
+      font-size: 2.2rem;
+      padding-top: 8px;
+      margin-bottom: 0;
+    }
+    .app-alki .subtitle { margin-bottom: 0.4rem; font-size: 0.75rem; }
+    .app-alki .header-actions { margin-bottom: 0.7rem; }
+    .app-alki .rules-btn { font-size: 0.78rem; padding: 0.35rem 0.9rem; }
+
+    /* Top dashboard row: setup + table + controls side by side */
+    .app-alki .container {
+      display: grid;
+      grid-template-columns: minmax(280px, 1fr) 1fr minmax(280px, 1fr);
+      grid-template-rows: auto auto auto 1fr;
+      grid-template-areas:
+        "header header header"
+        "subtitle subtitle subtitle"
+        "rulesbtn rulesbtn rulesbtn"
+        "setup table players"
+        "controls table players";
+      gap: 0.8rem 1.2rem;
+      max-width: 1400px;
+      align-items: start;
+    }
+
+    .app-alki .container > h1 { grid-area: header; }
+    .app-alki .container > .subtitle { grid-area: subtitle; }
+    .app-alki .container > .header-actions { grid-area: rulesbtn; }
+    .app-alki .container > .panel.setup-panel { grid-area: setup; margin-bottom: 0; }
+    .app-alki .container > .table-section { grid-area: table; margin: 0; gap: 0.8rem; }
+    .app-alki .container > .players-grid { grid-area: players; }
+    .app-alki .container > .game-controls { grid-area: controls; margin-top: 0; flex-direction: column; gap: 0.5rem; }
+
+    .app-alki .container > .game-controls button { width: 100%; }
+
+    /* Modals stay full-screen so leave them alone */
+    .app-alki .container > .modal-backdrop { grid-area: unset; position: fixed; }
+
+    /* Compact setup */
+    .app-alki .panel { padding: 1rem 1.1rem; }
+    .app-alki .setup-row { flex-direction: column; gap: 0.8rem; align-items: stretch; }
+    .app-alki .setup-group { width: 100%; align-items: stretch; }
+    .app-alki .alki-mode-display { min-width: 0; }
+    .app-alki .deck-display { padding: 0.45rem 0.7rem; min-height: 40px; }
+
+    /* Compact table card */
+    .app-alki .table-card-wrap { width: 140px; height: 200px; }
+    .app-alki .card-center { font-size: 3.5rem; }
+    .app-alki .corner-rank { font-size: 1.05rem; }
+    .app-alki .corner-suit { font-size: 0.85rem; }
+    .app-alki .table-name { font-size: 1.15rem; }
+    .app-alki button.draw-table { padding: 0.7rem 1.6rem; font-size: 0.85rem; }
+    .app-alki .table-label { font-size: 0.7rem; }
+
+    /* Compact players grid: 2 columns inside the players area */
+    .app-alki .players-grid {
+      grid-template-columns: 1fr 1fr;
+      gap: 0.7rem;
+    }
+    .app-alki .player { padding: 0.7rem 0.6rem; }
+    .app-alki .alki-tray { width: 130px; height: 100px; margin-bottom: 0.3rem; }
+    .app-alki .player-name { font-size: 0.95rem; }
+    .app-alki .name-edit-btn { width: 18px; height: 18px; }
+    .app-alki .name-edit-btn svg { width: 10px; height: 10px; }
+    .app-alki .player-status { font-size: 0.7rem; margin-bottom: 0.3rem; }
+    .app-alki .alki-last-drunk { font-size: 0.7rem; margin-bottom: 0.3rem; }
+    .app-alki button.action { font-size: 0.85rem; padding: 0.55rem 1rem; }
+    .app-alki .alki-double { font-size: 0.62rem; padding: 0.35rem; margin-top: 0.3rem; }
+  }
+
+  /* Wide desktop: 3-column players grid */
+  @media (min-width: 1200px) {
+    .app-alki .container {
+      grid-template-columns: 280px 1fr minmax(580px, 1.8fr);
+    }
+    .app-alki .players-grid {
+      grid-template-columns: 1fr 1fr 1fr;
+    }
+    .app-alki .table-card-wrap { width: 160px; height: 228px; }
+  }
 </style>
 </head>
 <body>
@@ -1579,6 +2579,10 @@
     <button class="menu-item" data-app="poker" onclick="switchApp('poker')">
       <span class="icon">🃏</span>
       <span>Poker Trainer</span>
+    </button>
+    <button class="menu-item" data-app="alki" onclick="switchApp('alki')">
+      <span class="icon">🥃</span>
+      <span>Alki Edition</span>
     </button>
   </div>
 </nav>
@@ -1758,6 +2762,14 @@
   </div>
 </div>
 
+<!-- Suspense modal -->
+<div class="suspense-modal" id="suspenseModal">
+  <div class="suspense-card">
+    <div class="suspense-name" id="suspenseName"></div>
+    <div class="suspense-content" id="suspenseContent"></div>
+  </div>
+</div>
+
 <!-- Winner overlay -->
 <div class="overlay" id="overlay">
   <div class="winner-box">
@@ -1835,6 +2847,283 @@
 </div>
 </div>
 
+<!-- ====================== ALKI EDITION ====================== -->
+<div class="app app-alki" id="appAlki">
+<div class="container">
+  <h1>ALKI EDITION</h1>
+  <p class="subtitle">— Lügen kostet einen Schluck —</p>
+  <div class="header-actions">
+    <button class="rules-btn" onclick="alki_openRules()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
+        <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+      </svg>
+      <span>REGELN</span>
+    </button>
+  </div>
+
+  <!-- Setup -->
+  <div class="panel setup-panel">
+    <div class="panel-title">SETUP</div>
+    <div class="setup-row">
+      <div class="setup-group">
+        <span class="prob-hint">Spieler (2–8)</span>
+        <div class="player-count">
+          <button class="count-btn" onclick="alki_changePlayers(-1)" id="alkiMinusBtn">−</button>
+          <span class="count-val" id="alkiPlayerCount">4</span>
+          <button class="count-btn" onclick="alki_changePlayers(1)" id="alkiPlusBtn">+</button>
+        </div>
+      </div>
+
+      <div class="setup-group">
+        <span class="prob-hint">Modus</span>
+        <div class="deck-display alki-mode-display">
+          <div class="active-cards">
+            <span id="alkiModeLabel" class="alki-mode-label">STANDARD</span>
+            <span id="alkiModeDetail" class="alki-mode-detail">4🥃 · 1🍷 · 1💀</span>
+          </div>
+          <button class="edit-btn" onclick="alki_openModeModal()" title="Modus ändern" aria-label="Modus ändern">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 20h9"/>
+              <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="setup-group">
+        <span class="prob-hint">Deck · <span id="alkiProbHint">P = 1/4 je Karte</span></span>
+        <div class="deck-display">
+          <div class="active-cards" id="alkiActiveCards"></div>
+          <button class="edit-btn" onclick="alki_openDeckModal()" title="Deck bearbeiten" aria-label="Deck bearbeiten">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 20h9"/>
+              <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mode modal -->
+  <div class="modal-backdrop" id="alkiModeModal" onclick="if(event.target===this) alki_closeModeModal()">
+    <div class="modal">
+      <div class="modal-title">Modus wählen</div>
+      <div class="modal-sub">— wie hart trifft's? —</div>
+
+      <div class="alki-modes">
+        <button class="alki-mode-pill" data-mode="mild" onclick="alki_selectMode('mild')">
+          <div class="alki-mode-pill-name">MILD</div>
+          <div class="alki-mode-pill-detail">5🥃 · 0🍷 · 1💀</div>
+          <div class="alki-mode-pill-hint">Gemütlich</div>
+        </button>
+        <button class="alki-mode-pill" data-mode="standard" onclick="alki_selectMode('standard')">
+          <div class="alki-mode-pill-name">STANDARD</div>
+          <div class="alki-mode-pill-detail">4🥃 · 1🍷 · 1💀</div>
+          <div class="alki-mode-pill-hint">Klassisch</div>
+        </button>
+        <button class="alki-mode-pill" data-mode="hardcore" onclick="alki_selectMode('hardcore')">
+          <div class="alki-mode-pill-name">HARDCORE</div>
+          <div class="alki-mode-pill-detail">2🥃 · 3🍷 · 1💀</div>
+          <div class="alki-mode-pill-hint">Brutal</div>
+        </button>
+        <button class="alki-mode-pill" data-mode="custom" onclick="alki_selectMode('custom')">
+          <div class="alki-mode-pill-name">CUSTOM</div>
+          <div class="alki-mode-pill-detail" id="alkiCustomDetail">4🥃 · 1🍷 · 1💀</div>
+          <div class="alki-mode-pill-hint">Eigener Mix</div>
+        </button>
+      </div>
+
+      <div class="alki-custom-area" id="alkiCustomArea">
+        <div class="alki-custom-row">
+          <span class="alki-custom-label">🥃 Schluck</span>
+          <div class="alki-stepper">
+            <button class="count-btn" onclick="alki_customAdjust('Schluck', -1)">−</button>
+            <span class="count-val" id="alkiCustomSchluck">4</span>
+            <button class="count-btn" onclick="alki_customAdjust('Schluck', 1)">+</button>
+          </div>
+        </div>
+        <div class="alki-custom-row">
+          <span class="alki-custom-label">🍷 Shot</span>
+          <div class="alki-stepper">
+            <button class="count-btn" onclick="alki_customAdjust('Shot', -1)">−</button>
+            <span class="count-val" id="alkiCustomShot">1</span>
+            <button class="count-btn" onclick="alki_customAdjust('Shot', 1)">+</button>
+          </div>
+        </div>
+        <div class="alki-custom-row">
+          <span class="alki-custom-label">💀 EX</span>
+          <div class="alki-stepper">
+            <button class="count-btn" onclick="alki_customAdjust('EX', -1)">−</button>
+            <span class="count-val" id="alkiCustomEx">1</span>
+            <button class="count-btn" onclick="alki_customAdjust('EX', 1)">+</button>
+          </div>
+        </div>
+        <div class="alki-custom-total" id="alkiCustomTotal">Summe: 6 / 6</div>
+      </div>
+
+      <div class="modal-actions-split" style="justify-content: flex-end">
+        <button class="icon-btn icon-confirm" onclick="alki_closeModeModal()" title="Fertig" aria-label="Fertig">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Deck modal -->
+  <div class="modal-backdrop" id="alkiDeckModal" onclick="if(event.target===this) alki_closeDeckModal()">
+    <div class="modal">
+      <div class="modal-title">Deck bearbeiten</div>
+      <div class="modal-sub">An/aus — die Tischkarte wird gleichverteilt gezogen</div>
+      <div class="card-toggles" id="alkiCardToggles"></div>
+      <div class="modal-actions-split" style="justify-content: flex-end">
+        <button class="icon-btn icon-confirm" onclick="alki_closeDeckModal()" title="Fertig" aria-label="Fertig">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Rename modal -->
+  <div class="modal-backdrop" id="alkiRenameModal" onclick="if(event.target===this) alki_closeRenameModal()">
+    <div class="modal">
+      <div class="modal-title">Spieler bearbeiten</div>
+      <div class="modal-sub" id="alkiRenameSub">—</div>
+      <input type="text" class="name-input" id="alkiRenameInput" maxlength="20" autocomplete="off">
+      <div class="modal-actions-split">
+        <button class="icon-btn icon-danger" id="alkiRemovePlayerBtn" title="Spieler entfernen" aria-label="Spieler entfernen">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="3 6 5 6 21 6"/>
+            <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/>
+            <path d="M10 11v6"/>
+            <path d="M14 11v6"/>
+            <path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/>
+          </svg>
+        </button>
+        <div style="flex: 1"></div>
+        <button class="icon-btn" onclick="alki_closeRenameModal()" title="Abbrechen" aria-label="Abbrechen">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"/>
+            <line x1="6" y1="6" x2="18" y2="18"/>
+          </svg>
+        </button>
+        <button class="icon-btn icon-confirm" onclick="alki_saveRename()" title="Speichern" aria-label="Speichern">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Rules modal -->
+  <div class="modal-backdrop" id="alkiRulesModal" onclick="if(event.target===this) alki_closeRules()">
+    <div class="modal modal-rules">
+      <div class="modal-title">Alki Edition — Regeln</div>
+      <div class="modal-sub">— prost, Lügner —</div>
+      <div class="rules-content">
+        <h3>Ziel</h3>
+        <p>Letzter nüchterner Spieler am Tisch sein. Wer sein Glas exen muss, scheidet aus.</p>
+
+        <h3>Trommel / Tablett</h3>
+        <p>Jeder Spieler hat ein "Tablett" mit 6 Gläsern in zufälliger Reihenfolge. Was drin ist, hängt vom Modus ab:</p>
+        <ul>
+          <li><strong>🥃 Schluck</strong> — anständiger Schluck vom aktuellen Drink</li>
+          <li><strong>🍷 Shot</strong> — Schnaps oder Pflicht-Strafe</li>
+          <li><strong>💀 EX</strong> — Glas exen, du bist <em>raus</em></li>
+        </ul>
+        <p>Wie im Original wird die Trommel <em>nicht</em> zwischen den Konsequenzen neu gemischt — was kommt, kommt.</p>
+
+        <h3>Spielzug</h3>
+        <p>Identisch zu Liar's Bar: Reihum legt jeder 1–3 Karten verdeckt und behauptet, es seien lauter Tischkarten ("zwei König"). Der nächste glaubt's und legt selbst, oder ruft <strong>"Lügner!"</strong>.</p>
+
+        <h3>Auflösung beim Bluff-Call</h3>
+        <ul>
+          <li>Waren <strong>alle</strong> Karten Tischkarten? → Caller hat sich blamiert, trinkt.</li>
+          <li>War <strong>mindestens eine</strong> keine Tischkarte? → Lügner trinkt.</li>
+        </ul>
+
+        <h3>Trinken</h3>
+        <p>Der Verlierer tippt seine <em>TRINKEN</em>-Taste. Das nächste Glas wird aufgedeckt: Schluck, Shot oder EX. Schluck oder Shot: Spiel geht weiter. EX: Glas leer trinken, ausgeschieden.</p>
+
+        <h3>Sieg</h3>
+        <p>Wer als einziger nicht EX'd ist, gewinnt. Bonus-Auswertung am Ende zeigt, wer wie viel kassiert hat.</p>
+
+        <h3>Hausregeln / Optional</h3>
+        <ul>
+          <li><strong>Doppelt oder nichts</strong> — der ×2-Button deckt zwei Gläser auf einmal auf. Mutig, dumm, oder beides.</li>
+          <li><strong>Falsch beschuldigt</strong> — wenn der Caller daneben lag, trinken <em>beide</em> einen Schluck (manuell, einfach beide einmal TRINKEN drücken).</li>
+        </ul>
+      </div>
+      <div class="modal-actions-split" style="justify-content: flex-end">
+        <button class="icon-btn icon-confirm" onclick="alki_closeRules()" title="Schließen" aria-label="Schließen">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Table card -->
+  <div class="table-section">
+    <span class="table-label">— DIE TISCHKARTE —</span>
+    <div class="table-card-wrap">
+      <div class="table-card" id="alkiTableCard">
+        <div class="card-face card-back">
+          <div class="back-pattern"></div>
+        </div>
+        <div class="card-face card-front" id="alkiTableFront">
+          <div class="card-corner">
+            <span class="corner-rank" id="alkiTrankTL"></span>
+            <span class="corner-suit" id="alkiTsuitTL"></span>
+          </div>
+          <div class="card-center" id="alkiTcenter"></div>
+          <div class="card-corner bottom">
+            <span class="corner-rank" id="alkiTrankBR"></span>
+            <span class="corner-suit" id="alkiTsuitBR"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="table-name" id="alkiTableName">— noch keine Karte —</div>
+    <button class="action draw-table" onclick="alki_drawTable()">TISCHKARTE ZIEHEN</button>
+  </div>
+
+  <!-- Players grid -->
+  <div class="players-grid" id="alkiPlayersGrid"></div>
+
+  <div class="game-controls">
+    <button class="ghost" onclick="alki_resetTrays()">Tabletts neu mischen</button>
+    <button class="ghost" onclick="alki_fullReset()">Komplett zurücksetzen</button>
+  </div>
+</div>
+
+<!-- Drink popup -->
+<div class="alki-popup" id="alkiPopup">
+  <div class="alki-popup-card">
+    <div class="alki-popup-name" id="alkiPopupName"></div>
+    <div class="alki-popup-content" id="alkiPopupContent"></div>
+  </div>
+</div>
+
+<!-- Winner overlay -->
+<div class="overlay" id="alkiOverlay">
+  <div class="winner-box">
+    <div class="winner-label">— LETZTER NÜCHTERNER —</div>
+    <div class="winner-name" id="alkiWinnerName"></div>
+    <div class="alki-stats-area" id="alkiStatsArea"></div>
+    <button class="action" onclick="alki_fullReset(); alki_closeOverlay()">NEUES SPIEL</button>
+  </div>
+</div>
+</div>
+
+
 <script>
   // ============ APP SWITCHER ============
   const APP_KEY = 'active-app-v1';
@@ -1847,10 +3136,11 @@
 
   function switchApp(name) {
     document.querySelectorAll('.app').forEach(a => a.classList.remove('visible'));
-    document.getElementById(name === 'poker' ? 'appPoker' : 'appLiarsbar').classList.add('visible');
+    const id = name === 'poker' ? 'appPoker' : (name === 'alki' ? 'appAlki' : 'appLiarsbar');
+    const el = document.getElementById(id);
+    if (el) el.classList.add('visible');
     document.querySelectorAll('.menu-item').forEach(b => b.classList.toggle('active', b.dataset.app === name));
     try { localStorage.setItem(APP_KEY, name); } catch (e) {}
-    // Close menu if open
     if (document.getElementById('menuDrawer').classList.contains('open')) {
       toggleMenu();
     }
@@ -1861,7 +3151,7 @@
     let active = 'liarsbar';
     try {
       const saved = localStorage.getItem(APP_KEY);
-      if (saved === 'poker' || saved === 'liarsbar') active = saved;
+      if (saved === 'poker' || saved === 'liarsbar' || saved === 'alki') active = saved;
     } catch (e) {}
     switchApp(active);
   })();
@@ -2195,24 +3485,55 @@ const CARDS = {
     if (e.key === 'Escape') closeRenameModal();
   });
 
+  let firing = false;
+
   function fire(idx) {
+    if (firing) return;
     const p = state.players[idx];
     if (!p.alive || p.shotsFired >= 6) return;
 
+    firing = true;
     const isBullet = p.shotsFired === p.bulletPos;
-    p.shotsFired++;
 
-    if (isBullet) {
-      p.alive = false;
-      renderPlayers();
-      const el = document.getElementById('player-' + idx);
-      if (el) el.classList.add('shake');
-      setTimeout(checkWinner, 900);
-    } else {
-      renderPlayers();
-      const el = document.getElementById('player-' + idx);
-      if (el) el.classList.add('click-flash');
-    }
+    // Show suspense modal
+    document.getElementById('suspenseName').textContent = p.name;
+    document.getElementById('suspenseContent').innerHTML = `
+      <div class="suspense-dots"><span></span><span></span><span></span></div>
+      <div class="suspense-sub">DRÜCK AB...</div>
+    `;
+    document.getElementById('suspenseModal').classList.add('active');
+
+    // After suspense, reveal
+    setTimeout(() => {
+      p.shotsFired++;
+      if (isBullet) {
+        p.alive = false;
+        document.getElementById('suspenseContent').innerHTML = `
+          <div class="suspense-result bang">💀 BANG</div>
+          <div class="suspense-sub">${p.name} ist raus</div>
+        `;
+        renderPlayers();
+        const el = document.getElementById('player-' + idx);
+        if (el) el.classList.add('shake');
+        setTimeout(() => {
+          document.getElementById('suspenseModal').classList.remove('active');
+          firing = false;
+          checkWinner();
+        }, 1600);
+      } else {
+        document.getElementById('suspenseContent').innerHTML = `
+          <div class="suspense-result click">✓ CLICK</div>
+          <div class="suspense-sub">noch dabei</div>
+        `;
+        renderPlayers();
+        const el = document.getElementById('player-' + idx);
+        if (el) el.classList.add('click-flash');
+        setTimeout(() => {
+          document.getElementById('suspenseModal').classList.remove('active');
+          firing = false;
+        }, 1200);
+      }
+    }, 1100);
   }
 
   function checkWinner() {
@@ -2815,6 +4136,696 @@ document.addEventListener('keydown', (e) => {
 // Start
 nextRound();
 })();
+
+
+  // ============ ALKI EDITION JS (IIFE-scoped) ============
+  (function() {
+    const CARDS = {
+      J: { rank: 'J', name: 'Bube',  suit: '♠', color: 'black' },
+      Q: { rank: 'Q', name: 'Dame',  suit: '♥', color: 'red'   },
+      K: { rank: 'K', name: 'König', suit: '♣', color: 'black' },
+      A: { rank: 'A', name: 'Ass',   suit: '♦', color: 'red'   },
+    };
+
+    const MODES = {
+      mild:     { Schluck: 5, Shot: 0, EX: 1 },
+      standard: { Schluck: 4, Shot: 1, EX: 1 },
+      hardcore: { Schluck: 2, Shot: 3, EX: 1 }
+    };
+    const MODE_NAMES = { mild: 'MILD', standard: 'STANDARD', hardcore: 'HARDCORE', custom: 'CUSTOM' };
+
+    const LS_KEY = 'alki-setup-v1';
+
+    const state = {
+      playerCount: 4,
+      enabledCards: { J: true, Q: true, K: true, A: true },
+      mode: 'standard',
+      customMix: { Schluck: 4, Shot: 1, EX: 1 },
+      players: [],
+      tableShown: false,
+      drawingTable: false,
+      renameTargetIdx: null,
+    };
+
+    function shuffle(arr) {
+      const a = arr.slice();
+      for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+      }
+      return a;
+    }
+
+    function getMix() {
+      return state.mode === 'custom' ? state.customMix : MODES[state.mode];
+    }
+
+    function generateGlasses() {
+      const mix = getMix();
+      const g = [];
+      for (let i = 0; i < mix.Schluck; i++) g.push('Schluck');
+      for (let i = 0; i < mix.Shot; i++) g.push('Shot');
+      for (let i = 0; i < mix.EX; i++) g.push('EX');
+      while (g.length < 6) g.push('Schluck');
+      return shuffle(g.slice(0, 6));
+    }
+
+    function makePlayer(i, name) {
+      return {
+        name: name || ('Spieler ' + (i + 1)),
+        glasses: generateGlasses(),
+        drunkCount: 0,
+        alive: true,
+        stats: { Schluck: 0, Shot: 0, EX: 0 },
+        lastDrunk: null,
+        eliminationOrder: null,
+      };
+    }
+
+    function initPlayers(savedNames) {
+      state.players = [];
+      for (let i = 0; i < state.playerCount; i++) {
+        state.players.push(makePlayer(i, savedNames && savedNames[i]));
+      }
+    }
+
+    function saveSetup() {
+      try {
+        localStorage.setItem(LS_KEY, JSON.stringify({
+          playerNames: state.players.map(p => p.name),
+          enabledCards: state.enabledCards,
+          mode: state.mode,
+          customMix: state.customMix,
+        }));
+      } catch (e) {}
+    }
+
+    function loadSetup() {
+      try {
+        const raw = localStorage.getItem(LS_KEY);
+        return raw ? JSON.parse(raw) : null;
+      } catch (e) { return null; }
+    }
+
+    // ---- UI updaters ----
+    function updatePlayerCountUI() {
+      document.getElementById('alkiPlayerCount').textContent = state.playerCount;
+      document.getElementById('alkiMinusBtn').disabled = state.playerCount <= 2;
+      document.getElementById('alkiPlusBtn').disabled = state.playerCount >= 8;
+    }
+
+    function updateModeDisplay() {
+      const mix = getMix();
+      document.getElementById('alkiModeLabel').textContent = MODE_NAMES[state.mode];
+      document.getElementById('alkiModeDetail').textContent =
+        `${mix.Schluck}🥃 · ${mix.Shot}🍷 · ${mix.EX}💀`;
+    }
+
+    function updateCustomDetail() {
+      document.getElementById('alkiCustomDetail').textContent =
+        `${state.customMix.Schluck}🥃 · ${state.customMix.Shot}🍷 · ${state.customMix.EX}💀`;
+    }
+
+    function updateProbHint() {
+      const n = Object.values(state.enabledCards).filter(Boolean).length;
+      document.getElementById('alkiProbHint').textContent = `P = 1/${n} je Karte`;
+    }
+
+    function renderActiveCards() {
+      const wrap = document.getElementById('alkiActiveCards');
+      wrap.innerHTML = '';
+      Object.entries(CARDS).forEach(([key, card]) => {
+        if (!state.enabledCards[key]) return;
+        const span = document.createElement('span');
+        span.className = 'active-card';
+        const suitClass = card.color === 'red' ? 'suit-red' : '';
+        span.innerHTML = `<span class="suit ${suitClass}">${card.suit}</span><span class="rank">${card.rank}</span>`;
+        wrap.appendChild(span);
+      });
+    }
+
+    function renderCardToggles() {
+      const wrap = document.getElementById('alkiCardToggles');
+      wrap.innerHTML = '';
+      Object.entries(CARDS).forEach(([key, card]) => {
+        const enabled = state.enabledCards[key];
+        const label = document.createElement('label');
+        label.className = 'card-toggle' + (enabled ? ' active' : '');
+        const suitClass = card.color === 'red' ? 'suit-red' : '';
+        label.innerHTML = `
+          <input type="checkbox" ${enabled ? 'checked' : ''} data-key="${key}">
+          <span class="toggle-suit ${suitClass}">${card.suit}</span>
+          <span class="toggle-rank">${card.rank}</span>
+          <span>${card.name}</span>
+        `;
+        label.querySelector('input').addEventListener('change', (e) => {
+          const k = e.target.dataset.key;
+          const newVal = e.target.checked;
+          const count = Object.values(state.enabledCards).filter(Boolean).length;
+          if (!newVal && count <= 1) { e.target.checked = true; return; }
+          state.enabledCards[k] = newVal;
+          renderCardToggles();
+          renderActiveCards();
+          updateProbHint();
+          saveSetup();
+        });
+        wrap.appendChild(label);
+      });
+    }
+
+    // ---- Glass tray SVG ----
+    function glassSVG(cx, cy, content, drunk, justDrank) {
+      const w = 18, h = 26;
+      const x = cx - w/2, y = cy - h/2;
+      const cls = justDrank ? 'alki-glass revealed-now' : 'alki-glass';
+      if (!drunk) {
+        // Mystery glass — pink outline, dark fill, cyan "?"
+        return `<g class="${cls}">
+          <rect x="${x}" y="${y}" width="${w}" height="${h}" rx="3"
+                fill="#1f0e3d" stroke="#ff3e88" stroke-width="1.6"/>
+          <line x1="${x+2.5}" y1="${y+4}" x2="${x+w-2.5}" y2="${y+4}"
+                stroke="#ff6bb5" stroke-width="0.8" opacity="0.6"/>
+          <text x="${cx}" y="${cy + 5}" font-size="13" fill="#00e5ff"
+                text-anchor="middle" font-weight="900" font-family="'Bebas Neue', sans-serif"
+                style="filter: drop-shadow(0 0 4px rgba(0,229,255,0.7));">?</text>
+        </g>`;
+      }
+      if (content === 'Schluck') {
+        // Soft cyan tinted, faded
+        return `<g class="${cls}">
+          <rect x="${x}" y="${y}" width="${w}" height="${h}" rx="3"
+                fill="rgba(0,229,255,0.12)" stroke="#00e5ff" stroke-width="1.1" opacity="0.55"/>
+          <circle cx="${cx}" cy="${cy + 3}" r="2" fill="#00e5ff" opacity="0.7"/>
+        </g>`;
+      }
+      if (content === 'Shot') {
+        // Bright yellow with glow
+        return `<g class="${cls}">
+          <rect x="${x}" y="${y}" width="${w}" height="${h}" rx="3"
+                fill="rgba(255,214,10,0.35)" stroke="#ffd60a" stroke-width="1.6"
+                style="filter: drop-shadow(0 0 6px rgba(255,214,10,0.5));"/>
+          <text x="${cx}" y="${cy + 5}" font-size="13" fill="#ffd60a"
+                text-anchor="middle" font-weight="900" font-family="'Bebas Neue', sans-serif">★</text>
+        </g>`;
+      }
+      // EX — dramatic red with skull X
+      return `<g class="${cls}">
+        <rect x="${x}" y="${y}" width="${w}" height="${h}" rx="3"
+              fill="rgba(255,56,56,0.5)" stroke="#ff3838" stroke-width="1.8"
+              style="filter: drop-shadow(0 0 8px rgba(255,56,56,0.6));"/>
+        <line x1="${x+4}" y1="${y+6}" x2="${x+w-4}" y2="${y+h-5}" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/>
+        <line x1="${x+w-4}" y1="${y+6}" x2="${x+4}" y2="${y+h-5}" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/>
+      </g>`;
+    }
+
+    function traySVG(player) {
+      const positions = [
+        [30, 35], [80, 35], [130, 35],
+        [30, 88], [80, 88], [130, 88],
+      ];
+      let glasses = '';
+      for (let i = 0; i < 6; i++) {
+        const [cx, cy] = positions[i];
+        glasses += glassSVG(cx, cy, player.glasses[i],
+                             i < player.drunkCount,
+                             i === player.drunkCount - 1);
+      }
+      return `<svg class="alki-tray" viewBox="0 0 160 125">
+        <defs>
+          <linearGradient id="trayGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#261347"/>
+            <stop offset="100%" stop-color="#150826"/>
+          </linearGradient>
+        </defs>
+        <rect x="3" y="3" width="154" height="119" rx="8" fill="url(#trayGrad)" stroke="#b558ff" stroke-width="1.2" opacity="0.85"/>
+        <rect x="6" y="6" width="148" height="113" rx="6" fill="none" stroke="#ff3e88" stroke-width="0.7" opacity="0.5"/>
+        ${glasses}
+      </svg>`;
+    }
+
+    // ---- Players render ----
+    function renderPlayers() {
+      const grid = document.getElementById('alkiPlayersGrid');
+      grid.innerHTML = '';
+      state.players.forEach((p, i) => {
+        const div = document.createElement('div');
+        div.className = 'player' + (p.alive ? '' : ' dead');
+        div.id = 'alkiPlayer-' + i;
+
+        const remaining = 6 - p.drunkCount;
+        let status, statusClass = '';
+        if (!p.alive) {
+          status = '✟ EX\'D ✟';
+          statusClass = 'dead';
+        } else if (remaining === 0) {
+          status = '— Tablett leer —';
+        } else {
+          status = `${remaining} Glas${remaining === 1 ? '' : 'er'} übrig`;
+        }
+
+        let lastDrunkText = '\u00a0';
+        let lastDrunkClass = '';
+        if (p.lastDrunk) {
+          const labels = { Schluck: '🥃 Schluck', Shot: '🍷 Shot', EX: '💀 EX' };
+          lastDrunkText = 'zuletzt: ' + labels[p.lastDrunk];
+          lastDrunkClass = p.lastDrunk === 'EX' ? 'ex' : 'recent';
+        }
+
+        const escapedName = p.name.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+
+        div.innerHTML = `
+          <div class="player-name-row">
+            <span class="player-name">${escapedName}</span>
+            <button class="name-edit-btn" data-action="rename" data-idx="${i}" aria-label="Spieler bearbeiten" title="Spieler bearbeiten">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 20h9"/>
+                <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>
+              </svg>
+            </button>
+          </div>
+          ${traySVG(p)}
+          <div class="player-status ${statusClass}">${status}</div>
+          <div class="alki-last-drunk ${lastDrunkClass}">${lastDrunkText}</div>
+          <button class="action ${p.alive && remaining > 0 ? 'danger' : ''}" data-action="drink" data-idx="${i}" ${p.alive && remaining > 0 ? '' : 'disabled'}>
+            ${p.alive && remaining > 0 ? '🍻 TRINKEN' : '—'}
+          </button>
+          <button class="alki-double" data-action="drink-double" data-idx="${i}" ${p.alive && remaining >= 2 ? '' : 'disabled'}>🎲 ALL IN ×2</button>
+        `;
+        grid.appendChild(div);
+      });
+    }
+
+    // ---- Drink action ----
+    let drinking = false;
+
+    function drink(idx, count) {
+      if (drinking) return;
+      const p = state.players[idx];
+      if (!p.alive || p.drunkCount >= 6) return;
+
+      drinking = true;
+
+      // Pre-compute which glasses will actually be drunk
+      const willDrink = [];
+      let cursor = p.drunkCount;
+      for (let i = 0; i < count; i++) {
+        if (cursor >= 6) break;
+        const w = p.glasses[cursor];
+        willDrink.push(w);
+        cursor++;
+        if (w === 'EX') break; // stop on EX
+      }
+
+      // Show popup with suspense
+      const popup = document.getElementById('alkiPopup');
+      document.getElementById('alkiPopupName').textContent = p.name + (count > 1 ? ' · ALL IN ×2' : '');
+      document.getElementById('alkiPopupContent').innerHTML = `
+        <div class="alki-popup-dots"><span></span><span></span><span></span></div>
+        <div class="alki-popup-sub">🎰 spinnen...</div>
+      `;
+      popup.classList.add('active');
+
+      const LABELS = {
+        Schluck: { icon: '🥃', text: 'SCHLUCK', sub: 'ein Schluck' },
+        Shot:    { icon: '🍷', text: 'SHOT',    sub: 'Schnaps runter!' },
+        EX:      { icon: '💀', text: 'EX',      sub: 'GLAS LEER — RAUS' },
+      };
+
+      // After suspense, reveal one by one
+      const SUSPENSE_MS = 1100;
+      const REVEAL_GAP = 800;
+
+      let revealedHTML = '<div class="alki-popup-results">';
+
+      function revealStep(i) {
+        if (i >= willDrink.length) {
+          // All revealed — apply state changes and dismiss
+          applyDrinkResult(idx, willDrink);
+          const hasEX = willDrink.includes('EX');
+          setTimeout(() => {
+            popup.classList.remove('active');
+            drinking = false;
+            if (hasEX) {
+              const el = document.getElementById('alkiPlayer-' + idx);
+              if (el) el.classList.add('shake');
+              setTimeout(checkWinner, 400);
+            }
+          }, hasEX ? 2200 : 1500);
+          return;
+        }
+
+        const w = willDrink[i];
+        const l = LABELS[w];
+        // Build HTML: prior reveals static, current is "new"
+        let html = '<div class="alki-popup-results">';
+        for (let j = 0; j <= i; j++) {
+          const ww = willDrink[j];
+          const ll = LABELS[ww];
+          const isNew = (j === i);
+          html += `<div class="alki-result alki-result-${ww.toLowerCase()} ${isNew ? 'alki-result-new' : ''}">
+            <div class="alki-result-icon">${ll.icon}</div>
+            <div class="alki-result-text">${ll.text}</div>
+          </div>`;
+        }
+        html += '</div>';
+        // Sub text under the results
+        html += `<div class="alki-popup-sub">${l.sub}</div>`;
+
+        document.getElementById('alkiPopupContent').innerHTML = html;
+        setTimeout(() => revealStep(i + 1), w === 'EX' ? 1400 : REVEAL_GAP);
+      }
+
+      setTimeout(() => revealStep(0), SUSPENSE_MS);
+    }
+
+    function applyDrinkResult(idx, drinks) {
+      const p = state.players[idx];
+      drinks.forEach(what => {
+        p.stats[what]++;
+        p.drunkCount++;
+        if (what === 'EX') {
+          p.alive = false;
+          p.eliminationOrder = state.players.filter(x => !x.alive).length;
+        }
+      });
+      p.lastDrunk = drinks[drinks.length - 1];
+      renderPlayers();
+    }
+
+    function checkWinner() {
+      const alive = state.players.filter(p => p.alive);
+      if (alive.length === 1) showWinner(alive[0]);
+      else if (alive.length === 0) showWinner(null);
+    }
+
+    function showWinner(winner) {
+      document.getElementById('alkiWinnerName').textContent = winner ? winner.name : 'Alle EX\'d!';
+
+      const sorted = [...state.players].sort((a, b) => {
+        if (a.alive && !b.alive) return -1;
+        if (!a.alive && b.alive) return 1;
+        if (!a.alive && !b.alive) return (b.eliminationOrder || 0) - (a.eliminationOrder || 0);
+        return 0;
+      });
+
+      const header = `
+        <div class="alki-stat-row alki-stat-header">
+          <div></div>
+          <div>SPIELER</div>
+          <div class="alki-stat-cell">🥃</div>
+          <div class="alki-stat-cell">🍷</div>
+          <div class="alki-stat-cell">💀</div>
+        </div>
+      `;
+      const rows = sorted.map((p, i) => `
+        <div class="alki-stat-row">
+          <span class="alki-stat-rank">${i + 1}</span>
+          <span class="alki-stat-name ${p.alive ? 'winner' : ''}">${p.name}${p.alive ? ' 👑' : ''}</span>
+          <span class="alki-stat-cell">${p.stats.Schluck}</span>
+          <span class="alki-stat-cell">${p.stats.Shot}</span>
+          <span class="alki-stat-cell">${p.stats.EX}</span>
+        </div>
+      `).join('');
+
+      document.getElementById('alkiStatsArea').innerHTML = header + rows;
+      document.getElementById('alkiOverlay').classList.add('active');
+    }
+
+    function closeOverlay() {
+      document.getElementById('alkiOverlay').classList.remove('active');
+    }
+
+    // ---- Player count ----
+    function changePlayers(delta) {
+      const newCount = state.playerCount + delta;
+      if (newCount < 2 || newCount > 8) return;
+      if (delta > 0) {
+        for (let i = state.playerCount; i < newCount; i++) state.players.push(makePlayer(i));
+      } else {
+        state.players = state.players.slice(0, newCount);
+      }
+      state.playerCount = newCount;
+      updatePlayerCountUI();
+      renderPlayers();
+      saveSetup();
+    }
+
+    function removePlayer(idx) {
+      if (state.playerCount <= 2) return;
+      state.players.splice(idx, 1);
+      state.playerCount = state.players.length;
+      updatePlayerCountUI();
+      closeRenameModal();
+      renderPlayers();
+      saveSetup();
+      setTimeout(checkWinner, 50);
+    }
+
+    // ---- Mode ----
+    function openModeModal() {
+      updateModeModalState();
+      document.getElementById('alkiModeModal').classList.add('active');
+    }
+
+    function closeModeModal() {
+      document.getElementById('alkiModeModal').classList.remove('active');
+      saveSetup();
+    }
+
+    function updateModeModalState() {
+      document.querySelectorAll('#alkiModeModal .alki-mode-pill').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.mode === state.mode);
+      });
+      document.getElementById('alkiCustomArea').classList.toggle('visible', state.mode === 'custom');
+      document.getElementById('alkiCustomSchluck').textContent = state.customMix.Schluck;
+      document.getElementById('alkiCustomShot').textContent = state.customMix.Shot;
+      document.getElementById('alkiCustomEx').textContent = state.customMix.EX;
+      updateCustomTotal();
+      updateCustomDetail();
+    }
+
+    function selectMode(mode) {
+      if (mode === 'custom' && (state.customMix.Schluck + state.customMix.Shot + state.customMix.EX !== 6)) {
+        // Force a valid 6-sum if needed
+        state.customMix = { Schluck: 4, Shot: 1, EX: 1 };
+      }
+      state.mode = mode;
+      updateModeModalState();
+      updateModeDisplay();
+      saveSetup();
+    }
+
+    function customAdjust(type, delta) {
+      const mix = state.customMix;
+      const newVal = mix[type] + delta;
+      if (newVal < 0) return;
+      const otherSum = (mix.Schluck + mix.Shot + mix.EX) - mix[type];
+      if (otherSum + newVal > 6) return;
+      mix[type] = newVal;
+      document.getElementById('alkiCustomSchluck').textContent = mix.Schluck;
+      document.getElementById('alkiCustomShot').textContent = mix.Shot;
+      document.getElementById('alkiCustomEx').textContent = mix.EX;
+      updateCustomTotal();
+      if (state.mode === 'custom') {
+        updateModeDisplay();
+      }
+      updateCustomDetail();
+      saveSetup();
+    }
+
+    function updateCustomTotal() {
+      const sum = state.customMix.Schluck + state.customMix.Shot + state.customMix.EX;
+      const el = document.getElementById('alkiCustomTotal');
+      el.textContent = `Summe: ${sum} / 6`;
+      el.classList.toggle('invalid', sum !== 6);
+    }
+
+    // ---- Deck modal ----
+    function openDeckModal() {
+      document.getElementById('alkiDeckModal').classList.add('active');
+    }
+    function closeDeckModal() {
+      document.getElementById('alkiDeckModal').classList.remove('active');
+    }
+
+    // ---- Rename modal ----
+    function openRenameModal(idx) {
+      state.renameTargetIdx = idx;
+      const p = state.players[idx];
+      document.getElementById('alkiRenameSub').textContent = p.name;
+      const input = document.getElementById('alkiRenameInput');
+      input.value = p.name;
+      const removeBtn = document.getElementById('alkiRemovePlayerBtn');
+      removeBtn.disabled = state.playerCount <= 2;
+      removeBtn.classList.remove('confirming');
+      removeBtn.onclick = confirmRemovePlayer;
+      document.getElementById('alkiRenameModal').classList.add('active');
+      setTimeout(() => { input.focus(); input.select(); }, 50);
+    }
+
+    function closeRenameModal() {
+      document.getElementById('alkiRenameModal').classList.remove('active');
+      const removeBtn = document.getElementById('alkiRemovePlayerBtn');
+      removeBtn.classList.remove('confirming');
+      removeBtn.onclick = confirmRemovePlayer;
+      state.renameTargetIdx = null;
+    }
+
+    function saveRename() {
+      if (state.renameTargetIdx === null) return;
+      const input = document.getElementById('alkiRenameInput');
+      state.players[state.renameTargetIdx].name = input.value.trim() || `Spieler ${state.renameTargetIdx + 1}`;
+      closeRenameModal();
+      renderPlayers();
+      saveSetup();
+    }
+
+    function confirmRemovePlayer() {
+      const btn = document.getElementById('alkiRemovePlayerBtn');
+      btn.classList.add('confirming');
+      btn.onclick = () => {
+        if (state.renameTargetIdx !== null) removePlayer(state.renameTargetIdx);
+      };
+      setTimeout(() => {
+        if (btn.classList.contains('confirming') && document.getElementById('alkiRenameModal').classList.contains('active')) {
+          btn.classList.remove('confirming');
+          btn.onclick = confirmRemovePlayer;
+        }
+      }, 3000);
+    }
+
+    // ---- Rules ----
+    function openRules() {
+      document.getElementById('alkiRulesModal').classList.add('active');
+    }
+    function closeRules() {
+      document.getElementById('alkiRulesModal').classList.remove('active');
+    }
+
+    // ---- Table card ----
+    function drawTable() {
+      if (state.drawingTable) return;
+      const enabled = Object.entries(state.enabledCards).filter(([k,v]) => v).map(([k]) => k);
+      if (enabled.length === 0) return;
+      const key = enabled[Math.floor(Math.random() * enabled.length)];
+      const card = CARDS[key];
+      const tc = document.getElementById('alkiTableCard');
+
+      const applyFront = () => {
+        const front = document.getElementById('alkiTableFront');
+        front.className = 'card-face card-front ' + card.color + '-card';
+        document.getElementById('alkiTrankTL').textContent = card.rank;
+        document.getElementById('alkiTsuitTL').textContent = card.suit;
+        document.getElementById('alkiTrankBR').textContent = card.rank;
+        document.getElementById('alkiTsuitBR').textContent = card.suit;
+        document.getElementById('alkiTcenter').textContent = card.suit;
+      };
+
+      if (state.tableShown) {
+        state.drawingTable = true;
+        tc.classList.remove('flipped');
+        document.getElementById('alkiTableName').textContent = '...';
+        setTimeout(() => {
+          applyFront();
+          void tc.offsetWidth;
+          tc.classList.add('flipped');
+          document.getElementById('alkiTableName').textContent = card.name + ' ' + card.suit;
+          state.drawingTable = false;
+        }, 650);
+      } else {
+        applyFront();
+        tc.classList.add('flipped');
+        document.getElementById('alkiTableName').textContent = card.name + ' ' + card.suit;
+        state.tableShown = true;
+      }
+    }
+
+    // ---- Resets ----
+    function resetTrays() {
+      state.players.forEach(p => {
+        p.glasses = generateGlasses();
+        p.drunkCount = 0;
+        p.alive = true;
+        p.stats = { Schluck: 0, Shot: 0, EX: 0 };
+        p.lastDrunk = null;
+        p.eliminationOrder = null;
+      });
+      renderPlayers();
+    }
+
+    function fullReset() {
+      const names = state.players.map(p => p.name);
+      initPlayers(names);
+      state.tableShown = false;
+      document.getElementById('alkiTableCard').classList.remove('flipped');
+      document.getElementById('alkiTableName').textContent = '— noch keine Karte —';
+      renderPlayers();
+      closeOverlay();
+    }
+
+    // ---- Event delegation for dynamic content ----
+    function setupListeners() {
+      const root = document.getElementById('appAlki');
+      root.addEventListener('click', (e) => {
+        const t = e.target.closest('[data-action]');
+        if (!t) return;
+        const action = t.dataset.action;
+        const idx = parseInt(t.dataset.idx);
+        if (action === 'drink') drink(idx, 1);
+        else if (action === 'drink-double') drink(idx, 2);
+        else if (action === 'rename') openRenameModal(idx);
+      });
+      document.getElementById('alkiRenameInput').addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') saveRename();
+        if (e.key === 'Escape') closeRenameModal();
+      });
+    }
+
+    // ---- Expose handlers used by inline onclick ----
+    window.alki_changePlayers = changePlayers;
+    window.alki_openModeModal = openModeModal;
+    window.alki_closeModeModal = closeModeModal;
+    window.alki_selectMode = selectMode;
+    window.alki_customAdjust = customAdjust;
+    window.alki_openDeckModal = openDeckModal;
+    window.alki_closeDeckModal = closeDeckModal;
+    window.alki_openRules = openRules;
+    window.alki_closeRules = closeRules;
+    window.alki_drawTable = drawTable;
+    window.alki_resetTrays = resetTrays;
+    window.alki_fullReset = fullReset;
+    window.alki_closeOverlay = closeOverlay;
+    window.alki_saveRename = saveRename;
+    window.alki_closeRenameModal = closeRenameModal;
+
+    // ---- Init ----
+    const saved = loadSetup();
+    if (saved) {
+      if (saved.enabledCards) {
+        Object.keys(state.enabledCards).forEach(k => {
+          if (typeof saved.enabledCards[k] === 'boolean') state.enabledCards[k] = saved.enabledCards[k];
+        });
+      }
+      if (saved.mode && (MODES[saved.mode] || saved.mode === 'custom')) state.mode = saved.mode;
+      if (saved.customMix && (saved.customMix.Schluck + saved.customMix.Shot + saved.customMix.EX) === 6) {
+        state.customMix = saved.customMix;
+      }
+      if (Array.isArray(saved.playerNames) && saved.playerNames.length >= 2 && saved.playerNames.length <= 8) {
+        state.playerCount = saved.playerNames.length;
+      }
+      initPlayers(saved.playerNames);
+    } else {
+      initPlayers();
+    }
+    updatePlayerCountUI();
+    updateModeDisplay();
+    renderCardToggles();
+    renderActiveCards();
+    updateProbHint();
+    renderPlayers();
+    setupListeners();
+  })();
+
 </script>
 
 </body>
