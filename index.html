@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Game Hub</title>
+<link rel="icon" id="favicon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ctext%20y%3D%22.9em%22%20font-size%3D%2290%22%3E%F0%9F%8E%B0%3C%2Ftext%3E%3C%2Fsvg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Special+Elite&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Outfit:wght@300;400;500;600;700;800;900&family=Bebas+Neue&family=Righteous&display=swap" rel="stylesheet">
@@ -3128,6 +3129,26 @@
   // ============ APP SWITCHER ============
   const APP_KEY = 'active-app-v1';
 
+  const APP_META = {
+    liarsbar: { title: "Liar's Bar",     emoji: '🎰' },
+    poker:    { title: 'Poker Trainer',  emoji: '🃏' },
+    alki:     { title: 'Alki Edition',   emoji: '🥃' },
+  };
+
+  function setFavicon(emoji) {
+    const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text y=".9em" font-size="90">${emoji}</text></svg>`;
+    const dataUri = 'data:image/svg+xml,' + encodeURIComponent(svg);
+    let link = document.getElementById('favicon');
+    if (!link) {
+      link = document.createElement('link');
+      link.id = 'favicon';
+      link.rel = 'icon';
+      link.type = 'image/svg+xml';
+      document.head.appendChild(link);
+    }
+    link.href = dataUri;
+  }
+
   function toggleMenu() {
     document.getElementById('burger').classList.toggle('open');
     document.getElementById('menuDrawer').classList.toggle('open');
@@ -3141,6 +3162,14 @@
     if (el) el.classList.add('visible');
     document.querySelectorAll('.menu-item').forEach(b => b.classList.toggle('active', b.dataset.app === name));
     try { localStorage.setItem(APP_KEY, name); } catch (e) {}
+
+    // Update tab title and favicon
+    const meta = APP_META[name];
+    if (meta) {
+      document.title = meta.title;
+      setFavicon(meta.emoji);
+    }
+
     if (document.getElementById('menuDrawer').classList.contains('open')) {
       toggleMenu();
     }
