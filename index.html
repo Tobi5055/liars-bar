@@ -596,6 +596,8 @@
     align-items: center;
     line-height: 1;
     gap: 2px;
+    align-self: flex-start;
+    width: fit-content;
   }
 
   .card-corner.bottom { transform: rotate(180deg); align-self: flex-end; }
@@ -1902,9 +1904,12 @@
 
   /* Custom mode */
   .app-alki .alki-custom-area {
+    display: none;
     background: rgba(10,4,24,0.5);
     border: 1px solid rgba(181,88,255,0.3);
     border-radius: 8px;
+    padding: 0.9rem 1rem;
+    margin-bottom: 1.3rem;
   }
   .app-alki .alki-custom-area.visible { display: block; }
   .app-alki .alki-custom-label {
