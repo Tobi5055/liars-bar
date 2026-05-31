@@ -10280,14 +10280,11 @@ nextRound();
           }
         }
 
-        // If I'm host, process pending action (with dedup)
+        // If I'm host, process pending action
+        // (Dedup happens inside processPendingAction via stale-check, not via ts)
         if (amHost && state.pendingAction && state.started) {
-          const ts = state.pendingAction.ts || 0;
-          if (ts > lastProcessedActionTs) {
-            lastProcessedActionTs = ts;
-            processPendingAction(state.pendingAction);
-            return;  // processPendingAction will broadcast which triggers another onValue
-          }
+          processPendingAction(state.pendingAction);
+          return;  // processPendingAction broadcasts; listener will refire
         }
 
         // If host & showdown, schedule next hand
@@ -10682,7 +10679,9 @@ nextRound();
         });
       }
       state = newState;
+      // Broadcast first (fire-and-forget async write), then render
       broadcast(newState);
+      try { renderAll(); } catch (e) { console.error('[POKER] renderAll error after action:', e); }
     }
 
     function advancePhase(newPlayers, newPot, lastActionData, actionLabel) {
@@ -11046,24 +11045,19 @@ nextRound();
         const isHost = id === state.host;
         const dealerId = state.seatOrder[state.dealerIdx];
         const isDealer = id === dealerId && state.started;
-        // Determine SB/BB for this hand
-        let isSB = false, isBB = false;
-        if (state.started && state.seatOrder.length > 0) {
-          const activeOrder = [];
-          for (let i = 0; i < state.seatOrder.length; i++) {
-            const idx = (state.dealerIdx + i) % state.seatOrder.length;
-            const pid = state.seatOrder[idx];
-            const pp = state.players[pid];
-            // For SB/BB tagging only consider players who actually played this hand (started with chips)
-            if (pp && (pp.cards && pp.cards.length > 0 || !pp.folded)) activeOrder.push(idx);
-          }
-          // (Simplified — show indicators by initial seating, not perfect for sitting-out players)
+        // Determine SB/BB positions correctly
+        // In heads-up (2 players): dealer = SB, other = BB
+        // In 3+ players: SB = dealer+1, BB = dealer+2
+        let sbId, bbId;
+        if (state.seatOrder.length === 2) {
+          sbId = state.seatOrder[state.dealerIdx];
+          bbId = state.seatOrder[(state.dealerIdx + 1) % state.seatOrder.length];
+        } else if (state.seatOrder.length > 2) {
+          sbId = state.seatOrder[(state.dealerIdx + 1) % state.seatOrder.length];
+          bbId = state.seatOrder[(state.dealerIdx + 2) % state.seatOrder.length];
         }
-        // Simpler: SB = dealerIdx+1, BB = dealerIdx+2 (mod active)
-        const sbId = state.seatOrder[(state.dealerIdx + 1) % state.seatOrder.length];
-        const bbId = state.seatOrder[(state.dealerIdx + 2) % state.seatOrder.length];
-        isSB = id === sbId && state.started;
-        isBB = id === bbId && state.started;
+        const isSB = id === sbId && state.started;
+        const isBB = id === bbId && state.started;
 
         let statusClass = '';
         let cls = 'pm-other-player';
