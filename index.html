@@ -474,6 +474,865 @@
     margin: 12px 24px;
   }
 
+  .menu-section-label {
+    font-family: 'Cinzel', 'Bebas Neue', sans-serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    color: rgba(184,134,42,0.55);
+    padding: 6px 24px 4px 24px;
+    text-transform: uppercase;
+  }
+
+  /* ====================== MULTI-APP (Mobile-first) ====================== */
+  .app-multi {
+    background: linear-gradient(180deg, #0a1018 0%, #050810 100%);
+    color: #d8e0f0;
+    min-height: 100vh;
+    padding: 0;
+  }
+
+  /* Lobby screen */
+  .multi-lobby {
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 2.5rem 1.2rem 4rem;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+  }
+
+  .multi-lobby-title {
+    font-family: 'Cinzel', 'Bebas Neue', sans-serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    color: #f0e4c8;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .multi-lobby-emoji { font-size: 2rem; }
+
+  .multi-tag {
+    background: linear-gradient(135deg, #5fa9ff, #2563eb);
+    color: white;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 0.7rem;
+    padding: 0.2rem 0.55rem;
+    border-radius: 6px;
+    letter-spacing: 0.2em;
+    box-shadow: 0 2px 10px rgba(95,169,255,0.4);
+  }
+
+  .multi-lobby-sub {
+    text-align: center;
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.85rem;
+    color: rgba(216,224,240,0.55);
+    letter-spacing: 0.05em;
+    margin-bottom: 0.5rem;
+  }
+
+  .multi-lobby-section {
+    background: rgba(20,28,42,0.6);
+    border: 1px solid rgba(95,169,255,0.18);
+    border-radius: 10px;
+    padding: 1rem;
+  }
+
+  .multi-lobby-label {
+    display: block;
+    font-family: 'Cinzel', 'Bebas Neue', sans-serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.25em;
+    color: rgba(95,169,255,0.85);
+    margin-bottom: 0.6rem;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+
+  .multi-lobby-row {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .multi-lobby-hint {
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.72rem;
+    color: rgba(216,224,240,0.45);
+    margin-top: 0.5rem;
+    line-height: 1.4;
+  }
+
+  .multi-input {
+    flex: 1;
+    background: rgba(0,0,0,0.4);
+    border: 1.5px solid rgba(95,169,255,0.35);
+    color: white;
+    padding: 0.7rem 0.9rem;
+    border-radius: 6px;
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.95rem;
+    outline: none;
+    box-sizing: border-box;
+    width: 100%;
+  }
+  .multi-input:focus {
+    border-color: #5fa9ff;
+    box-shadow: 0 0 0 3px rgba(95,169,255,0.15);
+  }
+
+  .multi-code-in {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.3rem;
+    letter-spacing: 0.3em;
+    text-align: center;
+    text-transform: uppercase;
+    color: #5fa9ff;
+  }
+
+  .multi-action-btn {
+    background: linear-gradient(135deg, #2563eb, #5fa9ff);
+    color: white;
+    border: none;
+    padding: 0.7rem 1.2rem;
+    border-radius: 6px;
+    font-family: 'Cinzel', 'Outfit', sans-serif;
+    font-size: 0.85rem;
+    letter-spacing: 0.18em;
+    cursor: pointer;
+    font-weight: 600;
+    box-shadow: 0 4px 14px rgba(95,169,255,0.3);
+    transition: transform 0.15s;
+    white-space: nowrap;
+  }
+  .multi-action-btn:hover { transform: translateY(-1px); }
+  .multi-action-btn:active { transform: translateY(0); }
+
+  .multi-lobby-error {
+    color: #ff6b6b;
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.85rem;
+    text-align: center;
+    min-height: 1.2em;
+    margin-top: 0.5rem;
+  }
+
+  /* === GAME VIEW === */
+  .multi-game {
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 0.6rem 0.8rem 1.5rem;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+  }
+
+  .multi-topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    background: rgba(20,28,42,0.85);
+    border: 1px solid rgba(95,169,255,0.25);
+    border-radius: 10px;
+    padding: 0.45rem 0.5rem;
+    position: sticky;
+    top: 0.5rem;
+    z-index: 10;
+    backdrop-filter: blur(10px);
+  }
+
+  .multi-topbar-btn {
+    background: rgba(95,169,255,0.12);
+    border: 1px solid rgba(95,169,255,0.3);
+    color: #b8d0ed;
+    width: 36px;
+    height: 36px;
+    border-radius: 6px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .multi-topbar-btn:hover { background: rgba(95,169,255,0.2); }
+  .multi-leave-btn { color: #ff8888; border-color: rgba(239,68,68,0.4); }
+  .multi-leave-btn:hover { background: rgba(239,68,68,0.15); }
+
+  .multi-topbar-mid {
+    flex: 1;
+    text-align: center;
+  }
+  .multi-topbar-code {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.3rem;
+    letter-spacing: 0.25em;
+    color: #5fa9ff;
+    line-height: 1;
+  }
+  .multi-topbar-peers {
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    color: rgba(216,224,240,0.5);
+    text-transform: uppercase;
+    margin-top: 0.15rem;
+  }
+
+  /* Card area */
+  .multi-card-area {
+    background: rgba(20,28,42,0.5);
+    border: 1px solid rgba(184,134,42,0.25);
+    border-radius: 10px;
+    padding: 0.8rem 0.9rem;
+    text-align: center;
+  }
+
+  .multi-card-label, .multi-section-label {
+    font-family: 'Cinzel', 'Bebas Neue', sans-serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    color: rgba(184,134,42,0.75);
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-bottom: 0.4rem;
+  }
+
+  .multi-section-label {
+    color: rgba(95,169,255,0.75);
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+  }
+
+  .multi-section-count {
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.7rem;
+    color: rgba(216,224,240,0.5);
+    letter-spacing: 0.1em;
+  }
+
+  .multi-card-display {
+    background: rgba(0,0,0,0.4);
+    border: 1.5px solid rgba(184,134,42,0.35);
+    border-radius: 8px;
+    padding: 0.8rem;
+    margin: 0.5rem 0;
+    transition: all 0.3s;
+  }
+  .multi-card-display.drawing {
+    border-color: #f0e4c8;
+    box-shadow: 0 0 20px rgba(240,228,200,0.3);
+  }
+
+  .multi-card-name {
+    font-family: 'Cinzel', 'Bebas Neue', sans-serif;
+    font-size: 1.6rem;
+    letter-spacing: 0.1em;
+    color: #f0e4c8;
+    font-weight: 600;
+    text-transform: uppercase;
+  }
+  .multi-card-name.red-card { color: #ff7676; }
+  .multi-card-name.black-card { color: #d8e0f0; }
+  .multi-card-name.empty { color: rgba(216,224,240,0.35); font-size: 0.9rem; letter-spacing: 0.05em; font-weight: 400; }
+
+  .multi-draw-btn {
+    background: linear-gradient(135deg, #c4972a, #f0e4c8);
+    color: #2d1b0d;
+    border: none;
+    padding: 0.65rem 1.2rem;
+    border-radius: 6px;
+    font-family: 'Cinzel', 'Bebas Neue', sans-serif;
+    font-size: 0.85rem;
+    letter-spacing: 0.18em;
+    cursor: pointer;
+    font-weight: 700;
+    margin-top: 0.4rem;
+    box-shadow: 0 4px 14px rgba(196,151,42,0.3);
+  }
+  .multi-draw-btn:hover:not(:disabled) { transform: translateY(-1px); }
+  .multi-draw-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+
+  .multi-host-only-note {
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.7rem;
+    color: rgba(216,224,240,0.4);
+    margin-top: 0.4rem;
+    font-style: italic;
+    display: none;
+  }
+  .multi-host-only-note.show { display: block; }
+
+  /* Players list */
+  .multi-players-section {
+    background: rgba(20,28,42,0.5);
+    border: 1px solid rgba(95,169,255,0.2);
+    border-radius: 10px;
+    padding: 0.7rem 0.9rem 0.9rem;
+  }
+
+  .multi-players-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+
+  .multi-player-row {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.4rem 0.6rem;
+    background: rgba(0,0,0,0.25);
+    border: 1px solid rgba(95,169,255,0.15);
+    border-radius: 6px;
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.85rem;
+    color: #d8e0f0;
+    transition: all 0.2s;
+  }
+  .multi-player-row.me {
+    border-color: rgba(34,197,94,0.5);
+    background: rgba(34,197,94,0.08);
+    color: #4ade80;
+    font-weight: 600;
+  }
+  .multi-player-row.dead {
+    opacity: 0.4;
+    text-decoration: line-through;
+  }
+  .multi-player-row.host-tag {
+    border-color: rgba(240,228,200,0.4);
+  }
+
+  .multi-player-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #22c55e;
+    box-shadow: 0 0 6px #22c55e;
+    flex-shrink: 0;
+  }
+  .multi-player-row.dead .multi-player-dot {
+    background: #555;
+    box-shadow: none;
+  }
+
+  .multi-player-name {
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .multi-player-crown {
+    color: #f0e4c8;
+    font-size: 0.85rem;
+  }
+
+  /* Revolver section */
+  .multi-revolver-section {
+    background: rgba(30,15,15,0.6);
+    border: 1.5px solid rgba(184,134,42,0.35);
+    border-radius: 10px;
+    padding: 0.9rem 0.9rem 1rem;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+  }
+
+  .multi-revolver {
+    background: radial-gradient(circle at center, #2a1a14, #0d0604 70%);
+    border-radius: 8px;
+    padding: 0.9rem;
+    margin: 0.4rem 0 0.8rem;
+    text-align: center;
+  }
+
+  .multi-chambers {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 0.4rem;
+    margin-bottom: 0.7rem;
+  }
+
+  .multi-chamber {
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: radial-gradient(circle, #1a0e08, #0a0604);
+    border: 1.5px solid rgba(184,134,42,0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Special Elite', monospace;
+    font-size: 0.7rem;
+    color: rgba(184,134,42,0.5);
+  }
+  .multi-chamber.fired {
+    border-color: rgba(120,120,120,0.4);
+    background: radial-gradient(circle, #1a1a1a, #050505);
+    color: rgba(120,120,120,0.4);
+  }
+  .multi-chamber.fired.empty { color: rgba(120,120,120,0.6); }
+  .multi-chamber.fired.bullet {
+    background: radial-gradient(circle, #6b0000, #2a0000);
+    border-color: #ff3333;
+    color: #ff6666;
+    box-shadow: 0 0 10px rgba(239,68,68,0.5);
+  }
+  .multi-chamber.next {
+    border-color: #f0e4c8;
+    box-shadow: 0 0 12px rgba(240,228,200,0.4);
+    animation: chamberPulse 1.5s infinite;
+  }
+  @keyframes chamberPulse {
+    0%, 100% { box-shadow: 0 0 12px rgba(240,228,200,0.4); }
+    50% { box-shadow: 0 0 20px rgba(240,228,200,0.7); }
+  }
+
+  .multi-shots-info {
+    font-family: 'Special Elite', 'Outfit', monospace;
+    font-size: 0.85rem;
+    color: rgba(216,224,240,0.7);
+    letter-spacing: 0.1em;
+  }
+
+  .multi-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+  }
+  .multi-actions .multi-btn-reload {
+    grid-column: 1 / -1;
+  }
+
+  .multi-btn {
+    background: linear-gradient(135deg, #5a2a1a, #8b3a1a);
+    border: 1.5px solid rgba(240,228,200,0.3);
+    color: #f0e4c8;
+    padding: 0.85rem 0.5rem;
+    border-radius: 8px;
+    font-family: 'Cinzel', 'Bebas Neue', sans-serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.15em;
+    cursor: pointer;
+    font-weight: 600;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.2rem;
+    text-transform: uppercase;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.4);
+    transition: all 0.15s;
+  }
+  .multi-btn:hover:not(:disabled) { transform: translateY(-1px); filter: brightness(1.1); }
+  .multi-btn:active:not(:disabled) { transform: translateY(0); }
+  .multi-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+  .multi-btn-icon { font-size: 1.3rem; }
+
+  .multi-btn-self {
+    background: linear-gradient(135deg, #6b1a1a, #a02020);
+    border-color: rgba(239,68,68,0.5);
+  }
+  .multi-btn-other {
+    background: linear-gradient(135deg, #5a4a1a, #8b6f20);
+    border-color: rgba(240,200,80,0.5);
+  }
+  .multi-btn-reload {
+    background: linear-gradient(135deg, #1a3a5a, #2563eb);
+    border-color: rgba(95,169,255,0.5);
+  }
+
+  .multi-spectator-msg {
+    background: rgba(95,169,255,0.1);
+    border: 1px dashed rgba(95,169,255,0.3);
+    border-radius: 8px;
+    padding: 1rem;
+    text-align: center;
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.9rem;
+    color: #b8d0ed;
+  }
+
+  /* Suspense modal */
+  .multi-suspense {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.92);
+    z-index: 9000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+  }
+  .multi-suspense.active { display: flex; }
+
+  .multi-suspense-inner {
+    text-align: center;
+    animation: suspenseAppear 0.3s ease-out;
+  }
+  @keyframes suspenseAppear {
+    from { opacity: 0; transform: scale(0.85); }
+    to { opacity: 1; transform: scale(1); }
+  }
+
+  .multi-suspense-actor {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1rem;
+    color: rgba(216,224,240,0.7);
+    margin-bottom: 1rem;
+    letter-spacing: 0.1em;
+  }
+
+  .multi-suspense-text {
+    font-family: 'Cinzel', 'Bebas Neue', sans-serif;
+    font-size: 2.5rem;
+    letter-spacing: 0.2em;
+    color: #f0e4c8;
+    margin-bottom: 1rem;
+    animation: suspenseDots 1.5s infinite;
+  }
+  @keyframes suspenseDots {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+
+  .multi-suspense-result {
+    font-family: 'Cinzel', 'Bebas Neue', sans-serif;
+    font-size: 4rem;
+    letter-spacing: 0.15em;
+    font-weight: 700;
+    min-height: 5rem;
+  }
+  .multi-suspense-result.click {
+    color: #c4972a;
+    text-shadow: 0 0 30px rgba(196,151,42,0.6);
+    animation: clickPop 0.4s;
+  }
+  .multi-suspense-result.bang {
+    color: #ff3333;
+    text-shadow: 0 0 30px rgba(239,68,68,0.7);
+    animation: bangPop 0.5s;
+  }
+  @keyframes clickPop {
+    0% { transform: scale(0.5); opacity: 0; }
+    60% { transform: scale(1.15); }
+    100% { transform: scale(1); opacity: 1; }
+  }
+  @keyframes bangPop {
+    0% { transform: scale(0.3); opacity: 0; }
+    40% { transform: scale(1.4); }
+    70% { transform: scale(0.95) translateX(-8px); }
+    80% { transform: scale(1.05) translateX(8px); }
+    100% { transform: scale(1) translateX(0); opacity: 1; }
+  }
+
+  /* Modal (target picker, settings) */
+  .multi-modal-bd {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.8);
+    z-index: 8000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+  }
+  .multi-modal-bd.active { display: flex; }
+
+  .multi-modal {
+    background: linear-gradient(180deg, #1a2536, #0d141f);
+    border: 1.5px solid rgba(95,169,255,0.4);
+    border-radius: 12px;
+    padding: 1.4rem 1.2rem;
+    width: 100%;
+    max-width: 380px;
+    max-height: 85vh;
+    overflow-y: auto;
+  }
+
+  .multi-modal-title {
+    font-family: 'Cinzel', 'Bebas Neue', sans-serif;
+    font-size: 1.1rem;
+    letter-spacing: 0.25em;
+    color: #f0e4c8;
+    text-align: center;
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+
+  .multi-target-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .multi-target-opt {
+    background: rgba(0,0,0,0.4);
+    border: 1.5px solid rgba(95,169,255,0.4);
+    color: #d8e0f0;
+    padding: 0.9rem 1rem;
+    border-radius: 8px;
+    font-family: 'Cinzel', 'Outfit', sans-serif;
+    font-size: 0.95rem;
+    cursor: pointer;
+    text-align: left;
+    transition: all 0.15s;
+  }
+  .multi-target-opt:hover {
+    border-color: #5fa9ff;
+    background: rgba(95,169,255,0.15);
+  }
+  .multi-target-opt:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+  }
+
+  .multi-modal-close {
+    background: rgba(0,0,0,0.4);
+    border: 1px solid rgba(216,224,240,0.3);
+    color: #d8e0f0;
+    width: 100%;
+    padding: 0.7rem;
+    border-radius: 6px;
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.85rem;
+    letter-spacing: 0.15em;
+    cursor: pointer;
+    text-transform: uppercase;
+    margin-top: 0.5rem;
+  }
+  .multi-modal-close:hover { background: rgba(95,169,255,0.1); }
+
+  .multi-settings-label {
+    font-family: 'Cinzel', 'Bebas Neue', sans-serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.25em;
+    color: rgba(95,169,255,0.75);
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+
+  .multi-card-toggles {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.4rem;
+    margin-bottom: 0.6rem;
+  }
+
+  .multi-card-toggle {
+    background: rgba(0,0,0,0.4);
+    border: 1.5px solid rgba(184,134,42,0.35);
+    color: rgba(216,224,240,0.45);
+    padding: 0.5rem 0.3rem;
+    border-radius: 6px;
+    font-family: 'Cinzel', 'Bebas Neue', sans-serif;
+    font-size: 0.9rem;
+    letter-spacing: 0.1em;
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.15s;
+  }
+  .multi-card-toggle.on {
+    background: rgba(184,134,42,0.15);
+    color: #f0e4c8;
+    border-color: #c4972a;
+  }
+
+  .multi-settings-btn-full {
+    background: rgba(95,169,255,0.1);
+    border: 1px solid rgba(95,169,255,0.4);
+    color: #b8d0ed;
+    width: 100%;
+    padding: 0.7rem;
+    border-radius: 6px;
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+    cursor: pointer;
+    text-transform: uppercase;
+    margin-bottom: 0.4rem;
+  }
+  .multi-settings-btn-full:hover { background: rgba(95,169,255,0.18); }
+  .multi-settings-btn-full.multi-danger {
+    background: rgba(239,68,68,0.1);
+    border-color: rgba(239,68,68,0.4);
+    color: #ff8888;
+  }
+  .multi-settings-btn-full.multi-danger:hover { background: rgba(239,68,68,0.18); }
+
+  .multi-mode-list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.4rem;
+    margin-bottom: 1rem;
+  }
+  .multi-mode-opt {
+    background: rgba(0,0,0,0.35);
+    border: 1.5px solid rgba(168,85,247,0.3);
+    color: rgba(216,224,240,0.6);
+    padding: 0.5rem 0.3rem;
+    border-radius: 6px;
+    font-family: 'Cinzel', 'Bebas Neue', sans-serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    cursor: pointer;
+    line-height: 1.3;
+    transition: all 0.15s;
+  }
+  .multi-mode-opt span {
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.7rem;
+    color: rgba(216,224,240,0.5);
+    letter-spacing: 0;
+  }
+  .multi-mode-opt.active {
+    background: rgba(168,85,247,0.18);
+    border-color: #a855f7;
+    color: #e9d5ff;
+  }
+  .multi-mode-opt.active span { color: rgba(233,213,255,0.7); }
+
+  /* Winner overlay */
+  .multi-winner {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.92);
+    z-index: 9500;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+  }
+  .multi-winner.active { display: flex; }
+
+  .multi-winner-inner {
+    text-align: center;
+    max-width: 380px;
+    width: 100%;
+    animation: winnerAppear 0.5s ease-out;
+  }
+  @keyframes winnerAppear {
+    from { opacity: 0; transform: scale(0.8); }
+    to { opacity: 1; transform: scale(1); }
+  }
+
+  .multi-winner-label {
+    font-family: 'Cinzel', 'Bebas Neue', sans-serif;
+    font-size: 0.9rem;
+    letter-spacing: 0.3em;
+    color: rgba(240,228,200,0.6);
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+  }
+  .multi-winner-name {
+    font-family: 'Cinzel', 'Bebas Neue', sans-serif;
+    font-size: 2.5rem;
+    letter-spacing: 0.1em;
+    color: #f0e4c8;
+    text-shadow: 0 0 40px rgba(240,228,200,0.5);
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+  }
+  .multi-winner-btn {
+    background: linear-gradient(135deg, #c4972a, #f0e4c8);
+    color: #2d1b0d;
+    border: none;
+    padding: 0.9rem 1.8rem;
+    border-radius: 8px;
+    font-family: 'Cinzel', 'Bebas Neue', sans-serif;
+    font-size: 0.95rem;
+    letter-spacing: 0.18em;
+    cursor: pointer;
+    font-weight: 700;
+    box-shadow: 0 4px 20px rgba(196,151,42,0.4);
+  }
+  .multi-winner-btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+  .multi-winner-hint {
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.75rem;
+    color: rgba(216,224,240,0.4);
+    margin-top: 0.7rem;
+    font-style: italic;
+  }
+
+  /* Alki-specific overrides */
+  .app-alki-multi {
+    background: linear-gradient(180deg, #1a0a25 0%, #050010 100%);
+  }
+  .alki-lobby .multi-tag {
+    background: linear-gradient(135deg, #a855f7, #ec4899);
+  }
+  .alki-card-display { border-color: rgba(168,85,247,0.35); }
+  .alki-tray-section {
+    background: rgba(30,15,40,0.6);
+    border-color: rgba(168,85,247,0.35);
+  }
+  .alki-tray { gap: 0.5rem !important; }
+  .multi-chamber.glass-Schluck {
+    background: radial-gradient(circle, #1a3a4a, #0a1a25);
+    border-color: #5fc4d4;
+    color: #5fc4d4;
+    box-shadow: 0 0 10px rgba(95,196,212,0.4);
+  }
+  .multi-chamber.glass-Shot {
+    background: radial-gradient(circle, #4a3a1a, #2a1a05);
+    border-color: #f0d05a;
+    color: #f0d05a;
+    box-shadow: 0 0 10px rgba(240,208,90,0.4);
+  }
+  .multi-chamber.glass-EX {
+    background: radial-gradient(circle, #4a0a0a, #2a0000);
+    border-color: #ff3333;
+    color: #ff6666;
+    box-shadow: 0 0 12px rgba(239,68,68,0.5);
+  }
+  .alki-btn-self { background: linear-gradient(135deg, #4a1a5a, #7a2a8a); border-color: rgba(168,85,247,0.5); }
+  .alki-btn-other { background: linear-gradient(135deg, #5a3a1a, #8b6f20); border-color: rgba(240,200,80,0.5); }
+  .alki-btn-double { background: linear-gradient(135deg, #1a4a3a, #20a070); border-color: rgba(34,197,94,0.5); }
+  .alki-suspense .multi-suspense-result.schluck { color: #5fc4d4; text-shadow: 0 0 30px rgba(95,196,212,0.6); }
+  .alki-suspense .multi-suspense-result.shot { color: #f0d05a; text-shadow: 0 0 30px rgba(240,208,90,0.6); }
+  .alki-suspense .multi-suspense-result.ex { color: #ff3333; text-shadow: 0 0 30px rgba(239,68,68,0.7); }
+  .alki-mode-tag {
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.7rem;
+    color: rgba(168,85,247,0.7);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .alki-modal { border-color: rgba(168,85,247,0.4); }
+  .alki-winner .multi-winner-name { color: #e9d5ff; text-shadow: 0 0 40px rgba(168,85,247,0.5); }
+  .alki-winner .multi-winner-btn { background: linear-gradient(135deg, #a855f7, #ec4899); color: white; }
+  .alki-stats-area {
+    margin-bottom: 1.2rem;
+    padding: 0.8rem;
+    background: rgba(0,0,0,0.3);
+    border-radius: 8px;
+    text-align: left;
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.85rem;
+    color: rgba(216,224,240,0.8);
+  }
+  .alki-stats-area .stat-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.25rem 0;
+    border-bottom: 1px solid rgba(216,224,240,0.08);
+  }
+  .alki-stats-area .stat-row:last-child { border-bottom: none; }
+
   .menu-mp { position: relative; }
   .mp-badge {
     position: absolute;
@@ -3404,10 +4263,14 @@
       <span>Alki Edition</span>
     </button>
     <div class="menu-divider"></div>
-    <button class="menu-item menu-mp" onclick="openMultiplayer()">
-      <span class="icon">📡</span>
-      <span>Multiplayer</span>
-      <span class="mp-badge" id="mpBadge"></span>
+    <div class="menu-section-label">MULTIPLAYER</div>
+    <button class="menu-item" data-app="liarsbarMulti" onclick="switchApp('liarsbarMulti')">
+      <span class="icon">📱</span>
+      <span>Liar's Bar Multi</span>
+    </button>
+    <button class="menu-item" data-app="alkiMulti" onclick="switchApp('alkiMulti')">
+      <span class="icon">📱</span>
+      <span>Alki Multi</span>
     </button>
   </div>
 </nav>
@@ -4025,6 +4888,273 @@
     <button class="action" onclick="alki_fullReset(); alki_closeOverlay()">NEUES SPIEL</button>
   </div>
 </div>
+</div>
+
+<!-- ============ LIAR'S BAR MULTI ============ -->
+<div class="app app-multi app-liarsbar-multi" id="appLiarsbarMulti">
+  <!-- LOBBY -->
+  <div class="multi-lobby" id="lbmLobby">
+    <div class="multi-lobby-title">
+      <span class="multi-lobby-emoji">🎰</span>
+      <span>Liar's Bar</span>
+      <span class="multi-tag">MULTI</span>
+    </div>
+    <div class="multi-lobby-sub">Mobile Multiplayer für 2–8 Spieler</div>
+
+    <div class="multi-lobby-section">
+      <label class="multi-lobby-label">DEIN NAME</label>
+      <input type="text" class="multi-input" id="lbmName" maxlength="14" placeholder="z.B. Tobi" autocomplete="off">
+    </div>
+
+    <div class="multi-lobby-section">
+      <label class="multi-lobby-label">👑 NEUE RUNDE ERSTELLEN</label>
+      <div class="multi-lobby-row">
+        <input type="text" class="multi-input multi-code-in" id="lbmCreateCode" maxlength="6" placeholder="(zufällig)" autocomplete="off" autocapitalize="characters">
+        <button class="multi-action-btn" onclick="lbm_create()">ERSTELLEN</button>
+      </div>
+      <div class="multi-lobby-hint">Code leer lassen → wird zufällig generiert. Sonst 3–6 Zeichen A–Z, 0–9.</div>
+    </div>
+
+    <div class="multi-lobby-section">
+      <label class="multi-lobby-label">RUNDE BEITRETEN</label>
+      <div class="multi-lobby-row">
+        <input type="text" class="multi-input multi-code-in" id="lbmJoinCode" maxlength="6" placeholder="CODE" autocomplete="off" autocapitalize="characters">
+        <button class="multi-action-btn" onclick="lbm_join()">BEITRETEN</button>
+      </div>
+    </div>
+
+    <div class="multi-lobby-error" id="lbmError"></div>
+  </div>
+
+  <!-- GAME -->
+  <div class="multi-game" id="lbmGame" style="display:none">
+    <div class="multi-topbar">
+      <button class="multi-topbar-btn multi-leave-btn" onclick="lbm_leave()" title="Verlassen">✕</button>
+      <div class="multi-topbar-mid">
+        <div class="multi-topbar-code" id="lbmTopCode">—</div>
+        <div class="multi-topbar-peers" id="lbmTopPeers">0/8</div>
+      </div>
+      <button class="multi-topbar-btn multi-settings-btn" id="lbmSettingsBtn" onclick="lbm_openSettings()" title="Einstellungen">⚙</button>
+    </div>
+
+    <div class="multi-card-area">
+      <div class="multi-card-label">TISCHKARTE</div>
+      <div class="multi-card-display" id="lbmCardDisplay">
+        <div class="multi-card-name" id="lbmCardName">— noch keine —</div>
+      </div>
+      <button class="multi-draw-btn" id="lbmDrawBtn" onclick="lbm_drawCard()">KARTE ZIEHEN</button>
+      <div class="multi-host-only-note" id="lbmDrawNote">Nur der Host kann ziehen</div>
+    </div>
+
+    <div class="multi-players-section">
+      <div class="multi-section-label">IM SPIEL <span class="multi-section-count" id="lbmAliveCount"></span></div>
+      <div class="multi-players-list" id="lbmPlayersList"></div>
+    </div>
+
+    <div class="multi-revolver-section" id="lbmRevolverSection">
+      <div class="multi-section-label">DEIN REVOLVER</div>
+      <div class="multi-revolver">
+        <div class="multi-chambers" id="lbmChambers"></div>
+        <div class="multi-shots-info" id="lbmShotsInfo">Schuss 1 von 6</div>
+      </div>
+      <div class="multi-actions">
+        <button class="multi-btn multi-btn-self" id="lbmBtnSelf" onclick="lbm_fireSelf()">
+          <span class="multi-btn-icon">🔫</span>
+          <span>AUF MICH</span>
+        </button>
+        <button class="multi-btn multi-btn-other" id="lbmBtnOther" onclick="lbm_aimOther()">
+          <span class="multi-btn-icon">🎯</span>
+          <span>AUF ANDERE</span>
+        </button>
+        <button class="multi-btn multi-btn-reload" id="lbmBtnReload" onclick="lbm_reload()">
+          <span class="multi-btn-icon">🔄</span>
+          <span>NACHLADEN</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="multi-spectator-msg" id="lbmSpectatorMsg" style="display:none">
+      Du schaust zu — Session ist voll oder du bist raus
+    </div>
+  </div>
+
+  <!-- Suspense modal -->
+  <div class="multi-suspense" id="lbmSuspense">
+    <div class="multi-suspense-inner">
+      <div class="multi-suspense-actor" id="lbmSuspenseActor"></div>
+      <div class="multi-suspense-text" id="lbmSuspenseText">DRÜCK AB</div>
+      <div class="multi-suspense-result" id="lbmSuspenseResult"></div>
+    </div>
+  </div>
+
+  <!-- Target picker -->
+  <div class="multi-modal-bd" id="lbmTargetModal" onclick="if(event.target===this) lbm_closeTarget()">
+    <div class="multi-modal">
+      <div class="multi-modal-title">AUF WEN SCHIESSEN?</div>
+      <div class="multi-target-list" id="lbmTargetList"></div>
+      <button class="multi-modal-close" onclick="lbm_closeTarget()">ABBRECHEN</button>
+    </div>
+  </div>
+
+  <!-- Winner overlay -->
+  <div class="multi-winner" id="lbmWinner">
+    <div class="multi-winner-inner">
+      <div class="multi-winner-label">— LETZTER ÜBERLEBENDER —</div>
+      <div class="multi-winner-name" id="lbmWinnerName">—</div>
+      <button class="multi-winner-btn" id="lbmWinnerBtn" onclick="lbm_newRound()">NEUE RUNDE</button>
+      <div class="multi-winner-hint" id="lbmWinnerHint"></div>
+    </div>
+  </div>
+
+  <!-- Settings (host only) -->
+  <div class="multi-modal-bd" id="lbmSettingsModal" onclick="if(event.target===this) lbm_closeSettings()">
+    <div class="multi-modal">
+      <div class="multi-modal-title">EINSTELLUNGEN</div>
+      <div class="multi-settings-label">KARTEN IM DECK</div>
+      <div class="multi-card-toggles" id="lbmCardToggles"></div>
+      <div class="multi-settings-label" style="margin-top:1rem">RUNDE</div>
+      <button class="multi-settings-btn-full" onclick="lbm_resetRevolvers()">Alle Revolver neu laden</button>
+      <button class="multi-settings-btn-full multi-danger" onclick="lbm_kickAll()">Neue Runde (alle resetten)</button>
+      <button class="multi-modal-close" onclick="lbm_closeSettings()">FERTIG</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============ ALKI MULTI ============ -->
+<div class="app app-multi app-alki-multi" id="appAlkiMulti">
+  <!-- LOBBY -->
+  <div class="multi-lobby alki-lobby" id="amLobby">
+    <div class="multi-lobby-title">
+      <span class="multi-lobby-emoji">🥃</span>
+      <span>Alki Edition</span>
+      <span class="multi-tag">MULTI</span>
+    </div>
+    <div class="multi-lobby-sub">Mobile Multiplayer — wer säuft länger?</div>
+
+    <div class="multi-lobby-section">
+      <label class="multi-lobby-label">DEIN NAME</label>
+      <input type="text" class="multi-input" id="amName" maxlength="14" placeholder="z.B. Tobi" autocomplete="off">
+    </div>
+
+    <div class="multi-lobby-section">
+      <label class="multi-lobby-label">👑 NEUE RUNDE ERSTELLEN</label>
+      <div class="multi-lobby-row">
+        <input type="text" class="multi-input multi-code-in" id="amCreateCode" maxlength="6" placeholder="(zufällig)" autocomplete="off" autocapitalize="characters">
+        <button class="multi-action-btn" onclick="am_create()">ERSTELLEN</button>
+      </div>
+      <div class="multi-lobby-hint">Code leer lassen → wird zufällig generiert.</div>
+    </div>
+
+    <div class="multi-lobby-section">
+      <label class="multi-lobby-label">RUNDE BEITRETEN</label>
+      <div class="multi-lobby-row">
+        <input type="text" class="multi-input multi-code-in" id="amJoinCode" maxlength="6" placeholder="CODE" autocomplete="off" autocapitalize="characters">
+        <button class="multi-action-btn" onclick="am_join()">BEITRETEN</button>
+      </div>
+    </div>
+
+    <div class="multi-lobby-error" id="amError"></div>
+  </div>
+
+  <!-- GAME -->
+  <div class="multi-game" id="amGame" style="display:none">
+    <div class="multi-topbar">
+      <button class="multi-topbar-btn multi-leave-btn" onclick="am_leave()" title="Verlassen">✕</button>
+      <div class="multi-topbar-mid">
+        <div class="multi-topbar-code" id="amTopCode">—</div>
+        <div class="multi-topbar-peers" id="amTopPeers">0/8</div>
+      </div>
+      <button class="multi-topbar-btn multi-settings-btn" id="amSettingsBtn" onclick="am_openSettings()" title="Einstellungen">⚙</button>
+    </div>
+
+    <div class="multi-card-area">
+      <div class="multi-card-label">TISCHKARTE</div>
+      <div class="multi-card-display alki-card-display" id="amCardDisplay">
+        <div class="multi-card-name" id="amCardName">— noch keine —</div>
+      </div>
+      <button class="multi-draw-btn" id="amDrawBtn" onclick="am_drawCard()">KARTE ZIEHEN</button>
+      <div class="multi-host-only-note" id="amDrawNote">Nur der Host kann ziehen</div>
+    </div>
+
+    <div class="multi-players-section">
+      <div class="multi-section-label">NÜCHTERN <span class="multi-section-count" id="amAliveCount"></span></div>
+      <div class="multi-players-list" id="amPlayersList"></div>
+    </div>
+
+    <div class="multi-revolver-section alki-tray-section" id="amTraySection">
+      <div class="multi-section-label">DEIN TABLETT <span class="alki-mode-tag" id="amModeTag"></span></div>
+      <div class="multi-revolver">
+        <div class="multi-chambers alki-tray" id="amGlasses"></div>
+        <div class="multi-shots-info" id="amDrinksInfo">Glas 1 von 6</div>
+      </div>
+      <div class="multi-actions">
+        <button class="multi-btn multi-btn-self alki-btn-self" id="amBtnSelf" onclick="am_drinkSelf()">
+          <span class="multi-btn-icon">🍻</span>
+          <span>TRINKEN</span>
+        </button>
+        <button class="multi-btn multi-btn-other alki-btn-other" id="amBtnOther" onclick="am_aimOther()">
+          <span class="multi-btn-icon">🎯</span>
+          <span>AUF ANDERE</span>
+        </button>
+        <button class="multi-btn multi-btn-reload alki-btn-double" id="amBtnDouble" onclick="am_doubleDown()">
+          <span class="multi-btn-icon">🎲</span>
+          <span>ALL IN ×2</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="multi-spectator-msg" id="amSpectatorMsg" style="display:none">
+      Du schaust zu
+    </div>
+  </div>
+
+  <!-- Suspense -->
+  <div class="multi-suspense alki-suspense" id="amSuspense">
+    <div class="multi-suspense-inner">
+      <div class="multi-suspense-actor" id="amSuspenseActor"></div>
+      <div class="multi-suspense-text" id="amSuspenseText">🎰 spinnen...</div>
+      <div class="multi-suspense-result" id="amSuspenseResult"></div>
+    </div>
+  </div>
+
+  <!-- Target picker -->
+  <div class="multi-modal-bd" id="amTargetModal" onclick="if(event.target===this) am_closeTarget()">
+    <div class="multi-modal alki-modal">
+      <div class="multi-modal-title">WER TRINKT?</div>
+      <div class="multi-target-list" id="amTargetList"></div>
+      <button class="multi-modal-close" onclick="am_closeTarget()">ABBRECHEN</button>
+    </div>
+  </div>
+
+  <!-- Winner -->
+  <div class="multi-winner alki-winner" id="amWinner">
+    <div class="multi-winner-inner">
+      <div class="multi-winner-label">— LETZTER NÜCHTERNER —</div>
+      <div class="multi-winner-name" id="amWinnerName">—</div>
+      <div class="alki-stats-area" id="amStatsArea"></div>
+      <button class="multi-winner-btn" id="amWinnerBtn" onclick="am_newRound()">NEUE RUNDE</button>
+      <div class="multi-winner-hint" id="amWinnerHint"></div>
+    </div>
+  </div>
+
+  <!-- Settings -->
+  <div class="multi-modal-bd" id="amSettingsModal" onclick="if(event.target===this) am_closeSettings()">
+    <div class="multi-modal alki-modal">
+      <div class="multi-modal-title">EINSTELLUNGEN</div>
+      <div class="multi-settings-label">MODUS</div>
+      <div class="multi-mode-list" id="amModeList">
+        <button class="multi-mode-opt" data-mode="mild" onclick="am_setMode('mild')">MILD<br><span>5🥃·0🍷·1💀</span></button>
+        <button class="multi-mode-opt" data-mode="standard" onclick="am_setMode('standard')">STANDARD<br><span>4🥃·1🍷·1💀</span></button>
+        <button class="multi-mode-opt" data-mode="hardcore" onclick="am_setMode('hardcore')">HARDCORE<br><span>2🥃·3🍷·1💀</span></button>
+      </div>
+      <div class="multi-settings-label">KARTEN IM DECK</div>
+      <div class="multi-card-toggles" id="amCardToggles"></div>
+      <div class="multi-settings-label" style="margin-top:1rem">RUNDE</div>
+      <button class="multi-settings-btn-full" onclick="am_resetTrays()">Alle Tabletts neu mischen</button>
+      <button class="multi-settings-btn-full multi-danger" onclick="am_kickAll()">Neue Runde (alle resetten)</button>
+      <button class="multi-modal-close" onclick="am_closeSettings()">FERTIG</button>
+    </div>
+  </div>
 </div>
 
 
@@ -4668,9 +5798,11 @@
   };
 
   const APP_META = {
-    liarsbar: { title: "Liar's Bar",     emoji: '🎰' },
-    poker:    { title: 'Poker Trainer',  emoji: '🃏' },
-    alki:     { title: 'Alki Edition',   emoji: '🥃' },
+    liarsbar:      { title: "Liar's Bar",       emoji: '🎰' },
+    poker:         { title: 'Poker Trainer',    emoji: '🃏' },
+    alki:          { title: 'Alki Edition',     emoji: '🥃' },
+    liarsbarMulti: { title: "Liar's Bar Multi", emoji: '📱' },
+    alkiMulti:     { title: 'Alki Multi',       emoji: '📱' },
   };
 
   function setFavicon(emoji) {
@@ -4695,7 +5827,14 @@
 
   function switchApp(name) {
     document.querySelectorAll('.app').forEach(a => a.classList.remove('visible'));
-    const id = name === 'poker' ? 'appPoker' : (name === 'alki' ? 'appAlki' : 'appLiarsbar');
+    const idMap = {
+      poker: 'appPoker',
+      alki: 'appAlki',
+      liarsbar: 'appLiarsbar',
+      liarsbarMulti: 'appLiarsbarMulti',
+      alkiMulti: 'appAlkiMulti',
+    };
+    const id = idMap[name] || 'appLiarsbar';
     const el = document.getElementById(id);
     if (el) el.classList.add('visible');
     document.querySelectorAll('.menu-item').forEach(b => b.classList.toggle('active', b.dataset.app === name));
@@ -4718,7 +5857,7 @@
     let active = 'liarsbar';
     try {
       const saved = localStorage.getItem(APP_KEY);
-      if (saved === 'poker' || saved === 'liarsbar' || saved === 'alki') active = saved;
+      if (['poker','liarsbar','alki','liarsbarMulti','alkiMulti'].includes(saved)) active = saved;
     } catch (e) {}
     switchApp(active);
   })();
@@ -6684,6 +7823,1228 @@ nextRound();
         if (window.mpBroadcastState) window.mpBroadcastState();
       },
     };
+  })();
+
+
+  // ============================================================
+  // ============ LIAR'S BAR MULTI (Mobile P2P) =================
+  // ============================================================
+  (function() {
+    const CARDS = {
+      J: { rank: 'J', name: 'Bube',  suit: '♠', color: 'black' },
+      Q: { rank: 'Q', name: 'Dame',  suit: '♥', color: 'red'   },
+      K: { rank: 'K', name: 'König', suit: '♣', color: 'black' },
+      A: { rank: 'A', name: 'Ass',   suit: '♥', color: 'red'   },
+    };
+
+    let firing = false;
+    let unsubSession = null;
+    let sessionRef = null;
+    let peerRef = null;
+    let lastAppliedAction = null;
+    let suppressBroadcast = false;
+
+    // ---- Persistent identity ----
+    function getSelfId() {
+      let id = localStorage.getItem('mp-self-id');
+      if (!id) {
+        id = 'd_' + Math.random().toString(36).slice(2, 10) + Math.random().toString(36).slice(2, 6);
+        localStorage.setItem('mp-self-id', id);
+      }
+      return id;
+    }
+    function getStoredName() {
+      return localStorage.getItem('mp-display-name') || '';
+    }
+    function setStoredName(n) {
+      try { localStorage.setItem('mp-display-name', n); } catch (e) {}
+    }
+
+    // ---- Session code ----
+    function genCode() {
+      const chars = 'ABCDEFGHJKMNPQRSTUVWXYZ23456789';
+      let c = '';
+      for (let i = 0; i < 4; i++) c += chars[Math.floor(Math.random() * chars.length)];
+      return c;
+    }
+    function validateCode(code) {
+      if (!code) return null;
+      const cleaned = code.toUpperCase().replace(/[^A-Z0-9]/g, '');
+      if (cleaned.length < 3 || cleaned.length > 6) return null;
+      return cleaned;
+    }
+
+    // ---- State shape ----
+    function emptyState() {
+      return {
+        host: null,
+        app: 'liarsbarMulti',
+        enabledCards: { J: true, Q: true, K: true, A: true },
+        tableCard: null,  // 'J'|'Q'|'K'|'A' or null
+        tableDrawnAt: 0,
+        players: {},      // selfId → {name, bulletPos, shotsFired, alive, joinedAt}
+        lastAction: null, // {type, actor, target, result, ts}
+        round: 1,
+        winner: null,
+        createdAt: 0,
+        lastUpdate: 0,
+      };
+    }
+
+    let state = emptyState();
+    let mySelfId = getSelfId();
+    let myCode = null;
+    let amHost = false;
+    let inSession = false;
+
+    function showError(msg) {
+      const el = document.getElementById('lbmError');
+      el.textContent = msg;
+      clearTimeout(showError._tm);
+      showError._tm = setTimeout(() => { el.textContent = ''; }, 5000);
+    }
+
+    // ---- Create ----
+    async function lbm_create() {
+      if (!window.FB) { showError('Firebase noch nicht geladen — kurz warten'); return; }
+      const nameEl = document.getElementById('lbmName');
+      const name = (nameEl.value.trim()) || ('Spieler ' + mySelfId.slice(2, 6));
+      setStoredName(name);
+
+      const codeIn = document.getElementById('lbmCreateCode').value.trim();
+      let code;
+      if (codeIn) {
+        code = validateCode(codeIn);
+        if (!code) { showError('Code: 3–6 Zeichen, nur A–Z und 0–9'); return; }
+      } else {
+        code = genCode();
+      }
+
+      const { db, ref, get, set, serverTimestamp } = window.FB;
+      try {
+        const existing = await get(ref(db, 'sessions/' + code));
+        if (existing.exists()) {
+          const ex = existing.val();
+          const peers = ex.peers || {};
+          const peerCount = Object.keys(peers).length;
+          const age = Date.now() - (ex.createdAt || 0);
+          if (peerCount > 0 && age < 24*60*60*1000) {
+            showError(`Code ${code} ist gerade aktiv — nimm einen anderen oder tritt bei`);
+            return;
+          }
+          if (!confirm(`Code ${code} hat eine alte Session. Überschreiben?`)) return;
+        }
+      } catch (e) {
+        showError('Fehler beim Prüfen: ' + (e.message || e));
+        return;
+      }
+
+      const initial = emptyState();
+      initial.host = mySelfId;
+      initial.players[mySelfId] = {
+        name: name,
+        bulletPos: Math.floor(Math.random() * 6),
+        shotsFired: 0,
+        alive: true,
+        joinedAt: Date.now(),
+      };
+      initial.createdAt = Date.now();
+      initial.lastUpdate = Date.now();
+
+      try {
+        const { set, ref, onDisconnect, serverTimestamp } = window.FB;
+        await set(ref(db, 'sessions/' + code), { state: initial, writerId: mySelfId });
+        myCode = code;
+        amHost = true;
+        await joinSessionListeners(code, name);
+        switchToGame();
+      } catch (e) {
+        showError('Erstellen fehlgeschlagen: ' + (e.message || e));
+      }
+    }
+
+    // ---- Join ----
+    async function lbm_join() {
+      if (!window.FB) { showError('Firebase noch nicht geladen'); return; }
+      const nameEl = document.getElementById('lbmName');
+      const name = (nameEl.value.trim()) || ('Spieler ' + mySelfId.slice(2, 6));
+      setStoredName(name);
+
+      const code = validateCode(document.getElementById('lbmJoinCode').value);
+      if (!code) { showError('Code: 3–6 Zeichen'); return; }
+
+      const { db, ref, get, set, onDisconnect, update, serverTimestamp } = window.FB;
+      try {
+        const snap = await get(ref(db, 'sessions/' + code));
+        if (!snap.exists()) {
+          showError(`Session ${code} nicht gefunden`);
+          return;
+        }
+        const data = snap.val();
+        if (data.state && data.state.app !== 'liarsbarMulti') {
+          showError(`Code ${code} läuft in einer anderen App`);
+          return;
+        }
+        // Add myself to players if not yet there
+        const players = (data.state && data.state.players) || {};
+        if (!players[mySelfId]) {
+          // Add as new player
+          const newPlayer = {
+            name: name,
+            bulletPos: Math.floor(Math.random() * 6),
+            shotsFired: 0,
+            alive: true,
+            joinedAt: Date.now(),
+          };
+          await update(ref(db, `sessions/${code}/state/players/${mySelfId}`), newPlayer);
+        } else {
+          // Just update my name
+          await update(ref(db, `sessions/${code}/state/players/${mySelfId}`), { name });
+        }
+        myCode = code;
+        amHost = (data.state.host === mySelfId);
+        await joinSessionListeners(code, name);
+        switchToGame();
+      } catch (e) {
+        showError('Beitreten fehlgeschlagen: ' + (e.message || e));
+      }
+    }
+
+    async function joinSessionListeners(code, name) {
+      const { db, ref, onValue, set, onDisconnect, serverTimestamp } = window.FB;
+      sessionRef = ref(db, 'sessions/' + code);
+      peerRef = ref(db, `sessions/${code}/peers/${mySelfId}`);
+      await set(peerRef, { name: name, lastSeen: Date.now() });
+      onDisconnect(peerRef).remove();
+
+      unsubSession = onValue(sessionRef, (snapshot) => {
+        if (!snapshot.exists()) {
+          showError('Session wurde beendet');
+          lbm_leave();
+          return;
+        }
+        const data = snapshot.val();
+        if (data.writerId === mySelfId && lastAppliedAction === (data.state && data.state.lastAction && data.state.lastAction.ts)) {
+          // Self-write, no need to re-apply
+          state = data.state || emptyState();
+          renderAll();
+          return;
+        }
+        state = data.state || emptyState();
+        amHost = (state.host === mySelfId);
+        // Handle new action animation
+        const action = state.lastAction;
+        if (action && action.ts && action.ts !== lastAppliedAction && action.actor !== mySelfId) {
+          lastAppliedAction = action.ts;
+          // Show suspense for other players' actions (synced)
+          if (action.type === 'fire') {
+            showSuspenseRemote(action);
+          }
+        } else if (action) {
+          lastAppliedAction = action.ts;
+        }
+        renderAll();
+      });
+
+      inSession = true;
+    }
+
+    // ---- Leave ----
+    async function lbm_leave() {
+      const { remove, update } = window.FB || {};
+      try { if (unsubSession) unsubSession(); } catch (e) {}
+      try {
+        if (peerRef && remove) await remove(peerRef);
+        // Remove myself from players list
+        if (sessionRef && remove) {
+          await remove(window.FB.ref(window.FB.db, `sessions/${myCode}/state/players/${mySelfId}`));
+        }
+      } catch (e) {}
+      // If I was host AND no peers left, clear the whole session
+      if (amHost && sessionRef && remove) {
+        try {
+          const snap = await window.FB.get(sessionRef);
+          if (snap.exists()) {
+            const data = snap.val();
+            const peers = data.peers || {};
+            const remaining = Object.keys(peers).filter(k => k !== mySelfId);
+            if (remaining.length === 0) {
+              await remove(sessionRef);
+            } else {
+              // Hand off host to next peer
+              const newHost = remaining[0];
+              await update(window.FB.ref(window.FB.db, `sessions/${myCode}/state`), { host: newHost });
+            }
+          }
+        } catch (e) {}
+      }
+      sessionRef = null;
+      peerRef = null;
+      unsubSession = null;
+      inSession = false;
+      myCode = null;
+      amHost = false;
+      state = emptyState();
+      switchToLobby();
+    }
+
+    // ---- View switching ----
+    function switchToLobby() {
+      document.getElementById('lbmLobby').style.display = '';
+      document.getElementById('lbmGame').style.display = 'none';
+      // Pre-fill name
+      document.getElementById('lbmName').value = getStoredName();
+    }
+    function switchToGame() {
+      document.getElementById('lbmLobby').style.display = 'none';
+      document.getElementById('lbmGame').style.display = '';
+      renderAll();
+    }
+
+    // ---- Render ----
+    function renderAll() {
+      if (!inSession) return;
+      // Top bar
+      document.getElementById('lbmTopCode').textContent = myCode || '—';
+      const peerCount = Object.keys(state.players).length;
+      const alive = Object.values(state.players).filter(p => p.alive).length;
+      document.getElementById('lbmTopPeers').textContent = `${peerCount} dabei · ${alive} im Spiel`;
+
+      // Settings button only for host
+      document.getElementById('lbmSettingsBtn').style.visibility = amHost ? 'visible' : 'hidden';
+
+      // Table card
+      const cd = document.getElementById('lbmCardDisplay');
+      const cn = document.getElementById('lbmCardName');
+      if (state.tableCard && CARDS[state.tableCard]) {
+        const c = CARDS[state.tableCard];
+        cn.textContent = c.name;
+        cn.className = 'multi-card-name ' + (c.color === 'red' ? 'red-card' : 'black-card');
+        cd.classList.remove('drawing');
+      } else {
+        cn.textContent = '— noch keine —';
+        cn.className = 'multi-card-name empty';
+      }
+
+      // Draw button visibility
+      const drawBtn = document.getElementById('lbmDrawBtn');
+      const drawNote = document.getElementById('lbmDrawNote');
+      if (amHost) {
+        drawBtn.style.display = '';
+        drawNote.classList.remove('show');
+      } else {
+        drawBtn.style.display = 'none';
+        drawNote.classList.add('show');
+      }
+
+      // Players list
+      const me = state.players[mySelfId];
+      const sortedIds = Object.keys(state.players).sort((a, b) => {
+        return (state.players[a].joinedAt || 0) - (state.players[b].joinedAt || 0);
+      });
+      const playersHtml = sortedIds.map(id => {
+        const p = state.players[id];
+        const isMe = id === mySelfId;
+        const isHost = id === state.host;
+        const cls = 'multi-player-row' + (isMe ? ' me' : '') + (!p.alive ? ' dead' : '') + (isHost ? ' host-tag' : '');
+        const crown = isHost ? '<span class="multi-player-crown">👑</span>' : '';
+        return `<div class="${cls}"><span class="multi-player-dot"></span><span class="multi-player-name">${escapeHtml(p.name)}</span>${crown}</div>`;
+      }).join('');
+      document.getElementById('lbmPlayersList').innerHTML = playersHtml;
+      document.getElementById('lbmAliveCount').textContent = `${alive}/${peerCount}`;
+
+      // Revolver
+      renderRevolver(me);
+
+      // Spectator state
+      if (!me) {
+        document.getElementById('lbmRevolverSection').style.display = 'none';
+        document.getElementById('lbmSpectatorMsg').style.display = '';
+        document.getElementById('lbmSpectatorMsg').textContent = 'Du schaust zu';
+      } else if (!me.alive) {
+        document.getElementById('lbmRevolverSection').style.display = 'none';
+        document.getElementById('lbmSpectatorMsg').style.display = '';
+        document.getElementById('lbmSpectatorMsg').textContent = '💀 Du bist raus — schau zu wers überlebt';
+      } else {
+        document.getElementById('lbmRevolverSection').style.display = '';
+        document.getElementById('lbmSpectatorMsg').style.display = 'none';
+      }
+
+      // Winner check
+      if (alive === 1 && peerCount >= 2 && !state.winner) {
+        // First detection — host writes winner
+        const winnerId = sortedIds.find(id => state.players[id].alive);
+        if (amHost && winnerId) {
+          state.winner = winnerId;
+          broadcastState({ winner: winnerId });
+        }
+      }
+      const winnerEl = document.getElementById('lbmWinner');
+      if (state.winner && state.players[state.winner]) {
+        document.getElementById('lbmWinnerName').textContent = state.players[state.winner].name;
+        document.getElementById('lbmWinnerBtn').disabled = !amHost;
+        document.getElementById('lbmWinnerHint').textContent = amHost ? '' : 'Nur Host kann neue Runde starten';
+        winnerEl.classList.add('active');
+      } else {
+        winnerEl.classList.remove('active');
+      }
+    }
+
+    function renderRevolver(me) {
+      const grid = document.getElementById('lbmChambers');
+      if (!me) { grid.innerHTML = ''; return; }
+      let html = '';
+      for (let i = 0; i < 6; i++) {
+        const fired = i < me.shotsFired;
+        const isBullet = i === me.bulletPos;
+        const isNext = i === me.shotsFired && me.alive;
+        let cls = 'multi-chamber';
+        let label = (i + 1);
+        if (fired) {
+          cls += ' fired ' + (isBullet ? 'bullet' : 'empty');
+          label = isBullet ? '●' : '○';
+        } else if (isNext) {
+          cls += ' next';
+          label = '▶';
+        }
+        html += `<div class="${cls}">${label}</div>`;
+      }
+      grid.innerHTML = html;
+      document.getElementById('lbmShotsInfo').textContent = me.alive
+        ? `Nächster: Schuss ${me.shotsFired + 1} von 6`
+        : 'TOT';
+
+      // Disable buttons if not alive
+      const dis = !me.alive || firing;
+      document.getElementById('lbmBtnSelf').disabled = dis;
+      document.getElementById('lbmBtnOther').disabled = dis || Object.values(state.players).filter(p => p.alive && p !== me).length === 0;
+      document.getElementById('lbmBtnReload').disabled = firing;
+    }
+
+    function escapeHtml(s) {
+      return String(s).replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+    }
+
+    // ---- Actions ----
+    function broadcastState(stateUpdate) {
+      if (!sessionRef || !window.FB) return;
+      const { update, ref } = window.FB;
+      // Merge changes into local state
+      Object.assign(state, stateUpdate);
+      state.lastUpdate = Date.now();
+      update(window.FB.ref(window.FB.db, `sessions/${myCode}/state`), state).catch(e => {
+        console.error('broadcast fail', e);
+      });
+    }
+
+    function lbm_drawCard() {
+      if (!amHost) { showError('Nur Host kann ziehen'); return; }
+      const enabled = Object.entries(state.enabledCards).filter(([k,v]) => v).map(([k]) => k);
+      if (enabled.length === 0) { showError('Keine Karten im Deck aktiviert'); return; }
+      const key = enabled[Math.floor(Math.random() * enabled.length)];
+      // Trigger "drawing" animation briefly
+      document.getElementById('lbmCardDisplay').classList.add('drawing');
+      setTimeout(() => document.getElementById('lbmCardDisplay').classList.remove('drawing'), 400);
+      broadcastState({ tableCard: key, tableDrawnAt: Date.now() });
+    }
+
+    function lbm_fireSelf() {
+      const me = state.players[mySelfId];
+      if (!me || !me.alive || firing) return;
+      performShot(mySelfId, mySelfId);
+    }
+
+    function lbm_aimOther() {
+      const me = state.players[mySelfId];
+      if (!me || !me.alive || firing) return;
+      const targets = Object.entries(state.players)
+        .filter(([id, p]) => p.alive && id !== mySelfId);
+      if (targets.length === 0) return;
+      const list = document.getElementById('lbmTargetList');
+      list.innerHTML = targets.map(([id, p]) =>
+        `<button class="multi-target-opt" onclick="lbm_pickTarget('${id}')">${escapeHtml(p.name)}</button>`
+      ).join('');
+      document.getElementById('lbmTargetModal').classList.add('active');
+    }
+
+    function lbm_pickTarget(targetId) {
+      document.getElementById('lbmTargetModal').classList.remove('active');
+      performShot(mySelfId, targetId);
+    }
+
+    function lbm_closeTarget() {
+      document.getElementById('lbmTargetModal').classList.remove('active');
+    }
+
+    function performShot(shooterId, targetId) {
+      const shooter = state.players[shooterId];
+      const target = state.players[targetId];
+      if (!shooter || !target) return;
+      const isBang = shooter.bulletPos === shooter.shotsFired;
+      const ts = Date.now();
+      firing = true;
+
+      // Local suspense
+      showSuspenseLocal(shooterId, targetId, isBang, () => {
+        firing = false;
+        // Apply state change
+        const newPlayers = JSON.parse(JSON.stringify(state.players));
+        newPlayers[shooterId].shotsFired = shooter.shotsFired + 1;
+        if (isBang) {
+          newPlayers[targetId].alive = false;
+        }
+        // Broadcast
+        const lastAction = {
+          type: 'fire',
+          actor: shooterId,
+          target: targetId,
+          result: isBang ? 'bang' : 'click',
+          ts: ts,
+        };
+        lastAppliedAction = ts;
+        broadcastState({ players: newPlayers, lastAction });
+      });
+    }
+
+    function showSuspenseLocal(shooterId, targetId, isBang, onDone) {
+      const overlay = document.getElementById('lbmSuspense');
+      const actor = document.getElementById('lbmSuspenseActor');
+      const text = document.getElementById('lbmSuspenseText');
+      const result = document.getElementById('lbmSuspenseResult');
+      const shooter = state.players[shooterId];
+      const target = state.players[targetId];
+      actor.textContent = shooterId === targetId
+        ? `${shooter.name} → AUF SICH SELBST`
+        : `${shooter.name} → ${target.name}`;
+      text.style.display = 'block';
+      text.textContent = 'DRÜCK AB';
+      result.textContent = '';
+      result.className = 'multi-suspense-result';
+      overlay.classList.add('active');
+      setTimeout(() => {
+        text.style.display = 'none';
+        if (isBang) {
+          result.textContent = '💥 BANG';
+          result.classList.add('bang');
+        } else {
+          result.textContent = '✓ CLICK';
+          result.classList.add('click');
+        }
+        setTimeout(() => {
+          overlay.classList.remove('active');
+          if (onDone) onDone();
+        }, 1500);
+      }, 1100);
+    }
+
+    function showSuspenseRemote(action) {
+      const shooter = state.players[action.actor];
+      const target = state.players[action.target];
+      if (!shooter || !target) return;
+      const overlay = document.getElementById('lbmSuspense');
+      const actor = document.getElementById('lbmSuspenseActor');
+      const text = document.getElementById('lbmSuspenseText');
+      const result = document.getElementById('lbmSuspenseResult');
+      actor.textContent = action.actor === action.target
+        ? `${shooter.name} → AUF SICH SELBST`
+        : `${shooter.name} → ${target.name}`;
+      text.style.display = 'block';
+      text.textContent = 'DRÜCK AB';
+      result.textContent = '';
+      result.className = 'multi-suspense-result';
+      overlay.classList.add('active');
+      setTimeout(() => {
+        text.style.display = 'none';
+        if (action.result === 'bang') {
+          result.textContent = '💥 BANG';
+          result.classList.add('bang');
+        } else {
+          result.textContent = '✓ CLICK';
+          result.classList.add('click');
+        }
+        setTimeout(() => overlay.classList.remove('active'), 1500);
+      }, 1100);
+    }
+
+    function lbm_reload() {
+      const me = state.players[mySelfId];
+      if (!me) return;
+      const newPlayers = JSON.parse(JSON.stringify(state.players));
+      newPlayers[mySelfId].bulletPos = Math.floor(Math.random() * 6);
+      newPlayers[mySelfId].shotsFired = 0;
+      newPlayers[mySelfId].alive = true;
+      broadcastState({ players: newPlayers });
+    }
+
+    // ---- Settings ----
+    function lbm_openSettings() {
+      if (!amHost) return;
+      // Render card toggles
+      const wrap = document.getElementById('lbmCardToggles');
+      wrap.innerHTML = Object.entries(CARDS).map(([k, c]) => {
+        const on = state.enabledCards[k] !== false;
+        return `<button class="multi-card-toggle ${on ? 'on' : ''}" onclick="lbm_toggleCard('${k}')">${c.rank} ${c.suit}</button>`;
+      }).join('');
+      document.getElementById('lbmSettingsModal').classList.add('active');
+    }
+    function lbm_closeSettings() {
+      document.getElementById('lbmSettingsModal').classList.remove('active');
+    }
+    function lbm_toggleCard(k) {
+      if (!amHost) return;
+      const cards = Object.assign({}, state.enabledCards);
+      cards[k] = !cards[k];
+      const anyEnabled = Object.values(cards).some(v => v);
+      if (!anyEnabled) { showError('Mindestens eine Karte muss aktiv sein'); return; }
+      broadcastState({ enabledCards: cards });
+      lbm_openSettings(); // refresh
+    }
+    function lbm_resetRevolvers() {
+      if (!amHost) return;
+      const newPlayers = JSON.parse(JSON.stringify(state.players));
+      Object.keys(newPlayers).forEach(id => {
+        newPlayers[id].bulletPos = Math.floor(Math.random() * 6);
+        newPlayers[id].shotsFired = 0;
+        newPlayers[id].alive = true;
+      });
+      broadcastState({ players: newPlayers, winner: null });
+      lbm_closeSettings();
+    }
+    function lbm_kickAll() {
+      if (!amHost) return;
+      if (!confirm('Alle Revolver UND Tischkarte zurücksetzen?')) return;
+      lbm_resetRevolvers();
+      broadcastState({ tableCard: null, lastAction: null, round: state.round + 1 });
+    }
+    function lbm_newRound() {
+      if (!amHost) return;
+      lbm_resetRevolvers();
+      broadcastState({ tableCard: null, lastAction: null, round: state.round + 1, winner: null });
+    }
+
+    // ---- Auto-init when switching to this app ----
+    function lbm_init() {
+      document.getElementById('lbmName').value = getStoredName();
+      if (!inSession) switchToLobby();
+    }
+
+    // Hook to switchApp
+    const origSwitch = window.switchApp;
+    window.switchApp = function(name) {
+      const result = origSwitch(name);
+      if (name === 'liarsbarMulti') lbm_init();
+      return result;
+    };
+
+    // Init if it's already the active app on load
+    document.addEventListener('DOMContentLoaded', () => {
+      if (document.getElementById('appLiarsbarMulti').classList.contains('visible')) {
+        lbm_init();
+      }
+    });
+
+    // Expose
+    window.lbm_create = lbm_create;
+    window.lbm_join = lbm_join;
+    window.lbm_leave = lbm_leave;
+    window.lbm_drawCard = lbm_drawCard;
+    window.lbm_fireSelf = lbm_fireSelf;
+    window.lbm_aimOther = lbm_aimOther;
+    window.lbm_pickTarget = lbm_pickTarget;
+    window.lbm_closeTarget = lbm_closeTarget;
+    window.lbm_reload = lbm_reload;
+    window.lbm_openSettings = lbm_openSettings;
+    window.lbm_closeSettings = lbm_closeSettings;
+    window.lbm_toggleCard = lbm_toggleCard;
+    window.lbm_resetRevolvers = lbm_resetRevolvers;
+    window.lbm_kickAll = lbm_kickAll;
+    window.lbm_newRound = lbm_newRound;
+  })();
+
+
+  // ============================================================
+  // ============ ALKI MULTI (Mobile P2P) =======================
+  // ============================================================
+  (function() {
+    const CARDS = {
+      J: { rank: 'J', name: 'Bube',  suit: '♠', color: 'black' },
+      Q: { rank: 'Q', name: 'Dame',  suit: '♥', color: 'red'   },
+      K: { rank: 'K', name: 'König', suit: '♣', color: 'black' },
+      A: { rank: 'A', name: 'Ass',   suit: '♥', color: 'red'   },
+    };
+
+    const MODES = {
+      mild:     { Schluck: 5, Shot: 0, EX: 1 },
+      standard: { Schluck: 4, Shot: 1, EX: 1 },
+      hardcore: { Schluck: 2, Shot: 3, EX: 1 },
+    };
+
+    function getSelfId() {
+      let id = localStorage.getItem('mp-self-id');
+      if (!id) {
+        id = 'd_' + Math.random().toString(36).slice(2, 10) + Math.random().toString(36).slice(2, 6);
+        localStorage.setItem('mp-self-id', id);
+      }
+      return id;
+    }
+    function getStoredName() {
+      return localStorage.getItem('mp-display-name') || '';
+    }
+    function setStoredName(n) {
+      try { localStorage.setItem('mp-display-name', n); } catch (e) {}
+    }
+
+    function genCode() {
+      const chars = 'ABCDEFGHJKMNPQRSTUVWXYZ23456789';
+      let c = '';
+      for (let i = 0; i < 4; i++) c += chars[Math.floor(Math.random() * chars.length)];
+      return c;
+    }
+    function validateCode(code) {
+      if (!code) return null;
+      const cleaned = code.toUpperCase().replace(/[^A-Z0-9]/g, '');
+      if (cleaned.length < 3 || cleaned.length > 6) return null;
+      return cleaned;
+    }
+
+    function generateGlasses(mode) {
+      const mix = MODES[mode] || MODES.standard;
+      const glasses = [];
+      for (let i = 0; i < mix.Schluck; i++) glasses.push('Schluck');
+      for (let i = 0; i < mix.Shot;    i++) glasses.push('Shot');
+      for (let i = 0; i < mix.EX;      i++) glasses.push('EX');
+      // shuffle
+      for (let i = glasses.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [glasses[i], glasses[j]] = [glasses[j], glasses[i]];
+      }
+      return glasses;
+    }
+
+    function emptyState() {
+      return {
+        host: null,
+        app: 'alkiMulti',
+        enabledCards: { J: true, Q: true, K: true, A: true },
+        mode: 'standard',
+        tableCard: null,
+        tableDrawnAt: 0,
+        players: {},      // selfId → {name, glasses, drunkCount, alive, joinedAt, stats: {Schluck, Shot, EX}, eliminationOrder}
+        lastAction: null,
+        round: 1,
+        winner: null,
+        createdAt: 0,
+        lastUpdate: 0,
+      };
+    }
+
+    let state = emptyState();
+    let mySelfId = getSelfId();
+    let myCode = null;
+    let amHost = false;
+    let inSession = false;
+    let drinking = false;
+    let unsubSession = null;
+    let sessionRef = null;
+    let peerRef = null;
+    let lastAppliedAction = null;
+
+    function showError(msg) {
+      const el = document.getElementById('amError');
+      el.textContent = msg;
+      clearTimeout(showError._tm);
+      showError._tm = setTimeout(() => { el.textContent = ''; }, 5000);
+    }
+
+    async function am_create() {
+      if (!window.FB) { showError('Firebase noch nicht geladen'); return; }
+      const name = (document.getElementById('amName').value.trim()) || ('Spieler ' + mySelfId.slice(2, 6));
+      setStoredName(name);
+      const codeIn = document.getElementById('amCreateCode').value.trim();
+      let code;
+      if (codeIn) {
+        code = validateCode(codeIn);
+        if (!code) { showError('Code: 3–6 Zeichen, nur A–Z und 0–9'); return; }
+      } else {
+        code = genCode();
+      }
+
+      const { db, ref, get, set } = window.FB;
+      try {
+        const existing = await get(ref(db, 'sessions/' + code));
+        if (existing.exists()) {
+          const ex = existing.val();
+          const peers = ex.peers || {};
+          const age = Date.now() - ((ex.state && ex.state.createdAt) || 0);
+          if (Object.keys(peers).length > 0 && age < 24*60*60*1000) {
+            showError(`Code ${code} ist gerade aktiv`);
+            return;
+          }
+          if (!confirm(`Code ${code} hat eine alte Session. Überschreiben?`)) return;
+        }
+      } catch (e) {
+        showError('Fehler beim Prüfen');
+        return;
+      }
+
+      const initial = emptyState();
+      initial.host = mySelfId;
+      initial.players[mySelfId] = {
+        name,
+        glasses: generateGlasses('standard'),
+        drunkCount: 0,
+        alive: true,
+        joinedAt: Date.now(),
+        stats: { Schluck: 0, Shot: 0, EX: 0 },
+        eliminationOrder: null,
+      };
+      initial.createdAt = Date.now();
+      initial.lastUpdate = Date.now();
+
+      try {
+        await set(ref(db, 'sessions/' + code), { state: initial, writerId: mySelfId });
+        myCode = code;
+        amHost = true;
+        await joinSessionListeners(code, name);
+        switchToGame();
+      } catch (e) {
+        showError('Erstellen fehlgeschlagen: ' + (e.message || e));
+      }
+    }
+
+    async function am_join() {
+      if (!window.FB) { showError('Firebase noch nicht geladen'); return; }
+      const name = (document.getElementById('amName').value.trim()) || ('Spieler ' + mySelfId.slice(2, 6));
+      setStoredName(name);
+      const code = validateCode(document.getElementById('amJoinCode').value);
+      if (!code) { showError('Code: 3–6 Zeichen'); return; }
+
+      const { db, ref, get, update } = window.FB;
+      try {
+        const snap = await get(ref(db, 'sessions/' + code));
+        if (!snap.exists()) { showError(`Session ${code} nicht gefunden`); return; }
+        const data = snap.val();
+        if (data.state && data.state.app !== 'alkiMulti') {
+          showError(`Code ${code} läuft in einer anderen App`);
+          return;
+        }
+        const players = (data.state && data.state.players) || {};
+        const mode = (data.state && data.state.mode) || 'standard';
+        if (!players[mySelfId]) {
+          await update(ref(db, `sessions/${code}/state/players/${mySelfId}`), {
+            name,
+            glasses: generateGlasses(mode),
+            drunkCount: 0,
+            alive: true,
+            joinedAt: Date.now(),
+            stats: { Schluck: 0, Shot: 0, EX: 0 },
+            eliminationOrder: null,
+          });
+        } else {
+          await update(ref(db, `sessions/${code}/state/players/${mySelfId}`), { name });
+        }
+        myCode = code;
+        amHost = (data.state.host === mySelfId);
+        await joinSessionListeners(code, name);
+        switchToGame();
+      } catch (e) {
+        showError('Beitreten fehlgeschlagen: ' + (e.message || e));
+      }
+    }
+
+    async function joinSessionListeners(code, name) {
+      const { db, ref, onValue, set, onDisconnect } = window.FB;
+      sessionRef = ref(db, 'sessions/' + code);
+      peerRef = ref(db, `sessions/${code}/peers/${mySelfId}`);
+      await set(peerRef, { name, lastSeen: Date.now() });
+      onDisconnect(peerRef).remove();
+      unsubSession = onValue(sessionRef, (snapshot) => {
+        if (!snapshot.exists()) { showError('Session beendet'); am_leave(); return; }
+        const data = snapshot.val();
+        if (data.writerId === mySelfId && lastAppliedAction === (data.state && data.state.lastAction && data.state.lastAction.ts)) {
+          state = data.state || emptyState();
+          renderAll();
+          return;
+        }
+        state = data.state || emptyState();
+        amHost = (state.host === mySelfId);
+        const action = state.lastAction;
+        if (action && action.ts && action.ts !== lastAppliedAction && action.actor !== mySelfId) {
+          lastAppliedAction = action.ts;
+          if (action.type === 'drink') {
+            showSuspenseRemote(action);
+          }
+        } else if (action) {
+          lastAppliedAction = action.ts;
+        }
+        renderAll();
+      });
+      inSession = true;
+    }
+
+    async function am_leave() {
+      const { remove, update } = window.FB || {};
+      try { if (unsubSession) unsubSession(); } catch (e) {}
+      try {
+        if (peerRef && remove) await remove(peerRef);
+        if (sessionRef && remove) await remove(window.FB.ref(window.FB.db, `sessions/${myCode}/state/players/${mySelfId}`));
+      } catch (e) {}
+      if (amHost && sessionRef && remove) {
+        try {
+          const snap = await window.FB.get(sessionRef);
+          if (snap.exists()) {
+            const data = snap.val();
+            const peers = data.peers || {};
+            const remaining = Object.keys(peers).filter(k => k !== mySelfId);
+            if (remaining.length === 0) {
+              await remove(sessionRef);
+            } else {
+              const newHost = remaining[0];
+              await update(window.FB.ref(window.FB.db, `sessions/${myCode}/state`), { host: newHost });
+            }
+          }
+        } catch (e) {}
+      }
+      sessionRef = null; peerRef = null; unsubSession = null;
+      inSession = false; myCode = null; amHost = false;
+      state = emptyState();
+      switchToLobby();
+    }
+
+    function switchToLobby() {
+      document.getElementById('amLobby').style.display = '';
+      document.getElementById('amGame').style.display = 'none';
+      document.getElementById('amName').value = getStoredName();
+    }
+    function switchToGame() {
+      document.getElementById('amLobby').style.display = 'none';
+      document.getElementById('amGame').style.display = '';
+      renderAll();
+    }
+
+    function escapeHtml(s) {
+      return String(s).replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+    }
+
+    function broadcastState(stateUpdate) {
+      if (!sessionRef || !window.FB) return;
+      const { update } = window.FB;
+      Object.assign(state, stateUpdate);
+      state.lastUpdate = Date.now();
+      update(window.FB.ref(window.FB.db, `sessions/${myCode}/state`), state).catch(e => console.error('broadcast fail', e));
+    }
+
+    function renderAll() {
+      if (!inSession) return;
+      document.getElementById('amTopCode').textContent = myCode || '—';
+      const peerCount = Object.keys(state.players).length;
+      const alive = Object.values(state.players).filter(p => p.alive).length;
+      document.getElementById('amTopPeers').textContent = `${peerCount} dabei · ${alive} nüchtern`;
+      document.getElementById('amSettingsBtn').style.visibility = amHost ? 'visible' : 'hidden';
+
+      // Mode tag
+      document.getElementById('amModeTag').textContent = '· ' + state.mode.toUpperCase();
+
+      // Table card
+      const cn = document.getElementById('amCardName');
+      if (state.tableCard && CARDS[state.tableCard]) {
+        const c = CARDS[state.tableCard];
+        cn.textContent = c.name;
+        cn.className = 'multi-card-name ' + (c.color === 'red' ? 'red-card' : 'black-card');
+      } else {
+        cn.textContent = '— noch keine —';
+        cn.className = 'multi-card-name empty';
+      }
+      const drawBtn = document.getElementById('amDrawBtn');
+      const drawNote = document.getElementById('amDrawNote');
+      if (amHost) { drawBtn.style.display = ''; drawNote.classList.remove('show'); }
+      else { drawBtn.style.display = 'none'; drawNote.classList.add('show'); }
+
+      // Players
+      const me = state.players[mySelfId];
+      const sortedIds = Object.keys(state.players).sort((a, b) => (state.players[a].joinedAt || 0) - (state.players[b].joinedAt || 0));
+      const playersHtml = sortedIds.map(id => {
+        const p = state.players[id];
+        const isMe = id === mySelfId;
+        const isHost = id === state.host;
+        const cls = 'multi-player-row' + (isMe ? ' me' : '') + (!p.alive ? ' dead' : '') + (isHost ? ' host-tag' : '');
+        const crown = isHost ? '<span class="multi-player-crown">👑</span>' : '';
+        return `<div class="${cls}"><span class="multi-player-dot"></span><span class="multi-player-name">${escapeHtml(p.name)}</span>${crown}</div>`;
+      }).join('');
+      document.getElementById('amPlayersList').innerHTML = playersHtml;
+      document.getElementById('amAliveCount').textContent = `${alive}/${peerCount}`;
+
+      // Tablett
+      renderTray(me);
+
+      if (!me) {
+        document.getElementById('amTraySection').style.display = 'none';
+        document.getElementById('amSpectatorMsg').style.display = '';
+        document.getElementById('amSpectatorMsg').textContent = 'Du schaust zu';
+      } else if (!me.alive) {
+        document.getElementById('amTraySection').style.display = 'none';
+        document.getElementById('amSpectatorMsg').style.display = '';
+        document.getElementById('amSpectatorMsg').textContent = '💀 Du bist raus';
+      } else {
+        document.getElementById('amTraySection').style.display = '';
+        document.getElementById('amSpectatorMsg').style.display = 'none';
+      }
+
+      // Winner
+      if (alive === 1 && peerCount >= 2 && !state.winner) {
+        const winnerId = sortedIds.find(id => state.players[id].alive);
+        if (amHost && winnerId) {
+          state.winner = winnerId;
+          broadcastState({ winner: winnerId });
+        }
+      }
+      const winnerEl = document.getElementById('amWinner');
+      if (state.winner && state.players[state.winner]) {
+        document.getElementById('amWinnerName').textContent = state.players[state.winner].name;
+        document.getElementById('amWinnerBtn').disabled = !amHost;
+        document.getElementById('amWinnerHint').textContent = amHost ? '' : 'Nur Host kann neue Runde starten';
+        // Stats
+        const stats = sortedIds.map(id => {
+          const p = state.players[id];
+          return `<div class="stat-row"><span>${escapeHtml(p.name)}</span><span>${p.stats.Schluck}🥃 · ${p.stats.Shot}🍷 · ${p.stats.EX}💀</span></div>`;
+        }).join('');
+        document.getElementById('amStatsArea').innerHTML = stats;
+        winnerEl.classList.add('active');
+      } else {
+        winnerEl.classList.remove('active');
+      }
+    }
+
+    function renderTray(me) {
+      const grid = document.getElementById('amGlasses');
+      if (!me) { grid.innerHTML = ''; return; }
+      let html = '';
+      for (let i = 0; i < (me.glasses || []).length; i++) {
+        const consumed = i < me.drunkCount;
+        const isNext = i === me.drunkCount && me.alive;
+        let cls = 'multi-chamber';
+        let label = (i + 1);
+        if (consumed) {
+          const g = me.glasses[i];
+          cls += ' fired glass-' + g;
+          label = g === 'Schluck' ? '🥃' : (g === 'Shot' ? '🍷' : '💀');
+        } else if (isNext) {
+          cls += ' next';
+          label = '▶';
+        }
+        html += `<div class="${cls}">${label}</div>`;
+      }
+      grid.innerHTML = html;
+      const remaining = (me.glasses || []).length - me.drunkCount;
+      document.getElementById('amDrinksInfo').textContent = me.alive
+        ? `Glas ${me.drunkCount + 1} von 6`
+        : 'BLAU';
+      const dis = !me.alive || drinking;
+      document.getElementById('amBtnSelf').disabled = dis;
+      document.getElementById('amBtnOther').disabled = dis || Object.values(state.players).filter(p => p.alive && p !== me).length === 0;
+      document.getElementById('amBtnDouble').disabled = dis || remaining < 2;
+    }
+
+    function am_drawCard() {
+      if (!amHost) return;
+      const enabled = Object.entries(state.enabledCards).filter(([k,v]) => v).map(([k]) => k);
+      if (enabled.length === 0) { showError('Keine Karten aktiv'); return; }
+      const key = enabled[Math.floor(Math.random() * enabled.length)];
+      document.getElementById('amCardDisplay').classList.add('drawing');
+      setTimeout(() => document.getElementById('amCardDisplay').classList.remove('drawing'), 400);
+      broadcastState({ tableCard: key, tableDrawnAt: Date.now() });
+    }
+
+    function am_drinkSelf() { performDrink(mySelfId, mySelfId, 1); }
+    function am_doubleDown() { performDrink(mySelfId, mySelfId, 2); }
+    function am_aimOther() {
+      const me = state.players[mySelfId];
+      if (!me || !me.alive) return;
+      const targets = Object.entries(state.players).filter(([id, p]) => p.alive && id !== mySelfId);
+      const list = document.getElementById('amTargetList');
+      list.innerHTML = targets.map(([id, p]) =>
+        `<button class="multi-target-opt" onclick="am_pickTarget('${id}')">${escapeHtml(p.name)}</button>`
+      ).join('');
+      document.getElementById('amTargetModal').classList.add('active');
+    }
+    function am_pickTarget(targetId) {
+      document.getElementById('amTargetModal').classList.remove('active');
+      performDrink(mySelfId, targetId, 1);
+    }
+    function am_closeTarget() {
+      document.getElementById('amTargetModal').classList.remove('active');
+    }
+
+    function performDrink(actorId, targetId, count) {
+      const actor = state.players[actorId];
+      const target = state.players[targetId];
+      if (!actor || !target || !target.alive) return;
+      // Determine drinks from target's glasses
+      const drinks = [];
+      const newPlayers = JSON.parse(JSON.stringify(state.players));
+      for (let i = 0; i < count; i++) {
+        const idx = newPlayers[targetId].drunkCount;
+        if (idx >= newPlayers[targetId].glasses.length) break;
+        const what = newPlayers[targetId].glasses[idx];
+        drinks.push(what);
+        newPlayers[targetId].drunkCount++;
+        newPlayers[targetId].stats[what]++;
+        if (what === 'EX') {
+          newPlayers[targetId].alive = false;
+          const dead = Object.values(newPlayers).filter(x => !x.alive).length;
+          newPlayers[targetId].eliminationOrder = dead;
+        }
+      }
+      const ts = Date.now();
+      drinking = true;
+      showSuspenseLocal(actorId, targetId, drinks, () => {
+        drinking = false;
+        const lastAction = {
+          type: 'drink',
+          actor: actorId,
+          target: targetId,
+          drinks: drinks,
+          ts: ts,
+        };
+        lastAppliedAction = ts;
+        broadcastState({ players: newPlayers, lastAction });
+      });
+    }
+
+    function showSuspenseLocal(actorId, targetId, drinks, onDone) {
+      const overlay = document.getElementById('amSuspense');
+      const actor = document.getElementById('amSuspenseActor');
+      const text = document.getElementById('amSuspenseText');
+      const result = document.getElementById('amSuspenseResult');
+      const aP = state.players[actorId];
+      const tP = state.players[targetId];
+      actor.textContent = actorId === targetId
+        ? (drinks.length > 1 ? `${aP.name} → ALL IN ×${drinks.length}` : `${aP.name} → SELBST`)
+        : `${aP.name} → ${tP.name}`;
+      text.style.display = 'block';
+      text.textContent = '🎰 spinnen...';
+      result.textContent = '';
+      result.className = 'multi-suspense-result';
+      overlay.classList.add('active');
+      setTimeout(() => {
+        text.style.display = 'none';
+        // Show drinks one after another
+        let i = 0;
+        const showNext = () => {
+          if (i >= drinks.length) {
+            setTimeout(() => {
+              overlay.classList.remove('active');
+              if (onDone) onDone();
+            }, 800);
+            return;
+          }
+          const d = drinks[i];
+          result.className = 'multi-suspense-result';
+          void result.offsetWidth;
+          if (d === 'Schluck') { result.textContent = '🥃 SCHLUCK'; result.classList.add('schluck'); }
+          else if (d === 'Shot') { result.textContent = '🍷 SHOT'; result.classList.add('shot'); }
+          else { result.textContent = '💀 EX!'; result.classList.add('ex'); }
+          i++;
+          setTimeout(showNext, 900);
+        };
+        showNext();
+      }, 1100);
+    }
+
+    function showSuspenseRemote(action) {
+      // Same as local but no callback
+      showSuspenseLocal(action.actor, action.target, action.drinks, null);
+    }
+
+    function am_openSettings() {
+      if (!amHost) return;
+      const wrap = document.getElementById('amCardToggles');
+      wrap.innerHTML = Object.entries(CARDS).map(([k, c]) => {
+        const on = state.enabledCards[k] !== false;
+        return `<button class="multi-card-toggle ${on ? 'on' : ''}" onclick="am_toggleCard('${k}')">${c.rank} ${c.suit}</button>`;
+      }).join('');
+      document.querySelectorAll('#amModeList .multi-mode-opt').forEach(b => {
+        b.classList.toggle('active', b.dataset.mode === state.mode);
+      });
+      document.getElementById('amSettingsModal').classList.add('active');
+    }
+    function am_closeSettings() {
+      document.getElementById('amSettingsModal').classList.remove('active');
+    }
+    function am_setMode(mode) {
+      if (!amHost) return;
+      broadcastState({ mode });
+      // Note: existing trays keep until next reset
+      am_openSettings();
+    }
+    function am_toggleCard(k) {
+      if (!amHost) return;
+      const cards = Object.assign({}, state.enabledCards);
+      cards[k] = !cards[k];
+      const anyEnabled = Object.values(cards).some(v => v);
+      if (!anyEnabled) { showError('Mindestens eine Karte muss aktiv sein'); return; }
+      broadcastState({ enabledCards: cards });
+      am_openSettings();
+    }
+    function am_resetTrays() {
+      if (!amHost) return;
+      const newPlayers = JSON.parse(JSON.stringify(state.players));
+      Object.keys(newPlayers).forEach(id => {
+        newPlayers[id].glasses = generateGlasses(state.mode);
+        newPlayers[id].drunkCount = 0;
+        newPlayers[id].alive = true;
+        newPlayers[id].stats = { Schluck: 0, Shot: 0, EX: 0 };
+        newPlayers[id].eliminationOrder = null;
+      });
+      broadcastState({ players: newPlayers, winner: null });
+      am_closeSettings();
+    }
+    function am_kickAll() {
+      if (!amHost) return;
+      if (!confirm('Alle Tabletts UND Tischkarte zurücksetzen?')) return;
+      am_resetTrays();
+      broadcastState({ tableCard: null, lastAction: null, round: state.round + 1 });
+    }
+    function am_newRound() {
+      if (!amHost) return;
+      am_resetTrays();
+      broadcastState({ tableCard: null, lastAction: null, round: state.round + 1, winner: null });
+    }
+
+    function am_init() {
+      document.getElementById('amName').value = getStoredName();
+      if (!inSession) switchToLobby();
+    }
+
+    const origSwitch = window.switchApp;
+    window.switchApp = function(name) {
+      const result = origSwitch(name);
+      if (name === 'alkiMulti') am_init();
+      return result;
+    };
+
+    document.addEventListener('DOMContentLoaded', () => {
+      if (document.getElementById('appAlkiMulti').classList.contains('visible')) {
+        am_init();
+      }
+    });
+
+    window.am_create = am_create;
+    window.am_join = am_join;
+    window.am_leave = am_leave;
+    window.am_drawCard = am_drawCard;
+    window.am_drinkSelf = am_drinkSelf;
+    window.am_doubleDown = am_doubleDown;
+    window.am_aimOther = am_aimOther;
+    window.am_pickTarget = am_pickTarget;
+    window.am_closeTarget = am_closeTarget;
+    window.am_openSettings = am_openSettings;
+    window.am_closeSettings = am_closeSettings;
+    window.am_setMode = am_setMode;
+    window.am_toggleCard = am_toggleCard;
+    window.am_resetTrays = am_resetTrays;
+    window.am_kickAll = am_kickAll;
+    window.am_newRound = am_newRound;
   })();
 
 </script>
