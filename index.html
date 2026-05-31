@@ -8,6 +8,27 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Special+Elite&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Outfit:wght@300;400;500;600;700;800;900&family=Bebas+Neue&family=Righteous&display=swap" rel="stylesheet">
+
+<!-- Multiplayer library (WebRTC P2P, no backend) -->
+<script type="module">
+  try {
+    const mod = await import('https://esm.run/trystero/torrent');
+    window.TRYSTERO = mod;
+    window.dispatchEvent(new CustomEvent('trystero-ready'));
+  } catch (e) {
+    console.error('Trystero failed to load:', e);
+    // Fallback: try esm.sh
+    try {
+      const mod = await import('https://esm.sh/trystero/torrent');
+      window.TRYSTERO = mod;
+      window.dispatchEvent(new CustomEvent('trystero-ready'));
+    } catch (e2) {
+      console.error('Trystero fallback also failed:', e2);
+      window.TRYSTERO_FAILED = true;
+      window.dispatchEvent(new CustomEvent('trystero-failed'));
+    }
+  }
+</script>
 <style>
   /* ====================== GLOBAL ====================== */
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -162,6 +183,631 @@
   @media (max-width: 599px) {
     .burger { top: 10px; left: 10px; width: 40px; height: 40px; }
     .menu-drawer { width: 240px; padding-top: 70px; }
+  }
+
+  /* ====================== ADMIN MODE ====================== */
+  .admin-toggle {
+    position: fixed;
+    top: 14px;
+    right: 14px;
+    width: 44px;
+    height: 44px;
+    border: 1.5px solid #d4ee5a;
+    background: rgba(20,30,8,0.75);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-radius: 6px;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    color: #d4ee5a;
+    font-size: 1.2rem;
+    box-shadow: 0 0 18px rgba(212,238,90,0.3);
+    transition: all 0.2s;
+  }
+  .admin-toggle:hover {
+    background: rgba(40,55,15,0.9);
+    box-shadow: 0 0 25px rgba(212,238,90,0.55);
+    transform: scale(1.05);
+  }
+
+  .admin-toast {
+    position: fixed;
+    top: 70px;
+    left: 50%;
+    transform: translate(-50%, -20px);
+    background: rgba(20,30,8,0.95);
+    border: 1.5px solid #d4ee5a;
+    color: #d4ee5a;
+    padding: 0.7rem 1.4rem;
+    border-radius: 6px;
+    font-family: 'Cinzel', 'Outfit', sans-serif;
+    font-size: 0.85rem;
+    letter-spacing: 0.18em;
+    font-weight: 600;
+    box-shadow: 0 0 25px rgba(212,238,90,0.4);
+    opacity: 0;
+    pointer-events: none;
+    z-index: 1100;
+    transition: opacity 0.3s, transform 0.3s;
+  }
+  .admin-toast.show {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+
+  .admin-panel-backdrop { z-index: 300; }
+
+  .modal-admin {
+    max-width: 560px;
+    max-height: 88vh;
+    overflow-y: auto;
+    background: linear-gradient(180deg, #1f2a0d, #0f1606) !important;
+    border: 2px solid #d4ee5a !important;
+    box-shadow: 0 0 60px rgba(212,238,90,0.3) !important;
+  }
+
+  .admin-header {
+    text-align: center;
+    margin-bottom: 1.2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba(212,238,90,0.25);
+  }
+
+  .admin-title {
+    font-family: 'Cinzel', 'Bebas Neue', sans-serif;
+    font-size: 1.1rem;
+    letter-spacing: 0.3em;
+    color: #d4ee5a;
+    text-shadow: 0 0 14px rgba(212,238,90,0.5);
+    font-weight: 700;
+  }
+
+  .admin-context {
+    font-family: 'Special Elite', 'Outfit', sans-serif;
+    font-size: 0.78rem;
+    color: rgba(212,238,90,0.65);
+    letter-spacing: 0.15em;
+    margin-top: 0.3rem;
+    text-transform: uppercase;
+  }
+
+  .admin-section {
+    margin-bottom: 1.3rem;
+  }
+
+  .admin-section-title {
+    font-family: 'Cinzel', 'Bebas Neue', sans-serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.25em;
+    color: rgba(212,238,90,0.8);
+    text-transform: uppercase;
+    margin-bottom: 0.55rem;
+    font-weight: 600;
+  }
+
+  .admin-btn {
+    width: 100%;
+    background: rgba(212,238,90,0.08);
+    border: 1px solid rgba(212,238,90,0.4);
+    color: #d4ee5a;
+    padding: 0.7rem 1rem;
+    border-radius: 5px;
+    font-family: 'Cinzel', 'Outfit', sans-serif;
+    font-size: 0.85rem;
+    letter-spacing: 0.15em;
+    cursor: pointer;
+    margin-bottom: 0.5rem;
+    transition: all 0.2s;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+  .admin-btn:hover:not(:disabled) {
+    background: rgba(212,238,90,0.15);
+    border-color: #d4ee5a;
+    box-shadow: 0 0 12px rgba(212,238,90,0.25);
+  }
+  .admin-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+
+  .admin-btn.admin-undo span:first-child {
+    font-size: 1.2rem;
+    color: #d4ee5a;
+  }
+
+  .admin-btn.admin-off {
+    background: rgba(255,56,56,0.08);
+    border-color: rgba(255,56,56,0.5);
+    color: #ff8888;
+    width: auto;
+  }
+  .admin-btn.admin-off:hover {
+    background: rgba(255,56,56,0.18);
+    border-color: #ff5252;
+  }
+
+  .admin-card-overrides {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+  .admin-pill {
+    background: rgba(212,238,90,0.06);
+    border: 1px solid rgba(212,238,90,0.3);
+    color: #cce078;
+    padding: 0.45rem 0.8rem;
+    border-radius: 18px;
+    font-family: 'Cinzel', sans-serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .admin-pill:hover {
+    background: rgba(212,238,90,0.15);
+    color: #d4ee5a;
+  }
+  .admin-pill.active {
+    background: rgba(212,238,90,0.25);
+    border-color: #d4ee5a;
+    color: #fff;
+    box-shadow: 0 0 10px rgba(212,238,90,0.35);
+  }
+
+  .admin-player-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+  .admin-player {
+    background: rgba(0,0,0,0.3);
+    border: 1px solid rgba(212,238,90,0.2);
+    border-radius: 6px;
+    padding: 0.7rem 0.85rem;
+  }
+  .admin-player-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.85rem;
+    color: #e8f0c0;
+  }
+  .admin-player-head strong {
+    color: #d4ee5a;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+  }
+  .admin-player-head span {
+    color: rgba(212,238,90,0.7);
+    font-size: 0.72rem;
+    font-family: 'Special Elite', 'Outfit', sans-serif;
+    letter-spacing: 0.05em;
+  }
+  .admin-player-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.3rem;
+  }
+  .admin-mini {
+    background: rgba(212,238,90,0.06);
+    border: 1px solid rgba(212,238,90,0.3);
+    color: #cce078;
+    padding: 0.35rem 0.6rem;
+    border-radius: 4px;
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .admin-mini:hover:not(:disabled) {
+    background: rgba(212,238,90,0.18);
+    color: #d4ee5a;
+    border-color: rgba(212,238,90,0.5);
+  }
+  .admin-mini:disabled { opacity: 0.25; cursor: not-allowed; }
+
+  .admin-log {
+    background: rgba(0,0,0,0.4);
+    border: 1px solid rgba(212,238,90,0.2);
+    border-radius: 4px;
+    padding: 0.6rem 0.8rem;
+    max-height: 180px;
+    overflow-y: auto;
+    font-family: 'Special Elite', 'Outfit', sans-serif;
+    font-size: 0.75rem;
+  }
+  .admin-log-entry {
+    color: #b8c878;
+    padding: 0.15rem 0;
+    border-bottom: 1px dashed rgba(212,238,90,0.1);
+    letter-spacing: 0.02em;
+  }
+  .admin-log-entry:last-child { border-bottom: none; }
+  .admin-log-time {
+    color: rgba(212,238,90,0.5);
+    margin-right: 0.5rem;
+    font-size: 0.7rem;
+  }
+  .admin-log-empty {
+    color: rgba(212,238,90,0.4);
+    font-style: italic;
+    text-align: center;
+    padding: 0.5rem;
+  }
+
+  .admin-footer {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(212,238,90,0.2);
+  }
+
+  /* Title clickable hint on hover (subtle) */
+  .app-liarsbar h1, .app-alki h1 {
+    cursor: pointer;
+    user-select: none;
+  }
+
+  @media (max-width: 599px) {
+    .admin-toggle { top: 10px; right: 10px; width: 40px; height: 40px; }
+    .modal-admin { padding: 1.2rem 1rem; }
+    .admin-title { font-size: 1rem; letter-spacing: 0.2em; }
+    .admin-mini { font-size: 0.65rem; padding: 0.3rem 0.5rem; }
+  }
+
+  /* ====================== MULTIPLAYER ====================== */
+  .menu-divider {
+    height: 1px;
+    background: rgba(184,134,42,0.2);
+    margin: 12px 24px;
+  }
+
+  .menu-mp { position: relative; }
+  .mp-badge {
+    position: absolute;
+    right: 24px;
+    background: #22c55e;
+    color: #0d0604;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 0.7rem;
+    padding: 0.15rem 0.5rem;
+    border-radius: 10px;
+    letter-spacing: 0.1em;
+    display: none;
+  }
+  .mp-badge.live {
+    display: inline-block;
+    animation: mpPulse 1.6s infinite;
+  }
+  @keyframes mpPulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(34,197,94,0.6); }
+    50% { box-shadow: 0 0 0 6px rgba(34,197,94,0); }
+  }
+
+  .modal-mp {
+    max-width: 480px;
+    background: linear-gradient(180deg, #1a2536, #0d141f) !important;
+    border: 2px solid #5fa9ff !important;
+    box-shadow: 0 0 50px rgba(95,169,255,0.3) !important;
+  }
+
+  .mp-header {
+    text-align: center;
+    margin-bottom: 1.2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba(95,169,255,0.25);
+  }
+  .mp-title {
+    font-family: 'Cinzel', 'Bebas Neue', sans-serif;
+    font-size: 1.15rem;
+    letter-spacing: 0.3em;
+    color: #5fa9ff;
+    text-shadow: 0 0 14px rgba(95,169,255,0.5);
+    font-weight: 700;
+  }
+  .mp-sub {
+    font-family: 'Special Elite', 'Outfit', sans-serif;
+    font-size: 0.78rem;
+    color: rgba(95,169,255,0.7);
+    letter-spacing: 0.15em;
+    margin-top: 0.3rem;
+    text-transform: uppercase;
+  }
+  .mp-sub.live { color: #22c55e; }
+  .mp-sub.error { color: #ef4444; }
+
+  .mp-section { margin-bottom: 0.6rem; }
+  .mp-section-title {
+    font-family: 'Cinzel', 'Bebas Neue', sans-serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.25em;
+    color: rgba(95,169,255,0.85);
+    text-transform: uppercase;
+    margin-bottom: 0.55rem;
+    font-weight: 600;
+  }
+
+  .mp-btn {
+    width: 100%;
+    background: linear-gradient(135deg, #2563eb, #5fa9ff);
+    border: none;
+    color: white;
+    padding: 0.85rem 1rem;
+    border-radius: 6px;
+    font-family: 'Cinzel', 'Outfit', sans-serif;
+    font-size: 0.9rem;
+    letter-spacing: 0.18em;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+    box-shadow: 0 4px 18px rgba(95,169,255,0.35);
+    font-weight: 600;
+  }
+  .mp-btn:hover:not(:disabled) {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 22px rgba(95,169,255,0.55);
+  }
+  .mp-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+  .mp-btn.mp-leave {
+    background: rgba(239,68,68,0.15);
+    border: 1px solid rgba(239,68,68,0.5);
+    color: #ff8888;
+    box-shadow: none;
+    width: auto;
+    padding: 0.6rem 1.2rem;
+    font-size: 0.8rem;
+  }
+  .mp-btn.mp-leave:hover { background: rgba(239,68,68,0.25); border-color: #ef4444; }
+
+  .mp-join-row {
+    display: flex;
+    gap: 0.5rem;
+  }
+  .mp-code-input {
+    flex: 1;
+    background: rgba(0,0,0,0.4);
+    border: 1.5px solid rgba(95,169,255,0.5);
+    color: #5fa9ff;
+    padding: 0.7rem 0.9rem;
+    border-radius: 6px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.6rem;
+    letter-spacing: 0.4em;
+    text-align: center;
+    text-transform: uppercase;
+    outline: none;
+  }
+  .mp-code-input:focus {
+    border-color: #5fa9ff;
+    box-shadow: 0 0 0 3px rgba(95,169,255,0.2);
+  }
+  .mp-btn.mp-join {
+    width: auto;
+    padding: 0.7rem 1.4rem;
+    font-size: 0.85rem;
+  }
+
+  .mp-note {
+    margin-top: 1.4rem;
+    padding: 0.8rem 1rem;
+    background: rgba(95,169,255,0.07);
+    border-left: 3px solid #5fa9ff;
+    border-radius: 4px;
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.78rem;
+    line-height: 1.5;
+    color: #b8d0ed;
+  }
+
+  .mp-code-display {
+    background: rgba(95,169,255,0.08);
+    border: 1.5px solid rgba(95,169,255,0.35);
+    border-radius: 8px;
+    padding: 1rem;
+    text-align: center;
+  }
+  .mp-code-label {
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    color: #5fa9ff;
+    text-transform: uppercase;
+    margin-bottom: 0.3rem;
+  }
+  .mp-code-value {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 3rem;
+    letter-spacing: 0.3em;
+    color: white;
+    text-shadow: 0 0 25px rgba(95,169,255,0.6);
+    margin-bottom: 0.5rem;
+    font-weight: 700;
+  }
+  .mp-mini-btn {
+    background: transparent;
+    border: 1px solid rgba(95,169,255,0.4);
+    color: #5fa9ff;
+    padding: 0.35rem 0.8rem;
+    border-radius: 4px;
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.78rem;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .mp-mini-btn:hover { background: rgba(95,169,255,0.12); }
+
+  .mp-peers {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+  .mp-peer {
+    padding: 0.55rem 0.85rem;
+    background: rgba(0,0,0,0.25);
+    border: 1px solid rgba(95,169,255,0.2);
+    border-radius: 5px;
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.85rem;
+    color: #b8d0ed;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .mp-peer.me {
+    border-color: #22c55e;
+    color: #22c55e;
+    background: rgba(34,197,94,0.08);
+  }
+  .mp-peer-dot {
+    width: 8px;
+    height: 8px;
+    background: #22c55e;
+    border-radius: 50%;
+    box-shadow: 0 0 8px #22c55e;
+  }
+
+  .mp-my-slot {
+    padding: 0.7rem 0.9rem;
+    background: rgba(0,0,0,0.3);
+    border: 1px solid rgba(95,169,255,0.3);
+    border-radius: 5px;
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.95rem;
+    color: #b8d0ed;
+    text-align: center;
+    margin-bottom: 0.6rem;
+  }
+  .mp-my-slot.claimed {
+    color: #22c55e;
+    border-color: #22c55e;
+    font-weight: 600;
+  }
+
+  .mp-slot-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    max-height: 50vh;
+    overflow-y: auto;
+  }
+  .mp-slot-option {
+    background: rgba(0,0,0,0.3);
+    border: 1.5px solid rgba(95,169,255,0.4);
+    border-radius: 6px;
+    padding: 0.85rem 1rem;
+    cursor: pointer;
+    font-family: 'Cinzel', 'Outfit', sans-serif;
+    font-size: 0.95rem;
+    color: #b8d0ed;
+    text-align: left;
+    transition: all 0.2s;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .mp-slot-option:hover:not(:disabled) {
+    border-color: #5fa9ff;
+    background: rgba(95,169,255,0.12);
+    color: white;
+  }
+  .mp-slot-option:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+  .mp-slot-option .mp-slot-tag {
+    font-size: 0.72rem;
+    color: rgba(184,200,237,0.6);
+    font-family: 'Special Elite', 'Outfit', sans-serif;
+    letter-spacing: 0.05em;
+  }
+
+  /* MP toast for remote actions */
+  .mp-toast {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translate(-50%, 30px);
+    background: rgba(20,30,48,0.95);
+    border: 1.5px solid #5fa9ff;
+    color: #b8d0ed;
+    padding: 0.7rem 1.4rem;
+    border-radius: 6px;
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.85rem;
+    letter-spacing: 0.05em;
+    box-shadow: 0 0 25px rgba(95,169,255,0.3);
+    opacity: 0;
+    pointer-events: none;
+    z-index: 250;
+    transition: opacity 0.3s, transform 0.3s;
+    max-width: 90vw;
+    text-align: center;
+  }
+  .mp-toast.show {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+
+  /* Banner showing active session */
+  .mp-session-banner {
+    position: fixed;
+    top: 14px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(20,30,48,0.85);
+    border: 1px solid rgba(95,169,255,0.5);
+    color: #5fa9ff;
+    padding: 0.4rem 1rem;
+    border-radius: 16px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 0.85rem;
+    letter-spacing: 0.2em;
+    backdrop-filter: blur(8px);
+    z-index: 990;
+    display: none;
+    pointer-events: none;
+  }
+  .mp-session-banner.show { display: block; }
+
+  /* Visual cue for "this is my slot" */
+  .my-player {
+    box-shadow: 0 0 0 2px #22c55e, 0 0 25px rgba(34,197,94,0.4) !important;
+  }
+  .my-player::before {
+    content: 'DU';
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #22c55e;
+    color: #0d0604;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 0.75rem;
+    padding: 0.1rem 0.5rem;
+    border-radius: 8px;
+    letter-spacing: 0.15em;
+    z-index: 2;
+  }
+
+  /* Disable buttons on non-owned slots in MP mode */
+  body.mp-active .player:not(.my-player) .action,
+  body.mp-active .player:not(.my-player) .aim-other,
+  body.mp-active .player:not(.my-player) .alki-double,
+  body.mp-active .player:not(.my-player) .alki-aim,
+  body.mp-active .player:not(.my-player) .name-edit-btn {
+    opacity: 0.3 !important;
+    pointer-events: none;
+  }
+
+  @media (max-width: 599px) {
+    .mp-code-value { font-size: 2.2rem; letter-spacing: 0.25em; }
+    .modal-mp { padding: 1.2rem 1rem; }
   }
 
   /* Push down the app titles so they don't sit under the burger */
@@ -549,6 +1195,15 @@
     position: relative;
     transform-style: preserve-3d;
     transition: transform 0.6s cubic-bezier(0.4,0,0.2,1);
+    cursor: pointer;
+  }
+
+  .table-card-wrap {
+    transition: transform 0.2s;
+  }
+
+  .table-card-wrap:hover {
+    transform: scale(1.03);
   }
 
   .table-card.flipped { transform: rotateY(180deg); }
@@ -1063,6 +1718,69 @@
     .suspense-name { font-size: 1.05rem; margin-bottom: 1rem; }
     .suspense-result.click { font-size: 1.8rem; }
     .suspense-result.bang { font-size: 2.2rem; }
+  }
+
+  /* ====================== AIM-OTHER + TARGET PICKER ====================== */
+  .aim-other {
+    margin-top: 0.5rem;
+    width: 100%;
+    background: transparent;
+    border: 1.5px solid rgba(184,134,42,0.5);
+    color: var(--brass);
+    padding: 0.55rem 0.7rem;
+    border-radius: 4px;
+    font-family: 'Cinzel', serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .aim-other:hover:not(:disabled) {
+    background: rgba(184,134,42,0.1);
+    color: var(--brass-bright);
+    border-color: var(--brass);
+  }
+  .aim-other:disabled { opacity: 0.25; cursor: not-allowed; }
+
+  .target-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-bottom: 1.2rem;
+    max-height: 50vh;
+    overflow-y: auto;
+  }
+  .target-option {
+    background: rgba(0,0,0,0.3);
+    border: 1.5px solid rgba(184,134,42,0.4);
+    border-radius: 6px;
+    padding: 0.85rem 1rem;
+    cursor: pointer;
+    font-family: 'Cinzel', serif;
+    font-size: 1rem;
+    letter-spacing: 0.1em;
+    color: var(--bone);
+    text-align: left;
+    transition: all 0.2s;
+  }
+  .target-option:hover {
+    border-color: var(--blood-bright);
+    background: rgba(139,0,0,0.15);
+    color: var(--blood-bright);
+    transform: translateX(4px);
+  }
+  .target-empty {
+    color: var(--bone-dim);
+    font-family: 'Special Elite', serif;
+    font-size: 0.85rem;
+    text-align: center;
+    padding: 1rem;
+    font-style: italic;
+  }
+  .suspense-arrow {
+    color: var(--blood-bright);
+    margin: 0 0.4rem;
+    font-weight: 400;
   }
 
   /* ========== Mobile (< 600px) ========== */
@@ -2141,6 +2859,64 @@
   }
   .app-alki .alki-double:disabled { opacity: 0.25; cursor: not-allowed; }
 
+  /* Aim-other (party) + target picker */
+  .app-alki .alki-aim {
+    margin-top: 0.5rem;
+    width: 100%;
+    background: transparent;
+    border: 1.5px solid var(--p-cyan);
+    color: var(--p-cyan);
+    padding: 0.55rem 0.6rem;
+    border-radius: 6px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.18em;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .app-alki .alki-aim:hover:not(:disabled) {
+    background: rgba(0,229,255,0.12);
+    color: var(--p-cyan);
+    box-shadow: 0 0 14px rgba(0,229,255,0.4);
+    transform: scale(1.02);
+  }
+  .app-alki .alki-aim:disabled { opacity: 0.25; cursor: not-allowed; }
+
+  .app-alki .alki-target-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    margin-bottom: 1.2rem;
+    max-height: 50vh;
+    overflow-y: auto;
+  }
+  .app-alki .alki-target-option {
+    background: linear-gradient(180deg, rgba(38,19,71,0.6), rgba(21,8,38,0.85));
+    border: 1.5px solid rgba(0,229,255,0.4);
+    border-radius: 8px;
+    padding: 0.9rem 1rem;
+    cursor: pointer;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.1rem;
+    letter-spacing: 0.15em;
+    color: var(--p-cream);
+    text-align: left;
+    transition: all 0.2s;
+  }
+  .app-alki .alki-target-option:hover {
+    border-color: var(--p-danger);
+    background: linear-gradient(180deg, rgba(255,56,56,0.15), rgba(38,19,71,0.7));
+    color: var(--p-danger);
+    transform: translateX(4px);
+    box-shadow: 0 0 18px rgba(255,56,56,0.25);
+  }
+
+  .app-alki .alki-arrow {
+    color: var(--p-danger);
+    margin: 0 0.4rem;
+    font-weight: 400;
+  }
+
   /* Modals */
   .app-alki .modal {
     background: linear-gradient(180deg, var(--p-bg-2), var(--p-bg));
@@ -2492,6 +3268,81 @@
   <span></span><span></span><span></span>
 </button>
 
+<!-- Admin toggle (hidden by default, shown after 5x title clicks) -->
+<button class="admin-toggle" id="adminToggleBtn" onclick="openAdminPanel()" style="display:none" aria-label="Admin-Panel öffnen" title="Admin-Panel">🔧</button>
+
+<!-- Admin toast -->
+<div class="admin-toast" id="adminToast"></div>
+
+<!-- Multiplayer Panel -->
+<div class="modal-backdrop mp-panel-backdrop" id="mpPanel" onclick="if(event.target===this) closeMultiplayer()">
+  <div class="modal modal-mp">
+    <div class="mp-header">
+      <div class="mp-title">📡 MULTIPLAYER</div>
+      <div class="mp-sub" id="mpStatus">Nicht verbunden</div>
+    </div>
+
+    <!-- Disconnected view -->
+    <div class="mp-section" id="mpDisconnected">
+      <div class="mp-section-title">Session starten</div>
+      <button class="mp-btn mp-create" onclick="mpCreateSession()">
+        ✨ Neue Session
+      </button>
+
+      <div class="mp-section-title" style="margin-top: 1.2rem">Session beitreten</div>
+      <div class="mp-join-row">
+        <input type="text" class="mp-code-input" id="mpJoinCode" maxlength="4" placeholder="CODE" autocomplete="off" autocapitalize="characters">
+        <button class="mp-btn mp-join" onclick="mpJoinSession()">Beitreten</button>
+      </div>
+
+      <div class="mp-note">
+        Spiele Liar's Bar oder Alki Edition mit deinen Freunden auf mehreren Handys.
+        Alle sehen den gleichen Spielstand live. Jeder hat seine eigene Trommel/sein eigenes Tablett.
+      </div>
+    </div>
+
+    <!-- Connected view -->
+    <div class="mp-section" id="mpConnected" style="display:none">
+      <div class="mp-code-display">
+        <div class="mp-code-label">Session-Code</div>
+        <div class="mp-code-value" id="mpCodeValue">—</div>
+        <button class="mp-mini-btn" onclick="mpCopyCode()">📋 Kopieren</button>
+      </div>
+
+      <div class="mp-section-title" style="margin-top: 1.2rem">Verbunden</div>
+      <div class="mp-peers" id="mpPeers"></div>
+
+      <div class="mp-section-title" style="margin-top: 1.2rem">Mein Spieler</div>
+      <div class="mp-my-slot" id="mpMySlot">— noch nicht zugewiesen —</div>
+      <button class="mp-btn mp-claim" id="mpClaimBtn" onclick="mpOpenClaimPicker()">Spieler-Slot wählen</button>
+    </div>
+
+    <div class="modal-actions-split mp-footer">
+      <button class="mp-btn mp-leave" id="mpLeaveBtn" onclick="mpLeaveSession()" style="display:none">
+        🚪 Session verlassen
+      </button>
+      <div style="flex:1"></div>
+      <button class="icon-btn icon-confirm" onclick="closeMultiplayer()" title="Schließen">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Slot picker -->
+<div class="modal-backdrop" id="mpSlotPicker" onclick="if(event.target===this) mpCloseSlotPicker()">
+  <div class="modal">
+    <div class="modal-title">Slot wählen</div>
+    <div class="modal-sub">Welcher Spieler bist du?</div>
+    <div class="mp-slot-list" id="mpSlotList"></div>
+    <div class="modal-actions-split" style="justify-content: flex-end">
+      <button class="icon-btn" onclick="mpCloseSlotPicker()" title="Abbrechen">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+  </div>
+</div>
+
 <div class="menu-backdrop" id="menuBackdrop" onclick="toggleMenu()"></div>
 
 <nav class="menu-drawer" id="menuDrawer">
@@ -2509,8 +3360,59 @@
       <span class="icon">🥃</span>
       <span>Alki Edition</span>
     </button>
+    <div class="menu-divider"></div>
+    <button class="menu-item menu-mp" onclick="openMultiplayer()">
+      <span class="icon">📡</span>
+      <span>Multiplayer</span>
+      <span class="mp-badge" id="mpBadge"></span>
+    </button>
   </div>
 </nav>
+
+<!-- Admin Panel -->
+<div class="modal-backdrop admin-panel-backdrop" id="adminPanel" onclick="if(event.target===this) closeAdminPanel()">
+  <div class="modal modal-admin">
+    <div class="admin-header">
+      <div class="admin-title">🔧 ADMIN-MODUS</div>
+      <div class="admin-context" id="adminContext">—</div>
+    </div>
+
+    <div class="admin-section">
+      <div class="admin-section-title">Schnellaktionen</div>
+      <button class="admin-btn admin-undo" id="adminUndoBtn" onclick="adminUndo()">
+        <span>↶</span> Letzte Aktion rückgängig
+      </button>
+      <button class="admin-btn admin-god" onclick="adminToggleGodMode()">
+        <span id="adminGodLabel">God-Mode: AUS</span>
+      </button>
+    </div>
+
+    <div class="admin-section">
+      <div class="admin-section-title">Tischkarte erzwingen</div>
+      <div class="admin-card-overrides" id="adminCardOverrides"></div>
+    </div>
+
+    <div class="admin-section">
+      <div class="admin-section-title">Spieler</div>
+      <div class="admin-player-list" id="adminPlayerList"></div>
+    </div>
+
+    <div class="admin-section">
+      <div class="admin-section-title">Verlauf</div>
+      <div class="admin-log" id="adminLog"></div>
+    </div>
+
+    <div class="modal-actions-split admin-footer">
+      <button class="admin-btn admin-off" onclick="toggleAdminMode(); closeAdminPanel();" title="Admin aus">
+        🔒 Admin verlassen
+      </button>
+      <div style="flex:1"></div>
+      <button class="icon-btn icon-confirm" onclick="closeAdminPanel()" title="Fertig">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+      </button>
+    </div>
+  </div>
+</div>
 
 <!-- ====================== LIAR'S BAR ====================== -->
 <div class="app app-liarsbar" id="appLiarsbar">
@@ -2607,7 +3509,7 @@
   <div class="table-section">
     <span class="table-label">— DIE TISCHKARTE —</span>
     <div class="table-card-wrap">
-      <div class="table-card" id="tableCard">
+      <div class="table-card" id="tableCard" onclick="drawTable()" title="Neue Tischkarte ziehen">
         <div class="card-face card-back">
           <div class="back-pattern"></div>
         </div>
@@ -2692,6 +3594,23 @@
   <div class="suspense-card">
     <div class="suspense-name" id="suspenseName"></div>
     <div class="suspense-content" id="suspenseContent"></div>
+  </div>
+</div>
+
+<!-- Target picker modal -->
+<div class="modal-backdrop" id="targetPickerModal" onclick="if(event.target===this) closeTargetPicker()">
+  <div class="modal">
+    <div class="modal-title">Auf wen?</div>
+    <div class="modal-sub" id="targetPickerName">—</div>
+    <div class="target-list" id="targetPickerList"></div>
+    <div class="modal-actions-split" style="justify-content: flex-end">
+      <button class="icon-btn" onclick="closeTargetPicker()" title="Abbrechen" aria-label="Abbrechen">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="6" x2="6" y2="18"/>
+          <line x1="6" y1="6" x2="18" y2="18"/>
+        </svg>
+      </button>
+    </div>
   </div>
 </div>
 
@@ -2999,7 +3918,7 @@
   <div class="table-section">
     <span class="table-label">— DIE TISCHKARTE —</span>
     <div class="table-card-wrap">
-      <div class="table-card" id="alkiTableCard">
+      <div class="table-card" id="alkiTableCard" onclick="alki_drawTable()" title="Neue Tischkarte ziehen">
         <div class="card-face card-back">
           <div class="back-pattern"></div>
         </div>
@@ -3037,6 +3956,23 @@
   </div>
 </div>
 
+<!-- Alki target picker modal -->
+<div class="modal-backdrop" id="alkiTargetModal" onclick="if(event.target===this) alki_closeTargetPicker()">
+  <div class="modal">
+    <div class="modal-title">Auf wen?</div>
+    <div class="modal-sub" id="alkiTargetName">—</div>
+    <div class="alki-target-list" id="alkiTargetList"></div>
+    <div class="modal-actions-split" style="justify-content: flex-end">
+      <button class="icon-btn" onclick="alki_closeTargetPicker()" title="Abbrechen" aria-label="Abbrechen">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="6" x2="6" y2="18"/>
+          <line x1="6" y1="6" x2="18" y2="18"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</div>
+
 <!-- Winner overlay -->
 <div class="overlay" id="alkiOverlay">
   <div class="winner-box">
@@ -3052,6 +3988,548 @@
 <script>
   // ============ APP SWITCHER ============
   const APP_KEY = 'active-app-v1';
+
+  // ============ ADMIN MODE ============
+  const ADMIN = {
+    active: false,
+    clickCount: 0,
+    clickTimer: null,
+    CLICK_THRESHOLD: 5,
+    CLICK_WINDOW_MS: 2500,
+    history: { liarsbar: [], alki: [] },
+    HISTORY_MAX: 15,
+    godMode: { liarsbar: false, alki: false },
+    log: { liarsbar: [], alki: [] },
+    LOG_MAX: 50,
+    forcedCard: { liarsbar: null, alki: null },
+  };
+
+  window.adminAPI = { liarsbar: null, alki: null };
+
+  function getCurrentAdminApp() {
+    if (document.querySelector('.app-liarsbar.visible')) return 'liarsbar';
+    if (document.querySelector('.app-alki.visible')) return 'alki';
+    return null;
+  }
+
+  function handleAdminTitleClick() {
+    if (ADMIN.active) return; // already active, ignore clicks
+    ADMIN.clickCount++;
+    if (ADMIN.clickTimer) clearTimeout(ADMIN.clickTimer);
+    ADMIN.clickTimer = setTimeout(() => { ADMIN.clickCount = 0; }, ADMIN.CLICK_WINDOW_MS);
+    if (ADMIN.clickCount >= ADMIN.CLICK_THRESHOLD) {
+      ADMIN.clickCount = 0;
+      toggleAdminMode();
+    }
+  }
+
+  function toggleAdminMode() {
+    ADMIN.active = !ADMIN.active;
+    const btn = document.getElementById('adminToggleBtn');
+    if (btn) btn.style.display = ADMIN.active ? 'flex' : 'none';
+    showAdminToast(ADMIN.active ? '🔧 ADMIN AKTIV' : '🔒 ADMIN AUS');
+  }
+
+  function showAdminToast(msg) {
+    const t = document.getElementById('adminToast');
+    if (!t) return;
+    t.textContent = msg;
+    t.classList.add('show');
+    clearTimeout(t._timer);
+    t._timer = setTimeout(() => t.classList.remove('show'), 2200);
+  }
+
+  function openAdminPanel() {
+    const app = getCurrentAdminApp();
+    if (!app || !window.adminAPI[app]) {
+      showAdminToast('App nicht unterstützt');
+      return;
+    }
+    renderAdminPanel(app);
+    document.getElementById('adminPanel').classList.add('active');
+  }
+
+  function closeAdminPanel() {
+    document.getElementById('adminPanel').classList.remove('active');
+  }
+
+  function renderAdminPanel(app) {
+    document.getElementById('adminContext').textContent =
+      app === 'liarsbar' ? "Liar's Bar" : 'Alki Edition';
+    document.getElementById('adminUndoBtn').disabled = ADMIN.history[app].length === 0;
+    document.getElementById('adminGodLabel').textContent =
+      'God-Mode: ' + (ADMIN.godMode[app] ? 'AN ✓' : 'AUS');
+    renderAdminCardOverrides(app);
+    renderAdminPlayerList(app);
+    renderAdminLog(app);
+  }
+
+  function renderAdminCardOverrides(app) {
+    const cards = [
+      { key: null, label: 'Random (normal)' },
+      { key: 'J', label: 'J ♠ Bube' },
+      { key: 'Q', label: 'Q ♥ Dame' },
+      { key: 'K', label: 'K ♣ König' },
+      { key: 'A', label: 'A ♦ Ass' },
+    ];
+    const current = ADMIN.forcedCard[app];
+    document.getElementById('adminCardOverrides').innerHTML = cards.map(c =>
+      `<button class="admin-pill ${c.key === current ? 'active' : ''}"
+               onclick="adminSetForcedCard(${c.key === null ? 'null' : "'" + c.key + "'"})">${c.label}</button>`
+    ).join('');
+  }
+
+  function adminSetForcedCard(key) {
+    const app = getCurrentAdminApp();
+    if (!app) return;
+    ADMIN.forcedCard[app] = key;
+    renderAdminCardOverrides(app);
+    adminLog(app, 'Tischkarte erzwungen: ' + (key || 'Random'));
+  }
+
+  function renderAdminPlayerList(app) {
+    const wrap = document.getElementById('adminPlayerList');
+    const api = window.adminAPI[app];
+    const players = api.getPlayers();
+    wrap.innerHTML = players.map((p, i) => {
+      const aliveDot = p.alive ? '🟢' : '💀';
+      let stateInfo, actions;
+      if (app === 'liarsbar') {
+        stateInfo = `${aliveDot} · ${p.shotsFired}/6 · Kugel#${p.bulletPos}`;
+        actions = `
+          <button class="admin-mini" onclick="adminAction('reset', ${i})">🔄 Trommel</button>
+          <button class="admin-mini" onclick="adminAction('revive', ${i})" ${p.alive ? 'disabled' : ''}>❤️ Wiederbeleben</button>
+          <button class="admin-mini" onclick="adminAction('kill', ${i})" ${!p.alive ? 'disabled' : ''}>💀 Eliminieren</button>
+          <button class="admin-mini" onclick="adminAction('nextClick', ${i})">🍀 Nächste: Click</button>
+          <button class="admin-mini" onclick="adminAction('nextBang', ${i})">💥 Nächste: Bang</button>
+        `;
+      } else {
+        stateInfo = `${aliveDot} · ${p.drunkCount}/6 · 🥃${p.stats.Schluck} 🍷${p.stats.Shot} 💀${p.stats.EX}`;
+        actions = `
+          <button class="admin-mini" onclick="adminAction('reset', ${i})">🔄 Tablett</button>
+          <button class="admin-mini" onclick="adminAction('revive', ${i})" ${p.alive ? 'disabled' : ''}>❤️ Wiederbeleben</button>
+          <button class="admin-mini" onclick="adminAction('kill', ${i})" ${!p.alive ? 'disabled' : ''}>💀 Eliminieren</button>
+          <button class="admin-mini" onclick="adminAction('nextSchluck', ${i})">🥃 Nächstes</button>
+          <button class="admin-mini" onclick="adminAction('nextShot', ${i})">🍷 Nächstes</button>
+          <button class="admin-mini" onclick="adminAction('nextEX', ${i})">💀 Nächstes</button>
+        `;
+      }
+      return `<div class="admin-player">
+        <div class="admin-player-head">
+          <strong>${p.name}</strong>
+          <span>${stateInfo}</span>
+        </div>
+        <div class="admin-player-actions">${actions}</div>
+      </div>`;
+    }).join('');
+  }
+
+  function renderAdminLog(app) {
+    const wrap = document.getElementById('adminLog');
+    const entries = ADMIN.log[app];
+    if (!entries.length) {
+      wrap.innerHTML = '<div class="admin-log-empty">— noch nichts passiert —</div>';
+      return;
+    }
+    wrap.innerHTML = entries.slice().reverse().slice(0, 20).map(e =>
+      `<div class="admin-log-entry"><span class="admin-log-time">${e.time}</span>${e.text}</div>`
+    ).join('');
+  }
+
+  function adminAction(action, idx) {
+    const app = getCurrentAdminApp();
+    if (!app) return;
+    const api = window.adminAPI[app];
+    if (!api) return;
+    adminSnapshot(app);
+    api.action(action, idx);
+    renderAdminPanel(app);
+    const players = api.getPlayers();
+    adminLog(app, `${action} → ${players[idx].name}`);
+  }
+
+  function adminUndo() {
+    const app = getCurrentAdminApp();
+    if (!app) return;
+    const last = ADMIN.history[app].pop();
+    if (!last) return;
+    window.adminAPI[app].restoreState(last.state);
+    adminLog(app, '↶ Rückgängig');
+    renderAdminPanel(app);
+    showAdminToast('↶ Rückgängig');
+  }
+
+  function adminToggleGodMode() {
+    const app = getCurrentAdminApp();
+    if (!app) return;
+    ADMIN.godMode[app] = !ADMIN.godMode[app];
+    document.getElementById('adminGodLabel').textContent =
+      'God-Mode: ' + (ADMIN.godMode[app] ? 'AN ✓' : 'AUS');
+    adminLog(app, 'God-Mode: ' + (ADMIN.godMode[app] ? 'AN' : 'AUS'));
+  }
+
+  function adminSnapshot(app) {
+    const api = window.adminAPI[app];
+    if (!api) return;
+    ADMIN.history[app].push({ time: Date.now(), state: api.getState() });
+    if (ADMIN.history[app].length > ADMIN.HISTORY_MAX) ADMIN.history[app].shift();
+  }
+
+  function adminLog(app, text) {
+    const time = new Date().toTimeString().slice(0, 8);
+    ADMIN.log[app].push({ time, text });
+    if (ADMIN.log[app].length > ADMIN.LOG_MAX) ADMIN.log[app].shift();
+  }
+
+  // Make available to app code
+  window.ADMIN = ADMIN;
+  window.adminSnapshot = adminSnapshot;
+  window.adminLog = adminLog;
+  window.handleAdminTitleClick = handleAdminTitleClick;
+
+  // Attach title click listeners after DOM ready
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.app-liarsbar h1, .app-alki h1').forEach(h => {
+      h.addEventListener('click', handleAdminTitleClick);
+    });
+  });
+
+  // ============ MULTIPLAYER ============
+  const MP = {
+    active: false,
+    code: null,
+    app: null,
+    room: null,
+    sendState: null,
+    sendEvent: null,
+    selfId: null,
+    peers: {},          // peerId → { lastSeen }
+    myClaimedSlot: null,
+    suppressBroadcast: false, // prevent rebroadcast loops when applying remote
+  };
+  window.MP = MP;
+
+  function generateSessionCode() {
+    const chars = 'ABCDEFGHJKMNPQRSTUVWXYZ23456789';
+    let c = '';
+    for (let i = 0; i < 4; i++) c += chars[Math.floor(Math.random() * chars.length)];
+    return c;
+  }
+
+  function openMultiplayer() {
+    if (document.getElementById('menuDrawer').classList.contains('open')) toggleMenu();
+    renderMultiplayerPanel();
+    document.getElementById('mpPanel').classList.add('active');
+  }
+
+  function closeMultiplayer() {
+    document.getElementById('mpPanel').classList.remove('active');
+  }
+
+  function renderMultiplayerPanel() {
+    const status = document.getElementById('mpStatus');
+    const disc = document.getElementById('mpDisconnected');
+    const conn = document.getElementById('mpConnected');
+    const leaveBtn = document.getElementById('mpLeaveBtn');
+
+    if (MP.active) {
+      const peerCount = Object.keys(MP.peers).length + 1;
+      status.textContent = `Live · ${peerCount} verbunden`;
+      status.className = 'mp-sub live';
+      disc.style.display = 'none';
+      conn.style.display = 'block';
+      leaveBtn.style.display = 'inline-block';
+      document.getElementById('mpCodeValue').textContent = MP.code;
+      renderPeerList();
+      renderMyMpSlot();
+    } else {
+      status.textContent = 'Nicht verbunden';
+      status.className = 'mp-sub';
+      disc.style.display = 'block';
+      conn.style.display = 'none';
+      leaveBtn.style.display = 'none';
+    }
+  }
+
+  function renderPeerList() {
+    const wrap = document.getElementById('mpPeers');
+    const peerIds = Object.keys(MP.peers);
+    const lines = [];
+    lines.push(`<div class="mp-peer me"><span class="mp-peer-dot"></span> Ich (${MP.selfId.slice(0,6)})</div>`);
+    peerIds.forEach(pid => {
+      lines.push(`<div class="mp-peer"><span class="mp-peer-dot"></span> Peer ${pid.slice(0,6)}</div>`);
+    });
+    wrap.innerHTML = lines.join('');
+  }
+
+  function renderMyMpSlot() {
+    const el = document.getElementById('mpMySlot');
+    const btn = document.getElementById('mpClaimBtn');
+    if (!MP.app || !window.adminAPI[MP.app]) {
+      el.textContent = '— wähle erstmal eine App —';
+      btn.disabled = true;
+      return;
+    }
+    const players = window.adminAPI[MP.app].getPlayers();
+    if (MP.myClaimedSlot !== null && players[MP.myClaimedSlot]) {
+      el.textContent = `Slot ${MP.myClaimedSlot + 1}: ${players[MP.myClaimedSlot].name}`;
+      el.className = 'mp-my-slot claimed';
+      btn.textContent = 'Slot wechseln';
+    } else {
+      el.textContent = '— noch nicht zugewiesen —';
+      el.className = 'mp-my-slot';
+      btn.textContent = 'Spieler-Slot wählen';
+    }
+    btn.disabled = false;
+  }
+
+  function mpCreateSession() {
+    const app = getCurrentAdminApp();
+    if (!app) {
+      mpShowToast('Wechsle erst zu Liar\'s Bar oder Alki Edition');
+      return;
+    }
+    const code = generateSessionCode();
+    mpJoinRoom(app, code);
+  }
+
+  function mpJoinSession() {
+    const app = getCurrentAdminApp();
+    if (!app) {
+      mpShowToast('Wechsle erst zu Liar\'s Bar oder Alki Edition');
+      return;
+    }
+    const inp = document.getElementById('mpJoinCode');
+    const code = inp.value.trim().toUpperCase();
+    if (code.length !== 4) {
+      mpShowToast('Code muss 4 Zeichen haben');
+      return;
+    }
+    inp.value = '';
+    mpJoinRoom(app, code);
+  }
+
+  function mpJoinRoom(app, code) {
+    if (!window.TRYSTERO) {
+      mpShowToast('Multiplayer-Library noch nicht geladen — kurz warten und nochmal');
+      return;
+    }
+    if (MP.active) mpLeaveSession();
+
+    MP.app = app;
+    MP.code = code;
+    const { joinRoom, selfId } = window.TRYSTERO;
+    MP.selfId = selfId;
+
+    try {
+      MP.room = joinRoom({ appId: 'tobi-game-hub-v1' }, `${app}-${code}`);
+    } catch (e) {
+      console.error('joinRoom failed', e);
+      mpShowToast('Verbindung fehlgeschlagen');
+      return;
+    }
+
+    const [sendState, getState] = MP.room.makeAction('state');
+    const [sendEvent, getEvent] = MP.room.makeAction('event');
+    MP.sendState = sendState;
+    MP.sendEvent = sendEvent;
+
+    getState((data, peerId) => {
+      // Apply remote state — suppress local rebroadcast
+      MP.suppressBroadcast = true;
+      try {
+        if (window.adminAPI[MP.app] && data && data.state) {
+          window.adminAPI[MP.app].restoreState(data.state);
+        }
+      } finally {
+        setTimeout(() => { MP.suppressBroadcast = false; }, 50);
+      }
+    });
+
+    getEvent((data, peerId) => {
+      if (data && data.kind === 'toast') {
+        mpShowToast(data.text);
+      } else if (data && data.kind === 'claim') {
+        // Someone claimed a slot — just refresh the panel
+        renderMultiplayerPanel();
+      }
+    });
+
+    MP.room.onPeerJoin(peerId => {
+      MP.peers[peerId] = { lastSeen: Date.now() };
+      // Send them our current state
+      mpBroadcastState();
+      renderMultiplayerPanel();
+      updateMpBanner();
+    });
+
+    MP.room.onPeerLeave(peerId => {
+      delete MP.peers[peerId];
+      renderMultiplayerPanel();
+      updateMpBanner();
+    });
+
+    MP.active = true;
+    document.body.classList.add('mp-active');
+    updateMpBanner();
+    document.getElementById('mpBadge').classList.add('live');
+    document.getElementById('mpBadge').textContent = 'LIVE';
+    renderMultiplayerPanel();
+    mpShowToast(`Session ${code} bereit`);
+  }
+
+  function mpLeaveSession() {
+    if (MP.room) {
+      try { MP.room.leave(); } catch (e) {}
+      MP.room = null;
+    }
+    MP.active = false;
+    MP.code = null;
+    MP.peers = {};
+    MP.sendState = null;
+    MP.sendEvent = null;
+    MP.myClaimedSlot = null;
+    document.body.classList.remove('mp-active');
+    document.getElementById('mpBadge').classList.remove('live');
+    document.getElementById('mpBadge').textContent = '';
+    renderMultiplayerPanel();
+    updateMpBanner();
+    // Re-render players to remove "my-player" highlighting
+    if (window.adminAPI.liarsbar) window.adminAPI.liarsbar.restoreState(window.adminAPI.liarsbar.getState());
+    if (window.adminAPI.alki) window.adminAPI.alki.restoreState(window.adminAPI.alki.getState());
+  }
+
+  function updateMpBanner() {
+    let banner = document.getElementById('mpSessionBanner');
+    if (!banner) {
+      banner = document.createElement('div');
+      banner.id = 'mpSessionBanner';
+      banner.className = 'mp-session-banner';
+      document.body.appendChild(banner);
+    }
+    if (MP.active) {
+      const peers = Object.keys(MP.peers).length + 1;
+      banner.textContent = `📡 ${MP.code} · ${peers}`;
+      banner.classList.add('show');
+    } else {
+      banner.classList.remove('show');
+    }
+  }
+
+  function mpCopyCode() {
+    if (!MP.code) return;
+    try {
+      navigator.clipboard.writeText(MP.code);
+      mpShowToast('Code kopiert');
+    } catch (e) {
+      mpShowToast('Kopieren fehlgeschlagen');
+    }
+  }
+
+  function mpBroadcastState() {
+    if (!MP.active || !MP.sendState || MP.suppressBroadcast) return;
+    if (!window.adminAPI[MP.app]) return;
+    const state = window.adminAPI[MP.app].getState();
+    try {
+      MP.sendState({ state, ts: Date.now() });
+    } catch (e) {
+      console.error('broadcast failed', e);
+    }
+  }
+
+  function mpBroadcastEvent(payload) {
+    if (!MP.active || !MP.sendEvent || MP.suppressBroadcast) return;
+    try {
+      MP.sendEvent(payload);
+    } catch (e) {}
+  }
+
+  function mpShowToast(text) {
+    let t = document.getElementById('mpToast');
+    if (!t) {
+      t = document.createElement('div');
+      t.id = 'mpToast';
+      t.className = 'mp-toast';
+      document.body.appendChild(t);
+    }
+    t.textContent = text;
+    t.classList.add('show');
+    clearTimeout(t._tm);
+    t._tm = setTimeout(() => t.classList.remove('show'), 2500);
+  }
+
+  // Slot picker
+  function mpOpenClaimPicker() {
+    if (!MP.app || !window.adminAPI[MP.app]) return;
+    const players = window.adminAPI[MP.app].getPlayers();
+    const wrap = document.getElementById('mpSlotList');
+    wrap.innerHTML = players.map((p, i) => {
+      const taken = p.claimedBy && p.claimedBy !== MP.selfId;
+      const tag = !p.claimedBy ? 'frei' : (p.claimedBy === MP.selfId ? 'du' : 'belegt');
+      return `<button class="mp-slot-option" ${taken ? 'disabled' : ''} onclick="mpClaimSlot(${i})">
+        <span>${p.name}</span><span class="mp-slot-tag">${tag}</span>
+      </button>`;
+    }).join('');
+    document.getElementById('mpSlotPicker').classList.add('active');
+  }
+
+  function mpCloseSlotPicker() {
+    document.getElementById('mpSlotPicker').classList.remove('active');
+  }
+
+  function mpClaimSlot(idx) {
+    if (!MP.app || !window.adminAPI[MP.app]) return;
+    const api = window.adminAPI[MP.app];
+    const players = api.getPlayers();
+    // Release previous slot
+    if (MP.myClaimedSlot !== null && players[MP.myClaimedSlot]) {
+      players[MP.myClaimedSlot].claimedBy = null;
+    }
+    // Claim new
+    if (players[idx]) {
+      players[idx].claimedBy = MP.selfId;
+      MP.myClaimedSlot = idx;
+    }
+    api.restoreState(api.getState()); // re-render
+    mpBroadcastState();
+    mpBroadcastEvent({ kind: 'claim', slot: idx, by: MP.selfId });
+    mpCloseSlotPicker();
+    renderMultiplayerPanel();
+  }
+
+  // Auto-find own slot from state (if claimedBy === selfId)
+  function mpFindMySlot() {
+    if (!MP.active || !MP.app || !window.adminAPI[MP.app]) return;
+    const players = window.adminAPI[MP.app].getPlayers();
+    const found = players.findIndex(p => p.claimedBy === MP.selfId);
+    MP.myClaimedSlot = found >= 0 ? found : null;
+  }
+  window.mpFindMySlot = mpFindMySlot;
+
+  // Expose globals
+  window.openMultiplayer = openMultiplayer;
+  window.closeMultiplayer = closeMultiplayer;
+  window.mpCreateSession = mpCreateSession;
+  window.mpJoinSession = mpJoinSession;
+  window.mpLeaveSession = mpLeaveSession;
+  window.mpCopyCode = mpCopyCode;
+  window.mpOpenClaimPicker = mpOpenClaimPicker;
+  window.mpCloseSlotPicker = mpCloseSlotPicker;
+  window.mpClaimSlot = mpClaimSlot;
+  window.mpBroadcastState = mpBroadcastState;
+  window.mpBroadcastEvent = mpBroadcastEvent;
+  window.mpShowToast = mpShowToast;
+
+  // Hook switchApp to reset MP if app changes
+  const _origSwitchApp = switchApp;
+  window.switchApp = function(name) {
+    if (MP.active && MP.app && name !== MP.app && (name === 'liarsbar' || name === 'alki')) {
+      // Different game app — leave MP session
+      mpLeaveSession();
+      mpShowToast('Session beendet (App gewechselt)');
+    }
+    return _origSwitchApp(name);
+  };
 
   const APP_META = {
     liarsbar: { title: "Liar's Bar",     emoji: '🎰' },
@@ -3175,6 +4653,7 @@ const CARDS = {
     updatePlayerCountUI();
     renderPlayers();
     saveSetup();
+    if (window.mpBroadcastState) window.mpBroadcastState();
   }
 
   function removePlayer(idx) {
@@ -3185,6 +4664,7 @@ const CARDS = {
     closeRenameModal();
     renderPlayers();
     saveSetup();
+    if (window.mpBroadcastState) window.mpBroadcastState();
     setTimeout(checkWinner, 50);
   }
 
@@ -3266,8 +4746,15 @@ const CARDS = {
     if (drawingTable) return;
     const enabled = Object.entries(state.enabledCards).filter(([k,v]) => v).map(([k]) => k);
     if (enabled.length === 0) return;
-    const key = enabled[Math.floor(Math.random() * enabled.length)];
+    let key;
+    if (window.ADMIN && window.ADMIN.forcedCard.liarsbar && CARDS[window.ADMIN.forcedCard.liarsbar]) {
+      key = window.ADMIN.forcedCard.liarsbar;
+    } else {
+      key = enabled[Math.floor(Math.random() * enabled.length)];
+    }
     const card = CARDS[key];
+    state.tableCardKey = key;
+    if (window.adminLog) window.adminLog('liarsbar', `Tischkarte: ${card.name} ${card.suit}`);
     const tc = document.getElementById('tableCard');
 
     const applyFront = () => {
@@ -3344,7 +4831,8 @@ const CARDS = {
     grid.innerHTML = '';
     state.players.forEach((p, i) => {
       const div = document.createElement('div');
-      div.className = 'player' + (p.alive ? '' : ' dead');
+      const isMine = window.MP && window.MP.active && p.claimedBy === window.MP.selfId;
+      div.className = 'player' + (p.alive ? '' : ' dead') + (isMine ? ' my-player' : '');
       div.id = 'player-' + i;
       const shotsLeft = 6 - p.shotsFired;
       let status = '';
@@ -3377,7 +4865,12 @@ const CARDS = {
         <button class="action ${p.alive ? 'danger' : ''}"
                 onclick="fire(${i})"
                 ${p.alive ? '' : 'disabled'}>
-          ${p.alive ? 'ABDRÜCKEN' : '—'}
+          ${p.alive ? 'AUF MICH' : '—'}
+        </button>
+        <button class="aim-other"
+                onclick="openTargetPicker(${i})"
+                ${p.alive && state.players.some((pp, ii) => pp.alive && ii !== i) ? '' : 'disabled'}>
+          🎯 AUF ANDERE
         </button>
       `;
       grid.appendChild(div);
@@ -3416,6 +4909,7 @@ const CARDS = {
     closeRenameModal();
     renderPlayers();
     saveSetup();
+    if (window.mpBroadcastState) window.mpBroadcastState();
   }
 
   function confirmRemovePlayer() {
@@ -3439,34 +4933,53 @@ const CARDS = {
   });
 
   let firing = false;
+  let targetPickerShooter = null;
 
-  function fire(idx) {
+  function fireAt(shooterIdx, targetIdx) {
     if (firing) return;
-    const p = state.players[idx];
-    if (!p.alive || p.shotsFired >= 6) return;
+    const shooter = state.players[shooterIdx];
+    const target = state.players[targetIdx];
+    if (!shooter || !target) return;
+    if (!shooter.alive || shooter.shotsFired >= 6) return;
+    if (!target.alive) return;
+
+    // Admin snapshot for undo
+    if (window.adminSnapshot) window.adminSnapshot('liarsbar');
 
     firing = true;
-    const isBullet = p.shotsFired === p.bulletPos;
+    let isBullet = shooter.shotsFired === shooter.bulletPos;
 
-    // Show suspense modal
-    document.getElementById('suspenseName').textContent = p.name;
+    // God mode: never bullet
+    if (window.ADMIN && window.ADMIN.godMode.liarsbar) isBullet = false;
+
+    const isSelf = shooterIdx === targetIdx;
+    if (window.adminLog) {
+      window.adminLog('liarsbar', `${shooter.name} → ${target.name}`);
+    }
+
+    // Suspense modal
+    const nameDisplay = isSelf
+      ? shooter.name
+      : `${shooter.name} <span class="suspense-arrow">→</span> ${target.name}`;
+    document.getElementById('suspenseName').innerHTML = nameDisplay;
     document.getElementById('suspenseContent').innerHTML = `
       <div class="suspense-dots"><span></span><span></span><span></span></div>
       <div class="suspense-sub">DRÜCK AB...</div>
     `;
     document.getElementById('suspenseModal').classList.add('active');
 
-    // After suspense, reveal
     setTimeout(() => {
-      p.shotsFired++;
+      shooter.shotsFired++;
       if (isBullet) {
-        p.alive = false;
+        target.alive = false;
+        const subText = isSelf ? `${target.name} ist raus` : `${target.name} wurde getroffen`;
         document.getElementById('suspenseContent').innerHTML = `
           <div class="suspense-result bang">💀 BANG</div>
-          <div class="suspense-sub">${p.name} ist raus</div>
+          <div class="suspense-sub">${subText}</div>
         `;
         renderPlayers();
-        const el = document.getElementById('player-' + idx);
+        if (window.mpBroadcastState) window.mpBroadcastState();
+        const el = document.getElementById('player-' + targetIdx);
         if (el) el.classList.add('shake');
         setTimeout(() => {
           document.getElementById('suspenseModal').classList.remove('active');
@@ -3474,12 +4987,14 @@ const CARDS = {
           checkWinner();
         }, 1600);
       } else {
+        const subText = isSelf ? 'noch dabei' : `${target.name} hat Glück`;
         document.getElementById('suspenseContent').innerHTML = `
           <div class="suspense-result click">✓ CLICK</div>
-          <div class="suspense-sub">noch dabei</div>
+          <div class="suspense-sub">${subText}</div>
         `;
         renderPlayers();
-        const el = document.getElementById('player-' + idx);
+        if (window.mpBroadcastState) window.mpBroadcastState();
+        const el = document.getElementById('player-' + shooterIdx);
         if (el) el.classList.add('click-flash');
         setTimeout(() => {
           document.getElementById('suspenseModal').classList.remove('active');
@@ -3487,6 +5002,39 @@ const CARDS = {
         }, 1200);
       }
     }, 1100);
+  }
+
+  function fire(idx) { fireAt(idx, idx); }
+
+  function openTargetPicker(shooterIdx) {
+    targetPickerShooter = shooterIdx;
+    const shooter = state.players[shooterIdx];
+    const list = document.getElementById('targetPickerList');
+    list.innerHTML = '';
+    state.players.forEach((p, i) => {
+      if (!p.alive || i === shooterIdx) return;
+      const btn = document.createElement('button');
+      btn.className = 'target-option';
+      btn.textContent = p.name;
+      btn.onclick = () => pickTarget(i);
+      list.appendChild(btn);
+    });
+    if (!list.children.length) {
+      list.innerHTML = '<div class="target-empty">Keine anderen lebenden Spieler.</div>';
+    }
+    document.getElementById('targetPickerName').textContent = shooter.name + ' zielt';
+    document.getElementById('targetPickerModal').classList.add('active');
+  }
+
+  function closeTargetPicker() {
+    document.getElementById('targetPickerModal').classList.remove('active');
+    targetPickerShooter = null;
+  }
+
+  function pickTarget(targetIdx) {
+    const shooter = targetPickerShooter;
+    closeTargetPicker();
+    if (shooter !== null) fireAt(shooter, targetIdx);
   }
 
   function checkWinner() {
@@ -3508,16 +5056,19 @@ const CARDS = {
       p.alive = true;
     });
     renderPlayers();
+    if (window.mpBroadcastState) window.mpBroadcastState();
   }
 
   function fullReset() {
     const names = state.players.map(p => p.name);
     initPlayers(names);
     state.tableShown = false;
+    state.tableCardKey = null;
     document.getElementById('tableCard').classList.remove('flipped');
     document.getElementById('tableName').textContent = '— noch keine Karte —';
     renderPlayers();
     closeOverlay();
+    if (window.mpBroadcastState) window.mpBroadcastState();
   }
 
   // Init — load saved setup if any
@@ -3540,6 +5091,72 @@ const CARDS = {
   renderActiveCards();
   updateProbHint();
   renderPlayers();
+
+  // ============ Register liars adminAPI ============
+  window.adminAPI.liarsbar = {
+    getPlayers: () => state.players,
+    getState: () => JSON.parse(JSON.stringify({
+      playerCount: state.playerCount,
+      players: state.players,
+      enabledCards: state.enabledCards,
+      tableShown: state.tableShown,
+      tableCardKey: state.tableCardKey || null,
+    })),
+    restoreState: (s) => {
+      state.playerCount = s.playerCount;
+      state.players = s.players;
+      if (s.enabledCards) state.enabledCards = s.enabledCards;
+      state.tableShown = !!s.tableShown;
+      state.tableCardKey = s.tableCardKey || null;
+      updatePlayerCountUI();
+      renderCardToggles();
+      renderActiveCards();
+      updateProbHint();
+      // Restore table card visual
+      const tc = document.getElementById('tableCard');
+      if (state.tableShown && state.tableCardKey && CARDS[state.tableCardKey]) {
+        const card = CARDS[state.tableCardKey];
+        const front = document.getElementById('tableFront');
+        front.className = 'card-face card-front ' + card.color + '-card';
+        document.getElementById('trankTL').textContent = card.rank;
+        document.getElementById('tsuitTL').textContent = card.suit;
+        document.getElementById('trankBR').textContent = card.rank;
+        document.getElementById('tsuitBR').textContent = card.suit;
+        document.getElementById('tcenter').textContent = card.suit;
+        tc.classList.add('flipped');
+        document.getElementById('tableName').textContent = card.name + ' ' + card.suit;
+      } else {
+        tc.classList.remove('flipped');
+        document.getElementById('tableName').textContent = '— noch keine Karte —';
+      }
+      renderPlayers();
+      if (window.mpFindMySlot) window.mpFindMySlot();
+    },
+    action: (a, i) => {
+      const p = state.players[i];
+      if (!p) return;
+      switch (a) {
+        case 'reset':
+          p.bulletPos = Math.floor(Math.random() * 6);
+          p.shotsFired = 0;
+          p.alive = true;
+          break;
+        case 'revive': p.alive = true; break;
+        case 'kill': p.alive = false; break;
+        case 'nextClick':
+          if (p.bulletPos === p.shotsFired) {
+            p.bulletPos = (p.shotsFired + 1 + Math.floor(Math.random() * 5)) % 6;
+            if (p.bulletPos === p.shotsFired) p.bulletPos = (p.shotsFired + 1) % 6;
+          }
+          break;
+        case 'nextBang':
+          p.bulletPos = p.shotsFired;
+          break;
+      }
+      renderPlayers();
+      if (window.mpBroadcastState) window.mpBroadcastState();
+    },
+  };
 
   // ============ POKER TRAINER JS (IIFE-scoped) ============
 (function() {
@@ -4241,6 +5858,7 @@ nextRound();
           renderActiveCards();
           updateProbHint();
           saveSetup();
+          if (window.mpBroadcastState) window.mpBroadcastState();
         });
         wrap.appendChild(label);
       });
@@ -4322,7 +5940,8 @@ nextRound();
       grid.innerHTML = '';
       state.players.forEach((p, i) => {
         const div = document.createElement('div');
-        div.className = 'player' + (p.alive ? '' : ' dead');
+        const isMine = window.MP && window.MP.active && p.claimedBy === window.MP.selfId;
+        div.className = 'player' + (p.alive ? '' : ' dead') + (isMine ? ' my-player' : '');
         div.id = 'alkiPlayer-' + i;
 
         const remaining = 6 - p.drunkCount;
@@ -4362,6 +5981,9 @@ nextRound();
           <button class="action ${p.alive && remaining > 0 ? 'danger' : ''}" data-action="drink" data-idx="${i}" ${p.alive && remaining > 0 ? '' : 'disabled'}>
             ${p.alive && remaining > 0 ? '🍻 TRINKEN' : '—'}
           </button>
+          <button class="aim-other alki-aim" data-action="drink-other" data-idx="${i}" ${p.alive && remaining > 0 && state.players.some((pp, ii) => pp.alive && ii !== i) ? '' : 'disabled'}>
+            🎯 AUF ANDERE
+          </button>
           <button class="alki-double" data-action="drink-double" data-idx="${i}" ${p.alive && remaining >= 2 ? '' : 'disabled'}>🎲 ALL IN ×2</button>
         `;
         grid.appendChild(div);
@@ -4370,28 +5992,49 @@ nextRound();
 
     // ---- Drink action ----
     let drinking = false;
+    let targetPickerActor = null;
+    let targetPickerCount = 1;
 
-    function drink(idx, count) {
+    function drinkAt(actorIdx, targetIdx, count) {
       if (drinking) return;
-      const p = state.players[idx];
-      if (!p.alive || p.drunkCount >= 6) return;
+      const actor = state.players[actorIdx];
+      const target = state.players[targetIdx];
+      if (!actor || !target) return;
+      if (!actor.alive || actor.drunkCount >= 6) return;
+      if (!target.alive) return;
+
+      // Admin snapshot
+      if (window.adminSnapshot) window.adminSnapshot('alki');
 
       drinking = true;
+      const isSelf = actorIdx === targetIdx;
 
-      // Pre-compute which glasses will actually be drunk
+      // Pre-compute which glasses will actually be drunk (from actor's tray)
       const willDrink = [];
-      let cursor = p.drunkCount;
+      let cursor = actor.drunkCount;
       for (let i = 0; i < count; i++) {
         if (cursor >= 6) break;
-        const w = p.glasses[cursor];
+        let w = actor.glasses[cursor];
+        // God mode: EX becomes Schluck (both in tray and popup)
+        if (window.ADMIN && window.ADMIN.godMode.alki && w === 'EX') {
+          w = 'Schluck';
+          actor.glasses[cursor] = 'Schluck';
+        }
         willDrink.push(w);
         cursor++;
-        if (w === 'EX') break; // stop on EX
+        if (w === 'EX') break;
+      }
+
+      if (window.adminLog) {
+        window.adminLog('alki', `${actor.name} → ${target.name} (${willDrink.join(', ')})`);
       }
 
       // Show popup with suspense
       const popup = document.getElementById('alkiPopup');
-      document.getElementById('alkiPopupName').textContent = p.name + (count > 1 ? ' · ALL IN ×2' : '');
+      const nameDisplay = isSelf
+        ? actor.name + (count > 1 ? ' · ALL IN ×2' : '')
+        : `${actor.name} <span class="alki-arrow">→</span> ${target.name}`;
+      document.getElementById('alkiPopupName').innerHTML = nameDisplay;
       document.getElementById('alkiPopupContent').innerHTML = `
         <div class="alki-popup-dots"><span></span><span></span><span></span></div>
         <div class="alki-popup-sub">🎰 spinnen...</div>
@@ -4399,27 +6042,23 @@ nextRound();
       popup.classList.add('active');
 
       const LABELS = {
-        Schluck: { icon: '🥃', text: 'SCHLUCK', sub: 'ein Schluck' },
-        Shot:    { icon: '🍷', text: 'SHOT',    sub: 'Schnaps runter!' },
-        EX:      { icon: '💀', text: 'EX',      sub: 'GLAS LEER — RAUS' },
+        Schluck: { icon: '🥃', text: 'SCHLUCK', sub: isSelf ? 'ein Schluck' : target.name + ' trinkt einen Schluck' },
+        Shot:    { icon: '🍷', text: 'SHOT',    sub: isSelf ? 'Schnaps runter!' : target.name + ' kassiert einen Shot' },
+        EX:      { icon: '💀', text: 'EX',      sub: isSelf ? 'GLAS LEER — RAUS' : target.name + ' muss exen — RAUS' },
       };
 
-      // After suspense, reveal one by one
       const SUSPENSE_MS = 1100;
       const REVEAL_GAP = 800;
 
-      let revealedHTML = '<div class="alki-popup-results">';
-
       function revealStep(i) {
         if (i >= willDrink.length) {
-          // All revealed — apply state changes and dismiss
-          applyDrinkResult(idx, willDrink);
+          applyDrinkResult(actorIdx, targetIdx, willDrink);
           const hasEX = willDrink.includes('EX');
           setTimeout(() => {
             popup.classList.remove('active');
             drinking = false;
             if (hasEX) {
-              const el = document.getElementById('alkiPlayer-' + idx);
+              const el = document.getElementById('alkiPlayer-' + targetIdx);
               if (el) el.classList.add('shake');
               setTimeout(checkWinner, 400);
             }
@@ -4429,7 +6068,6 @@ nextRound();
 
         const w = willDrink[i];
         const l = LABELS[w];
-        // Build HTML: prior reveals static, current is "new"
         let html = '<div class="alki-popup-results">';
         for (let j = 0; j <= i; j++) {
           const ww = willDrink[j];
@@ -4441,9 +6079,7 @@ nextRound();
           </div>`;
         }
         html += '</div>';
-        // Sub text under the results
         html += `<div class="alki-popup-sub">${l.sub}</div>`;
-
         document.getElementById('alkiPopupContent').innerHTML = html;
         setTimeout(() => revealStep(i + 1), w === 'EX' ? 1400 : REVEAL_GAP);
       }
@@ -4451,18 +6087,56 @@ nextRound();
       setTimeout(() => revealStep(0), SUSPENSE_MS);
     }
 
-    function applyDrinkResult(idx, drinks) {
-      const p = state.players[idx];
+    function applyDrinkResult(actorIdx, targetIdx, drinks) {
+      const actor = state.players[actorIdx];
+      const target = state.players[targetIdx];
       drinks.forEach(what => {
-        p.stats[what]++;
-        p.drunkCount++;
+        actor.drunkCount++;
+        target.stats[what]++;
         if (what === 'EX') {
-          p.alive = false;
-          p.eliminationOrder = state.players.filter(x => !x.alive).length;
+          target.alive = false;
+          target.eliminationOrder = state.players.filter(x => !x.alive).length;
         }
       });
-      p.lastDrunk = drinks[drinks.length - 1];
+      target.lastDrunk = drinks[drinks.length - 1];
       renderPlayers();
+      if (window.mpBroadcastState) window.mpBroadcastState();
+    }
+
+    function drink(idx, count) { drinkAt(idx, idx, count); }
+
+    // Target picker
+    function openTargetPicker(actorIdx, count) {
+      targetPickerActor = actorIdx;
+      targetPickerCount = count || 1;
+      const actor = state.players[actorIdx];
+      const list = document.getElementById('alkiTargetList');
+      list.innerHTML = '';
+      state.players.forEach((p, i) => {
+        if (!p.alive || i === actorIdx) return;
+        const btn = document.createElement('button');
+        btn.className = 'alki-target-option';
+        btn.textContent = p.name;
+        btn.onclick = () => pickTarget(i);
+        list.appendChild(btn);
+      });
+      if (!list.children.length) {
+        list.innerHTML = '<div class="target-empty">Keine anderen lebenden Spieler.</div>';
+      }
+      document.getElementById('alkiTargetName').textContent = actor.name + ' zielt';
+      document.getElementById('alkiTargetModal').classList.add('active');
+    }
+
+    function closeTargetPicker() {
+      document.getElementById('alkiTargetModal').classList.remove('active');
+      targetPickerActor = null;
+    }
+
+    function pickTarget(targetIdx) {
+      const actor = targetPickerActor;
+      const count = targetPickerCount;
+      closeTargetPicker();
+      if (actor !== null) drinkAt(actor, targetIdx, count);
     }
 
     function checkWinner() {
@@ -4521,6 +6195,7 @@ nextRound();
       updatePlayerCountUI();
       renderPlayers();
       saveSetup();
+      if (window.mpBroadcastState) window.mpBroadcastState();
     }
 
     function removePlayer(idx) {
@@ -4531,6 +6206,7 @@ nextRound();
       closeRenameModal();
       renderPlayers();
       saveSetup();
+      if (window.mpBroadcastState) window.mpBroadcastState();
       setTimeout(checkWinner, 50);
     }
 
@@ -4559,13 +6235,13 @@ nextRound();
 
     function selectMode(mode) {
       if (mode === 'custom' && (state.customMix.Schluck + state.customMix.Shot + state.customMix.EX !== 6)) {
-        // Force a valid 6-sum if needed
         state.customMix = { Schluck: 4, Shot: 1, EX: 1 };
       }
       state.mode = mode;
       updateModeModalState();
       updateModeDisplay();
       saveSetup();
+      if (window.mpBroadcastState) window.mpBroadcastState();
     }
 
     function customAdjust(type, delta) {
@@ -4631,6 +6307,7 @@ nextRound();
       closeRenameModal();
       renderPlayers();
       saveSetup();
+      if (window.mpBroadcastState) window.mpBroadcastState();
     }
 
     function confirmRemovePlayer() {
@@ -4660,8 +6337,15 @@ nextRound();
       if (state.drawingTable) return;
       const enabled = Object.entries(state.enabledCards).filter(([k,v]) => v).map(([k]) => k);
       if (enabled.length === 0) return;
-      const key = enabled[Math.floor(Math.random() * enabled.length)];
+      let key;
+      if (window.ADMIN && window.ADMIN.forcedCard.alki && CARDS[window.ADMIN.forcedCard.alki]) {
+        key = window.ADMIN.forcedCard.alki;
+      } else {
+        key = enabled[Math.floor(Math.random() * enabled.length)];
+      }
       const card = CARDS[key];
+      state.tableCardKey = key;
+      if (window.adminLog) window.adminLog('alki', `Tischkarte: ${card.name} ${card.suit}`);
       const tc = document.getElementById('alkiTableCard');
 
       const applyFront = () => {
@@ -4684,12 +6368,14 @@ nextRound();
           tc.classList.add('flipped');
           document.getElementById('alkiTableName').textContent = card.name + ' ' + card.suit;
           state.drawingTable = false;
+          if (window.mpBroadcastState) window.mpBroadcastState();
         }, 650);
       } else {
         applyFront();
         tc.classList.add('flipped');
         document.getElementById('alkiTableName').textContent = card.name + ' ' + card.suit;
         state.tableShown = true;
+        if (window.mpBroadcastState) window.mpBroadcastState();
       }
     }
 
@@ -4704,16 +6390,19 @@ nextRound();
         p.eliminationOrder = null;
       });
       renderPlayers();
+      if (window.mpBroadcastState) window.mpBroadcastState();
     }
 
     function fullReset() {
       const names = state.players.map(p => p.name);
       initPlayers(names);
       state.tableShown = false;
+      state.tableCardKey = null;
       document.getElementById('alkiTableCard').classList.remove('flipped');
       document.getElementById('alkiTableName').textContent = '— noch keine Karte —';
       renderPlayers();
       closeOverlay();
+      if (window.mpBroadcastState) window.mpBroadcastState();
     }
 
     // ---- Event delegation for dynamic content ----
@@ -4726,6 +6415,7 @@ nextRound();
         const idx = parseInt(t.dataset.idx);
         if (action === 'drink') drink(idx, 1);
         else if (action === 'drink-double') drink(idx, 2);
+        else if (action === 'drink-other') openTargetPicker(idx, 1);
         else if (action === 'rename') openRenameModal(idx);
       });
       document.getElementById('alkiRenameInput').addEventListener('keydown', (e) => {
@@ -4750,6 +6440,7 @@ nextRound();
     window.alki_closeOverlay = closeOverlay;
     window.alki_saveRename = saveRename;
     window.alki_closeRenameModal = closeRenameModal;
+    window.alki_closeTargetPicker = closeTargetPicker;
 
     // ---- Init ----
     const saved = loadSetup();
@@ -4777,6 +6468,86 @@ nextRound();
     updateProbHint();
     renderPlayers();
     setupListeners();
+
+    // ============ Register alki adminAPI ============
+    window.adminAPI.alki = {
+      getPlayers: () => state.players,
+      getState: () => JSON.parse(JSON.stringify({
+        playerCount: state.playerCount,
+        players: state.players,
+        enabledCards: state.enabledCards,
+        mode: state.mode,
+        customMix: state.customMix,
+        tableShown: state.tableShown,
+        tableCardKey: state.tableCardKey || null,
+      })),
+      restoreState: (s) => {
+        state.playerCount = s.playerCount;
+        state.players = s.players;
+        if (s.enabledCards) state.enabledCards = s.enabledCards;
+        if (s.mode) state.mode = s.mode;
+        if (s.customMix) state.customMix = s.customMix;
+        state.tableShown = !!s.tableShown;
+        state.tableCardKey = s.tableCardKey || null;
+        updatePlayerCountUI();
+        updateModeDisplay();
+        renderCardToggles();
+        renderActiveCards();
+        updateProbHint();
+        // Restore table card
+        const tc = document.getElementById('alkiTableCard');
+        if (state.tableShown && state.tableCardKey && CARDS[state.tableCardKey]) {
+          const card = CARDS[state.tableCardKey];
+          const front = document.getElementById('alkiTableFront');
+          front.className = 'card-face card-front ' + card.color + '-card';
+          document.getElementById('alkiTrankTL').textContent = card.rank;
+          document.getElementById('alkiTsuitTL').textContent = card.suit;
+          document.getElementById('alkiTrankBR').textContent = card.rank;
+          document.getElementById('alkiTsuitBR').textContent = card.suit;
+          document.getElementById('alkiTcenter').textContent = card.suit;
+          tc.classList.add('flipped');
+          document.getElementById('alkiTableName').textContent = card.name + ' ' + card.suit;
+        } else {
+          tc.classList.remove('flipped');
+          document.getElementById('alkiTableName').textContent = '— noch keine Karte —';
+        }
+        renderPlayers();
+        if (window.mpFindMySlot) window.mpFindMySlot();
+      },
+      action: (a, i) => {
+        const p = state.players[i];
+        if (!p) return;
+        switch (a) {
+          case 'reset':
+            p.glasses = generateGlasses();
+            p.drunkCount = 0;
+            p.alive = true;
+            p.stats = { Schluck: 0, Shot: 0, EX: 0 };
+            p.lastDrunk = null;
+            p.eliminationOrder = null;
+            break;
+          case 'revive':
+            p.alive = true;
+            p.eliminationOrder = null;
+            break;
+          case 'kill':
+            p.alive = false;
+            p.eliminationOrder = state.players.filter(x => !x.alive).length;
+            break;
+          case 'nextSchluck':
+            if (p.drunkCount < 6) p.glasses[p.drunkCount] = 'Schluck';
+            break;
+          case 'nextShot':
+            if (p.drunkCount < 6) p.glasses[p.drunkCount] = 'Shot';
+            break;
+          case 'nextEX':
+            if (p.drunkCount < 6) p.glasses[p.drunkCount] = 'EX';
+            break;
+        }
+        renderPlayers();
+        if (window.mpBroadcastState) window.mpBroadcastState();
+      },
+    };
   })();
 
 </script>
