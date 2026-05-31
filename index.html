@@ -10648,7 +10648,12 @@ nextRound();
           currentPlayer: null,
           playersToAct: [],
           phase: 'showdown',
-          lastAction: { by: action.by, type: action.type, amount: action.amount, label: actionLabel },
+          lastAction: {
+            by: action.by || null,
+            type: action.type || 'fold',
+            amount: action.amount || 0,
+            label: actionLabel || '',
+          },
           showdown: {
             winners: [winnerId],
             potWon: newPot,
@@ -10659,10 +10664,17 @@ nextRound();
         });
         state = newState;
         broadcast(newState);
+        try { renderAll(); } catch (e) { console.error('[POKER] renderAll error', e); }
         return;
       }
 
       let newState;
+      const safeLastAction = {
+        by: action.by || null,
+        type: action.type || 'unknown',
+        amount: action.amount || 0,
+        label: actionLabel || '',
+      };
       if (queue.length === 0) {
         // Round complete → advance phase
         console.log('[POKER] Round complete, advancing phase from', state.phase);
@@ -10674,7 +10686,7 @@ nextRound();
           pot: newPot,
           currentPlayer: queue[0],
           playersToAct: queue,
-          lastAction: { by: action.by, type: action.type, amount: action.amount, label: actionLabel },
+          lastAction: safeLastAction,
           pendingAction: null,
         });
       }
@@ -10743,7 +10755,12 @@ nextRound();
         minRaise: BIG_BLIND,
         currentPlayer: queue[0],
         playersToAct: queue,
-        lastAction: { by: lastActionData.by, type: lastActionData.type, amount: lastActionData.amount, label: actionLabel },
+        lastAction: {
+          by: (lastActionData && lastActionData.by) || null,
+          type: (lastActionData && lastActionData.type) || 'auto',
+          amount: (lastActionData && lastActionData.amount) || 0,
+          label: actionLabel || '',
+        },
         pendingAction: null,
       });
     }
@@ -10796,7 +10813,12 @@ nextRound();
         currentBet: 0,
         currentPlayer: null,
         playersToAct: [],
-        lastAction: { by: lastActionData.by, type: lastActionData.type, amount: lastActionData.amount, label: actionLabel },
+        lastAction: {
+          by: (lastActionData && lastActionData.by) || null,
+          type: (lastActionData && lastActionData.type) || 'showdown',
+          amount: (lastActionData && lastActionData.amount) || 0,
+          label: actionLabel || '',
+        },
         showdown: {
           winners: [...winnersAll],
           hands: handsInfo,
@@ -10813,9 +10835,23 @@ nextRound();
       state = newState;
       const { set, ref, db } = window.FB;
       try {
-        // Use set on the state child for atomic full replacement
-        await set(ref(db, `sessions/${myCode}/state`), newState);
-      } catch (e) { console.error('broadcast', e); }
+        // Deep-clean undefined values — Firebase rejects writes with undefined
+        const clean = deepClean(newState);
+        await set(ref(db, `sessions/${myCode}/state`), clean);
+      } catch (e) { console.error('[POKER] broadcast failed:', e); }
+    }
+
+    // Recursively remove undefined values (Firebase chokes on them)
+    function deepClean(obj) {
+      if (obj === null || obj === undefined) return null;
+      if (typeof obj !== 'object') return obj;
+      if (Array.isArray(obj)) return obj.map(deepClean);
+      const out = {};
+      for (const k in obj) {
+        const v = obj[k];
+        if (v !== undefined) out[k] = deepClean(v);
+      }
+      return out;
     }
 
     // Repair an inconsistent state (host-only). Rebuilds playersToAct and currentPlayer.
