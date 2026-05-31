@@ -8746,14 +8746,15 @@ nextRound();
         const existing = await get(ref(db, 'sessions/' + code));
         if (existing.exists()) {
           const ex = existing.val();
-          const peers = ex.peers || {};
-          const peerCount = Object.keys(peers).length;
-          const age = Date.now() - (ex.createdAt || 0);
-          if (peerCount > 0 && age < 24*60*60*1000) {
-            showError(`Code ${code} ist gerade aktiv — nimm einen anderen oder tritt bei`);
+          const peerCount = Object.keys(ex.peers || {}).length;
+          if (peerCount === 0) {
+            // Abandoned — silently clean up
+            console.log('[LBM] Cleaning up abandoned session:', code);
+            await window.FB.remove(ref(db, 'sessions/' + code));
+          } else {
+            showError(`Code ${code} ist gerade aktiv (${peerCount} Spieler) — nimm einen anderen oder tritt bei`);
             return;
           }
-          if (!confirm(`Code ${code} hat eine alte Session. Überschreiben?`)) return;
         }
       } catch (e) {
         showError('Fehler beim Prüfen: ' + (e.message || e));
@@ -8802,6 +8803,14 @@ nextRound();
           return;
         }
         const data = snap.val();
+        // Check if session is abandoned (no active peers)
+        const peerCount = Object.keys(data.peers || {}).length;
+        if (peerCount === 0) {
+          console.log('[LBM] Cleaning up abandoned session on join:', code);
+          await window.FB.remove(ref(db, 'sessions/' + code));
+          showError(`Session ${code} war abgelaufen — bitte neu erstellen`);
+          return;
+        }
         if (data.state && data.state.app !== 'liarsbarMulti') {
           showError(`Code ${code} läuft in einer anderen App`);
           return;
@@ -9415,13 +9424,14 @@ nextRound();
         const existing = await get(ref(db, 'sessions/' + code));
         if (existing.exists()) {
           const ex = existing.val();
-          const peers = ex.peers || {};
-          const age = Date.now() - ((ex.state && ex.state.createdAt) || 0);
-          if (Object.keys(peers).length > 0 && age < 24*60*60*1000) {
-            showError(`Code ${code} ist gerade aktiv`);
+          const peerCount = Object.keys(ex.peers || {}).length;
+          if (peerCount === 0) {
+            console.log('[AM] Cleaning up abandoned session:', code);
+            await window.FB.remove(ref(db, 'sessions/' + code));
+          } else {
+            showError(`Code ${code} ist gerade aktiv (${peerCount} Spieler)`);
             return;
           }
-          if (!confirm(`Code ${code} hat eine alte Session. Überschreiben?`)) return;
         }
       } catch (e) {
         showError('Fehler beim Prüfen');
@@ -9465,6 +9475,13 @@ nextRound();
         const snap = await get(ref(db, 'sessions/' + code));
         if (!snap.exists()) { showError(`Session ${code} nicht gefunden`); return; }
         const data = snap.val();
+        const peerCount = Object.keys(data.peers || {}).length;
+        if (peerCount === 0) {
+          console.log('[AM] Cleaning up abandoned session on join:', code);
+          await window.FB.remove(ref(db, 'sessions/' + code));
+          showError(`Session ${code} war abgelaufen — bitte neu erstellen`);
+          return;
+        }
         if (data.state && data.state.app !== 'alkiMulti') {
           showError(`Code ${code} läuft in einer anderen App`);
           return;
@@ -10115,12 +10132,15 @@ nextRound();
         const existing = await get(ref(db, 'sessions/' + code));
         if (existing.exists()) {
           const ex = existing.val();
-          const age = Date.now() - ((ex.state && ex.state.createdAt) || 0);
-          if (Object.keys(ex.peers || {}).length > 0 && age < 24*60*60*1000) {
-            showError(`Code ${code} ist gerade aktiv`);
+          const peerCount = Object.keys(ex.peers || {}).length;
+          if (peerCount === 0) {
+            // Abandoned session — silently clean up
+            console.log('[POKER] Cleaning up abandoned session:', code);
+            await window.FB.remove(ref(db, 'sessions/' + code));
+          } else {
+            showError(`Code ${code} ist gerade aktiv (${peerCount} Spieler)`);
             return;
           }
-          if (!confirm(`Code ${code} hat eine alte Session. Überschreiben?`)) return;
         }
       } catch (e) { showError('Fehler beim Prüfen'); return; }
 
@@ -10181,6 +10201,14 @@ nextRound();
         const snap = await get(ref(db, 'sessions/' + code));
         if (!snap.exists()) { showError(`Session ${code} nicht gefunden`); return; }
         const data = snap.val();
+        // Check if session is abandoned (no active peers)
+        const peerCount = Object.keys(data.peers || {}).length;
+        if (peerCount === 0) {
+          console.log('[POKER] Cleaning up abandoned session on join:', code);
+          await window.FB.remove(ref(db, 'sessions/' + code));
+          showError(`Session ${code} war abgelaufen — bitte neu erstellen`);
+          return;
+        }
         if (data.state && data.state.app !== 'pokerMulti') {
           showError(`Code ${code} läuft in einer anderen App`);
           return;
