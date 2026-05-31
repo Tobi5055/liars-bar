@@ -1928,6 +1928,31 @@
     .pm-action-btn { font-size: 0.7rem; padding: 0.7rem 0.2rem; }
   }
 
+  .pm-debug {
+    margin-top: 1rem;
+    border: 1px dashed rgba(216,224,240,0.2);
+    border-radius: 6px;
+    padding: 0.5rem 0.7rem;
+    background: rgba(0,0,0,0.3);
+  }
+  .pm-debug summary {
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.7rem;
+    color: rgba(216,224,240,0.5);
+    cursor: pointer;
+    letter-spacing: 0.05em;
+  }
+  .pm-debug-body {
+    font-family: 'Courier New', monospace;
+    font-size: 0.65rem;
+    color: rgba(216,224,240,0.7);
+    margin-top: 0.5rem;
+    white-space: pre-wrap;
+    word-break: break-all;
+    line-height: 1.4;
+  }
+  .pm-debug-body .pm-debug-warn { color: #ff8888; }
+
   .menu-mp { position: relative; }
   .mp-badge {
     position: absolute;
@@ -5910,6 +5935,12 @@
     <div class="pm-waiting-msg" id="pmWaitingMsg" style="display:none">
       Warte auf andere Spieler...
     </div>
+
+    <!-- Debug info -->
+    <details class="pm-debug">
+      <summary>🐛 Debug-Info</summary>
+      <div class="pm-debug-body" id="pmDebugInfo">—</div>
+    </details>
 
     <!-- Custom raise panel -->
     <div class="pm-raise-panel" id="pmRaisePanel" style="display:none">
@@ -10225,6 +10256,30 @@ nextRound();
         if (state.started && inWaiting) { switchToGame(); }
         if (!state.started && !inWaiting && state.phase === 'waiting') { switchToWaiting(); }
 
+        // Host-side consistency check & auto-repair
+        if (amHost && state.started && state.phase !== 'showdown' && state.phase !== 'gameover' && state.phase !== 'waiting') {
+          const cp = state.currentPlayer;
+          const cpPlayer = cp ? state.players[cp] : null;
+          // Detect: currentPlayer is folded/allin/missing, or queue is empty/inconsistent
+          let needsRepair = false;
+          let repairReason = '';
+          if (cp && (!cpPlayer || cpPlayer.folded || cpPlayer.allIn || cpPlayer.sittingOut)) {
+            needsRepair = true;
+            repairReason = 'currentPlayer is invalid';
+          } else if (cp && state.playersToAct.length > 0 && state.playersToAct[0] !== cp) {
+            needsRepair = true;
+            repairReason = 'queue[0] mismatch';
+          } else if (!cp && state.playersToAct.length > 0) {
+            needsRepair = true;
+            repairReason = 'no currentPlayer but queue has items';
+          }
+          if (needsRepair) {
+            console.warn('[POKER] State inconsistency:', repairReason, '— repairing');
+            repairState();
+            return;
+          }
+        }
+
         // If I'm host, process pending action (with dedup)
         if (amHost && state.pendingAction && state.started) {
           const ts = state.pendingAction.ts || 0;
@@ -10500,17 +10555,20 @@ nextRound();
 
     function processPendingAction(action) {
       if (!amHost || !action || !state.started) return;
+      console.log('[POKER] processPendingAction', action, 'currentPlayer:', state.currentPlayer, 'playersToAct:', state.playersToAct);
       // Validate it's the current player's turn
       if (action.by !== state.currentPlayer) {
+        console.warn('[POKER] Stale action — ignored. action.by:', action.by, 'currentPlayer:', state.currentPlayer);
         // Clear stale action
-        const { update } = window.FB;
-        update(window.FB.ref(window.FB.db, `sessions/${myCode}/state`), { pendingAction: null });
+        const { set, ref, db } = window.FB;
+        set(ref(db, `sessions/${myCode}/state/pendingAction`), null);
         return;
       }
       const player = state.players[action.by];
       if (!player || player.folded || player.allIn) {
-        const { update } = window.FB;
-        update(window.FB.ref(window.FB.db, `sessions/${myCode}/state`), { pendingAction: null });
+        console.warn('[POKER] Player invalid for action:', player);
+        const { set, ref, db } = window.FB;
+        set(ref(db, `sessions/${myCode}/state/pendingAction`), null);
         return;
       }
 
@@ -10610,8 +10668,10 @@ nextRound();
       let newState;
       if (queue.length === 0) {
         // Round complete → advance phase
+        console.log('[POKER] Round complete, advancing phase from', state.phase);
         newState = advancePhase(newPlayers, newPot, action, actionLabel);
       } else {
+        console.log('[POKER] Next player:', queue[0], 'queue:', queue);
         newState = Object.assign({}, state, {
           players: newPlayers,
           pot: newPot,
@@ -10759,14 +10819,62 @@ nextRound();
       } catch (e) { console.error('broadcast', e); }
     }
 
+    // Repair an inconsistent state (host-only). Rebuilds playersToAct and currentPlayer.
+    function repairState() {
+      if (!amHost) return;
+      console.log('[POKER] repairState called');
+      // Find players who still need to act in this round (not folded, not all-in, roundBet < currentBet OR haven't acted yet)
+      // Conservative approach: rebuild queue from dealer position
+      const startIdx = state.phase === 'preflop' ?
+        ((state.dealerIdx + (state.seatOrder.length === 2 ? 0 : 3)) % state.seatOrder.length) :
+        ((state.dealerIdx + 1) % state.seatOrder.length);
+
+      const queue = [];
+      for (let i = 0; i < state.seatOrder.length; i++) {
+        const idx = (startIdx + i) % state.seatOrder.length;
+        const id = state.seatOrder[idx];
+        const p = state.players[id];
+        if (p && !p.folded && !p.allIn && !p.sittingOut && p.roundBet < state.currentBet) {
+          queue.push(id);
+        }
+      }
+
+      // If everyone has matched currentBet, round should be complete → advance phase
+      if (queue.length === 0) {
+        const activeNonAllIn = state.seatOrder.filter(id => {
+          const p = state.players[id];
+          return p && !p.folded && !p.allIn && !p.sittingOut;
+        });
+        if (activeNonAllIn.length <= 1) {
+          // Auto-complete: deal remaining and showdown
+          console.log('[POKER] Repair: advancing phase due to no actors');
+          const newPlayers = JSON.parse(JSON.stringify(state.players));
+          const newPot = state.pot;
+          const newState = advancePhase(newPlayers, newPot, state.lastAction || { by: null, type: 'auto' }, '');
+          state = newState;
+          broadcast(newState);
+          return;
+        }
+      }
+
+      const newState = Object.assign({}, state, {
+        playersToAct: queue,
+        currentPlayer: queue[0] || null,
+        pendingAction: null,
+      });
+      console.log('[POKER] Repair: new queue=', queue);
+      state = newState;
+      broadcast(newState);
+    }
+
     // ---- Player actions (write to pendingAction) ----
     async function sendAction(payload) {
       if (!sessionRef || !window.FB) return;
       if (state.currentPlayer !== mySelfId) { showToast('Du bist nicht dran'); return; }
-      const { update } = window.FB;
-      await update(window.FB.ref(window.FB.db, `sessions/${myCode}/state`), {
-        pendingAction: Object.assign({ by: mySelfId, ts: Date.now() }, payload),
-      });
+      console.log('[POKER] sendAction', payload, 'as', mySelfId);
+      const { set, ref, db } = window.FB;
+      await set(ref(db, `sessions/${myCode}/state/pendingAction`),
+        Object.assign({ by: mySelfId, ts: Date.now() }, payload));
     }
     function pm_fold() { sendAction({ type: 'fold' }); }
     function pm_callOrCheck() {
@@ -10887,20 +10995,42 @@ nextRound();
       document.getElementById('pmTopCode').textContent = myCode || '—';
       document.getElementById('pmTopPeers').textContent = state.handNumber > 0 ? `Hand ${state.handNumber}` : '—';
 
-      // Others row
       renderOthers();
-      // Pot
       document.getElementById('pmPotValue').textContent = state.pot || 0;
-      // Community
       renderCommunity();
-      // Status
       renderStatus();
-      // My area
       renderMyArea();
-      // Actions
       renderActions();
-      // Showdown
       renderShowdown();
+      renderDebug();
+    }
+
+    function renderDebug() {
+      const el = document.getElementById('pmDebugInfo');
+      if (!el) return;
+      const me = state.players[mySelfId];
+      const short = (id) => id ? id.slice(-6) : 'null';
+      const cp = state.currentPlayer;
+      const cpName = cp && state.players[cp] ? state.players[cp].name : '?';
+      let inconsistencies = [];
+      if (cp === mySelfId && me && me.folded) inconsistencies.push('currentPlayer=me ABER me.folded=true');
+      if (cp === mySelfId && me && me.allIn) inconsistencies.push('currentPlayer=me ABER me.allIn=true');
+      if (cp === mySelfId && me && me.sittingOut) inconsistencies.push('currentPlayer=me ABER me.sittingOut=true');
+      if (cp && !state.players[cp]) inconsistencies.push('currentPlayer existiert nicht in players');
+      const q = state.playersToAct || [];
+      if (cp && q.length > 0 && q[0] !== cp) inconsistencies.push('queue[0]≠currentPlayer');
+
+      el.innerHTML =
+        `Ich: ${short(mySelfId)} (${me ? me.name : '?'})\n` +
+        `An der Reihe: ${short(cp)} (${cpName})\n` +
+        `Mein Zug? ${cp === mySelfId ? 'JA' : 'nein'}\n` +
+        `Phase: ${state.phase} | Hand #${state.handNumber}\n` +
+        `Pot: ${state.pot} | currentBet: ${state.currentBet}\n` +
+        `Queue: [${q.map(short).join(', ')}]\n` +
+        `Mein State: ${me ? `stack=${me.stack} bet=${me.bet} round=${me.roundBet} folded=${me.folded} allIn=${me.allIn} sittingOut=${me.sittingOut||false}` : 'undefined'}\n` +
+        `Host: ${short(state.host)} (Ich bin Host? ${amHost ? 'JA' : 'nein'})\n` +
+        `Pending: ${state.pendingAction ? `${short(state.pendingAction.by)} ${state.pendingAction.type}` : '—'}` +
+        (inconsistencies.length ? `\n<span class="pm-debug-warn">⚠ ${inconsistencies.join(' | ')}</span>` : '');
     }
 
     function renderOthers() {
@@ -11004,11 +11134,16 @@ nextRound();
       }[state.phase] || '—';
       document.getElementById('pmPhase').textContent = phaseLabel;
       let line = '';
+      const me = state.players[mySelfId];
       if (state.phase === 'showdown') {
         line = '';
       } else if (state.currentPlayer) {
         const p = state.players[state.currentPlayer];
-        if (state.currentPlayer === mySelfId) line = 'Du bist dran';
+        if (state.currentPlayer === mySelfId) {
+          // Defensive: only say "Du bist dran" if I can actually act
+          if (me && !me.folded && !me.allIn && !me.sittingOut) line = 'Du bist dran';
+          else line = '— Status inkonsistent, siehe Debug —';
+        }
         else line = (p ? p.name : '?') + ' ist dran';
       } else if (state.lastAction && state.lastAction.label) {
         const actor = state.players[state.lastAction.by];
