@@ -648,8 +648,24 @@
     top: 0.5rem;
     z-index: 10;
     backdrop-filter: blur(10px);
-    margin-left: 54px; /* Space for burger menu */
   }
+
+  /* Hide the fixed burger when a multi-app is visible (we have one in the topbar instead) */
+  body.in-multi-app .burger { display: none; }
+
+  .multi-burger-btn {
+    background: rgba(216,224,240,0.08);
+    border: 1px solid rgba(216,224,240,0.2);
+    color: #d8e0f0;
+  }
+  .multi-burger-btn:hover { background: rgba(216,224,240,0.18); }
+
+  .multi-leave-action {
+    background: rgba(239,68,68,0.1) !important;
+    border-color: rgba(239,68,68,0.5) !important;
+    color: #ff8888 !important;
+  }
+  .multi-leave-action:hover { background: rgba(239,68,68,0.2) !important; }
 
   .multi-topbar-btn {
     background: rgba(95,169,255,0.12);
@@ -1375,6 +1391,542 @@
     border-bottom: 1px solid rgba(216,224,240,0.08);
   }
   .alki-stats-area .stat-row:last-child { border-bottom: none; }
+
+  /* ====================== POKER MULTI ====================== */
+  .app-poker-multi {
+    background: linear-gradient(180deg, #0a1f15 0%, #050a08 100%);
+  }
+  .poker-lobby .multi-tag {
+    background: linear-gradient(135deg, #16a34a, #15803d);
+  }
+
+  .pm-waiting-content {
+    background: rgba(20,40,30,0.5);
+    border: 1px solid rgba(34,197,94,0.25);
+    border-radius: 12px;
+    padding: 1.4rem 1.2rem;
+    text-align: center;
+    margin-top: 0.8rem;
+  }
+  .pm-waiting-label {
+    font-family: 'Cinzel', 'Bebas Neue', sans-serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.3em;
+    color: rgba(34,197,94,0.7);
+    text-transform: uppercase;
+    margin-bottom: 0.3rem;
+  }
+  .pm-waiting-code {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 3rem;
+    letter-spacing: 0.35em;
+    color: white;
+    text-shadow: 0 0 30px rgba(34,197,94,0.5);
+    margin-bottom: 0.5rem;
+    font-weight: 700;
+  }
+  .pm-mini-btn {
+    background: transparent;
+    border: 1px solid rgba(34,197,94,0.4);
+    color: #4ade80;
+    padding: 0.35rem 0.9rem;
+    border-radius: 4px;
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.78rem;
+    cursor: pointer;
+    margin-bottom: 1rem;
+  }
+  .pm-mini-btn:hover { background: rgba(34,197,94,0.12); }
+  .pm-waiting-section-label {
+    font-family: 'Cinzel', 'Bebas Neue', sans-serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.25em;
+    color: rgba(34,197,94,0.8);
+    text-transform: uppercase;
+    font-weight: 600;
+    margin: 1rem 0 0.6rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+  }
+  .pm-waiting-players {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    margin-bottom: 1.2rem;
+  }
+  .pm-waiting-player {
+    background: rgba(0,0,0,0.3);
+    border: 1px solid rgba(34,197,94,0.25);
+    border-radius: 6px;
+    padding: 0.55rem 0.85rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: 'Outfit', sans-serif;
+    color: #d8e8d0;
+    font-size: 0.9rem;
+  }
+  .pm-waiting-player.me { background: rgba(34,197,94,0.1); border-color: #22c55e; color: #4ade80; font-weight: 600; }
+  .pm-start-btn {
+    background: linear-gradient(135deg, #16a34a, #4ade80);
+    color: white;
+    border: none;
+    width: 100%;
+    padding: 1rem;
+    border-radius: 10px;
+    font-family: 'Cinzel', 'Bebas Neue', sans-serif;
+    font-size: 1.05rem;
+    letter-spacing: 0.25em;
+    cursor: pointer;
+    font-weight: 700;
+    box-shadow: 0 6px 22px rgba(34,197,94,0.4);
+    text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+  }
+  .pm-start-btn:hover:not(:disabled) { transform: translateY(-1px); }
+  .pm-start-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+  .pm-waiting-hint {
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.75rem;
+    color: rgba(216,232,208,0.5);
+    margin-top: 0.7rem;
+    font-style: italic;
+  }
+
+  .pm-game { padding-bottom: 1rem; }
+  .pm-game .multi-topbar { border-color: rgba(34,197,94,0.25); }
+  .pm-game .multi-topbar-code { color: #4ade80; }
+
+  .pm-others-row {
+    display: flex;
+    gap: 0.4rem;
+    overflow-x: auto;
+    padding: 0.5rem 0 0.3rem;
+    scrollbar-width: thin;
+    -webkit-overflow-scrolling: touch;
+  }
+  .pm-others-row::-webkit-scrollbar { height: 4px; }
+  .pm-others-row::-webkit-scrollbar-thumb { background: rgba(34,197,94,0.3); border-radius: 2px; }
+
+  .pm-other-player {
+    flex: 0 0 auto;
+    min-width: 80px;
+    background: rgba(20,30,25,0.7);
+    border: 1.5px solid rgba(34,197,94,0.2);
+    border-radius: 8px;
+    padding: 0.35rem 0.4rem;
+    text-align: center;
+    position: relative;
+    transition: all 0.2s;
+  }
+  .pm-other-player.active {
+    border-color: #4ade80;
+    box-shadow: 0 0 14px rgba(74,222,128,0.5);
+    animation: pmActivePulse 1.5s infinite;
+  }
+  @keyframes pmActivePulse {
+    0%, 100% { box-shadow: 0 0 14px rgba(74,222,128,0.5); }
+    50% { box-shadow: 0 0 22px rgba(74,222,128,0.8); }
+  }
+  .pm-other-player.folded { opacity: 0.4; }
+  .pm-other-player.allin { border-color: #f0e4c8; }
+  .pm-other-player.out { opacity: 0.3; filter: grayscale(1); }
+  .pm-other-player.winner { border-color: #ffd700; box-shadow: 0 0 20px rgba(255,215,0,0.6); }
+
+  .pm-other-name {
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.78rem;
+    color: #d8e8d0;
+    font-weight: 600;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .pm-other-stack {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 0.95rem;
+    color: #4ade80;
+    letter-spacing: 0.05em;
+    margin-top: 0.1rem;
+  }
+  .pm-other-bet {
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.7rem;
+    color: #f0d05a;
+    margin-top: 0.1rem;
+    min-height: 0.9em;
+  }
+  .pm-other-badges {
+    position: absolute;
+    top: -8px;
+    right: -4px;
+    display: flex;
+    gap: 2px;
+  }
+  .pm-badge {
+    background: rgba(20,30,25,0.95);
+    border: 1px solid rgba(216,224,240,0.3);
+    border-radius: 50%;
+    width: 18px;
+    height: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 0.62rem;
+    font-weight: 700;
+  }
+  .pm-badge.dealer { color: white; background: #444; border-color: white; }
+  .pm-badge.sb { color: #5fa9ff; border-color: #5fa9ff; }
+  .pm-badge.bb { color: #ff6b6b; border-color: #ff6b6b; }
+  .pm-other-status {
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.65rem;
+    color: rgba(216,232,208,0.6);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-top: 0.1rem;
+  }
+  .pm-other-status.fold { color: #888; }
+  .pm-other-status.allin { color: #f0e4c8; }
+
+  .pm-pot-display {
+    text-align: center;
+    margin: 0.4rem 0 0.3rem;
+  }
+  .pm-pot-label {
+    font-family: 'Cinzel', 'Bebas Neue', sans-serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    color: rgba(240,228,200,0.6);
+    text-transform: uppercase;
+  }
+  .pm-pot-value {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.8rem;
+    color: #ffd700;
+    letter-spacing: 0.1em;
+    text-shadow: 0 0 18px rgba(255,215,0,0.4);
+    line-height: 1;
+  }
+
+  .pm-community {
+    display: flex;
+    gap: 0.35rem;
+    justify-content: center;
+    padding: 0.5rem 0.3rem;
+  }
+
+  .pm-card {
+    width: 16%;
+    max-width: 56px;
+    aspect-ratio: 2.5 / 3.5;
+    border-radius: 6px;
+    background: white;
+    border: 1.5px solid rgba(255,255,255,0.6);
+    position: relative;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Cinzel', 'Outfit', sans-serif;
+    font-weight: 700;
+    color: #111;
+    overflow: hidden;
+    flex: 0 0 auto;
+  }
+  .pm-card.pm-card-back {
+    background: repeating-linear-gradient(45deg, #a02020, #a02020 4px, #b03030 4px, #b03030 8px);
+    border-color: rgba(255,255,255,0.4);
+    color: transparent;
+  }
+  .pm-card.pm-card-back::after {
+    content: '';
+    position: absolute;
+    inset: 6px;
+    border: 2px solid rgba(255,255,255,0.4);
+    border-radius: 3px;
+  }
+  .pm-card.pm-card-empty {
+    background: rgba(20,30,25,0.4);
+    border: 1.5px dashed rgba(216,224,240,0.2);
+    box-shadow: none;
+  }
+  .pm-card-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1px;
+    line-height: 1;
+  }
+  .pm-card-rank { font-size: 1.4rem; }
+  .pm-card-suit { font-size: 1.05rem; }
+  .pm-card.red { color: #d40000; }
+  .pm-card.black { color: #111; }
+  .pm-card.dealing { animation: pmCardDeal 0.4s ease-out; }
+  @keyframes pmCardDeal {
+    from { transform: translateY(-30px) rotate(-8deg); opacity: 0; }
+    to { transform: translateY(0) rotate(0); opacity: 1; }
+  }
+
+  .pm-status {
+    text-align: center;
+    margin: 0.3rem 0;
+    min-height: 2.5rem;
+  }
+  .pm-status-phase {
+    font-family: 'Cinzel', 'Bebas Neue', sans-serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    color: rgba(34,197,94,0.65);
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+  .pm-status-line {
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.9rem;
+    color: #d8e8d0;
+    margin-top: 0.15rem;
+  }
+
+  .pm-my-area {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0.7rem;
+    align-items: center;
+    background: rgba(20,40,30,0.5);
+    border: 1px solid rgba(34,197,94,0.25);
+    border-radius: 10px;
+    padding: 0.7rem 0.8rem;
+    margin: 0.4rem 0;
+  }
+  .pm-my-cards {
+    display: flex;
+    gap: 0.3rem;
+  }
+  .pm-my-cards .pm-card {
+    width: 50px;
+    max-width: none;
+  }
+  .pm-my-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+  }
+  .pm-my-name {
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.95rem;
+    color: #4ade80;
+    font-weight: 700;
+  }
+  .pm-my-stack-row {
+    display: flex;
+    justify-content: space-between;
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.85rem;
+  }
+  .pm-stack-label { color: rgba(216,232,208,0.6); }
+  .pm-stack-val { color: white; font-weight: 600; }
+  .pm-bet-val { color: #f0d05a; font-weight: 600; }
+  .pm-my-hand-strength {
+    font-family: 'Cinzel', 'Outfit', sans-serif;
+    font-size: 0.72rem;
+    color: rgba(240,228,200,0.75);
+    letter-spacing: 0.1em;
+    margin-top: 0.2rem;
+    text-transform: uppercase;
+  }
+
+  .pm-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 0.4rem;
+    margin-top: 0.2rem;
+  }
+  .pm-action-btn {
+    padding: 0.85rem 0.3rem;
+    border: 1.5px solid;
+    border-radius: 8px;
+    font-family: 'Cinzel', 'Bebas Neue', sans-serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.13em;
+    cursor: pointer;
+    font-weight: 700;
+    text-transform: uppercase;
+    transition: all 0.15s;
+    line-height: 1.1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.15rem;
+  }
+  .pm-action-btn:hover:not(:disabled) { transform: translateY(-1px); filter: brightness(1.1); }
+  .pm-action-btn:disabled { opacity: 0.35; cursor: not-allowed; }
+  .pm-action-btn .pm-btn-amount {
+    font-size: 0.7rem;
+    color: rgba(255,255,255,0.7);
+    font-weight: 400;
+    letter-spacing: 0.05em;
+  }
+
+  .pm-action-fold {
+    background: linear-gradient(135deg, #4a1a1a, #6b2a2a);
+    border-color: rgba(239,68,68,0.5);
+    color: #ff8888;
+  }
+  .pm-action-call {
+    background: linear-gradient(135deg, #1a3a4a, #2a5a6b);
+    border-color: rgba(95,169,255,0.5);
+    color: #b8d0ed;
+  }
+  .pm-action-raise {
+    background: linear-gradient(135deg, #4a3a1a, #6b5a2a);
+    border-color: rgba(240,208,90,0.5);
+    color: #f0d05a;
+  }
+
+  .pm-waiting-msg {
+    background: rgba(95,169,255,0.08);
+    border: 1px dashed rgba(95,169,255,0.3);
+    border-radius: 8px;
+    padding: 0.9rem;
+    text-align: center;
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.88rem;
+    color: #b8d0ed;
+    margin-top: 0.2rem;
+  }
+
+  .pm-raise-panel {
+    background: rgba(40,30,15,0.95);
+    border: 1.5px solid rgba(240,208,90,0.5);
+    border-radius: 10px;
+    padding: 1rem;
+    margin-top: 0.5rem;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.5);
+  }
+  .pm-raise-label {
+    font-family: 'Cinzel', 'Bebas Neue', sans-serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.3em;
+    color: rgba(240,208,90,0.8);
+    text-align: center;
+    text-transform: uppercase;
+  }
+  .pm-raise-amount {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.5rem;
+    color: #ffd700;
+    text-align: center;
+    line-height: 1;
+    margin: 0.3rem 0 0.7rem;
+    text-shadow: 0 0 20px rgba(255,215,0,0.4);
+  }
+  .pm-raise-slider {
+    width: 100%;
+    margin: 0.5rem 0;
+    accent-color: #f0d05a;
+  }
+  .pm-raise-presets {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.3rem;
+    margin: 0.6rem 0;
+  }
+  .pm-preset-btn {
+    background: rgba(0,0,0,0.4);
+    border: 1px solid rgba(240,208,90,0.3);
+    color: rgba(240,208,90,0.9);
+    padding: 0.5rem 0.2rem;
+    border-radius: 5px;
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.72rem;
+    cursor: pointer;
+    letter-spacing: 0.05em;
+  }
+  .pm-preset-btn:hover { background: rgba(240,208,90,0.15); }
+  .pm-raise-actions {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 0.5rem;
+    margin-top: 0.6rem;
+  }
+  .pm-raise-cancel {
+    background: rgba(0,0,0,0.4);
+    border: 1px solid rgba(216,224,240,0.3);
+    color: rgba(216,224,240,0.7);
+    padding: 0.7rem;
+    border-radius: 6px;
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.78rem;
+    cursor: pointer;
+    letter-spacing: 0.1em;
+  }
+  .pm-raise-confirm {
+    background: linear-gradient(135deg, #c4972a, #ffd700);
+    border: none;
+    color: #1a1a1a;
+    padding: 0.7rem;
+    border-radius: 6px;
+    font-family: 'Cinzel', 'Bebas Neue', sans-serif;
+    font-size: 0.85rem;
+    cursor: pointer;
+    font-weight: 700;
+    letter-spacing: 0.13em;
+    box-shadow: 0 3px 14px rgba(255,215,0,0.3);
+  }
+
+  .pm-showdown {
+    background: linear-gradient(180deg, rgba(40,30,15,0.95), rgba(20,15,8,0.95));
+    border: 2px solid #ffd700;
+    border-radius: 12px;
+    padding: 1.2rem;
+    text-align: center;
+    margin: 0.5rem 0;
+    box-shadow: 0 0 30px rgba(255,215,0,0.3);
+    animation: pmShowdownAppear 0.4s ease-out;
+  }
+  @keyframes pmShowdownAppear {
+    from { opacity: 0; transform: scale(0.92); }
+    to { opacity: 1; transform: scale(1); }
+  }
+  .pm-showdown-title {
+    font-family: 'Cinzel', 'Bebas Neue', sans-serif;
+    font-size: 0.85rem;
+    letter-spacing: 0.4em;
+    color: #ffd700;
+    text-transform: uppercase;
+  }
+  .pm-showdown-winner {
+    font-family: 'Cinzel', 'Bebas Neue', sans-serif;
+    font-size: 1.3rem;
+    color: white;
+    margin: 0.5rem 0 0.3rem;
+    font-weight: 700;
+  }
+  .pm-showdown-hand {
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.95rem;
+    color: rgba(240,228,200,0.85);
+    margin-bottom: 0.6rem;
+  }
+  .pm-showdown-hint {
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.78rem;
+    color: rgba(216,232,208,0.5);
+    font-style: italic;
+  }
+
+  .pm-modal { border-color: rgba(34,197,94,0.4); }
+
+  @media (max-width: 380px) {
+    .pm-card-rank { font-size: 1.2rem; }
+    .pm-card-suit { font-size: 0.9rem; }
+    .pm-my-cards .pm-card { width: 44px; }
+    .pm-pot-value { font-size: 1.5rem; }
+    .pm-action-btn { font-size: 0.7rem; padding: 0.7rem 0.2rem; }
+  }
 
   .menu-mp { position: relative; }
   .mp-badge {
@@ -4315,6 +4867,10 @@
       <span class="icon">📱</span>
       <span>Alki Multi</span>
     </button>
+    <button class="menu-item" data-app="pokerMulti" onclick="switchApp('pokerMulti')">
+      <span class="icon">♠️</span>
+      <span>Poker Multi</span>
+    </button>
   </div>
 </nav>
 
@@ -4972,7 +5528,9 @@
   <!-- GAME -->
   <div class="multi-game" id="lbmGame" style="display:none">
     <div class="multi-topbar">
-      <button class="multi-topbar-btn multi-leave-btn" onclick="lbm_leave()" title="Verlassen">✕</button>
+      <button class="multi-topbar-btn multi-burger-btn" onclick="toggleMenu()" title="Menü">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
       <div class="multi-topbar-mid">
         <div class="multi-topbar-code" id="lbmTopCode">—</div>
         <div class="multi-topbar-peers" id="lbmTopPeers">0/8</div>
@@ -5058,6 +5616,8 @@
       <div class="multi-settings-label" style="margin-top:1rem">RUNDE</div>
       <button class="multi-settings-btn-full" onclick="lbm_resetRevolvers()">Alle Revolver neu laden</button>
       <button class="multi-settings-btn-full multi-danger" onclick="lbm_kickAll()">Neue Runde (alle resetten)</button>
+      <div class="multi-settings-label" style="margin-top:1rem">SESSION</div>
+      <button class="multi-settings-btn-full multi-leave-action" onclick="lbm_closeSettings(); lbm_leave()">🚪 Session verlassen</button>
       <button class="multi-modal-close" onclick="lbm_closeSettings()">FERTIG</button>
     </div>
   </div>
@@ -5102,7 +5662,9 @@
   <!-- GAME -->
   <div class="multi-game" id="amGame" style="display:none">
     <div class="multi-topbar">
-      <button class="multi-topbar-btn multi-leave-btn" onclick="am_leave()" title="Verlassen">✕</button>
+      <button class="multi-topbar-btn multi-burger-btn" onclick="toggleMenu()" title="Menü">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
       <div class="multi-topbar-mid">
         <div class="multi-topbar-code" id="amTopCode">—</div>
         <div class="multi-topbar-peers" id="amTopPeers">0/8</div>
@@ -5195,7 +5757,183 @@
       <div class="multi-settings-label" style="margin-top:1rem">RUNDE</div>
       <button class="multi-settings-btn-full" onclick="am_resetTrays()">Alle Tabletts neu mischen</button>
       <button class="multi-settings-btn-full multi-danger" onclick="am_kickAll()">Neue Runde (alle resetten)</button>
+      <div class="multi-settings-label" style="margin-top:1rem">SESSION</div>
+      <button class="multi-settings-btn-full multi-leave-action" onclick="am_closeSettings(); am_leave()">🚪 Session verlassen</button>
       <button class="multi-modal-close" onclick="am_closeSettings()">FERTIG</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============ POKER MULTI ============ -->
+<div class="app app-multi app-poker-multi" id="appPokerMulti">
+  <!-- LOBBY -->
+  <div class="multi-lobby poker-lobby" id="pmLobby">
+    <div class="multi-lobby-title">
+      <span class="multi-lobby-emoji">♠️</span>
+      <span>Poker</span>
+      <span class="multi-tag">MULTI</span>
+    </div>
+    <div class="multi-lobby-sub">Texas Hold'em · 1.000 Chips Start · 10/20 Blinds</div>
+
+    <div class="multi-lobby-section">
+      <label class="multi-lobby-label">DEIN NAME</label>
+      <input type="text" class="multi-input" id="pmName" maxlength="14" placeholder="z.B. Tobi" autocomplete="off">
+    </div>
+
+    <div class="multi-lobby-section">
+      <label class="multi-lobby-label">NEUE RUNDE ERSTELLEN</label>
+      <div class="multi-lobby-row">
+        <input type="text" class="multi-input multi-code-in" id="pmCreateCode" maxlength="6" placeholder="Code (optional)" autocomplete="off" autocapitalize="characters">
+        <button class="multi-action-btn" onclick="pm_create()">ERSTELLEN</button>
+      </div>
+    </div>
+
+    <div class="multi-lobby-section">
+      <label class="multi-lobby-label">RUNDE BEITRETEN</label>
+      <div class="multi-lobby-row">
+        <input type="text" class="multi-input multi-code-in" id="pmJoinCode" maxlength="6" placeholder="CODE" autocomplete="off" autocapitalize="characters">
+        <button class="multi-action-btn" onclick="pm_join()">BEITRETEN</button>
+      </div>
+    </div>
+
+    <div class="multi-lobby-error" id="pmError"></div>
+  </div>
+
+  <!-- WAITING ROOM (game created, lobby for players to join, host starts) -->
+  <div class="multi-game pm-waiting" id="pmWaiting" style="display:none">
+    <div class="multi-topbar">
+      <button class="multi-topbar-btn multi-burger-btn" onclick="toggleMenu()" title="Menü">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+      <div class="multi-topbar-mid">
+        <div class="multi-topbar-code" id="pmWaitCode">—</div>
+        <div class="multi-topbar-peers">WARTEZIMMER</div>
+      </div>
+      <button class="multi-topbar-btn multi-settings-btn" onclick="pm_openSettingsWait()" title="Einstellungen">⚙</button>
+    </div>
+
+    <div class="pm-waiting-content">
+      <div class="pm-waiting-label">SESSION-CODE</div>
+      <div class="pm-waiting-code" id="pmWaitCodeBig">—</div>
+      <button class="pm-mini-btn" onclick="pm_copyCode()">📋 Kopieren</button>
+
+      <div class="pm-waiting-section-label">SPIELER <span id="pmWaitCount">0/9</span></div>
+      <div class="pm-waiting-players" id="pmWaitPlayers"></div>
+
+      <button class="pm-start-btn" id="pmStartBtn" onclick="pm_startGame()">SPIEL STARTEN</button>
+      <div class="pm-waiting-hint" id="pmWaitHint">Mindestens 2 Spieler · nur Host kann starten</div>
+    </div>
+
+    <!-- Settings modal for waiting room -->
+    <div class="multi-modal-bd" id="pmSettingsWaitModal" onclick="if(event.target===this) pm_closeSettingsWait()">
+      <div class="multi-modal pm-modal">
+        <div class="multi-modal-title">EINSTELLUNGEN</div>
+        <div class="multi-settings-label">SESSION</div>
+        <button class="multi-settings-btn-full multi-leave-action" onclick="pm_closeSettingsWait(); pm_leave()">🚪 Session verlassen</button>
+        <button class="multi-modal-close" onclick="pm_closeSettingsWait()">FERTIG</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- GAME -->
+  <div class="multi-game pm-game" id="pmGame" style="display:none">
+    <div class="multi-topbar">
+      <button class="multi-topbar-btn multi-burger-btn" onclick="toggleMenu()" title="Menü">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+      <div class="multi-topbar-mid">
+        <div class="multi-topbar-code" id="pmTopCode">—</div>
+        <div class="multi-topbar-peers" id="pmTopPeers">Hand 1</div>
+      </div>
+      <button class="multi-topbar-btn multi-settings-btn" onclick="pm_openSettings()" title="Einstellungen">⚙</button>
+    </div>
+
+    <!-- Other players row -->
+    <div class="pm-others-row" id="pmOthersRow"></div>
+
+    <!-- Pot -->
+    <div class="pm-pot-display">
+      <div class="pm-pot-label">POT</div>
+      <div class="pm-pot-value" id="pmPotValue">0</div>
+    </div>
+
+    <!-- Community cards -->
+    <div class="pm-community" id="pmCommunity">
+      <div class="pm-card pm-card-back"></div>
+      <div class="pm-card pm-card-back"></div>
+      <div class="pm-card pm-card-back"></div>
+      <div class="pm-card pm-card-back"></div>
+      <div class="pm-card pm-card-back"></div>
+    </div>
+
+    <!-- Status (whose turn / last action / phase) -->
+    <div class="pm-status" id="pmStatus">
+      <div class="pm-status-phase" id="pmPhase">PREFLOP</div>
+      <div class="pm-status-line" id="pmStatusLine">Tobi ist dran</div>
+    </div>
+
+    <!-- Showdown overlay -->
+    <div class="pm-showdown" id="pmShowdown" style="display:none">
+      <div class="pm-showdown-title">SHOWDOWN</div>
+      <div class="pm-showdown-winner" id="pmShowdownWinner">—</div>
+      <div class="pm-showdown-hand" id="pmShowdownHand"></div>
+      <div class="pm-showdown-hint" id="pmShowdownHint">Nächste Hand in 5s...</div>
+    </div>
+
+    <!-- My area: cards + info -->
+    <div class="pm-my-area">
+      <div class="pm-my-cards" id="pmMyCards">
+        <div class="pm-card pm-card-back"></div>
+        <div class="pm-card pm-card-back"></div>
+      </div>
+      <div class="pm-my-info">
+        <div class="pm-my-name" id="pmMyName">—</div>
+        <div class="pm-my-stack-row">
+          <span class="pm-stack-label">Stack:</span>
+          <span class="pm-stack-val" id="pmMyStack">1000</span>
+        </div>
+        <div class="pm-my-stack-row">
+          <span class="pm-stack-label">Bet:</span>
+          <span class="pm-bet-val" id="pmMyBet">0</span>
+        </div>
+        <div class="pm-my-hand-strength" id="pmMyHandStrength"></div>
+      </div>
+    </div>
+
+    <!-- Action buttons -->
+    <div class="pm-actions" id="pmActions">
+      <button class="pm-action-btn pm-action-fold" id="pmFoldBtn" onclick="pm_fold()">FOLD</button>
+      <button class="pm-action-btn pm-action-call" id="pmCallBtn" onclick="pm_callOrCheck()">CALL</button>
+      <button class="pm-action-btn pm-action-raise" id="pmRaiseBtn" onclick="pm_openRaise()">RAISE</button>
+    </div>
+
+    <div class="pm-waiting-msg" id="pmWaitingMsg" style="display:none">
+      Warte auf andere Spieler...
+    </div>
+
+    <!-- Custom raise panel -->
+    <div class="pm-raise-panel" id="pmRaisePanel" style="display:none">
+      <div class="pm-raise-label">RAISE AUF</div>
+      <div class="pm-raise-amount" id="pmRaiseAmount">40</div>
+      <input type="range" class="pm-raise-slider" id="pmRaiseSlider" min="0" max="1000" value="40" oninput="pm_raiseSliderChange(this.value)">
+      <div class="pm-raise-presets" id="pmRaisePresets"></div>
+      <div class="pm-raise-actions">
+        <button class="pm-raise-cancel" onclick="pm_closeRaise()">ABBRECHEN</button>
+        <button class="pm-raise-confirm" id="pmRaiseConfirm" onclick="pm_confirmRaise()">RAISE BESTÄTIGEN</button>
+      </div>
+    </div>
+
+    <!-- Settings -->
+    <div class="multi-modal-bd" id="pmSettingsModal" onclick="if(event.target===this) pm_closeSettings()">
+      <div class="multi-modal pm-modal">
+        <div class="multi-modal-title">EINSTELLUNGEN</div>
+        <div class="multi-settings-label" id="pmHostOnlyLabel">RUNDE (HOST)</div>
+        <button class="multi-settings-btn-full" id="pmNextHandBtn" onclick="pm_forceNextHand()" style="display:none">Nächste Hand erzwingen</button>
+        <button class="multi-settings-btn-full multi-danger" id="pmResetGameBtn" onclick="pm_resetGame()" style="display:none">Spiel komplett zurücksetzen (1000 Chips für alle)</button>
+        <div class="multi-settings-label" style="margin-top:1rem">SESSION</div>
+        <button class="multi-settings-btn-full multi-leave-action" onclick="pm_closeSettings(); pm_leave()">🚪 Session verlassen</button>
+        <button class="multi-modal-close" onclick="pm_closeSettings()">FERTIG</button>
+      </div>
     </div>
   </div>
 </div>
@@ -5846,6 +6584,7 @@
     alki:          { title: 'Alki Edition',     emoji: '🥃' },
     liarsbarMulti: { title: "Liar's Bar Multi", emoji: '📱' },
     alkiMulti:     { title: 'Alki Multi',       emoji: '📱' },
+    pokerMulti:    { title: 'Poker Multi',      emoji: '♠️' },
   };
 
   function setFavicon(emoji) {
@@ -5876,12 +6615,17 @@
       liarsbar: 'appLiarsbar',
       liarsbarMulti: 'appLiarsbarMulti',
       alkiMulti: 'appAlkiMulti',
+      pokerMulti: 'appPokerMulti',
     };
     const id = idMap[name] || 'appLiarsbar';
     const el = document.getElementById(id);
     if (el) el.classList.add('visible');
     document.querySelectorAll('.menu-item').forEach(b => b.classList.toggle('active', b.dataset.app === name));
     try { localStorage.setItem(APP_KEY, name); } catch (e) {}
+
+    // Set body class for multi-apps so we can hide the fixed burger
+    const isMulti = (name === 'liarsbarMulti' || name === 'alkiMulti' || name === 'pokerMulti');
+    document.body.classList.toggle('in-multi-app', isMulti);
 
     // Update tab title and favicon
     const meta = APP_META[name];
@@ -5900,7 +6644,7 @@
     let active = 'liarsbar';
     try {
       const saved = localStorage.getItem(APP_KEY);
-      if (['poker','liarsbar','alki','liarsbarMulti','alkiMulti'].includes(saved)) active = saved;
+      if (['poker','liarsbar','alki','liarsbarMulti','alkiMulti','pokerMulti'].includes(saved)) active = saved;
     } catch (e) {}
     switchApp(active);
   })();
@@ -9106,6 +9850,1295 @@ nextRound();
     window.am_resetTrays = am_resetTrays;
     window.am_kickAll = am_kickAll;
     window.am_newRound = am_newRound;
+  })();
+
+
+  // ============================================================
+  // ============ POKER MULTI (Texas Hold'em) ===================
+  // ============================================================
+  (function() {
+    const STARTING_STACK = 1000;
+    const SMALL_BLIND = 10;
+    const BIG_BLIND = 20;
+    const MAX_PLAYERS = 9;
+    const HANDOVER_DELAY_MS = 5000;
+
+    // ---- Identity ----
+    function getSelfId() {
+      let id = localStorage.getItem('mp-self-id');
+      if (!id) {
+        id = 'd_' + Math.random().toString(36).slice(2, 10) + Math.random().toString(36).slice(2, 6);
+        localStorage.setItem('mp-self-id', id);
+      }
+      return id;
+    }
+    function getStoredName() { return localStorage.getItem('mp-display-name') || ''; }
+    function setStoredName(n) { try { localStorage.setItem('mp-display-name', n); } catch (e) {} }
+
+    function genCode() {
+      const chars = 'ABCDEFGHJKMNPQRSTUVWXYZ23456789';
+      let c = '';
+      for (let i = 0; i < 4; i++) c += chars[Math.floor(Math.random() * chars.length)];
+      return c;
+    }
+    function validateCode(code) {
+      if (!code) return null;
+      const cleaned = code.toUpperCase().replace(/[^A-Z0-9]/g, '');
+      if (cleaned.length < 3 || cleaned.length > 6) return null;
+      return cleaned;
+    }
+
+    // ---- Card / Deck ----
+    const SUIT_SYM = { s: '♠', h: '♥', d: '♦', c: '♣' };
+    const SUIT_COLOR = { s: 'black', c: 'black', h: 'red', d: 'red' };
+
+    function newDeck() {
+      const d = [];
+      for (const s of ['s','h','d','c']) {
+        for (const r of '23456789TJQKA') d.push(r + s);
+      }
+      return d;
+    }
+    function shuffle(arr) {
+      const a = arr.slice();
+      for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+      }
+      return a;
+    }
+    function rankVal(r) { return '23456789TJQKA'.indexOf(r) + 2; }
+
+    // ---- Hand evaluator (7-card best 5) ----
+    function evaluateHand(cards) {
+      // cards: array of 5-7 cards like 'AS','KH'
+      if (cards.length < 5) return { score: 0, name: '—', best: cards.slice() };
+      const combos = kCombinations(cards, 5);
+      let best = null;
+      for (const c of combos) {
+        const r = scoreFive(c);
+        if (!best || r.score > best.score) best = { ...r, best: c };
+      }
+      return best;
+    }
+    function kCombinations(arr, k) {
+      if (k === 0) return [[]];
+      if (arr.length < k) return [];
+      const [head, ...tail] = arr;
+      const withHead = kCombinations(tail, k - 1).map(c => [head, ...c]);
+      const withoutHead = kCombinations(tail, k);
+      return [...withHead, ...withoutHead];
+    }
+    function scoreFive(five) {
+      const ranks = five.map(c => rankVal(c[0])).sort((a, b) => b - a);
+      const suits = five.map(c => c[1]);
+      const flush = suits.every(s => s === suits[0]);
+      const straight = isStraight(ranks);
+      const counts = {};
+      for (const r of ranks) counts[r] = (counts[r] || 0) + 1;
+      const groups = Object.entries(counts).map(([r, c]) => [Number(r), c])
+        .sort((a, b) => b[1] - a[1] || b[0] - a[0]);
+
+      // For straight tiebreaker: wheel A-2-3-4-5 → top is 5
+      let straightTop = ranks[0];
+      if (ranks.join('-') === '14-5-4-3-2') straightTop = 5;
+
+      let category, tiebreak, name;
+      if (straight && flush) {
+        if (ranks[0] === 14 && ranks[4] === 10) { category = 9; tiebreak = [14]; name = 'Royal Flush'; }
+        else { category = 8; tiebreak = [straightTop]; name = 'Straight Flush'; }
+      } else if (groups[0][1] === 4) {
+        category = 7; tiebreak = [groups[0][0], groups[1][0]]; name = 'Vierling';
+      } else if (groups[0][1] === 3 && groups[1] && groups[1][1] === 2) {
+        category = 6; tiebreak = [groups[0][0], groups[1][0]]; name = 'Full House';
+      } else if (flush) {
+        category = 5; tiebreak = ranks; name = 'Flush';
+      } else if (straight) {
+        category = 4; tiebreak = [straightTop]; name = 'Straße';
+      } else if (groups[0][1] === 3) {
+        category = 3; tiebreak = [groups[0][0], ...ranks.filter(r => r !== groups[0][0]).slice(0,2)]; name = 'Drilling';
+      } else if (groups[0][1] === 2 && groups[1] && groups[1][1] === 2) {
+        category = 2;
+        const pairHi = Math.max(groups[0][0], groups[1][0]);
+        const pairLo = Math.min(groups[0][0], groups[1][0]);
+        const kicker = ranks.find(r => r !== pairHi && r !== pairLo);
+        tiebreak = [pairHi, pairLo, kicker];
+        name = 'Zwei Paare';
+      } else if (groups[0][1] === 2) {
+        category = 1;
+        tiebreak = [groups[0][0], ...ranks.filter(r => r !== groups[0][0]).slice(0,3)];
+        name = 'Paar';
+      } else {
+        category = 0; tiebreak = ranks; name = 'High Card';
+      }
+
+      let score = category * 1e10;
+      for (let i = 0; i < tiebreak.length; i++) {
+        score += tiebreak[i] * Math.pow(15, 4 - i);
+      }
+      return { score, category, name };
+    }
+    function isStraight(ranks) {
+      if (ranks.join('-') === '14-5-4-3-2') return true;
+      for (let i = 0; i < ranks.length - 1; i++) {
+        if (ranks[i] - ranks[i+1] !== 1) return false;
+      }
+      return true;
+    }
+
+    // ---- State ----
+    let state = {
+      app: 'pokerMulti',
+      host: null,
+      phase: 'waiting',  // waiting | preflop | flop | turn | river | showdown
+      players: {},       // selfId → {name, stack, bet, roundBet, cards, folded, allIn, joinedAt}
+      seatOrder: [],     // locked at game start
+      communityCards: [],
+      pot: 0,
+      currentBet: 0,
+      minRaise: BIG_BLIND,
+      dealerIdx: 0,
+      currentPlayer: null, // selfId
+      playersToAct: [],    // ordered queue
+      lastAction: null,    // {by, type, amount}
+      handNumber: 0,
+      started: false,
+      showdown: null,
+      handStartAt: 0,
+    };
+
+    let mySelfId = getSelfId();
+    let myCode = null;
+    let amHost = false;
+    let inSession = false;
+    let inWaiting = true;
+    let unsubSession = null;
+    let sessionRef = null;
+    let peerRef = null;
+    let hostDeck = null;   // host-only memory
+    let handoverTimer = null;
+    let raiseAmount = 0;
+
+    function showError(msg) {
+      const el = document.getElementById('pmError');
+      if (!el) return;
+      el.textContent = msg;
+      clearTimeout(showError._tm);
+      showError._tm = setTimeout(() => { el.textContent = ''; }, 5000);
+    }
+
+    function showToast(msg) {
+      // Reuse the multi-toast logic
+      let t = document.getElementById('mpToast');
+      if (!t) {
+        t = document.createElement('div');
+        t.id = 'mpToast';
+        t.className = 'mp-toast';
+        document.body.appendChild(t);
+      }
+      t.textContent = msg;
+      t.classList.add('show');
+      clearTimeout(t._tm);
+      t._tm = setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function escapeHtml(s) {
+      return String(s).replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+    }
+
+    // ---- Lobby ----
+    async function pm_create() {
+      if (!window.FB) { showError('Firebase noch nicht geladen'); return; }
+      const name = (document.getElementById('pmName').value.trim()) || ('Spieler ' + mySelfId.slice(2, 6));
+      setStoredName(name);
+      const codeIn = document.getElementById('pmCreateCode').value.trim();
+      let code;
+      if (codeIn) {
+        code = validateCode(codeIn);
+        if (!code) { showError('Code: 3–6 Zeichen, nur A–Z und 0–9'); return; }
+      } else {
+        code = genCode();
+      }
+
+      const { db, ref, get, set } = window.FB;
+      try {
+        const existing = await get(ref(db, 'sessions/' + code));
+        if (existing.exists()) {
+          const ex = existing.val();
+          const age = Date.now() - ((ex.state && ex.state.createdAt) || 0);
+          if (Object.keys(ex.peers || {}).length > 0 && age < 24*60*60*1000) {
+            showError(`Code ${code} ist gerade aktiv`);
+            return;
+          }
+          if (!confirm(`Code ${code} hat eine alte Session. Überschreiben?`)) return;
+        }
+      } catch (e) { showError('Fehler beim Prüfen'); return; }
+
+      const initial = {
+        app: 'pokerMulti',
+        host: mySelfId,
+        phase: 'waiting',
+        players: {
+          [mySelfId]: {
+            name,
+            stack: STARTING_STACK,
+            bet: 0,
+            roundBet: 0,
+            cards: [],
+            folded: false,
+            allIn: false,
+            joinedAt: Date.now(),
+            lastAction: null,
+            sittingOut: false,
+          }
+        },
+        seatOrder: [],
+        communityCards: [],
+        pot: 0,
+        currentBet: 0,
+        minRaise: BIG_BLIND,
+        dealerIdx: 0,
+        currentPlayer: null,
+        playersToAct: [],
+        lastAction: null,
+        handNumber: 0,
+        started: false,
+        showdown: null,
+        createdAt: Date.now(),
+        handStartAt: 0,
+      };
+
+      try {
+        await set(ref(db, 'sessions/' + code), { state: initial, writerId: mySelfId });
+        myCode = code;
+        amHost = true;
+        await joinListeners(code, name);
+        switchToWaiting();
+      } catch (e) {
+        showError('Erstellen fehlgeschlagen: ' + (e.message || e));
+      }
+    }
+
+    async function pm_join() {
+      if (!window.FB) { showError('Firebase noch nicht geladen'); return; }
+      const name = (document.getElementById('pmName').value.trim()) || ('Spieler ' + mySelfId.slice(2, 6));
+      setStoredName(name);
+      const code = validateCode(document.getElementById('pmJoinCode').value);
+      if (!code) { showError('Code: 3–6 Zeichen'); return; }
+
+      const { db, ref, get, update } = window.FB;
+      try {
+        const snap = await get(ref(db, 'sessions/' + code));
+        if (!snap.exists()) { showError(`Session ${code} nicht gefunden`); return; }
+        const data = snap.val();
+        if (data.state && data.state.app !== 'pokerMulti') {
+          showError(`Code ${code} läuft in einer anderen App`);
+          return;
+        }
+        if (data.state && data.state.started) {
+          // Returning player check
+          if (!data.state.players || !data.state.players[mySelfId]) {
+            showError('Spiel läuft schon — kein Late Join möglich');
+            return;
+          }
+          // I'm a returning player → just reconnect, update name
+          await update(ref(db, `sessions/${code}/state/players/${mySelfId}`), { name });
+        } else {
+          // Lobby: add as new player
+          const players = (data.state && data.state.players) || {};
+          if (Object.keys(players).length >= MAX_PLAYERS) {
+            showError('Session ist voll (max ' + MAX_PLAYERS + ')');
+            return;
+          }
+          if (!players[mySelfId]) {
+            await update(ref(db, `sessions/${code}/state/players/${mySelfId}`), {
+              name,
+              stack: STARTING_STACK,
+              bet: 0,
+              roundBet: 0,
+              cards: [],
+              folded: false,
+              allIn: false,
+              joinedAt: Date.now(),
+              lastAction: null,
+              sittingOut: false,
+            });
+          } else {
+            await update(ref(db, `sessions/${code}/state/players/${mySelfId}`), { name });
+          }
+        }
+        myCode = code;
+        amHost = (data.state.host === mySelfId);
+        await joinListeners(code, name);
+        if (data.state.started) switchToGame();
+        else switchToWaiting();
+      } catch (e) {
+        showError('Beitreten fehlgeschlagen: ' + (e.message || e));
+      }
+    }
+
+    async function joinListeners(code, name) {
+      const { db, ref, onValue, set, onDisconnect } = window.FB;
+      sessionRef = ref(db, 'sessions/' + code);
+      peerRef = ref(db, `sessions/${code}/peers/${mySelfId}`);
+      await set(peerRef, { name, lastSeen: Date.now() });
+      onDisconnect(peerRef).remove();
+
+      unsubSession = onValue(sessionRef, (snapshot) => {
+        if (!snapshot.exists()) { showError('Session beendet'); pm_leave(); return; }
+        const data = snapshot.val();
+        const newState = data.state || {};
+        state = Object.assign({}, state, newState);
+        amHost = (state.host === mySelfId);
+        document.body.classList.toggle('mp-host', amHost);
+
+        // Phase transitions
+        if (state.started && inWaiting) { switchToGame(); }
+        if (!state.started && !inWaiting && state.phase === 'waiting') { switchToWaiting(); }
+
+        // If I'm host, process pending action
+        if (amHost && state.pendingAction && state.started) {
+          processPendingAction(state.pendingAction);
+        }
+
+        // If host & showdown, schedule next hand
+        if (amHost && state.phase === 'showdown' && state.started && !handoverTimer) {
+          handoverTimer = setTimeout(() => {
+            handoverTimer = null;
+            if (amHost) startNextHand();
+          }, HANDOVER_DELAY_MS);
+        }
+
+        renderAll();
+      });
+
+      inSession = true;
+    }
+
+    async function pm_leave() {
+      const { remove, update } = window.FB || {};
+      try { if (unsubSession) unsubSession(); } catch (e) {}
+      try {
+        if (peerRef && remove) await remove(peerRef);
+        if (sessionRef && remove) {
+          // Mark me as left in players
+          if (state.started) {
+            // Don't remove from players (so my chips stay), just mark folded/sittingOut
+            await update(window.FB.ref(window.FB.db, `sessions/${myCode}/state/players/${mySelfId}`), {
+              sittingOut: true, folded: true
+            });
+          } else {
+            await remove(window.FB.ref(window.FB.db, `sessions/${myCode}/state/players/${mySelfId}`));
+          }
+        }
+      } catch (e) {}
+
+      // If host & no peers left, delete; otherwise hand off
+      if (amHost && sessionRef && remove) {
+        try {
+          const snap = await window.FB.get(sessionRef);
+          if (snap.exists()) {
+            const data = snap.val();
+            const peers = data.peers || {};
+            const remaining = Object.keys(peers).filter(k => k !== mySelfId);
+            if (remaining.length === 0) {
+              await remove(sessionRef);
+            } else {
+              await update(window.FB.ref(window.FB.db, `sessions/${myCode}/state`), { host: remaining[0] });
+            }
+          }
+        } catch (e) {}
+      }
+
+      if (handoverTimer) { clearTimeout(handoverTimer); handoverTimer = null; }
+      sessionRef = null; peerRef = null; unsubSession = null;
+      inSession = false; myCode = null; amHost = false;
+      hostDeck = null;
+      switchToLobby();
+    }
+
+    // ---- View switching ----
+    function switchToLobby() {
+      document.getElementById('pmLobby').style.display = '';
+      document.getElementById('pmWaiting').style.display = 'none';
+      document.getElementById('pmGame').style.display = 'none';
+      document.getElementById('pmName').value = getStoredName();
+      inWaiting = false;
+    }
+    function switchToWaiting() {
+      document.getElementById('pmLobby').style.display = 'none';
+      document.getElementById('pmWaiting').style.display = '';
+      document.getElementById('pmGame').style.display = 'none';
+      inWaiting = true;
+      renderWaiting();
+    }
+    function switchToGame() {
+      document.getElementById('pmLobby').style.display = 'none';
+      document.getElementById('pmWaiting').style.display = 'none';
+      document.getElementById('pmGame').style.display = '';
+      inWaiting = false;
+      renderAll();
+    }
+
+    // ---- Render waiting room ----
+    function renderWaiting() {
+      const code = myCode || '—';
+      document.getElementById('pmWaitCode').textContent = code;
+      document.getElementById('pmWaitCodeBig').textContent = code;
+      const players = state.players || {};
+      const playerIds = Object.keys(players).sort((a, b) => (players[a].joinedAt || 0) - (players[b].joinedAt || 0));
+      document.getElementById('pmWaitCount').textContent = `${playerIds.length}/${MAX_PLAYERS}`;
+
+      const html = playerIds.map(id => {
+        const p = players[id];
+        const isMe = id === mySelfId;
+        const isHost = id === state.host;
+        return `<div class="pm-waiting-player ${isMe ? 'me' : ''}">
+          <span>${escapeHtml(p.name)}${isMe ? ' (du)' : ''}</span>
+          ${isHost ? '<span class="pm-wp-host" style="margin-left:auto">👑</span>' : ''}
+        </div>`;
+      }).join('');
+      document.getElementById('pmWaitPlayers').innerHTML = html;
+
+      const startBtn = document.getElementById('pmStartBtn');
+      const hint = document.getElementById('pmWaitHint');
+      if (amHost) {
+        startBtn.style.display = '';
+        startBtn.disabled = playerIds.length < 2;
+        hint.textContent = playerIds.length < 2 ? 'Mindestens 2 Spieler nötig' : 'Du bist Host — du kannst starten';
+      } else {
+        startBtn.style.display = 'none';
+        hint.textContent = 'Warte auf Host zum Starten...';
+      }
+    }
+
+    function pm_copyCode() {
+      if (!myCode) return;
+      try { navigator.clipboard.writeText(myCode); showToast('Code kopiert'); }
+      catch (e) { showToast('Kopieren fehlgeschlagen'); }
+    }
+
+    // ---- Host actions: game flow ----
+    async function pm_startGame() {
+      if (!amHost) return;
+      const players = state.players || {};
+      const playerIds = Object.keys(players).sort((a, b) => (players[a].joinedAt || 0) - (players[b].joinedAt || 0));
+      if (playerIds.length < 2) { showError('Mindestens 2 Spieler nötig'); return; }
+      // Lock seat order
+      const newState = Object.assign({}, state, {
+        seatOrder: playerIds,
+        started: true,
+        dealerIdx: 0,
+        handNumber: 0,
+      });
+      state = newState;
+      await broadcast(newState);
+      // Wait a moment then start first hand
+      setTimeout(() => { if (amHost) startNextHand(); }, 400);
+    }
+
+    function startNextHand() {
+      if (!amHost) return;
+      // Check who's still in (stack > 0 and not sittingOut)
+      const playable = state.seatOrder.filter(id => {
+        const p = state.players[id];
+        return p && p.stack > 0 && !p.sittingOut;
+      });
+      if (playable.length < 2) {
+        // Game over
+        const winnerId = playable[0] || state.seatOrder.find(id => state.players[id].stack > 0);
+        broadcast(Object.assign({}, state, {
+          phase: 'gameover',
+          showdown: winnerId ? { winners: [winnerId], gameOverWinner: winnerId } : null,
+          currentPlayer: null,
+          playersToAct: [],
+        }));
+        return;
+      }
+
+      // Shuffle, deal
+      hostDeck = shuffle(newDeck());
+      const newPlayers = {};
+      for (const id of state.seatOrder) {
+        const p = state.players[id] || {};
+        if (p.stack > 0 && !p.sittingOut) {
+          newPlayers[id] = Object.assign({}, p, {
+            cards: [hostDeck.pop(), hostDeck.pop()],
+            bet: 0,
+            roundBet: 0,
+            folded: false,
+            allIn: false,
+            lastAction: null,
+          });
+        } else {
+          newPlayers[id] = Object.assign({}, p, {
+            cards: [],
+            bet: 0,
+            roundBet: 0,
+            folded: true,
+            allIn: false,
+            lastAction: 'OUT',
+          });
+        }
+      }
+
+      // Determine dealer (skip empty/out players)
+      let dealerIdx = state.dealerIdx;
+      if (state.handNumber > 0) {
+        // Advance dealer by 1, skip those who can't play
+        for (let i = 1; i <= state.seatOrder.length; i++) {
+          const candidate = (state.dealerIdx + i) % state.seatOrder.length;
+          const id = state.seatOrder[candidate];
+          if (newPlayers[id] && !newPlayers[id].folded) { dealerIdx = candidate; break; }
+        }
+      } else {
+        // Hand 1: find first non-folded as dealer
+        for (let i = 0; i < state.seatOrder.length; i++) {
+          const id = state.seatOrder[i];
+          if (newPlayers[id] && !newPlayers[id].folded) { dealerIdx = i; break; }
+        }
+      }
+
+      // Post blinds — find SB and BB positions
+      const activeIdxs = [];
+      for (let i = 0; i < state.seatOrder.length; i++) {
+        const idx = (dealerIdx + i) % state.seatOrder.length;
+        if (!newPlayers[state.seatOrder[idx]].folded) activeIdxs.push(idx);
+      }
+      // activeIdxs[0] = dealer, [1] = SB, [2] = BB, [3] = UTG (or wraparound)
+      let sbIdx, bbIdx, firstActIdx;
+      if (activeIdxs.length === 2) {
+        // Heads-up: dealer = SB
+        sbIdx = activeIdxs[0];
+        bbIdx = activeIdxs[1];
+        firstActIdx = sbIdx; // SB acts first preflop in heads-up
+      } else {
+        sbIdx = activeIdxs[1];
+        bbIdx = activeIdxs[2];
+        firstActIdx = activeIdxs[3 % activeIdxs.length]; // UTG
+      }
+      const sbId = state.seatOrder[sbIdx];
+      const bbId = state.seatOrder[bbIdx];
+
+      const sbAmount = Math.min(SMALL_BLIND, newPlayers[sbId].stack);
+      newPlayers[sbId].stack -= sbAmount;
+      newPlayers[sbId].bet += sbAmount;
+      newPlayers[sbId].roundBet += sbAmount;
+      if (newPlayers[sbId].stack === 0) newPlayers[sbId].allIn = true;
+
+      const bbAmount = Math.min(BIG_BLIND, newPlayers[bbId].stack);
+      newPlayers[bbId].stack -= bbAmount;
+      newPlayers[bbId].bet += bbAmount;
+      newPlayers[bbId].roundBet += bbAmount;
+      if (newPlayers[bbId].stack === 0) newPlayers[bbId].allIn = true;
+
+      // Build playersToAct queue (UTG first, then around)
+      const queue = [];
+      for (let i = 0; i < state.seatOrder.length; i++) {
+        const idx = (firstActIdx + i) % state.seatOrder.length;
+        const id = state.seatOrder[idx];
+        const p = newPlayers[id];
+        if (p && !p.folded && !p.allIn) queue.push(id);
+      }
+
+      const newState = Object.assign({}, state, {
+        phase: 'preflop',
+        players: newPlayers,
+        communityCards: [],
+        pot: sbAmount + bbAmount,
+        currentBet: bbAmount,
+        minRaise: BIG_BLIND,
+        dealerIdx,
+        currentPlayer: queue[0] || null,
+        playersToAct: queue,
+        lastAction: { by: bbId, type: 'bb', amount: bbAmount },
+        handNumber: state.handNumber + 1,
+        showdown: null,
+        handStartAt: Date.now(),
+        pendingAction: null,
+      });
+      state = newState;
+      broadcast(newState);
+    }
+
+    function processPendingAction(action) {
+      if (!amHost || !action || !state.started) return;
+      // Validate it's the current player's turn
+      if (action.by !== state.currentPlayer) {
+        // Clear stale action
+        const { update } = window.FB;
+        update(window.FB.ref(window.FB.db, `sessions/${myCode}/state`), { pendingAction: null });
+        return;
+      }
+      const player = state.players[action.by];
+      if (!player || player.folded || player.allIn) {
+        const { update } = window.FB;
+        update(window.FB.ref(window.FB.db, `sessions/${myCode}/state`), { pendingAction: null });
+        return;
+      }
+
+      const newPlayers = JSON.parse(JSON.stringify(state.players));
+      const p = newPlayers[action.by];
+      let raised = false;
+      let valid = true;
+      let actionLabel = '';
+
+      if (action.type === 'fold') {
+        p.folded = true;
+        p.lastAction = 'FOLD';
+        actionLabel = 'foldet';
+      } else if (action.type === 'check') {
+        if (p.roundBet !== state.currentBet) { valid = false; }
+        else { p.lastAction = 'CHECK'; actionLabel = 'checked'; }
+      } else if (action.type === 'call') {
+        const owed = state.currentBet - p.roundBet;
+        if (owed <= 0) { p.lastAction = 'CHECK'; actionLabel = 'checked'; }
+        else {
+          const pay = Math.min(owed, p.stack);
+          p.stack -= pay;
+          p.bet += pay;
+          p.roundBet += pay;
+          if (p.stack === 0) { p.allIn = true; p.lastAction = 'ALL-IN'; actionLabel = 'all-in für ' + pay; }
+          else { p.lastAction = 'CALL ' + pay; actionLabel = 'callt ' + pay; }
+        }
+      } else if (action.type === 'raise' || action.type === 'allin') {
+        const target = action.type === 'allin' ? p.roundBet + p.stack : action.amount;
+        if (target <= state.currentBet) { valid = false; }
+        else {
+          const pay = Math.min(target - p.roundBet, p.stack);
+          p.stack -= pay;
+          p.bet += pay;
+          p.roundBet += pay;
+          const newCurrentBet = p.roundBet;
+          if (p.stack === 0) { p.allIn = true; p.lastAction = 'ALL-IN ' + newCurrentBet; actionLabel = 'all-in für ' + newCurrentBet; }
+          else { p.lastAction = 'RAISE ' + newCurrentBet; actionLabel = 'raised auf ' + newCurrentBet; }
+          state.minRaise = Math.max(BIG_BLIND, newCurrentBet - state.currentBet);
+          state.currentBet = newCurrentBet;
+          raised = true;
+        }
+      }
+
+      if (!valid) {
+        const { update } = window.FB;
+        update(window.FB.ref(window.FB.db, `sessions/${myCode}/state`), { pendingAction: null });
+        return;
+      }
+
+      // Update pot
+      let newPot = 0;
+      for (const id of state.seatOrder) newPot += (newPlayers[id].bet || 0);
+
+      // Advance queue
+      let queue = state.playersToAct.slice();
+      queue.shift(); // remove the actor
+
+      if (raised) {
+        // Rebuild queue: all other active non-all-in players, in seat order starting after actor
+        const actorSeatIdx = state.seatOrder.indexOf(action.by);
+        queue = [];
+        for (let i = 1; i < state.seatOrder.length; i++) {
+          const idx = (actorSeatIdx + i) % state.seatOrder.length;
+          const id = state.seatOrder[idx];
+          const pp = newPlayers[id];
+          if (pp && !pp.folded && !pp.allIn && id !== action.by) queue.push(id);
+        }
+      }
+
+      // Check if only 1 player left → end hand
+      const stillIn = Object.entries(newPlayers).filter(([id, pp]) => !pp.folded);
+      if (stillIn.length === 1) {
+        // Award pot to last remaining
+        const winnerId = stillIn[0][0];
+        newPlayers[winnerId].stack += newPot;
+        const newState = Object.assign({}, state, {
+          players: newPlayers,
+          pot: 0,
+          currentPlayer: null,
+          playersToAct: [],
+          phase: 'showdown',
+          lastAction: { by: action.by, type: action.type, amount: action.amount, label: actionLabel },
+          showdown: {
+            winners: [winnerId],
+            potWon: newPot,
+            byFold: true,
+            hands: [],
+          },
+          pendingAction: null,
+        });
+        state = newState;
+        broadcast(newState);
+        return;
+      }
+
+      let newState;
+      if (queue.length === 0) {
+        // Round complete → advance phase
+        newState = advancePhase(newPlayers, newPot, action, actionLabel);
+      } else {
+        newState = Object.assign({}, state, {
+          players: newPlayers,
+          pot: newPot,
+          currentPlayer: queue[0],
+          playersToAct: queue,
+          lastAction: { by: action.by, type: action.type, amount: action.amount, label: actionLabel },
+          pendingAction: null,
+        });
+      }
+      state = newState;
+      broadcast(newState);
+    }
+
+    function advancePhase(newPlayers, newPot, lastActionData, actionLabel) {
+      let phase = state.phase;
+      let community = state.communityCards.slice();
+
+      if (phase === 'preflop') {
+        community.push(hostDeck.pop(), hostDeck.pop(), hostDeck.pop());
+        phase = 'flop';
+      } else if (phase === 'flop') {
+        community.push(hostDeck.pop());
+        phase = 'turn';
+      } else if (phase === 'turn') {
+        community.push(hostDeck.pop());
+        phase = 'river';
+      } else if (phase === 'river') {
+        // Showdown
+        return doShowdown(newPlayers, newPot, community, lastActionData, actionLabel);
+      }
+
+      // Reset roundBets
+      for (const id of state.seatOrder) {
+        if (newPlayers[id]) newPlayers[id].roundBet = 0;
+      }
+
+      // Find first to act post-flop: first non-folded, non-all-in player after dealer
+      let firstActIdx = -1;
+      for (let i = 1; i <= state.seatOrder.length; i++) {
+        const idx = (state.dealerIdx + i) % state.seatOrder.length;
+        const id = state.seatOrder[idx];
+        const p = newPlayers[id];
+        if (p && !p.folded && !p.allIn) { firstActIdx = idx; break; }
+      }
+
+      let queue = [];
+      if (firstActIdx >= 0) {
+        for (let i = 0; i < state.seatOrder.length; i++) {
+          const idx = (firstActIdx + i) % state.seatOrder.length;
+          const id = state.seatOrder[idx];
+          const p = newPlayers[id];
+          if (p && !p.folded && !p.allIn) queue.push(id);
+        }
+      }
+
+      // If no queue (everyone all-in or folded except some), skip to next phase
+      if (queue.length === 0) {
+        // All remaining players are all-in or folded. Deal remaining community cards and showdown.
+        return advancePhase(newPlayers, newPot,
+          { by: lastActionData ? lastActionData.by : null, type: 'auto', amount: 0 },
+          actionLabel);
+      }
+
+      return Object.assign({}, state, {
+        phase,
+        communityCards: community,
+        players: newPlayers,
+        pot: newPot,
+        currentBet: 0,
+        minRaise: BIG_BLIND,
+        currentPlayer: queue[0],
+        playersToAct: queue,
+        lastAction: { by: lastActionData.by, type: lastActionData.type, amount: lastActionData.amount, label: actionLabel },
+        pendingAction: null,
+      });
+    }
+
+    function doShowdown(newPlayers, newPot, community, lastActionData, actionLabel) {
+      // Eligible: non-folded
+      const eligible = Object.entries(newPlayers)
+        .filter(([id, p]) => !p.folded)
+        .map(([id, p]) => ({ id, bet: p.bet, hand: evaluateHand([...p.cards, ...community]) }));
+
+      // Side-pot computation
+      const bets = [...new Set(Object.values(newPlayers).map(p => p.bet))].filter(b => b > 0).sort((a, b) => a - b);
+      const pots = [];
+      let prevLevel = 0;
+      for (const level of bets) {
+        const slice = level - prevLevel;
+        const contributors = eligible.filter(e => e.bet >= level);
+        // Also folded players contribute up to their bet
+        const foldedContrib = Object.values(newPlayers)
+          .filter(p => p.folded && p.bet > prevLevel)
+          .reduce((sum, p) => sum + Math.min(p.bet - prevLevel, slice), 0);
+        const amount = slice * contributors.length + foldedContrib;
+        if (amount > 0 && contributors.length > 0) {
+          pots.push({ amount, eligible: contributors });
+        }
+        prevLevel = level;
+      }
+
+      const handsInfo = eligible.map(e => ({ id: e.id, score: e.hand.score, name: e.hand.name }));
+      const winnersAll = new Set();
+
+      for (const pot of pots) {
+        const sorted = pot.eligible.slice().sort((a, b) => b.hand.score - a.hand.score);
+        const topScore = sorted[0].hand.score;
+        const winners = sorted.filter(e => e.hand.score === topScore);
+        const share = Math.floor(pot.amount / winners.length);
+        for (const w of winners) {
+          newPlayers[w.id].stack += share;
+          winnersAll.add(w.id);
+        }
+        const leftover = pot.amount - share * winners.length;
+        if (leftover > 0 && winners.length > 0) newPlayers[winners[0].id].stack += leftover;
+      }
+
+      return Object.assign({}, state, {
+        phase: 'showdown',
+        communityCards: community,
+        players: newPlayers,
+        pot: 0,
+        currentBet: 0,
+        currentPlayer: null,
+        playersToAct: [],
+        lastAction: { by: lastActionData.by, type: lastActionData.type, amount: lastActionData.amount, label: actionLabel },
+        showdown: {
+          winners: [...winnersAll],
+          hands: handsInfo,
+          potWon: newPot,
+        },
+        pendingAction: null,
+      });
+    }
+
+    async function broadcast(newState) {
+      if (!sessionRef || !window.FB) return;
+      state = newState;
+      const { update } = window.FB;
+      try {
+        await update(sessionRef, { state: newState, writerId: mySelfId });
+      } catch (e) { console.error('broadcast', e); }
+    }
+
+    // ---- Player actions (write to pendingAction) ----
+    async function sendAction(payload) {
+      if (!sessionRef || !window.FB) return;
+      if (state.currentPlayer !== mySelfId) { showToast('Du bist nicht dran'); return; }
+      const { update } = window.FB;
+      await update(window.FB.ref(window.FB.db, `sessions/${myCode}/state`), {
+        pendingAction: Object.assign({ by: mySelfId, ts: Date.now() }, payload),
+      });
+    }
+    function pm_fold() { sendAction({ type: 'fold' }); }
+    function pm_callOrCheck() {
+      const me = state.players[mySelfId];
+      if (!me) return;
+      const owed = state.currentBet - me.roundBet;
+      if (owed <= 0) sendAction({ type: 'check' });
+      else sendAction({ type: 'call' });
+    }
+    function pm_openRaise() {
+      const me = state.players[mySelfId];
+      if (!me) return;
+      const owed = state.currentBet - me.roundBet;
+      const minRaiseTo = state.currentBet + Math.max(state.minRaise, BIG_BLIND);
+      const maxRaiseTo = me.roundBet + me.stack;
+      raiseAmount = Math.min(minRaiseTo, maxRaiseTo);
+      const slider = document.getElementById('pmRaiseSlider');
+      slider.min = Math.min(minRaiseTo, maxRaiseTo);
+      slider.max = maxRaiseTo;
+      slider.value = raiseAmount;
+      document.getElementById('pmRaiseAmount').textContent = raiseAmount;
+      // Presets
+      const pot = state.pot;
+      const presetVals = [
+        { label: 'Min', val: minRaiseTo },
+        { label: '½ Pot', val: Math.min(maxRaiseTo, state.currentBet + Math.floor(pot / 2)) },
+        { label: 'Pot', val: Math.min(maxRaiseTo, state.currentBet + pot) },
+        { label: 'All-In', val: maxRaiseTo },
+      ];
+      document.getElementById('pmRaisePresets').innerHTML = presetVals.map(p =>
+        `<button class="pm-preset-btn" onclick="pm_setRaise(${p.val})">${p.label}<br><span style="font-size:0.7rem">${p.val}</span></button>`
+      ).join('');
+      document.getElementById('pmRaisePanel').style.display = '';
+      document.getElementById('pmActions').style.display = 'none';
+    }
+    function pm_closeRaise() {
+      document.getElementById('pmRaisePanel').style.display = 'none';
+      document.getElementById('pmActions').style.display = '';
+    }
+    function pm_raiseSliderChange(v) {
+      raiseAmount = Number(v);
+      document.getElementById('pmRaiseAmount').textContent = raiseAmount;
+    }
+    function pm_setRaise(v) {
+      raiseAmount = Number(v);
+      const slider = document.getElementById('pmRaiseSlider');
+      slider.value = v;
+      document.getElementById('pmRaiseAmount').textContent = raiseAmount;
+    }
+    function pm_confirmRaise() {
+      const me = state.players[mySelfId];
+      if (!me) return;
+      const maxRaiseTo = me.roundBet + me.stack;
+      const isAllIn = raiseAmount >= maxRaiseTo;
+      sendAction({ type: isAllIn ? 'allin' : 'raise', amount: raiseAmount });
+      pm_closeRaise();
+    }
+
+    // ---- Settings ----
+    function pm_openSettings() {
+      document.getElementById('pmNextHandBtn').style.display = amHost ? '' : 'none';
+      document.getElementById('pmResetGameBtn').style.display = amHost ? '' : 'none';
+      document.getElementById('pmHostOnlyLabel').style.display = amHost ? '' : 'none';
+      document.getElementById('pmSettingsModal').classList.add('active');
+    }
+    function pm_closeSettings() {
+      document.getElementById('pmSettingsModal').classList.remove('active');
+    }
+    function pm_openSettingsWait() {
+      document.getElementById('pmSettingsWaitModal').classList.add('active');
+    }
+    function pm_closeSettingsWait() {
+      document.getElementById('pmSettingsWaitModal').classList.remove('active');
+    }
+    function pm_forceNextHand() {
+      if (!amHost) return;
+      if (handoverTimer) { clearTimeout(handoverTimer); handoverTimer = null; }
+      startNextHand();
+      pm_closeSettings();
+    }
+    function pm_resetGame() {
+      if (!amHost) return;
+      if (!confirm('Spiel komplett zurücksetzen? Alle bekommen wieder 1000 Chips.')) return;
+      const newPlayers = {};
+      for (const id of state.seatOrder) {
+        const p = state.players[id];
+        newPlayers[id] = Object.assign({}, p, {
+          stack: STARTING_STACK,
+          bet: 0,
+          roundBet: 0,
+          cards: [],
+          folded: false,
+          allIn: false,
+          sittingOut: false,
+          lastAction: null,
+        });
+      }
+      const newState = Object.assign({}, state, {
+        players: newPlayers,
+        pot: 0,
+        currentBet: 0,
+        communityCards: [],
+        showdown: null,
+        handNumber: 0,
+        phase: 'preflop',
+      });
+      state = newState;
+      broadcast(newState);
+      pm_closeSettings();
+      setTimeout(() => { if (amHost) startNextHand(); }, 400);
+    }
+
+    // ---- Rendering ----
+    function renderAll() {
+      if (inWaiting) { renderWaiting(); return; }
+      if (!inSession) return;
+
+      document.getElementById('pmTopCode').textContent = myCode || '—';
+      document.getElementById('pmTopPeers').textContent = state.handNumber > 0 ? `Hand ${state.handNumber}` : '—';
+
+      // Others row
+      renderOthers();
+      // Pot
+      document.getElementById('pmPotValue').textContent = state.pot || 0;
+      // Community
+      renderCommunity();
+      // Status
+      renderStatus();
+      // My area
+      renderMyArea();
+      // Actions
+      renderActions();
+      // Showdown
+      renderShowdown();
+    }
+
+    function renderOthers() {
+      const wrap = document.getElementById('pmOthersRow');
+      const me = state.players[mySelfId];
+      const order = state.seatOrder.length > 0 ? state.seatOrder : Object.keys(state.players);
+      const othersIds = order.filter(id => id !== mySelfId);
+      const html = othersIds.map(id => {
+        const p = state.players[id];
+        if (!p) return '';
+        const isCurrent = state.currentPlayer === id;
+        const isWinner = state.showdown && state.showdown.winners && state.showdown.winners.includes(id);
+        const isHost = id === state.host;
+        const dealerId = state.seatOrder[state.dealerIdx];
+        const isDealer = id === dealerId && state.started;
+        // Determine SB/BB for this hand
+        let isSB = false, isBB = false;
+        if (state.started && state.seatOrder.length > 0) {
+          const activeOrder = [];
+          for (let i = 0; i < state.seatOrder.length; i++) {
+            const idx = (state.dealerIdx + i) % state.seatOrder.length;
+            const pid = state.seatOrder[idx];
+            const pp = state.players[pid];
+            // For SB/BB tagging only consider players who actually played this hand (started with chips)
+            if (pp && (pp.cards && pp.cards.length > 0 || !pp.folded)) activeOrder.push(idx);
+          }
+          // (Simplified — show indicators by initial seating, not perfect for sitting-out players)
+        }
+        // Simpler: SB = dealerIdx+1, BB = dealerIdx+2 (mod active)
+        const sbId = state.seatOrder[(state.dealerIdx + 1) % state.seatOrder.length];
+        const bbId = state.seatOrder[(state.dealerIdx + 2) % state.seatOrder.length];
+        isSB = id === sbId && state.started;
+        isBB = id === bbId && state.started;
+
+        let statusClass = '';
+        let cls = 'pm-other-player';
+        if (isCurrent) cls += ' active';
+        if (p.folded && p.stack > 0) { cls += ' folded'; }
+        if (p.allIn) cls += ' allin';
+        if (p.stack === 0 && !p.folded) cls += ' out';
+        if (p.sittingOut && p.stack === 0) cls += ' out';
+        if (isWinner) cls += ' winner';
+
+        let statusText = '';
+        if (p.folded && p.lastAction === 'FOLD') statusText = 'FOLD';
+        else if (p.allIn) statusText = 'ALL-IN';
+        else if (p.lastAction) statusText = p.lastAction;
+        else if (isSB) statusText = 'SB';
+        else if (isBB) statusText = 'BB';
+
+        const badges = `
+          ${isDealer ? '<span class="pm-badge dealer">D</span>' : ''}
+          ${isHost ? '<span class="pm-badge host">👑</span>' : ''}
+        `;
+        const betLine = p.roundBet > 0 ? `<div class="pm-other-bet">→ ${p.roundBet}</div>` : '<div class="pm-other-bet"></div>';
+
+        return `<div class="${cls}">
+          ${badges ? `<div class="pm-other-badges">${badges}</div>` : ''}
+          <div class="pm-other-name">${escapeHtml(p.name)}</div>
+          <div class="pm-other-stack">${p.stack}</div>
+          ${betLine}
+          ${statusText ? `<div class="pm-other-status ${p.folded ? 'fold' : (p.allIn ? 'allin' : '')}">${statusText}</div>` : ''}
+        </div>`;
+      }).join('');
+      wrap.innerHTML = html;
+    }
+
+    function renderCommunity() {
+      const wrap = document.getElementById('pmCommunity');
+      const cards = state.communityCards || [];
+      let html = '';
+      for (let i = 0; i < 5; i++) {
+        if (i < cards.length) {
+          html += cardHtml(cards[i]);
+        } else {
+          html += '<div class="pm-card pm-card-empty"></div>';
+        }
+      }
+      wrap.innerHTML = html;
+    }
+
+    function cardHtml(card) {
+      if (!card) return '<div class="pm-card pm-card-back"></div>';
+      const r = card[0];
+      const s = card[1];
+      const color = SUIT_COLOR[s];
+      const sym = SUIT_SYM[s];
+      const rankDisplay = r === 'T' ? '10' : r;
+      return `<div class="pm-card ${color}"><div class="pm-card-content"><span class="pm-card-rank">${rankDisplay}</span><span class="pm-card-suit">${sym}</span></div></div>`;
+    }
+
+    function renderStatus() {
+      const phaseLabel = {
+        preflop: 'PRE-FLOP',
+        flop: 'FLOP',
+        turn: 'TURN',
+        river: 'RIVER',
+        showdown: 'SHOWDOWN',
+        gameover: 'GAME OVER',
+        waiting: '—',
+      }[state.phase] || '—';
+      document.getElementById('pmPhase').textContent = phaseLabel;
+      let line = '';
+      if (state.phase === 'showdown') {
+        line = '';
+      } else if (state.currentPlayer) {
+        const p = state.players[state.currentPlayer];
+        if (state.currentPlayer === mySelfId) line = 'Du bist dran';
+        else line = (p ? p.name : '?') + ' ist dran';
+      } else if (state.lastAction && state.lastAction.label) {
+        const actor = state.players[state.lastAction.by];
+        line = (actor ? actor.name : '?') + ' ' + state.lastAction.label;
+      }
+      document.getElementById('pmStatusLine').textContent = line;
+    }
+
+    function renderMyArea() {
+      const me = state.players[mySelfId];
+      if (!me) return;
+      document.getElementById('pmMyName').textContent = me.name + (mySelfId === state.host ? ' 👑' : '');
+      document.getElementById('pmMyStack').textContent = me.stack;
+      document.getElementById('pmMyBet').textContent = me.roundBet;
+      const cardsWrap = document.getElementById('pmMyCards');
+      if (me.cards && me.cards.length === 2 && !me.sittingOut) {
+        cardsWrap.innerHTML = cardHtml(me.cards[0]) + cardHtml(me.cards[1]);
+      } else {
+        cardsWrap.innerHTML = '<div class="pm-card pm-card-empty"></div><div class="pm-card pm-card-empty"></div>';
+      }
+      // Hand strength
+      const handLabel = document.getElementById('pmMyHandStrength');
+      if (me.cards && me.cards.length === 2 && state.communityCards.length >= 3 && !me.folded) {
+        const hand = evaluateHand([...me.cards, ...state.communityCards]);
+        handLabel.textContent = hand.name;
+      } else {
+        handLabel.textContent = '';
+      }
+    }
+
+    function renderActions() {
+      const me = state.players[mySelfId];
+      const waitingMsg = document.getElementById('pmWaitingMsg');
+      const actions = document.getElementById('pmActions');
+      const raisePanel = document.getElementById('pmRaisePanel');
+
+      if (!me || me.sittingOut) {
+        actions.style.display = 'none';
+        raisePanel.style.display = 'none';
+        waitingMsg.style.display = '';
+        waitingMsg.textContent = 'Du schaust nur zu';
+        return;
+      }
+      if (!state.started) {
+        actions.style.display = 'none';
+        waitingMsg.style.display = 'none';
+        return;
+      }
+      if (state.phase === 'showdown' || state.phase === 'gameover') {
+        actions.style.display = 'none';
+        raisePanel.style.display = 'none';
+        waitingMsg.style.display = '';
+        waitingMsg.textContent = state.phase === 'gameover' ? 'Spiel vorbei' : 'Showdown läuft...';
+        return;
+      }
+      if (me.folded) {
+        actions.style.display = 'none';
+        raisePanel.style.display = 'none';
+        waitingMsg.style.display = '';
+        waitingMsg.textContent = 'Du hast gefoldet';
+        return;
+      }
+      if (me.allIn) {
+        actions.style.display = 'none';
+        raisePanel.style.display = 'none';
+        waitingMsg.style.display = '';
+        waitingMsg.textContent = 'All-In — warte auf Showdown';
+        return;
+      }
+      if (state.currentPlayer !== mySelfId) {
+        actions.style.display = 'none';
+        raisePanel.style.display = 'none';
+        waitingMsg.style.display = '';
+        const p = state.players[state.currentPlayer];
+        waitingMsg.textContent = 'Warte auf ' + (p ? p.name : '?');
+        return;
+      }
+
+      // My turn
+      waitingMsg.style.display = 'none';
+      if (raisePanel.style.display !== 'none' && raisePanel.style.display !== '') {
+        // raise panel already open
+      } else {
+        actions.style.display = '';
+      }
+
+      const owed = state.currentBet - me.roundBet;
+      const callBtn = document.getElementById('pmCallBtn');
+      if (owed <= 0) {
+        callBtn.innerHTML = 'CHECK';
+      } else {
+        const payable = Math.min(owed, me.stack);
+        callBtn.innerHTML = 'CALL<span class="pm-btn-amount">' + payable + '</span>';
+      }
+      // Raise button
+      const raiseBtn = document.getElementById('pmRaiseBtn');
+      const canRaise = me.stack > owed;
+      raiseBtn.disabled = !canRaise;
+      const minRaiseTo = state.currentBet + Math.max(state.minRaise, BIG_BLIND);
+      const maxRaiseTo = me.roundBet + me.stack;
+      if (maxRaiseTo <= state.currentBet) {
+        raiseBtn.disabled = true;
+        raiseBtn.innerHTML = 'RAISE';
+      } else if (maxRaiseTo < minRaiseTo) {
+        // Can only all-in
+        raiseBtn.innerHTML = 'ALL-IN<span class="pm-btn-amount">' + maxRaiseTo + '</span>';
+      } else {
+        raiseBtn.innerHTML = 'RAISE<span class="pm-btn-amount">min ' + minRaiseTo + '</span>';
+      }
+    }
+
+    function renderShowdown() {
+      const el = document.getElementById('pmShowdown');
+      if (state.phase !== 'showdown' || !state.showdown) {
+        el.style.display = 'none';
+        return;
+      }
+      el.style.display = '';
+      const sd = state.showdown;
+      const winnerNames = (sd.winners || []).map(id => (state.players[id] || {}).name || '?').join(' & ');
+      document.getElementById('pmShowdownWinner').textContent = winnerNames + ' gewinnt';
+      let handDescr = '';
+      if (sd.byFold) {
+        handDescr = `(${sd.potWon} Chips per Fold)`;
+      } else if (sd.hands && sd.hands.length > 0) {
+        const winnerHands = sd.hands.filter(h => sd.winners.includes(h.id));
+        if (winnerHands.length > 0) handDescr = winnerHands[0].name + ` · ${sd.potWon} Chips`;
+      }
+      document.getElementById('pmShowdownHand').textContent = handDescr;
+      document.getElementById('pmShowdownHint').textContent = amHost ? 'Nächste Hand in 5s…' : 'Warte auf Host…';
+    }
+
+    // ---- Init ----
+    function pm_init() {
+      document.getElementById('pmName').value = getStoredName();
+      if (!inSession) switchToLobby();
+    }
+
+    const origSwitch = window.switchApp;
+    window.switchApp = function(name) {
+      const result = origSwitch(name);
+      if (name === 'pokerMulti') pm_init();
+      return result;
+    };
+
+    document.addEventListener('DOMContentLoaded', () => {
+      if (document.getElementById('appPokerMulti').classList.contains('visible')) {
+        pm_init();
+      }
+    });
+
+    // Expose
+    window.pm_create = pm_create;
+    window.pm_join = pm_join;
+    window.pm_leave = pm_leave;
+    window.pm_startGame = pm_startGame;
+    window.pm_copyCode = pm_copyCode;
+    window.pm_fold = pm_fold;
+    window.pm_callOrCheck = pm_callOrCheck;
+    window.pm_openRaise = pm_openRaise;
+    window.pm_closeRaise = pm_closeRaise;
+    window.pm_raiseSliderChange = pm_raiseSliderChange;
+    window.pm_setRaise = pm_setRaise;
+    window.pm_confirmRaise = pm_confirmRaise;
+    window.pm_openSettings = pm_openSettings;
+    window.pm_closeSettings = pm_closeSettings;
+    window.pm_openSettingsWait = pm_openSettingsWait;
+    window.pm_closeSettingsWait = pm_closeSettingsWait;
+    window.pm_forceNextHand = pm_forceNextHand;
+    window.pm_resetGame = pm_resetGame;
   })();
 
 </script>
