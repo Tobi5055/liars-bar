@@ -650,8 +650,8 @@
     backdrop-filter: blur(10px);
   }
 
-  /* Hide the fixed burger when a multi-app is visible (we have one in the topbar instead) */
-  body.in-multi-app .burger { display: none; }
+  /* Hide the fixed burger when actively in a multi-session (not in lobby) */
+  body.in-multi-app:not(.in-multi-lobby) .burger { display: none; }
 
   .multi-burger-btn {
     background: rgba(216,224,240,0.08);
@@ -8881,10 +8881,12 @@ nextRound();
       document.getElementById('lbmGame').style.display = 'none';
       // Pre-fill name
       document.getElementById('lbmName').value = getStoredName();
+      document.body.classList.add('in-multi-lobby');
     }
     function switchToGame() {
       document.getElementById('lbmLobby').style.display = 'none';
       document.getElementById('lbmGame').style.display = '';
+      document.body.classList.remove('in-multi-lobby');
       renderAll();
     }
 
@@ -9520,10 +9522,12 @@ nextRound();
       document.getElementById('amLobby').style.display = '';
       document.getElementById('amGame').style.display = 'none';
       document.getElementById('amName').value = getStoredName();
+      document.body.classList.add('in-multi-lobby');
     }
     function switchToGame() {
       document.getElementById('amLobby').style.display = 'none';
       document.getElementById('amGame').style.display = '';
+      document.body.classList.remove('in-multi-lobby');
       renderAll();
     }
 
@@ -10018,6 +10022,7 @@ nextRound();
     let hostDeck = null;   // host-only memory
     let handoverTimer = null;
     let raiseAmount = 0;
+    let lastProcessedActionTs = 0;  // prevent double-processing same action
 
     function showError(msg) {
       const el = document.getElementById('pmError');
@@ -10044,6 +10049,17 @@ nextRound();
 
     function escapeHtml(s) {
       return String(s).replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+    }
+
+    // Firebase quirk: arrays become {0:'a', 1:'b'} or null on the wire
+    function toArray(v) {
+      if (v == null) return [];
+      if (Array.isArray(v)) return v;
+      if (typeof v === 'object') {
+        const keys = Object.keys(v).map(Number).filter(k => !isNaN(k)).sort((a, b) => a - b);
+        return keys.map(k => v[k]);
+      }
+      return [];
     }
 
     // ---- Lobby ----
@@ -10188,7 +10204,20 @@ nextRound();
         if (!snapshot.exists()) { showError('Session beendet'); pm_leave(); return; }
         const data = snapshot.val();
         const newState = data.state || {};
-        state = Object.assign({}, state, newState);
+
+        // Normalize arrays — Firebase stores empty arrays as null, and sparse arrays as objects
+        newState.seatOrder = toArray(newState.seatOrder);
+        newState.playersToAct = toArray(newState.playersToAct);
+        newState.communityCards = toArray(newState.communityCards);
+        newState.players = newState.players || {};
+        // Normalize each player's cards array
+        for (const pid of Object.keys(newState.players)) {
+          if (newState.players[pid]) {
+            newState.players[pid].cards = toArray(newState.players[pid].cards);
+          }
+        }
+
+        state = newState;  // replace entirely, no merge
         amHost = (state.host === mySelfId);
         document.body.classList.toggle('mp-host', amHost);
 
@@ -10196,9 +10225,14 @@ nextRound();
         if (state.started && inWaiting) { switchToGame(); }
         if (!state.started && !inWaiting && state.phase === 'waiting') { switchToWaiting(); }
 
-        // If I'm host, process pending action
+        // If I'm host, process pending action (with dedup)
         if (amHost && state.pendingAction && state.started) {
-          processPendingAction(state.pendingAction);
+          const ts = state.pendingAction.ts || 0;
+          if (ts > lastProcessedActionTs) {
+            lastProcessedActionTs = ts;
+            processPendingAction(state.pendingAction);
+            return;  // processPendingAction will broadcast which triggers another onValue
+          }
         }
 
         // If host & showdown, schedule next hand
@@ -10264,12 +10298,14 @@ nextRound();
       document.getElementById('pmGame').style.display = 'none';
       document.getElementById('pmName').value = getStoredName();
       inWaiting = false;
+      document.body.classList.add('in-multi-lobby');
     }
     function switchToWaiting() {
       document.getElementById('pmLobby').style.display = 'none';
       document.getElementById('pmWaiting').style.display = '';
       document.getElementById('pmGame').style.display = 'none';
       inWaiting = true;
+      document.body.classList.remove('in-multi-lobby');
       renderWaiting();
     }
     function switchToGame() {
@@ -10277,6 +10313,7 @@ nextRound();
       document.getElementById('pmWaiting').style.display = 'none';
       document.getElementById('pmGame').style.display = '';
       inWaiting = false;
+      document.body.classList.remove('in-multi-lobby');
       renderAll();
     }
 
@@ -10712,10 +10749,13 @@ nextRound();
 
     async function broadcast(newState) {
       if (!sessionRef || !window.FB) return;
+      // Always include pendingAction: null explicitly unless set
+      if (newState.pendingAction === undefined) newState.pendingAction = null;
       state = newState;
-      const { update } = window.FB;
+      const { set, ref, db } = window.FB;
       try {
-        await update(sessionRef, { state: newState, writerId: mySelfId });
+        // Use set on the state child for atomic full replacement
+        await set(ref(db, `sessions/${myCode}/state`), newState);
       } catch (e) { console.error('broadcast', e); }
     }
 
