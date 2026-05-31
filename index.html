@@ -9,24 +9,32 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Special+Elite&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Outfit:wght@300;400;500;600;700;800;900&family=Bebas+Neue&family=Righteous&display=swap" rel="stylesheet">
 
-<!-- Multiplayer library (WebRTC P2P, no backend) -->
+<!-- Firebase SDK for multiplayer (Realtime Database) -->
 <script type="module">
   try {
-    const mod = await import('https://esm.run/trystero/torrent');
-    window.TRYSTERO = mod;
-    window.dispatchEvent(new CustomEvent('trystero-ready'));
+    const { initializeApp } = await import('https://www.gstatic.com/firebasejs/10.13.2/firebase-app.js');
+    const { getDatabase, ref, onValue, set, update, get, onDisconnect, serverTimestamp, remove, off } =
+      await import('https://www.gstatic.com/firebasejs/10.13.2/firebase-database.js');
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyATeWFt-lLHXyLJpzdOXZ7_JY0FRihNkno",
+      authDomain: "game-hub-6d1c8.firebaseapp.com",
+      databaseURL: "https://game-hub-6d1c8-default-rtdb.europe-west1.firebasedatabase.app",
+      projectId: "game-hub-6d1c8",
+      storageBucket: "game-hub-6d1c8.firebasestorage.app",
+      messagingSenderId: "683806315406",
+      appId: "1:683806315406:web:6788a929e6d1ed6d0dcadf",
+      measurementId: "G-8HTJ54BC8G"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+    window.FB = { db, ref, onValue, set, update, get, onDisconnect, serverTimestamp, remove, off };
+    window.dispatchEvent(new CustomEvent('firebase-ready'));
   } catch (e) {
-    console.error('Trystero failed to load:', e);
-    // Fallback: try esm.sh
-    try {
-      const mod = await import('https://esm.sh/trystero/torrent');
-      window.TRYSTERO = mod;
-      window.dispatchEvent(new CustomEvent('trystero-ready'));
-    } catch (e2) {
-      console.error('Trystero fallback also failed:', e2);
-      window.TRYSTERO_FAILED = true;
-      window.dispatchEvent(new CustomEvent('trystero-failed'));
-    }
+    console.error('Firebase failed to load:', e);
+    window.FB_FAILED = true;
+    window.dispatchEvent(new CustomEvent('firebase-failed'));
   }
 </script>
 <style>
@@ -795,14 +803,46 @@
     z-index: 2;
   }
 
-  /* Disable buttons on non-owned slots in MP mode */
-  body.mp-active .player:not(.my-player) .action,
-  body.mp-active .player:not(.my-player) .aim-other,
-  body.mp-active .player:not(.my-player) .alki-double,
-  body.mp-active .player:not(.my-player) .alki-aim,
-  body.mp-active .player:not(.my-player) .name-edit-btn {
+  /* Disable buttons on non-owned slots in MP mode — but NOT for the host */
+  body.mp-active:not(.mp-host) .player:not(.my-player) .action,
+  body.mp-active:not(.mp-host) .player:not(.my-player) .aim-other,
+  body.mp-active:not(.mp-host) .player:not(.my-player) .alki-double,
+  body.mp-active:not(.mp-host) .player:not(.my-player) .alki-aim,
+  body.mp-active:not(.mp-host) .player:not(.my-player) .name-edit-btn {
     opacity: 0.3 !important;
     pointer-events: none;
+  }
+
+  /* Non-host can't change global setup */
+  body.mp-active:not(.mp-host) .card-toggle input,
+  body.mp-active:not(.mp-host) .count-btn,
+  body.mp-active:not(.mp-host) .ghost,
+  body.mp-active:not(.mp-host) .draw-table,
+  body.mp-active:not(.mp-host) .mode-display {
+    opacity: 0.5;
+    pointer-events: none;
+  }
+
+  /* Host gets a subtle crown indicator on their player */
+  body.mp-host .my-player::before {
+    content: '👑 DU';
+  }
+
+  .mp-name-input {
+    width: 100%;
+    background: rgba(0,0,0,0.4);
+    border: 1.5px solid rgba(95,169,255,0.4);
+    color: white;
+    padding: 0.7rem 0.9rem;
+    border-radius: 6px;
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.95rem;
+    outline: none;
+    box-sizing: border-box;
+  }
+  .mp-name-input:focus {
+    border-color: #5fa9ff;
+    box-shadow: 0 0 0 3px rgba(95,169,255,0.2);
   }
 
   @media (max-width: 599px) {
@@ -3284,9 +3324,12 @@
 
     <!-- Disconnected view -->
     <div class="mp-section" id="mpDisconnected">
-      <div class="mp-section-title">Session starten</div>
+      <div class="mp-section-title">Dein Name</div>
+      <input type="text" class="mp-name-input" id="mpNameInput" maxlength="20" placeholder="z.B. Tobi" autocomplete="off">
+
+      <div class="mp-section-title" style="margin-top: 1.2rem">Session starten</div>
       <button class="mp-btn mp-create" onclick="mpCreateSession()">
-        ✨ Neue Session
+        👑 Neue Session (du wirst Host)
       </button>
 
       <div class="mp-section-title" style="margin-top: 1.2rem">Session beitreten</div>
@@ -3296,8 +3339,8 @@
       </div>
 
       <div class="mp-note">
-        Spiele Liar's Bar oder Alki Edition mit deinen Freunden auf mehreren Handys.
-        Alle sehen den gleichen Spielstand live. Jeder hat seine eigene Trommel/sein eigenes Tablett.
+        <strong>Host</strong> (du, wenn du eine neue Session erstellst) kann alles steuern — Spieler hinzufügen, Karten ziehen, Reset etc.
+        <strong>Mitspieler</strong> können nur ihren eigenen Slot bedienen. Alle sehen den gleichen Spielstand live über Firebase.
       </div>
     </div>
 
@@ -4194,18 +4237,39 @@
     });
   });
 
-  // ============ MULTIPLAYER ============
+  // ============ MULTIPLAYER (Firebase Realtime Database) ============
+  // Persistent device ID across reloads
+  function getOrCreateSelfId() {
+    let id = localStorage.getItem('mp-self-id');
+    if (!id) {
+      id = 'd_' + Math.random().toString(36).slice(2, 10) + Math.random().toString(36).slice(2, 6);
+      localStorage.setItem('mp-self-id', id);
+    }
+    return id;
+  }
+
+  // Display name (persists)
+  function getMyDisplayName() {
+    return localStorage.getItem('mp-display-name') || '';
+  }
+  function setMyDisplayName(n) {
+    localStorage.setItem('mp-display-name', n);
+  }
+
   const MP = {
     active: false,
     code: null,
     app: null,
-    room: null,
-    sendState: null,
-    sendEvent: null,
-    selfId: null,
-    peers: {},          // peerId → { lastSeen }
+    selfId: getOrCreateSelfId(),
+    displayName: getMyDisplayName(),
+    host: null,
+    amHost: false,
+    peers: {},            // selfId → { name, joinedAt, lastSeen }
     myClaimedSlot: null,
-    suppressBroadcast: false, // prevent rebroadcast loops when applying remote
+    suppressBroadcast: false,
+    unsubSession: null,
+    sessionRef: null,
+    peerRef: null,
   };
   window.MP = MP;
 
@@ -4233,8 +4297,9 @@
     const leaveBtn = document.getElementById('mpLeaveBtn');
 
     if (MP.active) {
-      const peerCount = Object.keys(MP.peers).length + 1;
-      status.textContent = `Live · ${peerCount} verbunden`;
+      const peerCount = Object.keys(MP.peers).length;
+      const roleLabel = MP.amHost ? '👑 HOST' : 'MITSPIELER';
+      status.textContent = `${roleLabel} · ${peerCount} verbunden`;
       status.className = 'mp-sub live';
       disc.style.display = 'none';
       conn.style.display = 'block';
@@ -4248,16 +4313,31 @@
       disc.style.display = 'block';
       conn.style.display = 'none';
       leaveBtn.style.display = 'none';
+      // Show display name input if first time
+      const nameInp = document.getElementById('mpNameInput');
+      if (nameInp) nameInp.value = MP.displayName;
     }
   }
 
   function renderPeerList() {
     const wrap = document.getElementById('mpPeers');
     const peerIds = Object.keys(MP.peers);
-    const lines = [];
-    lines.push(`<div class="mp-peer me"><span class="mp-peer-dot"></span> Ich (${MP.selfId.slice(0,6)})</div>`);
-    peerIds.forEach(pid => {
-      lines.push(`<div class="mp-peer"><span class="mp-peer-dot"></span> Peer ${pid.slice(0,6)}</div>`);
+    // Sort: host first, then me, then alphabetical
+    peerIds.sort((a, b) => {
+      if (a === MP.host) return -1;
+      if (b === MP.host) return 1;
+      if (a === MP.selfId) return -1;
+      if (b === MP.selfId) return 1;
+      return 0;
+    });
+    const lines = peerIds.map(pid => {
+      const p = MP.peers[pid];
+      const isMe = pid === MP.selfId;
+      const isHost = pid === MP.host;
+      const name = p.name || pid.slice(0, 6);
+      const tag = isHost ? '👑' : '';
+      const cls = isMe ? 'mp-peer me' : 'mp-peer';
+      return `<div class="${cls}"><span class="mp-peer-dot"></span> ${tag} ${name}${isMe ? ' (du)' : ''}</div>`;
     });
     wrap.innerHTML = lines.join('');
   }
@@ -4289,8 +4369,12 @@
       mpShowToast('Wechsle erst zu Liar\'s Bar oder Alki Edition');
       return;
     }
+    const nameInp = document.getElementById('mpNameInput');
+    const name = (nameInp && nameInp.value.trim()) || ('Spieler ' + MP.selfId.slice(2, 6));
+    MP.displayName = name;
+    setMyDisplayName(name);
     const code = generateSessionCode();
-    mpJoinRoom(app, code);
+    mpJoinFirebaseSession(app, code, true);
   }
 
   function mpJoinSession() {
@@ -4305,96 +4389,149 @@
       mpShowToast('Code muss 4 Zeichen haben');
       return;
     }
+    const nameInp = document.getElementById('mpNameInput');
+    const name = (nameInp && nameInp.value.trim()) || ('Spieler ' + MP.selfId.slice(2, 6));
+    MP.displayName = name;
+    setMyDisplayName(name);
     inp.value = '';
-    mpJoinRoom(app, code);
+    mpJoinFirebaseSession(app, code, false);
   }
 
-  function mpJoinRoom(app, code) {
-    if (!window.TRYSTERO) {
-      mpShowToast('Multiplayer-Library noch nicht geladen — kurz warten und nochmal');
+  async function mpJoinFirebaseSession(app, code, isCreate) {
+    if (!window.FB) {
+      mpShowToast('Firebase noch nicht geladen — kurz warten und nochmal');
       return;
     }
-    if (MP.active) mpLeaveSession();
+    if (MP.active) await mpLeaveSession();
 
     MP.app = app;
     MP.code = code;
-    const { joinRoom, selfId } = window.TRYSTERO;
-    MP.selfId = selfId;
+    const { db, ref, onValue, set, update, get, onDisconnect, serverTimestamp } = window.FB;
+
+    const sessionPath = 'sessions/' + code;
+    MP.sessionRef = ref(db, sessionPath);
 
     try {
-      MP.room = joinRoom({ appId: 'tobi-game-hub-v1' }, `${app}-${code}`);
-    } catch (e) {
-      console.error('joinRoom failed', e);
-      mpShowToast('Verbindung fehlgeschlagen');
-      return;
-    }
-
-    const [sendState, getState] = MP.room.makeAction('state');
-    const [sendEvent, getEvent] = MP.room.makeAction('event');
-    MP.sendState = sendState;
-    MP.sendEvent = sendEvent;
-
-    getState((data, peerId) => {
-      // Apply remote state — suppress local rebroadcast
-      MP.suppressBroadcast = true;
-      try {
-        if (window.adminAPI[MP.app] && data && data.state) {
-          window.adminAPI[MP.app].restoreState(data.state);
+      if (isCreate) {
+        // Set up new session — I am host
+        const initialState = window.adminAPI[app].getState();
+        await set(MP.sessionRef, {
+          app: app,
+          host: MP.selfId,
+          writerId: MP.selfId,
+          state: initialState,
+          createdAt: serverTimestamp(),
+        });
+        MP.amHost = true;
+        MP.host = MP.selfId;
+      } else {
+        // Join existing session
+        const snap = await get(MP.sessionRef);
+        if (!snap.exists()) {
+          mpShowToast('Session ' + code + ' nicht gefunden');
+          MP.code = null;
+          MP.sessionRef = null;
+          return;
         }
-      } finally {
-        setTimeout(() => { MP.suppressBroadcast = false; }, 50);
+        const data = snap.val();
+        if (data.app !== app) {
+          mpShowToast('Session läuft in: ' + data.app);
+          MP.code = null;
+          MP.sessionRef = null;
+          return;
+        }
+        MP.host = data.host;
+        MP.amHost = (data.host === MP.selfId); // returning host
+        // Apply current state immediately
+        if (data.state) {
+          MP.suppressBroadcast = true;
+          try { window.adminAPI[app].restoreState(data.state); }
+          finally { MP.suppressBroadcast = false; }
+        }
       }
-    });
 
-    getEvent((data, peerId) => {
-      if (data && data.kind === 'toast') {
-        mpShowToast(data.text);
-      } else if (data && data.kind === 'claim') {
-        // Someone claimed a slot — just refresh the panel
+      // Register self as peer
+      MP.peerRef = ref(db, `${sessionPath}/peers/${MP.selfId}`);
+      await set(MP.peerRef, {
+        name: MP.displayName,
+        joinedAt: serverTimestamp(),
+        lastSeen: serverTimestamp(),
+      });
+      onDisconnect(MP.peerRef).remove();
+
+      // Listen for session updates (state + peers + host changes)
+      MP.unsubSession = onValue(MP.sessionRef, (snapshot) => {
+        if (!snapshot.exists()) {
+          // Session got deleted (host left and cleared)
+          mpShowToast('Session wurde beendet');
+          mpLeaveSession();
+          return;
+        }
+        const data = snapshot.val();
+        // Update host info
+        MP.host = data.host;
+        MP.amHost = (data.host === MP.selfId);
+        MP.peers = data.peers || {};
+        document.body.classList.toggle('mp-host', MP.amHost);
+        // Apply remote state if it wasn't my own write
+        if (data.writerId && data.writerId !== MP.selfId && data.state) {
+          MP.suppressBroadcast = true;
+          try { window.adminAPI[MP.app].restoreState(data.state); }
+          finally {
+            setTimeout(() => { MP.suppressBroadcast = false; }, 50);
+          }
+        }
+        if (window.mpFindMySlot) window.mpFindMySlot();
         renderMultiplayerPanel();
-      }
-    });
+        updateMpBanner();
+      });
 
-    MP.room.onPeerJoin(peerId => {
-      MP.peers[peerId] = { lastSeen: Date.now() };
-      // Send them our current state
-      mpBroadcastState();
-      renderMultiplayerPanel();
+      MP.active = true;
+      document.body.classList.add('mp-active');
+      document.body.classList.toggle('mp-host', MP.amHost);
+      document.getElementById('mpBadge').classList.add('live');
+      document.getElementById('mpBadge').textContent = 'LIVE';
       updateMpBanner();
-    });
-
-    MP.room.onPeerLeave(peerId => {
-      delete MP.peers[peerId];
       renderMultiplayerPanel();
-      updateMpBanner();
-    });
-
-    MP.active = true;
-    document.body.classList.add('mp-active');
-    updateMpBanner();
-    document.getElementById('mpBadge').classList.add('live');
-    document.getElementById('mpBadge').textContent = 'LIVE';
-    renderMultiplayerPanel();
-    mpShowToast(`Session ${code} bereit`);
+      mpShowToast(isCreate
+        ? `Session ${code} erstellt — du bist Host`
+        : `Session ${code} beigetreten`);
+    } catch (e) {
+      console.error('Firebase join failed:', e);
+      mpShowToast('Verbindung fehlgeschlagen: ' + (e.message || e));
+      MP.active = false;
+      MP.code = null;
+    }
   }
 
-  function mpLeaveSession() {
-    if (MP.room) {
-      try { MP.room.leave(); } catch (e) {}
-      MP.room = null;
+  async function mpLeaveSession() {
+    if (!MP.active) return;
+    const { off, remove } = window.FB || {};
+    try {
+      if (MP.unsubSession) MP.unsubSession(); // onValue returns unsub fn
+    } catch (e) {}
+    try {
+      if (MP.peerRef && remove) await remove(MP.peerRef);
+    } catch (e) {}
+    // If I'm host and last peer, remove the whole session
+    if (MP.amHost && Object.keys(MP.peers).length <= 1) {
+      try { if (MP.sessionRef && remove) await remove(MP.sessionRef); } catch (e) {}
     }
     MP.active = false;
     MP.code = null;
     MP.peers = {};
-    MP.sendState = null;
-    MP.sendEvent = null;
+    MP.host = null;
+    MP.amHost = false;
     MP.myClaimedSlot = null;
-    document.body.classList.remove('mp-active');
+    MP.sessionRef = null;
+    MP.peerRef = null;
+    MP.unsubSession = null;
+    document.body.classList.remove('mp-active', 'mp-host');
     document.getElementById('mpBadge').classList.remove('live');
     document.getElementById('mpBadge').textContent = '';
     renderMultiplayerPanel();
     updateMpBanner();
-    // Re-render players to remove "my-player" highlighting
+    // Re-render to remove highlights
     if (window.adminAPI.liarsbar) window.adminAPI.liarsbar.restoreState(window.adminAPI.liarsbar.getState());
     if (window.adminAPI.alki) window.adminAPI.alki.restoreState(window.adminAPI.alki.getState());
   }
@@ -4408,8 +4545,9 @@
       document.body.appendChild(banner);
     }
     if (MP.active) {
-      const peers = Object.keys(MP.peers).length + 1;
-      banner.textContent = `📡 ${MP.code} · ${peers}`;
+      const peers = Object.keys(MP.peers).length;
+      const crown = MP.amHost ? '👑 ' : '';
+      banner.textContent = `${crown}📡 ${MP.code} · ${peers}`;
       banner.classList.add('show');
     } else {
       banner.classList.remove('show');
@@ -4427,22 +4565,21 @@
   }
 
   function mpBroadcastState() {
-    if (!MP.active || !MP.sendState || MP.suppressBroadcast) return;
-    if (!window.adminAPI[MP.app]) return;
+    if (!MP.active || MP.suppressBroadcast) return;
+    if (!window.adminAPI[MP.app] || !window.FB) return;
+    const { update } = window.FB;
     const state = window.adminAPI[MP.app].getState();
     try {
-      MP.sendState({ state, ts: Date.now() });
+      update(MP.sessionRef, {
+        state: state,
+        writerId: MP.selfId,
+      });
     } catch (e) {
       console.error('broadcast failed', e);
     }
   }
 
-  function mpBroadcastEvent(payload) {
-    if (!MP.active || !MP.sendEvent || MP.suppressBroadcast) return;
-    try {
-      MP.sendEvent(payload);
-    } catch (e) {}
-  }
+  function mpBroadcastEvent() { /* no-op now (used to send peer events); kept for compatibility */ }
 
   function mpShowToast(text) {
     let t = document.getElementById('mpToast');
@@ -4485,19 +4622,18 @@
     if (MP.myClaimedSlot !== null && players[MP.myClaimedSlot]) {
       players[MP.myClaimedSlot].claimedBy = null;
     }
-    // Claim new
+    // Claim new (and overwrite name with my display name)
     if (players[idx]) {
       players[idx].claimedBy = MP.selfId;
+      if (MP.displayName) players[idx].name = MP.displayName;
       MP.myClaimedSlot = idx;
     }
-    api.restoreState(api.getState()); // re-render
+    api.restoreState(api.getState());
     mpBroadcastState();
-    mpBroadcastEvent({ kind: 'claim', slot: idx, by: MP.selfId });
     mpCloseSlotPicker();
     renderMultiplayerPanel();
   }
 
-  // Auto-find own slot from state (if claimedBy === selfId)
   function mpFindMySlot() {
     if (!MP.active || !MP.app || !window.adminAPI[MP.app]) return;
     const players = window.adminAPI[MP.app].getPlayers();
@@ -4506,7 +4642,7 @@
   }
   window.mpFindMySlot = mpFindMySlot;
 
-  // Expose globals
+  // Expose
   window.openMultiplayer = openMultiplayer;
   window.closeMultiplayer = closeMultiplayer;
   window.mpCreateSession = mpCreateSession;
