@@ -648,6 +648,7 @@
     top: 0.5rem;
     z-index: 10;
     backdrop-filter: blur(10px);
+    margin-left: 54px; /* Space for burger menu */
   }
 
   .multi-topbar-btn {
@@ -851,16 +852,58 @@
   .multi-revolver {
     background: radial-gradient(circle at center, #2a1a14, #0d0604 70%);
     border-radius: 8px;
-    padding: 0.9rem;
-    margin: 0.4rem 0 0.8rem;
+    padding: 0.6rem 0.4rem 0.5rem;
+    margin: 0.4rem 0 0.7rem;
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 
+  /* === ROUND REVOLVER (Liar's Bar Multi) === */
+  .multi-revolver-svg {
+    width: 180px;
+    max-width: 60vw;
+    aspect-ratio: 1;
+    display: block;
+    margin: 0 auto;
+  }
+  .multi-revolver-svg .chamber-bg {
+    fill: #0d0604;
+    stroke: #b8862a;
+    stroke-width: 1.8;
+  }
+  .multi-revolver-svg .chamber-fired {
+    fill: #2a1816;
+    stroke: rgba(184,134,42,0.5);
+  }
+  .multi-revolver-svg .chamber-bullet {
+    fill: #6b0a0a;
+    stroke: #ff3333;
+    stroke-width: 2;
+    filter: drop-shadow(0 0 6px rgba(239,68,68,0.6));
+  }
+  .multi-revolver-svg .chamber-next {
+    stroke: #f0e4c8;
+    stroke-width: 2.5;
+    filter: drop-shadow(0 0 8px rgba(240,228,200,0.5));
+    animation: multiChamberPulse 1.4s infinite;
+  }
+  @keyframes multiChamberPulse {
+    0%, 100% { stroke-opacity: 1; }
+    50% { stroke-opacity: 0.55; }
+  }
+  .multi-revolver-svg .bullet-dot { fill: #d4a93f; }
+  .multi-revolver-svg .hub-ring { fill: none; stroke: #b8862a; stroke-width: 2; opacity: 0.35; }
+  .multi-revolver-svg .hub-pin { fill: #b8862a; }
+
+  /* === ALKI TRAY (grid, stays rectangular like real tray) === */
   .multi-chambers {
     display: grid;
     grid-template-columns: repeat(6, 1fr);
     gap: 0.4rem;
-    margin-bottom: 0.7rem;
+    margin-bottom: 0.5rem;
+    width: 100%;
   }
 
   .multi-chamber {
@@ -872,7 +915,7 @@
     align-items: center;
     justify-content: center;
     font-family: 'Special Elite', monospace;
-    font-size: 0.7rem;
+    font-size: 0.75rem;
     color: rgba(184,134,42,0.5);
   }
   .multi-chamber.fired {
@@ -899,43 +942,43 @@
 
   .multi-shots-info {
     font-family: 'Special Elite', 'Outfit', monospace;
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     color: rgba(216,224,240,0.7);
-    letter-spacing: 0.1em;
+    letter-spacing: 0.08em;
+    margin-top: 0.3rem;
   }
 
+  /* Compact 3-in-a-row buttons */
   .multi-actions {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 0.5rem;
-  }
-  .multi-actions .multi-btn-reload {
-    grid-column: 1 / -1;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 0.4rem;
   }
 
   .multi-btn {
     background: linear-gradient(135deg, #5a2a1a, #8b3a1a);
     border: 1.5px solid rgba(240,228,200,0.3);
     color: #f0e4c8;
-    padding: 0.85rem 0.5rem;
+    padding: 0.55rem 0.25rem 0.5rem;
     border-radius: 8px;
     font-family: 'Cinzel', 'Bebas Neue', sans-serif;
-    font-size: 0.78rem;
-    letter-spacing: 0.15em;
+    font-size: 0.66rem;
+    letter-spacing: 0.12em;
     cursor: pointer;
     font-weight: 600;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 0.2rem;
+    gap: 0.15rem;
     text-transform: uppercase;
     box-shadow: 0 3px 10px rgba(0,0,0,0.4);
     transition: all 0.15s;
+    line-height: 1.1;
   }
   .multi-btn:hover:not(:disabled) { transform: translateY(-1px); filter: brightness(1.1); }
   .multi-btn:active:not(:disabled) { transform: translateY(0); }
   .multi-btn:disabled { opacity: 0.4; cursor: not-allowed; }
-  .multi-btn-icon { font-size: 1.3rem; }
+  .multi-btn-icon { font-size: 1.1rem; }
 
   .multi-btn-self {
     background: linear-gradient(135deg, #6b1a1a, #a02020);
@@ -4954,7 +4997,7 @@
     <div class="multi-revolver-section" id="lbmRevolverSection">
       <div class="multi-section-label">DEIN REVOLVER</div>
       <div class="multi-revolver">
-        <div class="multi-chambers" id="lbmChambers"></div>
+        <div id="lbmRevolverWrap"></div>
         <div class="multi-shots-info" id="lbmShotsInfo">Schuss 1 von 6</div>
       </div>
       <div class="multi-actions">
@@ -8191,25 +8234,43 @@ nextRound();
     }
 
     function renderRevolver(me) {
-      const grid = document.getElementById('lbmChambers');
-      if (!me) { grid.innerHTML = ''; return; }
-      let html = '';
+      const wrap = document.getElementById('lbmRevolverWrap');
+      if (!me) { wrap.innerHTML = ''; return; }
+
+      // SVG-based round revolver (like the original Liar's Bar)
+      const cx = 90, cy = 90, r = 56, chamberR = 16;
+      let chambers = '';
       for (let i = 0; i < 6; i++) {
+        const angle = (i / 6) * Math.PI * 2 - Math.PI / 2;
+        const x = cx + r * Math.cos(angle);
+        const y = cy + r * Math.sin(angle);
         const fired = i < me.shotsFired;
         const isBullet = i === me.bulletPos;
         const isNext = i === me.shotsFired && me.alive;
-        let cls = 'multi-chamber';
-        let label = (i + 1);
-        if (fired) {
-          cls += ' fired ' + (isBullet ? 'bullet' : 'empty');
-          label = isBullet ? '●' : '○';
-        } else if (isNext) {
-          cls += ' next';
-          label = '▶';
+        let cls = 'chamber-bg';
+        if (fired) cls = isBullet ? 'chamber-fired chamber-bullet' : 'chamber-fired';
+        else if (isNext) cls = 'chamber-bg chamber-next';
+        chambers += `<circle class="${cls}" cx="${x}" cy="${y}" r="${chamberR}"/>`;
+        if (fired && isBullet) {
+          chambers += `<circle class="bullet-dot" cx="${x}" cy="${y}" r="6"/>`;
         }
-        html += `<div class="${cls}">${label}</div>`;
       }
-      grid.innerHTML = html;
+      wrap.innerHTML = `
+        <svg class="multi-revolver-svg" viewBox="0 0 180 180">
+          <defs>
+            <radialGradient id="lbmHub" cx="50%" cy="40%">
+              <stop offset="0%" stop-color="#5a3520"/>
+              <stop offset="100%" stop-color="#2a1a14"/>
+            </radialGradient>
+          </defs>
+          <circle class="hub-ring" cx="${cx}" cy="${cy}" r="82"/>
+          <circle cx="${cx}" cy="${cy}" r="76" fill="url(#lbmHub)" stroke="#b8862a" stroke-width="1.2"/>
+          ${chambers}
+          <circle cx="${cx}" cy="${cy}" r="10" fill="#0d0604" stroke="#b8862a" stroke-width="1.8"/>
+          <circle class="hub-pin" cx="${cx}" cy="${cy}" r="2.5"/>
+        </svg>
+      `;
+
       document.getElementById('lbmShotsInfo').textContent = me.alive
         ? `Nächster: Schuss ${me.shotsFired + 1} von 6`
         : 'TOT';
