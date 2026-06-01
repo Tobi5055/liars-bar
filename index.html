@@ -675,12 +675,38 @@
   /* Hide the fixed burger when actively in a multi-session (not in lobby) */
   body.in-multi-app:not(.in-multi-lobby) .burger { display: none; }
 
+  /* App version badge — bottom right corner, unobtrusive */
+  .app-version {
+    position: fixed;
+    bottom: calc(env(safe-area-inset-bottom) + 6px);
+    right: calc(env(safe-area-inset-right) + 8px);
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.65rem;
+    color: rgba(216,224,240,0.25);
+    letter-spacing: 0.05em;
+    z-index: 5;
+    pointer-events: none;
+    user-select: none;
+  }
+
   .multi-burger-btn {
     background: rgba(216,224,240,0.08);
     border: 1px solid rgba(216,224,240,0.2);
     color: #d8e0f0;
   }
   .multi-burger-btn:hover { background: rgba(216,224,240,0.18); }
+
+  .multi-admin-btn {
+    background: rgba(255,165,50,0.08);
+    border: 1px solid rgba(255,165,50,0.35);
+    color: #ffb84d;
+    display: none;  /* shown only when admin mode active */
+  }
+  .multi-admin-btn:hover { background: rgba(255,165,50,0.18); }
+  body.admin-active .multi-admin-btn { display: flex; }
+
+  /* Hide the floating admin button when inside a multi-app (we have one in the topbar) */
+  body.in-multi-app .admin-toggle { display: none !important; }
 
   .multi-leave-action {
     background: rgba(239,68,68,0.1) !important;
@@ -4899,6 +4925,8 @@
 <!-- Admin toggle (hidden by default, shown after 5x title clicks) -->
 <button class="admin-toggle" id="adminToggleBtn" onclick="openAdminPanel()" style="display:none" aria-label="Admin-Panel öffnen" title="Admin-Panel">🔧</button>
 
+<div class="app-version" id="appVersion">v1.0.0</div>
+
 <!-- Admin toast -->
 <div class="admin-toast" id="adminToast"></div>
 
@@ -5943,6 +5971,7 @@
         <div class="multi-topbar-code" id="pmWaitCode" onclick="handleAdminTitleClick()" style="cursor:pointer">—</div>
         <div class="multi-topbar-peers">WARTEZIMMER</div>
       </div>
+      <button class="multi-topbar-btn multi-admin-btn" onclick="pm_openAdmin()" title="Admin" aria-label="Admin">🔧</button>
       <button class="multi-topbar-btn multi-settings-btn" onclick="pm_openSettingsWait()" title="Einstellungen">⚙</button>
     </div>
 
@@ -5979,6 +6008,7 @@
         <div class="multi-topbar-code" id="pmTopCode" onclick="handleAdminTitleClick()" style="cursor:pointer">—</div>
         <div class="multi-topbar-peers" id="pmTopPeers">Hand 1</div>
       </div>
+      <button class="multi-topbar-btn multi-admin-btn" onclick="pm_openAdmin()" title="Admin" aria-label="Admin">🔧</button>
       <button class="multi-topbar-btn multi-settings-btn" onclick="pm_openSettings()" title="Einstellungen">⚙</button>
     </div>
 
