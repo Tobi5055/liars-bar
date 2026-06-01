@@ -1450,6 +1450,946 @@
   }
   .alki-stats-area .stat-row:last-child { border-bottom: none; }
 
+  /* ====================== IMPOSTOR ====================== */
+  .app-impostor {
+    background: linear-gradient(180deg, #1a0a0a 0%, #0d0606 100%);
+    color: #f5e6d3;
+    min-height: 100vh;
+  }
+  .impostor-lobby .multi-tag {
+    background: linear-gradient(135deg, #a02828, #ff6b35);
+  }
+  .app-impostor .multi-topbar { border-color: rgba(255,107,53,0.3); }
+  .app-impostor .multi-topbar-code { color: #ff8c5a; }
+
+  .imp-waiting-content {
+    background: rgba(40,15,15,0.5);
+    border: 1px solid rgba(255,107,53,0.3);
+    border-radius: 12px;
+    padding: 1.4rem 1.2rem;
+    text-align: center;
+    margin-top: 0.8rem;
+  }
+  .imp-waiting-label {
+    font-family: 'Cinzel', 'Bebas Neue', sans-serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.3em;
+    color: rgba(255,140,90,0.7);
+    text-transform: uppercase;
+    margin-bottom: 0.3rem;
+  }
+  .imp-waiting-code {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 3rem;
+    letter-spacing: 0.35em;
+    color: white;
+    text-shadow: 0 0 30px rgba(255,107,53,0.5);
+    margin-bottom: 0.5rem;
+    font-weight: 700;
+  }
+  .imp-start-btn {
+    background: linear-gradient(135deg, #a02828, #ff6b35) !important;
+    box-shadow: 0 6px 22px rgba(255,107,53,0.4) !important;
+  }
+
+  .imp-config-section {
+    background: rgba(0,0,0,0.3);
+    border: 1px solid rgba(255,107,53,0.25);
+    border-radius: 8px;
+    padding: 0.9rem;
+    margin: 1rem 0;
+    text-align: left;
+  }
+  .imp-config-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.45rem 0;
+    font-family: 'Outfit', sans-serif;
+    color: #f5e6d3;
+    font-size: 0.9rem;
+  }
+  .imp-config-counter {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+  .imp-counter-btn {
+    width: 28px;
+    height: 28px;
+    border-radius: 4px;
+    border: 1px solid rgba(255,140,90,0.4);
+    background: rgba(255,107,53,0.15);
+    color: #ff8c5a;
+    font-size: 1rem;
+    cursor: pointer;
+    font-weight: 600;
+  }
+  .imp-counter-btn:hover { background: rgba(255,107,53,0.3); }
+  .imp-counter-val {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.2rem;
+    min-width: 20px;
+    text-align: center;
+    color: #ff8c5a;
+  }
+  .imp-category-select {
+    width: 100%;
+    padding: 0.5rem 0.7rem;
+    border-radius: 6px;
+    border: 1px solid rgba(255,140,90,0.4);
+    background: rgba(0,0,0,0.4);
+    color: #f5e6d3;
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.9rem;
+    cursor: pointer;
+  }
+  .imp-config-toggle {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.45rem 0;
+    cursor: pointer;
+    font-family: 'Outfit', sans-serif;
+    color: #f5e6d3;
+    font-size: 0.88rem;
+  }
+  .imp-config-toggle input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    accent-color: #ff6b35;
+  }
+
+  .imp-modal { border-color: rgba(255,107,53,0.5); }
+
+  /* Word reveal card */
+  .imp-word-reveal {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1.5rem 0.5rem;
+  }
+  .imp-word-card {
+    width: 240px;
+    height: 320px;
+    position: relative;
+    perspective: 1000px;
+    cursor: pointer;
+    margin-bottom: 1rem;
+  }
+  .imp-word-card-back, .imp-word-card-front {
+    position: absolute;
+    inset: 0;
+    border-radius: 16px;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    transition: transform 0.7s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1.2rem;
+    text-align: center;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.6);
+  }
+  .imp-word-card-back {
+    background: linear-gradient(135deg, #2a0a0a, #6b1a1a);
+    border: 2px solid #a02828;
+  }
+  .imp-word-card-back-emoji {
+    font-size: 5rem;
+    margin-bottom: 0.6rem;
+    filter: drop-shadow(0 4px 10px rgba(255,107,53,0.4));
+  }
+  .imp-word-card-back-text {
+    font-family: 'Outfit', sans-serif;
+    color: #ff8c5a;
+    font-size: 0.92rem;
+    letter-spacing: 0.1em;
+    font-weight: 600;
+  }
+  .imp-word-card-back-hint {
+    font-family: 'Outfit', sans-serif;
+    color: rgba(245,230,211,0.55);
+    font-size: 0.75rem;
+    margin-top: 0.5rem;
+    font-style: italic;
+  }
+  .imp-word-card-front {
+    background: linear-gradient(135deg, #2a1a1a, #4a2020);
+    border: 2px solid #ff6b35;
+    transform: rotateY(180deg);
+  }
+  .imp-word-card-front.is-impostor {
+    background: linear-gradient(135deg, #4a0a0a, #8b1a1a);
+    border-color: #ff3030;
+  }
+  .imp-word-card.flipped .imp-word-card-back { transform: rotateY(180deg); }
+  .imp-word-card.flipped .imp-word-card-front { transform: rotateY(360deg); }
+  .imp-word-cat {
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.2em;
+    color: rgba(255,140,90,0.8);
+    text-transform: uppercase;
+    margin-bottom: 0.7rem;
+  }
+  .imp-word-main {
+    font-family: 'Cinzel', 'Bebas Neue', sans-serif;
+    font-size: 2rem;
+    color: white;
+    letter-spacing: 0.05em;
+    line-height: 1.1;
+    margin-bottom: 0.7rem;
+    word-break: break-word;
+  }
+  .imp-word-team {
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.15em;
+    color: rgba(255,140,90,0.85);
+    text-transform: uppercase;
+    margin-top: 0.6rem;
+    padding-top: 0.6rem;
+    border-top: 1px solid rgba(255,140,90,0.3);
+    width: 100%;
+  }
+  .imp-word-status {
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.85rem;
+    color: rgba(255,140,90,0.7);
+    margin-top: 0.5rem;
+  }
+
+  /* Players grid */
+  .imp-players-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(85px, 1fr));
+    gap: 0.4rem;
+    padding: 0.5rem 0;
+    margin-top: 0.5rem;
+  }
+  .imp-player-tile {
+    background: rgba(40,15,15,0.6);
+    border: 1.5px solid rgba(255,107,53,0.25);
+    border-radius: 8px;
+    padding: 0.55rem 0.4rem;
+    text-align: center;
+    position: relative;
+    transition: all 0.2s;
+  }
+  .imp-player-tile.me {
+    border-color: #ff8c5a;
+    background: rgba(255,107,53,0.18);
+  }
+  .imp-player-tile.current-speaker {
+    border-color: #ff6b35;
+    background: rgba(255,107,53,0.25);
+    box-shadow: 0 0 18px rgba(255,107,53,0.4);
+    animation: impGlow 1.4s ease-in-out infinite;
+  }
+  @keyframes impGlow {
+    0%, 100% { box-shadow: 0 0 18px rgba(255,107,53,0.4); }
+    50% { box-shadow: 0 0 28px rgba(255,107,53,0.7); }
+  }
+  .imp-player-tile.selectable { cursor: pointer; border-color: rgba(255,140,90,0.5); }
+  .imp-player-tile.selectable:hover, .imp-player-tile.selected {
+    background: rgba(255,140,90,0.25);
+    border-color: #ff8c5a;
+    transform: translateY(-1px);
+  }
+  .imp-player-tile.voted::before {
+    content: attr(data-votes);
+    position: absolute;
+    top: -8px;
+    right: -4px;
+    background: #ffd700;
+    color: #1a1a1a;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Bebas Neue', sans-serif;
+  }
+  .imp-player-tile.revealed-impostor {
+    border-color: #ff3030;
+    background: rgba(255,48,48,0.2);
+  }
+  .imp-player-name {
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.8rem;
+    color: #f5e6d3;
+    font-weight: 600;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .imp-player-score {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 0.92rem;
+    color: rgba(255,215,0,0.85);
+    margin-top: 0.15rem;
+  }
+  .imp-player-host-badge { position: absolute; top: -6px; left: -4px; font-size: 0.7rem; }
+  .imp-player-impostor-badge {
+    position: absolute; top: -6px; right: -4px; font-size: 0.85rem;
+    filter: drop-shadow(0 0 4px #ff3030);
+  }
+
+  /* Phase info */
+  .imp-phase-info {
+    text-align: center;
+    padding: 1rem 0.5rem;
+    margin: 0.5rem 0;
+    border-top: 1px solid rgba(255,107,53,0.15);
+    border-bottom: 1px solid rgba(255,107,53,0.15);
+  }
+  .imp-phase-name {
+    font-family: 'Cinzel', 'Bebas Neue', sans-serif;
+    font-size: 1.3rem;
+    color: #ff8c5a;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    text-shadow: 0 0 15px rgba(255,107,53,0.4);
+  }
+  .imp-phase-desc {
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.88rem;
+    color: rgba(245,230,211,0.8);
+    margin-top: 0.4rem;
+    font-style: italic;
+  }
+
+  /* Action area */
+  .imp-action-area {
+    padding: 0.5rem 0;
+  }
+  .imp-action-prompt {
+    text-align: center;
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.95rem;
+    color: #f5e6d3;
+    margin-bottom: 0.7rem;
+  }
+  .imp-action-wait {
+    background: rgba(40,15,15,0.6);
+    border: 1px dashed rgba(255,107,53,0.3);
+    border-radius: 10px;
+    padding: 1.2rem;
+    text-align: center;
+    font-family: 'Outfit', sans-serif;
+    color: rgba(245,230,211,0.7);
+    font-style: italic;
+  }
+  .imp-action-wait-icon {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+    animation: impPulse 2s infinite;
+  }
+  @keyframes impPulse {
+    0%, 100% { opacity: 0.6; }
+    50% { opacity: 1; }
+  }
+  .imp-current-speaker-box {
+    background: linear-gradient(135deg, rgba(255,107,53,0.25), rgba(160,40,40,0.25));
+    border: 2px solid #ff6b35;
+    border-radius: 12px;
+    padding: 1.2rem;
+    text-align: center;
+    margin: 0.6rem 0;
+    box-shadow: 0 0 25px rgba(255,107,53,0.3);
+  }
+  .imp-current-speaker-name {
+    font-family: 'Cinzel', 'Bebas Neue', sans-serif;
+    font-size: 1.4rem;
+    color: white;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .imp-current-speaker-label {
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.85rem;
+    color: rgba(255,140,90,0.85);
+    margin-top: 0.3rem;
+  }
+  .imp-action-btn {
+    background: linear-gradient(135deg, #a02828, #ff6b35);
+    color: white;
+    border: none;
+    padding: 0.85rem 1rem;
+    border-radius: 8px;
+    font-family: 'Cinzel', 'Bebas Neue', sans-serif;
+    font-size: 0.9rem;
+    cursor: pointer;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    width: 100%;
+    margin-top: 0.5rem;
+    text-transform: uppercase;
+  }
+  .imp-action-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+  .imp-action-btn.secondary {
+    background: rgba(255,107,53,0.15);
+    border: 1px solid rgba(255,140,90,0.4);
+    color: #ff8c5a;
+  }
+  .imp-action-btn.danger {
+    background: linear-gradient(135deg, #6b1a1a, #c02020);
+  }
+  .imp-action-btn.success {
+    background: linear-gradient(135deg, #1a6b1a, #20c040);
+  }
+
+  .imp-guess-input {
+    width: 100%;
+    padding: 0.85rem 1rem;
+    border-radius: 8px;
+    border: 1.5px solid rgba(255,140,90,0.5);
+    background: rgba(0,0,0,0.4);
+    color: white;
+    font-family: 'Outfit', sans-serif;
+    font-size: 1rem;
+    margin: 0.5rem 0;
+    text-align: center;
+    letter-spacing: 0.05em;
+  }
+
+  .imp-reveal-box {
+    background: rgba(40,15,15,0.6);
+    border: 1px solid rgba(255,107,53,0.4);
+    border-radius: 10px;
+    padding: 1rem;
+    margin: 0.6rem 0;
+    text-align: center;
+    font-family: 'Outfit', sans-serif;
+    color: #f5e6d3;
+  }
+  .imp-reveal-box.impostor {
+    background: rgba(80,15,15,0.6);
+    border-color: rgba(255,48,48,0.5);
+  }
+  .imp-reveal-box.village {
+    background: rgba(20,50,20,0.5);
+    border-color: rgba(34,197,94,0.4);
+  }
+
+  .imp-gameover {
+    background: linear-gradient(180deg, rgba(80,20,20,0.95), rgba(40,10,10,0.95));
+    border: 2px solid #ff8c5a;
+    border-radius: 14px;
+    padding: 1.5rem;
+    text-align: center;
+    margin: 0.8rem 0;
+    box-shadow: 0 0 30px rgba(255,107,53,0.4);
+  }
+  .imp-gameover-title {
+    font-family: 'Cinzel', 'Bebas Neue', sans-serif;
+    font-size: 1.5rem;
+    color: white;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+  .imp-gameover-word {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1rem;
+    color: #ff8c5a;
+    margin-bottom: 0.8rem;
+  }
+  .imp-gameover-word b {
+    color: white;
+    font-size: 1.15rem;
+    letter-spacing: 0.05em;
+  }
+  .imp-gameover-impostors {
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.85rem;
+    color: rgba(245,230,211,0.85);
+    margin-bottom: 1rem;
+  }
+  .imp-scoreboard {
+    background: rgba(0,0,0,0.4);
+    border-radius: 8px;
+    padding: 0.7rem;
+    margin: 0.7rem 0;
+    text-align: left;
+  }
+  .imp-scoreboard-title {
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    color: rgba(255,140,90,0.7);
+    text-transform: uppercase;
+    margin-bottom: 0.4rem;
+    text-align: center;
+  }
+  .imp-scoreboard-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.3rem 0;
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.88rem;
+    color: #f5e6d3;
+    border-bottom: 1px solid rgba(255,107,53,0.15);
+  }
+  .imp-scoreboard-row span:last-child {
+    font-family: 'Bebas Neue', sans-serif;
+    color: #ffd700;
+    font-size: 1.05rem;
+  }
+
+  /* ====================== WERWOLF ====================== */
+  .app-werwolf {
+    background: linear-gradient(180deg, #0a0a18 0%, #050510 100%);
+    color: #d8dceb;
+    min-height: 100vh;
+  }
+  .werwolf-lobby .multi-tag {
+    background: linear-gradient(135deg, #4a2078, #6b4ba5);
+  }
+  .app-werwolf .multi-topbar { border-color: rgba(110,80,180,0.3); }
+  .app-werwolf .multi-topbar-code { color: #b89dff; }
+
+  .ww-waiting-content {
+    background: rgba(20,15,40,0.5);
+    border: 1px solid rgba(110,80,180,0.3);
+    border-radius: 12px;
+    padding: 1.4rem 1.2rem;
+    text-align: center;
+    margin-top: 0.8rem;
+  }
+  .ww-waiting-label {
+    font-family: 'Cinzel', 'Bebas Neue', sans-serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.3em;
+    color: rgba(184,157,255,0.7);
+    text-transform: uppercase;
+    margin-bottom: 0.3rem;
+  }
+  .ww-waiting-code {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 3rem;
+    letter-spacing: 0.35em;
+    color: white;
+    text-shadow: 0 0 30px rgba(184,157,255,0.5);
+    margin-bottom: 0.5rem;
+    font-weight: 700;
+  }
+  .ww-start-btn {
+    background: linear-gradient(135deg, #4a2078, #8b5cd6) !important;
+    box-shadow: 0 6px 22px rgba(110,80,180,0.5) !important;
+  }
+
+  .ww-config-section {
+    background: rgba(0,0,0,0.3);
+    border: 1px solid rgba(110,80,180,0.25);
+    border-radius: 8px;
+    padding: 0.9rem;
+    margin: 1rem 0;
+    text-align: left;
+  }
+  .ww-config-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.4rem 0;
+    font-family: 'Outfit', sans-serif;
+    color: #d8dceb;
+    font-size: 0.9rem;
+  }
+  .ww-config-counter {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+  .ww-counter-btn {
+    width: 28px;
+    height: 28px;
+    border-radius: 4px;
+    border: 1px solid rgba(184,157,255,0.4);
+    background: rgba(110,80,180,0.15);
+    color: #b89dff;
+    font-size: 1rem;
+    cursor: pointer;
+    font-weight: 600;
+  }
+  .ww-counter-btn:hover { background: rgba(110,80,180,0.3); }
+  .ww-counter-val {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.2rem;
+    min-width: 20px;
+    text-align: center;
+    color: #b89dff;
+  }
+  .ww-config-toggle {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.45rem 0;
+    cursor: pointer;
+    font-family: 'Outfit', sans-serif;
+    color: #d8dceb;
+    font-size: 0.9rem;
+  }
+  .ww-config-toggle input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    accent-color: #b89dff;
+  }
+  .ww-config-summary {
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.78rem;
+    color: rgba(184,157,255,0.7);
+    font-style: italic;
+    margin-top: 0.6rem;
+    text-align: center;
+    border-top: 1px solid rgba(110,80,180,0.2);
+    padding-top: 0.6rem;
+  }
+
+  .ww-modal { border-color: rgba(110,80,180,0.5); }
+
+  /* Role reveal card */
+  .ww-role-reveal {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1.5rem 0.5rem;
+  }
+  .ww-role-card {
+    width: 220px;
+    height: 320px;
+    position: relative;
+    perspective: 1000px;
+    cursor: pointer;
+    margin-bottom: 1rem;
+  }
+  .ww-role-card-back, .ww-role-card-front {
+    position: absolute;
+    inset: 0;
+    border-radius: 16px;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    transition: transform 0.7s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1.2rem;
+    text-align: center;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.6);
+  }
+  .ww-role-card-back {
+    background: linear-gradient(135deg, #2a1a4a, #4a2078);
+    border: 2px solid #6b4ba5;
+  }
+  .ww-role-card-back-emoji {
+    font-size: 5rem;
+    margin-bottom: 0.6rem;
+    filter: drop-shadow(0 4px 10px rgba(184,157,255,0.4));
+  }
+  .ww-role-card-back-text {
+    font-family: 'Outfit', sans-serif;
+    color: #b89dff;
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+  }
+  .ww-role-card-front {
+    background: linear-gradient(135deg, #1a0f3a, #2a1a5a);
+    border: 2px solid #8b5cd6;
+    transform: rotateY(180deg);
+  }
+  .ww-role-card.flipped .ww-role-card-back { transform: rotateY(180deg); }
+  .ww-role-card.flipped .ww-role-card-front { transform: rotateY(360deg); }
+  .ww-role-icon {
+    font-size: 4rem;
+    margin-bottom: 0.5rem;
+  }
+  .ww-role-name {
+    font-family: 'Cinzel', 'Bebas Neue', sans-serif;
+    font-size: 1.5rem;
+    color: white;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 0.6rem;
+  }
+  .ww-role-desc {
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.82rem;
+    color: rgba(216,220,235,0.9);
+    line-height: 1.4;
+  }
+  .ww-role-team {
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    color: #b89dff;
+    text-transform: uppercase;
+    margin-top: 0.6rem;
+    padding-top: 0.6rem;
+    border-top: 1px solid rgba(184,157,255,0.3);
+    width: 100%;
+  }
+  .ww-role-status {
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.85rem;
+    color: rgba(184,157,255,0.7);
+    margin-top: 0.5rem;
+  }
+
+  /* Players grid */
+  .ww-players-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+    gap: 0.4rem;
+    padding: 0.5rem 0;
+    margin-top: 0.5rem;
+  }
+  .ww-player-tile {
+    background: rgba(20,15,40,0.6);
+    border: 1.5px solid rgba(110,80,180,0.25);
+    border-radius: 8px;
+    padding: 0.5rem 0.4rem;
+    text-align: center;
+    position: relative;
+    transition: all 0.2s;
+  }
+  .ww-player-tile.dead {
+    opacity: 0.4;
+    filter: grayscale(0.7);
+    border-color: rgba(239,68,68,0.4);
+  }
+  .ww-player-tile.dead::after {
+    content: '💀';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 1.5rem;
+    opacity: 0.7;
+  }
+  .ww-player-tile.me {
+    border-color: #b89dff;
+    background: rgba(110,80,180,0.18);
+  }
+  .ww-player-tile.selectable {
+    cursor: pointer;
+    border-color: rgba(184,157,255,0.6);
+  }
+  .ww-player-tile.selectable:hover, .ww-player-tile.selected {
+    background: rgba(184,157,255,0.25);
+    border-color: #b89dff;
+    transform: translateY(-1px);
+  }
+  .ww-player-tile.voted::before {
+    content: attr(data-votes);
+    position: absolute;
+    top: -8px;
+    right: -4px;
+    background: #ffd700;
+    color: #1a1a1a;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Bebas Neue', sans-serif;
+  }
+  .ww-player-name {
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.78rem;
+    color: #d8dceb;
+    font-weight: 600;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .ww-player-role {
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.65rem;
+    color: rgba(216,220,235,0.55);
+    margin-top: 0.15rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .ww-player-role.wolf-known { color: #ff8888; font-weight: 600; }
+  .ww-player-host-badge { position: absolute; top: -6px; left: -4px; font-size: 0.7rem; }
+
+  /* Phase info */
+  .ww-phase-info {
+    text-align: center;
+    padding: 1rem 0.5rem;
+    margin: 0.5rem 0;
+    border-top: 1px solid rgba(110,80,180,0.15);
+    border-bottom: 1px solid rgba(110,80,180,0.15);
+  }
+  .ww-phase-name {
+    font-family: 'Cinzel', 'Bebas Neue', sans-serif;
+    font-size: 1.3rem;
+    color: #b89dff;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    text-shadow: 0 0 15px rgba(184,157,255,0.4);
+  }
+  .ww-phase-desc {
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.88rem;
+    color: rgba(216,220,235,0.8);
+    margin-top: 0.4rem;
+    font-style: italic;
+  }
+
+  /* Action area */
+  .ww-action-area {
+    padding: 0.5rem 0;
+  }
+  .ww-action-prompt {
+    text-align: center;
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.95rem;
+    color: #d8dceb;
+    margin-bottom: 0.7rem;
+  }
+  .ww-action-wait {
+    background: rgba(20,15,40,0.6);
+    border: 1px dashed rgba(110,80,180,0.3);
+    border-radius: 10px;
+    padding: 1.2rem;
+    text-align: center;
+    font-family: 'Outfit', sans-serif;
+    color: rgba(216,220,235,0.7);
+    font-style: italic;
+  }
+  .ww-action-wait-icon {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+    animation: wwPulse 2s infinite;
+  }
+  @keyframes wwPulse {
+    0%, 100% { opacity: 0.6; }
+    50% { opacity: 1; }
+  }
+  .ww-action-btn {
+    background: linear-gradient(135deg, #4a2078, #8b5cd6);
+    color: white;
+    border: none;
+    padding: 0.85rem 1rem;
+    border-radius: 8px;
+    font-family: 'Cinzel', 'Bebas Neue', sans-serif;
+    font-size: 0.9rem;
+    cursor: pointer;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    width: 100%;
+    margin-top: 0.5rem;
+    text-transform: uppercase;
+  }
+  .ww-action-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+  .ww-action-btn.secondary {
+    background: rgba(110,80,180,0.15);
+    border: 1px solid rgba(184,157,255,0.4);
+    color: #b89dff;
+  }
+  .ww-action-btn.danger {
+    background: linear-gradient(135deg, #6b1a1a, #a02828);
+  }
+  .ww-action-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.4rem;
+    margin-top: 0.5rem;
+  }
+  .ww-action-row.three { grid-template-columns: 1fr 1fr 1fr; }
+
+  .ww-reveal-box {
+    background: rgba(40,15,15,0.6);
+    border: 1px solid rgba(239,68,68,0.4);
+    border-radius: 10px;
+    padding: 1rem;
+    margin: 0.6rem 0;
+    text-align: center;
+    font-family: 'Outfit', sans-serif;
+    color: #ff8888;
+  }
+  .ww-reveal-box.peace {
+    background: rgba(20,40,20,0.5);
+    border-color: rgba(34,197,94,0.4);
+    color: #4ade80;
+  }
+  .ww-reveal-box.info {
+    background: rgba(20,30,50,0.5);
+    border-color: rgba(95,169,255,0.4);
+    color: #b8d0ed;
+  }
+
+  .ww-seer-result {
+    background: rgba(50,30,80,0.6);
+    border: 2px solid #b89dff;
+    border-radius: 12px;
+    padding: 1.2rem;
+    text-align: center;
+    margin: 0.8rem 0;
+    box-shadow: 0 0 25px rgba(184,157,255,0.3);
+  }
+  .ww-seer-result-icon { font-size: 2.5rem; margin-bottom: 0.3rem; }
+  .ww-seer-result-name {
+    font-family: 'Cinzel', 'Bebas Neue', sans-serif;
+    font-size: 1.1rem;
+    color: white;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .ww-seer-result-team {
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.85rem;
+    color: rgba(184,157,255,0.85);
+    margin-top: 0.4rem;
+  }
+
+  .ww-gameover {
+    background: linear-gradient(180deg, rgba(40,20,80,0.95), rgba(20,10,40,0.95));
+    border: 2px solid #b89dff;
+    border-radius: 14px;
+    padding: 1.5rem;
+    text-align: center;
+    margin: 0.8rem 0;
+    box-shadow: 0 0 30px rgba(184,157,255,0.4);
+  }
+  .ww-gameover-title {
+    font-family: 'Cinzel', 'Bebas Neue', sans-serif;
+    font-size: 1.6rem;
+    color: white;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+  .ww-gameover-team {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1rem;
+    color: #b89dff;
+    margin-bottom: 1rem;
+  }
+  .ww-gameover-roles {
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.85rem;
+    color: rgba(216,220,235,0.8);
+    text-align: left;
+    margin-bottom: 1rem;
+  }
+  .ww-gameover-role-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.3rem 0;
+    border-bottom: 1px solid rgba(110,80,180,0.2);
+  }
+
   /* ====================== POKER MULTI ====================== */
   .app-poker-multi {
     background: linear-gradient(180deg, #0a1f15 0%, #050a08 100%);
@@ -4935,7 +5875,7 @@
 <!-- Admin toggle (hidden by default, shown after 5x title clicks) -->
 <button class="admin-toggle" id="adminToggleBtn" onclick="openAdminPanel()" style="display:none" aria-label="Admin-Panel öffnen" title="Admin-Panel">🔧</button>
 
-<div class="app-version" id="appVersion">v1.0.4</div>
+<div class="app-version" id="appVersion">v1.0.6</div>
 
 <!-- Admin toast -->
 <div class="admin-toast" id="adminToast"></div>
@@ -5042,6 +5982,14 @@
     <button class="menu-item" data-app="pokerMulti" onclick="switchApp('pokerMulti')">
       <span class="icon">♠️</span>
       <span>Poker Multi</span>
+    </button>
+    <button class="menu-item" data-app="werwolf" onclick="switchApp('werwolf')">
+      <span class="icon">🐺</span>
+      <span>Werwolf</span>
+    </button>
+    <button class="menu-item" data-app="impostor" onclick="switchApp('impostor')">
+      <span class="icon">🕵️</span>
+      <span>Impostor</span>
     </button>
   </div>
 </nav>
@@ -6150,6 +7098,307 @@
   </div>
 </div>
 
+<!-- ============ WERWOLF ============ -->
+<div class="app app-multi app-werwolf" id="appWerwolf">
+  <!-- LOBBY -->
+  <div class="multi-lobby werwolf-lobby" id="wwLobby">
+    <div class="multi-lobby-title" onclick="handleAdminTitleClick()" style="cursor:pointer">
+      <span class="multi-lobby-emoji">🐺</span>
+      <span>Werwolf</span>
+      <span class="multi-tag">MULTI</span>
+    </div>
+    <div class="multi-lobby-sub">Klassische Werwolf-Runde · 4–15 Spieler</div>
+
+    <div class="multi-lobby-section">
+      <label class="multi-lobby-label">DEIN NAME</label>
+      <input type="text" class="multi-input" id="wwName" maxlength="14" placeholder="z.B. Tobi" autocomplete="off">
+    </div>
+
+    <div class="multi-lobby-section">
+      <label class="multi-lobby-label">🌙 NEUE RUNDE</label>
+      <div class="multi-lobby-row">
+        <input type="text" class="multi-input multi-code-in" id="wwCreateCode" maxlength="6" placeholder="(zufällig)" autocomplete="off" autocapitalize="characters">
+        <button class="multi-action-btn" onclick="ww_create()">ERSTELLEN</button>
+      </div>
+    </div>
+
+    <div class="multi-lobby-section">
+      <label class="multi-lobby-label">RUNDE BEITRETEN</label>
+      <div class="multi-lobby-row">
+        <input type="text" class="multi-input multi-code-in" id="wwJoinCode" maxlength="6" placeholder="CODE" autocomplete="off" autocapitalize="characters">
+        <button class="multi-action-btn" onclick="ww_join()">BEITRETEN</button>
+      </div>
+    </div>
+
+    <div class="multi-lobby-error" id="wwError"></div>
+  </div>
+
+  <!-- WAITING ROOM -->
+  <div class="multi-game ww-waiting" id="wwWaiting" style="display:none">
+    <div class="multi-topbar">
+      <button class="multi-topbar-btn multi-burger-btn" onclick="toggleMenu()" title="Menü">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+      <div class="multi-topbar-mid">
+        <div class="multi-topbar-code" id="wwWaitCode" onclick="handleAdminTitleClick()" style="cursor:pointer">—</div>
+        <div class="multi-topbar-peers">DORFPLATZ</div>
+      </div>
+      <button class="multi-topbar-btn multi-settings-btn" onclick="ww_openSettingsWait()" title="Einstellungen">⚙</button>
+    </div>
+
+    <div class="ww-waiting-content">
+      <div class="ww-waiting-label">CODE</div>
+      <div class="ww-waiting-code" id="wwWaitCodeBig">—</div>
+      <button class="pm-mini-btn" onclick="ww_copyCode()">📋 Kopieren</button>
+
+      <div class="pm-waiting-section-label">SPIELER <span id="wwWaitCount">0/15</span></div>
+      <div class="pm-waiting-players" id="wwWaitPlayers"></div>
+
+      <div class="ww-config-section" id="wwConfigSection" style="display:none">
+        <div class="pm-waiting-section-label">ROLLEN-KONFIGURATION</div>
+        <div class="ww-config-row">
+          <span>🐺 Werwölfe</span>
+          <div class="ww-config-counter">
+            <button class="ww-counter-btn" onclick="ww_adjustWolves(-1)">−</button>
+            <span class="ww-counter-val" id="wwCfgWolves">1</span>
+            <button class="ww-counter-btn" onclick="ww_adjustWolves(1)">+</button>
+          </div>
+        </div>
+        <label class="ww-config-toggle">
+          <input type="checkbox" id="wwCfgSeer" onchange="ww_setRole('seer', this.checked)">
+          <span>🔮 Seherin</span>
+        </label>
+        <label class="ww-config-toggle">
+          <input type="checkbox" id="wwCfgWitch" onchange="ww_setRole('witch', this.checked)">
+          <span>🧪 Hexe</span>
+        </label>
+        <label class="ww-config-toggle">
+          <input type="checkbox" id="wwCfgHunter" onchange="ww_setRole('hunter', this.checked)">
+          <span>🏹 Jäger</span>
+        </label>
+        <div class="ww-config-summary" id="wwCfgSummary">—</div>
+      </div>
+
+      <button class="pm-start-btn ww-start-btn" id="wwStartBtn" onclick="ww_startGame()">SPIEL STARTEN</button>
+      <div class="pm-waiting-hint" id="wwWaitHint">Mindestens 4 Spieler · nur Host kann starten</div>
+    </div>
+
+    <div class="multi-modal-bd" id="wwSettingsWaitModal" onclick="if(event.target===this) ww_closeSettingsWait()">
+      <div class="multi-modal ww-modal">
+        <div class="multi-modal-title">EINSTELLUNGEN</div>
+        <div class="multi-settings-label">SESSION</div>
+        <button class="multi-settings-btn-full multi-leave-action" onclick="ww_closeSettingsWait(); ww_leave()">🚪 Session verlassen</button>
+        <button class="multi-modal-close" onclick="ww_closeSettingsWait()">FERTIG</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- GAME -->
+  <div class="multi-game ww-game" id="wwGame" style="display:none">
+    <div class="multi-topbar">
+      <button class="multi-topbar-btn multi-burger-btn" onclick="toggleMenu()" title="Menü">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+      <div class="multi-topbar-mid">
+        <div class="multi-topbar-code" id="wwTopCode" onclick="handleAdminTitleClick()" style="cursor:pointer">—</div>
+        <div class="multi-topbar-peers" id="wwTopPhase">Nacht 1</div>
+      </div>
+      <button class="multi-topbar-btn multi-settings-btn" onclick="ww_openSettings()" title="Einstellungen">⚙</button>
+    </div>
+
+    <!-- Role Reveal -->
+    <div class="ww-role-reveal" id="wwRoleReveal" style="display:none">
+      <div class="ww-role-card" id="wwRoleCard" onclick="ww_flipCard()">
+        <div class="ww-role-card-back">
+          <div class="ww-role-card-back-emoji">🐺</div>
+          <div class="ww-role-card-back-text">Tippe zum Aufdecken</div>
+        </div>
+        <div class="ww-role-card-front" id="wwRoleCardFront">
+          <div class="ww-role-icon" id="wwRoleIcon">?</div>
+          <div class="ww-role-name" id="wwRoleName">—</div>
+          <div class="ww-role-desc" id="wwRoleDesc">—</div>
+          <div class="ww-role-team" id="wwRoleTeam">—</div>
+        </div>
+      </div>
+      <div class="ww-role-status" id="wwRoleStatus">— / — bereit</div>
+    </div>
+
+    <!-- Players overview -->
+    <div class="ww-players-grid" id="wwPlayersGrid"></div>
+
+    <!-- Phase info -->
+    <div class="ww-phase-info">
+      <div class="ww-phase-name" id="wwPhaseName">—</div>
+      <div class="ww-phase-desc" id="wwPhaseDesc">—</div>
+    </div>
+
+    <!-- Action area -->
+    <div class="ww-action-area" id="wwActionArea"></div>
+
+    <!-- Settings -->
+    <div class="multi-modal-bd" id="wwSettingsModal" onclick="if(event.target===this) ww_closeSettings()">
+      <div class="multi-modal ww-modal">
+        <div class="multi-modal-title">EINSTELLUNGEN</div>
+        <div class="multi-settings-label" id="wwHostOnlyLabel">HOST</div>
+        <button class="multi-settings-btn-full multi-danger" id="wwResetBtn" onclick="ww_resetGame()" style="display:none">Neue Runde starten</button>
+        <div class="multi-settings-label" style="margin-top:1rem">SESSION</div>
+        <button class="multi-settings-btn-full multi-leave-action" onclick="ww_closeSettings(); ww_leave()">🚪 Session verlassen</button>
+        <button class="multi-modal-close" onclick="ww_closeSettings()">FERTIG</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ IMPOSTOR ============ -->
+<div class="app app-multi app-impostor" id="appImpostor">
+  <!-- LOBBY -->
+  <div class="multi-lobby impostor-lobby" id="impLobby">
+    <div class="multi-lobby-title" onclick="handleAdminTitleClick()" style="cursor:pointer">
+      <span class="multi-lobby-emoji">🕵️</span>
+      <span>Impostor</span>
+      <span class="multi-tag">MULTI</span>
+    </div>
+    <div class="multi-lobby-sub">Finde den Hochstapler · 3–15 Spieler</div>
+
+    <div class="multi-lobby-section">
+      <label class="multi-lobby-label">DEIN NAME</label>
+      <input type="text" class="multi-input" id="impName" maxlength="14" placeholder="z.B. Tobi" autocomplete="off">
+    </div>
+
+    <div class="multi-lobby-section">
+      <label class="multi-lobby-label">🎭 NEUE RUNDE</label>
+      <div class="multi-lobby-row">
+        <input type="text" class="multi-input multi-code-in" id="impCreateCode" maxlength="6" placeholder="(zufällig)" autocomplete="off" autocapitalize="characters">
+        <button class="multi-action-btn" onclick="imp_create()">ERSTELLEN</button>
+      </div>
+    </div>
+
+    <div class="multi-lobby-section">
+      <label class="multi-lobby-label">RUNDE BEITRETEN</label>
+      <div class="multi-lobby-row">
+        <input type="text" class="multi-input multi-code-in" id="impJoinCode" maxlength="6" placeholder="CODE" autocomplete="off" autocapitalize="characters">
+        <button class="multi-action-btn" onclick="imp_join()">BEITRETEN</button>
+      </div>
+    </div>
+
+    <div class="multi-lobby-error" id="impError"></div>
+  </div>
+
+  <!-- WAITING ROOM -->
+  <div class="multi-game imp-waiting" id="impWaiting" style="display:none">
+    <div class="multi-topbar">
+      <button class="multi-topbar-btn multi-burger-btn" onclick="toggleMenu()" title="Menü">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+      <div class="multi-topbar-mid">
+        <div class="multi-topbar-code" id="impWaitCode" onclick="handleAdminTitleClick()" style="cursor:pointer">—</div>
+        <div class="multi-topbar-peers">LOBBY</div>
+      </div>
+      <button class="multi-topbar-btn multi-settings-btn" onclick="imp_openSettingsWait()" title="Einstellungen">⚙</button>
+    </div>
+
+    <div class="imp-waiting-content">
+      <div class="imp-waiting-label">CODE</div>
+      <div class="imp-waiting-code" id="impWaitCodeBig">—</div>
+      <button class="pm-mini-btn" onclick="imp_copyCode()">📋 Kopieren</button>
+
+      <div class="pm-waiting-section-label">SPIELER <span id="impWaitCount">0/15</span></div>
+      <div class="pm-waiting-players" id="impWaitPlayers"></div>
+
+      <div class="imp-config-section" id="impConfigSection" style="display:none">
+        <div class="pm-waiting-section-label">KONFIGURATION</div>
+        <div class="imp-config-row">
+          <span>🎭 Impostor-Anzahl</span>
+          <div class="imp-config-counter">
+            <button class="imp-counter-btn" onclick="imp_adjustImpostors(-1)">−</button>
+            <span class="imp-counter-val" id="impCfgCount">1</span>
+            <button class="imp-counter-btn" onclick="imp_adjustImpostors(1)">+</button>
+          </div>
+        </div>
+        <div class="imp-config-row" style="flex-direction:column;align-items:stretch;gap:0.5rem">
+          <span>📚 Kategorie</span>
+          <select class="imp-category-select" id="impCfgCategory" onchange="imp_setCategory(this.value)"></select>
+        </div>
+        <label class="imp-config-toggle">
+          <input type="checkbox" id="impCfgImpostorKnowsCat" onchange="imp_setKnowsCat(this.checked)">
+          <span>Impostor sieht die Kategorie (leichter)</span>
+        </label>
+        <label class="imp-config-toggle">
+          <input type="checkbox" id="impCfgGuessChance" checked onchange="imp_setGuessChance(this.checked)">
+          <span>Impostor darf raten wenn enttarnt</span>
+        </label>
+      </div>
+
+      <button class="pm-start-btn imp-start-btn" id="impStartBtn" onclick="imp_startGame()">RUNDE STARTEN</button>
+      <div class="pm-waiting-hint" id="impWaitHint">Mindestens 3 Spieler · nur Host kann starten</div>
+    </div>
+
+    <div class="multi-modal-bd" id="impSettingsWaitModal" onclick="if(event.target===this) imp_closeSettingsWait()">
+      <div class="multi-modal imp-modal">
+        <div class="multi-modal-title">EINSTELLUNGEN</div>
+        <div class="multi-settings-label">SESSION</div>
+        <button class="multi-settings-btn-full multi-leave-action" onclick="imp_closeSettingsWait(); imp_leave()">🚪 Session verlassen</button>
+        <button class="multi-modal-close" onclick="imp_closeSettingsWait()">FERTIG</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- GAME -->
+  <div class="multi-game imp-game" id="impGame" style="display:none">
+    <div class="multi-topbar">
+      <button class="multi-topbar-btn multi-burger-btn" onclick="toggleMenu()" title="Menü">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+      <div class="multi-topbar-mid">
+        <div class="multi-topbar-code" id="impTopCode" onclick="handleAdminTitleClick()" style="cursor:pointer">—</div>
+        <div class="multi-topbar-peers" id="impTopPhase">Runde 1</div>
+      </div>
+      <button class="multi-topbar-btn multi-settings-btn" onclick="imp_openSettings()" title="Einstellungen">⚙</button>
+    </div>
+
+    <!-- Word Reveal -->
+    <div class="imp-word-reveal" id="impWordReveal" style="display:none">
+      <div class="imp-word-card" id="impWordCard" onclick="imp_flipCard()">
+        <div class="imp-word-card-back">
+          <div class="imp-word-card-back-emoji">🕵️</div>
+          <div class="imp-word-card-back-text">Tippe zum Aufdecken</div>
+          <div class="imp-word-card-back-hint">Zeige niemandem dein Wort!</div>
+        </div>
+        <div class="imp-word-card-front" id="impWordCardFront">
+          <div class="imp-word-cat" id="impWordCat">—</div>
+          <div class="imp-word-main" id="impWordMain">—</div>
+          <div class="imp-word-team" id="impWordTeam">—</div>
+        </div>
+      </div>
+      <div class="imp-word-status" id="impWordStatus">— / — bereit</div>
+    </div>
+
+    <!-- Players overview -->
+    <div class="imp-players-grid" id="impPlayersGrid"></div>
+
+    <!-- Phase info -->
+    <div class="imp-phase-info">
+      <div class="imp-phase-name" id="impPhaseName">—</div>
+      <div class="imp-phase-desc" id="impPhaseDesc">—</div>
+    </div>
+
+    <!-- Action area -->
+    <div class="imp-action-area" id="impActionArea"></div>
+
+    <!-- Settings -->
+    <div class="multi-modal-bd" id="impSettingsModal" onclick="if(event.target===this) imp_closeSettings()">
+      <div class="multi-modal imp-modal">
+        <div class="multi-modal-title">EINSTELLUNGEN</div>
+        <div class="multi-settings-label" id="impHostOnlyLabel">HOST</div>
+        <button class="multi-settings-btn-full multi-danger" id="impResetBtn" onclick="imp_resetGame()" style="display:none">Zurück zur Lobby</button>
+        <div class="multi-settings-label" style="margin-top:1rem">SESSION</div>
+        <button class="multi-settings-btn-full multi-leave-action" onclick="imp_closeSettings(); imp_leave()">🚪 Session verlassen</button>
+        <button class="multi-modal-close" onclick="imp_closeSettings()">FERTIG</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 
 <script>
   // ============ APP SWITCHER ============
@@ -6826,6 +8075,8 @@
     liarsbarMulti: { title: "Liar's Bar Multi", emoji: '📱', theme: '#0d0604' },
     alkiMulti:     { title: 'Alki Multi',       emoji: '📱', theme: '#2a0000' },
     pokerMulti:    { title: 'Poker Multi',      emoji: '♠️', theme: '#050a08' },
+    werwolf:       { title: 'Werwolf',          emoji: '🐺', theme: '#0a0a18' },
+    impostor:      { title: 'Impostor',         emoji: '🕵️', theme: '#1a0a0a' },
   };
 
   function setFavicon(emoji) {
@@ -6857,6 +8108,8 @@
       liarsbarMulti: 'appLiarsbarMulti',
       alkiMulti: 'appAlkiMulti',
       pokerMulti: 'appPokerMulti',
+      werwolf: 'appWerwolf',
+      impostor: 'appImpostor',
     };
     const id = idMap[name] || 'appLiarsbar';
     const el = document.getElementById(id);
@@ -6865,7 +8118,7 @@
     try { localStorage.setItem(APP_KEY, name); } catch (e) {}
 
     // Set body class for multi-apps so we can hide the fixed burger
-    const isMulti = (name === 'liarsbarMulti' || name === 'alkiMulti' || name === 'pokerMulti');
+    const isMulti = (name === 'liarsbarMulti' || name === 'alkiMulti' || name === 'pokerMulti' || name === 'werwolf' || name === 'impostor');
     document.body.classList.toggle('in-multi-app', isMulti);
 
     // Update admin button visibility (only show in apps with admin panel support)
@@ -6901,7 +8154,7 @@
     let active = 'liarsbar';
     try {
       const saved = localStorage.getItem(APP_KEY);
-      if (['poker','liarsbar','alki','liarsbarMulti','alkiMulti','pokerMulti'].includes(saved)) active = saved;
+      if (['poker','liarsbar','alki','liarsbarMulti','alkiMulti','pokerMulti','werwolf','impostor'].includes(saved)) active = saved;
     } catch (e) {}
     switchApp(active);
   })();
@@ -11748,6 +13001,2088 @@ nextRound();
     window.pm_rebuyPlayer = pm_rebuyPlayer;
     window.pm_kickPlayer = pm_kickPlayer;
   })();
+
+  // ============================================================
+  // ============ WERWOLF ======================================
+  // ============================================================
+  (function() {
+    const MIN_PLAYERS = 4;
+    const MAX_PLAYERS = 15;
+
+    const ROLE_INFO = {
+      villager: { name: 'Dorfbewohner', team: 'village', icon: '🌾', desc: 'Du hast keine besondere Fähigkeit. Finde die Werwölfe und überzeuge die anderen.' },
+      wolf:     { name: 'Werwolf',      team: 'wolves',  icon: '🐺', desc: 'In der Nacht tötest du gemeinsam mit den anderen Werwölfen ein Dorfbewohner.' },
+      seer:     { name: 'Seherin',      team: 'village', icon: '🔮', desc: 'In jeder Nacht darfst du die wahre Identität eines Spielers aufdecken.' },
+      witch:    { name: 'Hexe',         team: 'village', icon: '🧪', desc: 'Du hast einen Heiltrank (rettet das Werwolf-Opfer) und einen Gifttrank (tötet einen Spieler) — je 1x.' },
+      hunter:   { name: 'Jäger',        team: 'village', icon: '🏹', desc: 'Wenn du stirbst, darfst du einen weiteren Spieler mit in den Tod nehmen.' },
+    };
+    const TEAM_NAMES = { village: 'Dorf', wolves: 'Werwölfe' };
+
+    // ---- Identity ----
+    function getSelfId() {
+      let id = localStorage.getItem('mp-self-id');
+      if (!id) {
+        id = 'd_' + Math.random().toString(36).slice(2, 10) + Math.random().toString(36).slice(2, 6);
+        localStorage.setItem('mp-self-id', id);
+      }
+      return id;
+    }
+    function getStoredName() { return localStorage.getItem('mp-display-name') || ''; }
+    function setStoredName(n) { try { localStorage.setItem('mp-display-name', n); } catch (e) {} }
+    function genCode() {
+      const chars = 'ABCDEFGHJKMNPQRSTUVWXYZ23456789';
+      let c = '';
+      for (let i = 0; i < 4; i++) c += chars[Math.floor(Math.random() * chars.length)];
+      return c;
+    }
+    function validateCode(code) {
+      if (!code) return null;
+      const cleaned = code.toUpperCase().replace(/[^A-Z0-9]/g, '');
+      if (cleaned.length < 3 || cleaned.length > 6) return null;
+      return cleaned;
+    }
+    function shuffle(arr) {
+      const a = arr.slice();
+      for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+      }
+      return a;
+    }
+    function toArray(v) {
+      if (v == null) return [];
+      if (Array.isArray(v)) return v;
+      if (typeof v === 'object') {
+        const keys = Object.keys(v).map(Number).filter(k => !isNaN(k)).sort((a, b) => a - b);
+        return keys.map(k => v[k]);
+      }
+      return [];
+    }
+    function deepClean(obj) {
+      if (obj === null || obj === undefined) return null;
+      if (typeof obj !== 'object') return obj;
+      if (Array.isArray(obj)) return obj.map(deepClean);
+      const out = {};
+      for (const k in obj) {
+        const v = obj[k];
+        if (v !== undefined) out[k] = deepClean(v);
+      }
+      return out;
+    }
+    function escapeHtml(s) {
+      return String(s).replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+    }
+
+    // ---- State ----
+    let state = { app: 'werwolf', phase: 'lobby', players: {}, seatOrder: [], started: false };
+    let mySelfId = getSelfId();
+    let myCode = null;
+    let amHost = false;
+    let inSession = false;
+    let inWaiting = true;
+    let unsubSession = null;
+    let sessionRef = null;
+    let peerRef = null;
+
+    function showError(msg) {
+      const el = document.getElementById('wwError');
+      if (!el) return;
+      el.textContent = msg;
+      clearTimeout(showError._tm);
+      showError._tm = setTimeout(() => { el.textContent = ''; }, 5000);
+    }
+    function showToast(msg) {
+      let t = document.getElementById('mpToast');
+      if (!t) {
+        t = document.createElement('div');
+        t.id = 'mpToast';
+        t.className = 'mp-toast';
+        document.body.appendChild(t);
+      }
+      t.textContent = msg;
+      t.classList.add('show');
+      clearTimeout(t._tm);
+      t._tm = setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function defaultConfig(n) {
+      let wolves;
+      if (n <= 6) wolves = 1;
+      else if (n <= 9) wolves = 2;
+      else if (n <= 12) wolves = 3;
+      else wolves = 4;
+      return { wolves, seer: n >= 4, witch: n >= 6, hunter: n >= 8 };
+    }
+
+    // ---- Lobby ----
+    async function ww_create() {
+      if (!window.FB) { showError('Firebase noch nicht geladen'); return; }
+      const name = (document.getElementById('wwName').value.trim()) || ('Spieler ' + mySelfId.slice(2, 6));
+      setStoredName(name);
+      const codeIn = document.getElementById('wwCreateCode').value.trim();
+      let code = codeIn ? validateCode(codeIn) : genCode();
+      if (codeIn && !code) { showError('Code: 3–6 Zeichen, nur A–Z und 0–9'); return; }
+      const { db, ref, get, set } = window.FB;
+      try {
+        const existing = await get(ref(db, 'sessions/' + code));
+        if (existing.exists()) {
+          const ex = existing.val();
+          const peerCount = Object.keys(ex.peers || {}).length;
+          if (peerCount === 0) {
+            await window.FB.remove(ref(db, 'sessions/' + code));
+          } else {
+            showError(`Code ${code} ist gerade aktiv (${peerCount} Spieler)`);
+            return;
+          }
+        }
+      } catch (e) { showError('Fehler beim Prüfen'); return; }
+
+      const initial = {
+        app: 'werwolf',
+        host: mySelfId,
+        phase: 'lobby',
+        subPhase: null,
+        players: {
+          [mySelfId]: { name, role: null, alive: true, joinedAt: Date.now(), seen: false }
+        },
+        seatOrder: [],
+        config: { wolves: 1, seer: true, witch: true, hunter: false },
+        nightNumber: 0,
+        dayNumber: 0,
+        wolfVotes: null,
+        seerResult: null,    // {by: id, target: id, role}
+        witchUsed: { heal: false, poison: false },
+        witchVictim: null,    // who werewolves picked (so witch can decide to heal)
+        witchAction: null,    // 'heal' | 'poison:id' | 'skip'
+        dayVotes: null,
+        lastNightDeaths: [],   // who died last night
+        lastDayExecuted: null,
+        hunterPending: null,   // id of hunter who must shoot
+        winner: null,
+        createdAt: Date.now(),
+        started: false,
+        pendingAction: null,
+      };
+      try {
+        await set(ref(db, 'sessions/' + code), { state: initial, writerId: mySelfId });
+        myCode = code;
+        amHost = true;
+        await joinListeners(code, name);
+        switchToWaiting();
+      } catch (e) {
+        showError('Erstellen fehlgeschlagen: ' + (e.message || e));
+      }
+    }
+
+    async function ww_join() {
+      if (!window.FB) { showError('Firebase noch nicht geladen'); return; }
+      const name = (document.getElementById('wwName').value.trim()) || ('Spieler ' + mySelfId.slice(2, 6));
+      setStoredName(name);
+      const code = validateCode(document.getElementById('wwJoinCode').value);
+      if (!code) { showError('Code: 3–6 Zeichen'); return; }
+      const { db, ref, get, update } = window.FB;
+      try {
+        const snap = await get(ref(db, 'sessions/' + code));
+        if (!snap.exists()) { showError(`Session ${code} nicht gefunden`); return; }
+        const data = snap.val();
+        const peerCount = Object.keys(data.peers || {}).length;
+        if (peerCount === 0) {
+          await window.FB.remove(ref(db, 'sessions/' + code));
+          showError(`Session ${code} war abgelaufen — bitte neu erstellen`);
+          return;
+        }
+        if (data.state && data.state.app !== 'werwolf') {
+          showError(`Code ${code} läuft in einer anderen App`);
+          return;
+        }
+        if (data.state && data.state.started && !(data.state.players && data.state.players[mySelfId])) {
+          showError('Spiel läuft schon — kein Beitritt möglich');
+          return;
+        }
+        const players = (data.state && data.state.players) || {};
+        if (!players[mySelfId]) {
+          if (Object.keys(players).length >= MAX_PLAYERS) { showError('Session ist voll'); return; }
+          await update(ref(db, `sessions/${code}/state/players/${mySelfId}`), {
+            name, role: null, alive: true, joinedAt: Date.now(), seen: false,
+          });
+        } else {
+          await update(ref(db, `sessions/${code}/state/players/${mySelfId}`), { name });
+        }
+        myCode = code;
+        amHost = (data.state.host === mySelfId);
+        await joinListeners(code, name);
+        if (data.state.started) switchToGame();
+        else switchToWaiting();
+      } catch (e) {
+        showError('Beitreten fehlgeschlagen: ' + (e.message || e));
+      }
+    }
+
+    async function joinListeners(code, name) {
+      const { db, ref, onValue, set, onDisconnect } = window.FB;
+      sessionRef = ref(db, 'sessions/' + code);
+      peerRef = ref(db, `sessions/${code}/peers/${mySelfId}`);
+      await set(peerRef, { name, lastSeen: Date.now() });
+      onDisconnect(peerRef).remove();
+
+      unsubSession = onValue(sessionRef, (snapshot) => {
+        if (!snapshot.exists()) { showError('Session beendet'); ww_leave(); return; }
+        const data = snapshot.val();
+        const newState = data.state || {};
+        newState.seatOrder = toArray(newState.seatOrder);
+        newState.players = newState.players || {};
+        newState.lastNightDeaths = toArray(newState.lastNightDeaths);
+        state = newState;
+        amHost = (state.host === mySelfId);
+        document.body.classList.toggle('mp-host', amHost);
+
+        if (state.started && inWaiting) switchToGame();
+        if (!state.started && !inWaiting && state.phase === 'lobby') switchToWaiting();
+
+        if (amHost && state.pendingAction && state.started) {
+          processPendingAction(state.pendingAction);
+          return;
+        }
+
+        // Auto-advance from roleReveal when all have seen
+        if (amHost && state.phase === 'roleReveal' && state.started) {
+          const allSeen = Object.values(state.players).every(p => p.seen);
+          if (allSeen) {
+            setTimeout(() => { if (amHost && state.phase === 'roleReveal') startNight(); }, 800);
+          }
+        }
+
+        renderAll();
+      });
+      inSession = true;
+    }
+
+    async function ww_leave() {
+      const { remove, update, get } = window.FB || {};
+      try { if (unsubSession) unsubSession(); } catch (e) {}
+      try {
+        if (peerRef && remove) await remove(peerRef);
+      } catch (e) {}
+      if (sessionRef && window.FB) {
+        try {
+          const snap = await get(sessionRef);
+          if (snap.exists()) {
+            const d = snap.val();
+            const remainingPeers = Object.keys(d.peers || {});
+            if (remainingPeers.length === 0) {
+              await remove(sessionRef);
+            } else {
+              if (state.started) {
+                await update(window.FB.ref(window.FB.db, `sessions/${myCode}/state/players/${mySelfId}`), { alive: false, sittingOut: true });
+              } else {
+                await remove(window.FB.ref(window.FB.db, `sessions/${myCode}/state/players/${mySelfId}`));
+              }
+              if (amHost) {
+                await update(window.FB.ref(window.FB.db, `sessions/${myCode}/state`), { host: remainingPeers[0] });
+              }
+            }
+          }
+        } catch (e) {}
+      }
+      sessionRef = null; peerRef = null; unsubSession = null;
+      inSession = false; myCode = null; amHost = false;
+      switchToLobby();
+    }
+
+    // ---- View switching ----
+    function switchToLobby() {
+      document.getElementById('wwLobby').style.display = '';
+      document.getElementById('wwWaiting').style.display = 'none';
+      document.getElementById('wwGame').style.display = 'none';
+      document.getElementById('wwName').value = getStoredName();
+      inWaiting = false;
+      document.body.classList.add('in-multi-lobby');
+    }
+    function switchToWaiting() {
+      document.getElementById('wwLobby').style.display = 'none';
+      document.getElementById('wwWaiting').style.display = '';
+      document.getElementById('wwGame').style.display = 'none';
+      inWaiting = true;
+      document.body.classList.remove('in-multi-lobby');
+      renderWaiting();
+    }
+    function switchToGame() {
+      document.getElementById('wwLobby').style.display = 'none';
+      document.getElementById('wwWaiting').style.display = 'none';
+      document.getElementById('wwGame').style.display = '';
+      inWaiting = false;
+      document.body.classList.remove('in-multi-lobby');
+      renderAll();
+    }
+
+    function ww_copyCode() {
+      if (!myCode) return;
+      try { navigator.clipboard.writeText(myCode); showToast('Code kopiert'); } catch (e) {}
+    }
+
+    // ---- Waiting room rendering ----
+    function renderWaiting() {
+      document.getElementById('wwWaitCode').textContent = myCode || '—';
+      document.getElementById('wwWaitCodeBig').textContent = myCode || '—';
+      const players = state.players || {};
+      const ids = Object.keys(players).sort((a, b) => (players[a].joinedAt || 0) - (players[b].joinedAt || 0));
+      document.getElementById('wwWaitCount').textContent = `${ids.length}/${MAX_PLAYERS}`;
+      const html = ids.map(id => {
+        const p = players[id];
+        const isMe = id === mySelfId;
+        const isHost = id === state.host;
+        return `<div class="pm-waiting-player ${isMe ? 'me' : ''}">
+          <span>${escapeHtml(p.name)}${isMe ? ' (du)' : ''}</span>
+          ${isHost ? '<span style="margin-left:auto">👑</span>' : ''}
+        </div>`;
+      }).join('');
+      document.getElementById('wwWaitPlayers').innerHTML = html;
+
+      // Config section — only host sees it
+      const cfgSection = document.getElementById('wwConfigSection');
+      if (amHost) {
+        cfgSection.style.display = '';
+        const cfg = state.config || defaultConfig(ids.length);
+        document.getElementById('wwCfgWolves').textContent = cfg.wolves;
+        document.getElementById('wwCfgSeer').checked = !!cfg.seer;
+        document.getElementById('wwCfgWitch').checked = !!cfg.witch;
+        document.getElementById('wwCfgHunter').checked = !!cfg.hunter;
+        const specialCount = (cfg.seer ? 1 : 0) + (cfg.witch ? 1 : 0) + (cfg.hunter ? 1 : 0);
+        const villagers = Math.max(0, ids.length - cfg.wolves - specialCount);
+        document.getElementById('wwCfgSummary').textContent = `${cfg.wolves} Werwolf${cfg.wolves > 1 ? 'e' : ''} · ${villagers} Dorfbewohner · ${specialCount} Spezialrollen`;
+      } else {
+        cfgSection.style.display = 'none';
+      }
+
+      const startBtn = document.getElementById('wwStartBtn');
+      const hint = document.getElementById('wwWaitHint');
+      if (amHost) {
+        startBtn.style.display = '';
+        const cfg = state.config || defaultConfig(ids.length);
+        const specialCount = (cfg.seer ? 1 : 0) + (cfg.witch ? 1 : 0) + (cfg.hunter ? 1 : 0);
+        const valid = ids.length >= MIN_PLAYERS && ids.length >= cfg.wolves + specialCount + 1;
+        startBtn.disabled = !valid;
+        hint.textContent = valid ? 'Du bist Host — du kannst starten' : `Min. ${MIN_PLAYERS} Spieler · Rollen passen nicht zur Spielerzahl`;
+      } else {
+        startBtn.style.display = 'none';
+        hint.textContent = 'Warte bis der Host startet...';
+      }
+    }
+
+    // ---- Host: config controls ----
+    async function ww_adjustWolves(delta) {
+      if (!amHost) return;
+      const players = state.players || {};
+      const numPlayers = Object.keys(players).length;
+      const maxWolves = Math.max(1, Math.floor(numPlayers / 2));
+      const cfg = Object.assign({}, state.config || defaultConfig(numPlayers));
+      cfg.wolves = Math.max(1, Math.min(maxWolves, cfg.wolves + delta));
+      await updateConfig(cfg);
+    }
+    async function ww_setRole(role, enabled) {
+      if (!amHost) return;
+      const cfg = Object.assign({}, state.config || defaultConfig(Object.keys(state.players).length));
+      cfg[role] = !!enabled;
+      await updateConfig(cfg);
+    }
+    async function updateConfig(cfg) {
+      const { set, ref, db } = window.FB;
+      await set(ref(db, `sessions/${myCode}/state/config`), deepClean(cfg));
+    }
+
+    // ---- Host: start game (assign roles) ----
+    async function ww_startGame() {
+      if (!amHost) return;
+      const players = state.players || {};
+      const ids = Object.keys(players).sort((a, b) => (players[a].joinedAt || 0) - (players[b].joinedAt || 0));
+      if (ids.length < MIN_PLAYERS) { showError(`Min. ${MIN_PLAYERS} Spieler`); return; }
+      const cfg = state.config || defaultConfig(ids.length);
+
+      // Assign roles
+      const shuffled = shuffle(ids);
+      const newPlayers = {};
+      let idx = 0;
+      const assign = (id, role) => {
+        const p = players[id] || {};
+        newPlayers[id] = Object.assign({}, p, { role, alive: true, seen: false });
+      };
+      for (let i = 0; i < cfg.wolves; i++) assign(shuffled[idx++], 'wolf');
+      if (cfg.seer && idx < shuffled.length)   assign(shuffled[idx++], 'seer');
+      if (cfg.witch && idx < shuffled.length)  assign(shuffled[idx++], 'witch');
+      if (cfg.hunter && idx < shuffled.length) assign(shuffled[idx++], 'hunter');
+      while (idx < shuffled.length) assign(shuffled[idx++], 'villager');
+
+      const newState = Object.assign({}, state, {
+        started: true,
+        phase: 'roleReveal',
+        subPhase: null,
+        players: newPlayers,
+        seatOrder: ids,
+        nightNumber: 0,
+        dayNumber: 0,
+        wolfVotes: null,
+        seerResult: null,
+        witchUsed: { heal: false, poison: false },
+        witchVictim: null,
+        witchAction: null,
+        dayVotes: null,
+        lastNightDeaths: [],
+        lastDayExecuted: null,
+        hunterPending: null,
+        winner: null,
+        pendingAction: null,
+      });
+      state = newState;
+      broadcast(newState);
+    }
+
+    // ---- Host: phase transitions ----
+    function startNight() {
+      if (!amHost) return;
+      const newState = Object.assign({}, state, {
+        phase: 'night',
+        subPhase: pickFirstNightSubPhase(),
+        nightNumber: (state.nightNumber || 0) + 1,
+        wolfVotes: null,
+        seerResult: null,
+        witchVictim: null,
+        witchAction: null,
+        lastNightDeaths: [],
+        pendingAction: null,
+      });
+      state = newState;
+      broadcast(newState);
+      // If no role in this subphase has any alive members, skip
+      maybeAutoAdvanceNight();
+    }
+    function pickFirstNightSubPhase() {
+      // Order: seer → wolves → witch
+      if (anyAliveWithRole('seer')) return 'seer';
+      if (anyAliveWithRole('wolf')) return 'wolves';
+      if (anyAliveWithRole('witch')) return 'witch';
+      return null;
+    }
+    function anyAliveWithRole(role) {
+      return Object.values(state.players || {}).some(p => p.role === role && p.alive);
+    }
+    function maybeAutoAdvanceNight() {
+      if (!amHost) return;
+      // If current subphase has no eligible actor, skip ahead
+      if (state.phase !== 'night') return;
+      let sp = state.subPhase;
+      // seer: needs seer alive; skip if not
+      if (sp === 'seer' && !anyAliveWithRole('seer')) {
+        advanceNightSubPhase();
+      }
+      // wolves: needs wolf alive; skip if not (shouldn't happen normally)
+      if (state.subPhase === 'wolves' && !anyAliveWithRole('wolf')) {
+        advanceNightSubPhase();
+      }
+      // witch: needs witch alive AND has at least one potion
+      if (state.subPhase === 'witch') {
+        const witchAlive = anyAliveWithRole('witch');
+        const hasHeal = !state.witchUsed?.heal;
+        const hasPoison = !state.witchUsed?.poison;
+        if (!witchAlive || (!hasHeal && !hasPoison)) {
+          advanceNightSubPhase();
+        }
+      }
+    }
+    function advanceNightSubPhase() {
+      if (!amHost) return;
+      const order = ['seer', 'wolves', 'witch'];
+      const cur = state.subPhase;
+      const idx = order.indexOf(cur);
+      const next = idx >= 0 && idx < order.length - 1 ? order[idx + 1] : null;
+      if (next) {
+        state = Object.assign({}, state, { subPhase: next, pendingAction: null });
+        broadcast(state);
+        maybeAutoAdvanceNight();
+      } else {
+        // End of night → resolve deaths and go to day
+        resolveNight();
+      }
+    }
+    function resolveNight() {
+      if (!amHost) return;
+      // Determine deaths: werewolf target (unless healed), witch poison
+      const newPlayers = JSON.parse(JSON.stringify(state.players));
+      const deaths = [];
+      const wolfVictim = state.witchVictim;
+      const witchAction = state.witchAction || 'skip';
+      const healed = (witchAction === 'heal');
+      const poisonId = (witchAction && witchAction.startsWith('poison:')) ? witchAction.slice(7) : null;
+      const witchUsed = Object.assign({}, state.witchUsed || { heal: false, poison: false });
+      if (wolfVictim && newPlayers[wolfVictim] && !healed) {
+        newPlayers[wolfVictim].alive = false;
+        deaths.push({ id: wolfVictim, role: newPlayers[wolfVictim].role, cause: 'wolves' });
+      }
+      if (healed) witchUsed.heal = true;
+      if (poisonId && newPlayers[poisonId] && newPlayers[poisonId].alive) {
+        newPlayers[poisonId].alive = false;
+        witchUsed.poison = true;
+        deaths.push({ id: poisonId, role: newPlayers[poisonId].role, cause: 'witch' });
+      }
+      // Check hunter trigger
+      const hunterDied = deaths.find(d => d.role === 'hunter');
+      const newState = Object.assign({}, state, {
+        phase: 'day',
+        subPhase: hunterDied ? 'hunterShot' : 'reveal',
+        dayNumber: (state.dayNumber || 0) + 1,
+        players: newPlayers,
+        lastNightDeaths: deaths,
+        hunterPending: hunterDied ? hunterDied.id : null,
+        witchUsed,
+        wolfVotes: null,
+        dayVotes: null,
+        pendingAction: null,
+      });
+      state = newState;
+      // Check win
+      const win = checkWinner(newPlayers);
+      if (win) {
+        state = Object.assign({}, newState, { phase: 'gameOver', winner: win });
+        broadcast(state);
+        return;
+      }
+      broadcast(newState);
+    }
+
+    function checkWinner(players) {
+      const alive = Object.values(players).filter(p => p.alive);
+      const aliveWolves = alive.filter(p => p.role === 'wolf').length;
+      const aliveVillagers = alive.length - aliveWolves;
+      if (aliveWolves === 0) return 'village';
+      if (aliveWolves >= aliveVillagers) return 'wolves';
+      return null;
+    }
+
+    function startDayVote() {
+      if (!amHost) return;
+      state = Object.assign({}, state, { subPhase: 'vote', dayVotes: {}, pendingAction: null });
+      broadcast(state);
+    }
+
+    function executeDayVote() {
+      if (!amHost) return;
+      const votes = state.dayVotes || {};
+      const tally = {};
+      Object.values(votes).forEach(t => { if (t) tally[t] = (tally[t] || 0) + 1; });
+      let maxVotes = 0;
+      let candidates = [];
+      for (const id in tally) {
+        if (tally[id] > maxVotes) { maxVotes = tally[id]; candidates = [id]; }
+        else if (tally[id] === maxVotes) candidates.push(id);
+      }
+      const newPlayers = JSON.parse(JSON.stringify(state.players));
+      let executed = null;
+      if (candidates.length === 1 && maxVotes > 0) {
+        executed = candidates[0];
+        newPlayers[executed].alive = false;
+      }
+      const hunterDied = executed && newPlayers[executed].role === 'hunter';
+      const newState = Object.assign({}, state, {
+        subPhase: hunterDied ? 'hunterShot' : 'execute',
+        players: newPlayers,
+        lastDayExecuted: executed,
+        hunterPending: hunterDied ? executed : null,
+        pendingAction: null,
+      });
+      state = newState;
+      const win = checkWinner(newPlayers);
+      if (win) {
+        state = Object.assign({}, newState, { phase: 'gameOver', winner: win });
+        broadcast(state);
+        return;
+      }
+      broadcast(newState);
+    }
+
+    function continueAfterDay() {
+      if (!amHost) return;
+      // After execute reveal, go to next night
+      startNight();
+    }
+
+    // ---- Process pending actions from players ----
+    function processPendingAction(action) {
+      if (!amHost || !action || !state.started) return;
+      console.log('[WW] action', action, 'phase:', state.phase, 'sub:', state.subPhase);
+      const me = state.players[action.by];
+      if (!me) { clearPendingAction(); return; }
+
+      const { type } = action;
+
+      // Seer: scan a target
+      if (type === 'seer_scan' && state.phase === 'night' && state.subPhase === 'seer' && me.role === 'seer' && me.alive) {
+        const target = state.players[action.target];
+        if (!target || !target.alive || action.target === action.by) { clearPendingAction(); return; }
+        state = Object.assign({}, state, {
+          seerResult: { by: action.by, target: action.target, role: target.role },
+          pendingAction: null,
+        });
+        broadcast(state);
+        return;
+      }
+      if (type === 'seer_done' && state.phase === 'night' && state.subPhase === 'seer') {
+        advanceNightSubPhase();
+        return;
+      }
+
+      // Wolves: vote for victim
+      if (type === 'wolf_vote' && state.phase === 'night' && state.subPhase === 'wolves' && me.role === 'wolf' && me.alive) {
+        const votes = Object.assign({}, state.wolfVotes || {});
+        votes[action.by] = action.target || null;
+        // Check if all alive wolves have voted and agreed
+        const aliveWolves = Object.entries(state.players).filter(([id, p]) => p.role === 'wolf' && p.alive).map(([id]) => id);
+        const allVoted = aliveWolves.every(id => votes[id]);
+        let victim = null;
+        if (allVoted) {
+          // Find majority (just count)
+          const tally = {};
+          Object.values(votes).forEach(t => { if (t) tally[t] = (tally[t] || 0) + 1; });
+          let max = 0, cand = null;
+          for (const k in tally) { if (tally[k] > max) { max = tally[k]; cand = k; } }
+          victim = cand;
+        }
+        state = Object.assign({}, state, { wolfVotes: votes, pendingAction: null });
+        if (victim && allVoted) {
+          state.witchVictim = victim;
+          broadcast(state);
+          setTimeout(() => { if (amHost && state.subPhase === 'wolves') advanceNightSubPhase(); }, 1500);
+          return;
+        }
+        broadcast(state);
+        return;
+      }
+
+      // Witch: decide action
+      if (type === 'witch_action' && state.phase === 'night' && state.subPhase === 'witch' && me.role === 'witch' && me.alive) {
+        state = Object.assign({}, state, { witchAction: action.action || 'skip', pendingAction: null });
+        broadcast(state);
+        setTimeout(() => { if (amHost && state.subPhase === 'witch') advanceNightSubPhase(); }, 800);
+        return;
+      }
+
+      // Day reveal → continue
+      if (type === 'continue_to_discuss' && state.phase === 'day' && state.subPhase === 'reveal') {
+        state = Object.assign({}, state, { subPhase: 'discussion', pendingAction: null });
+        broadcast(state);
+        return;
+      }
+
+      // Host starts vote
+      if (type === 'start_vote' && state.phase === 'day' && state.subPhase === 'discussion' && action.by === state.host) {
+        startDayVote();
+        return;
+      }
+
+      // Day vote
+      if (type === 'day_vote' && state.phase === 'day' && state.subPhase === 'vote' && me.alive) {
+        const votes = Object.assign({}, state.dayVotes || {});
+        votes[action.by] = action.target || null;
+        const aliveIds = Object.entries(state.players).filter(([id, p]) => p.alive).map(([id]) => id);
+        const allVoted = aliveIds.every(id => votes[id] !== undefined);
+        state = Object.assign({}, state, { dayVotes: votes, pendingAction: null });
+        broadcast(state);
+        if (allVoted) {
+          setTimeout(() => { if (amHost && state.subPhase === 'vote') executeDayVote(); }, 1000);
+        }
+        return;
+      }
+
+      // After execute → next night (host triggers)
+      if (type === 'continue_to_night' && state.phase === 'day' && state.subPhase === 'execute' && action.by === state.host) {
+        continueAfterDay();
+        return;
+      }
+
+      // Hunter shot
+      if (type === 'hunter_shot' && state.subPhase === 'hunterShot' && action.by === state.hunterPending) {
+        const newPlayers = JSON.parse(JSON.stringify(state.players));
+        const target = action.target;
+        let extraDeath = null;
+        if (target && newPlayers[target] && newPlayers[target].alive) {
+          newPlayers[target].alive = false;
+          extraDeath = { id: target, role: newPlayers[target].role, cause: 'hunter' };
+        }
+        // Determine where to go next
+        // If we came from night's hunter (lastNightDeaths contained hunter), go to reveal
+        // If we came from day vote, go to execute reveal
+        let nextSub;
+        let newLastNightDeaths = state.lastNightDeaths;
+        if (state.lastNightDeaths && state.lastNightDeaths.some(d => d.role === 'hunter')) {
+          // Hunter died at night
+          nextSub = 'reveal';
+          if (extraDeath) newLastNightDeaths = state.lastNightDeaths.concat([extraDeath]);
+        } else {
+          // Hunter died from day vote
+          nextSub = 'execute';
+        }
+        state = Object.assign({}, state, {
+          players: newPlayers,
+          subPhase: nextSub,
+          hunterPending: null,
+          lastNightDeaths: newLastNightDeaths,
+          pendingAction: null,
+        });
+        const win = checkWinner(newPlayers);
+        if (win) {
+          state = Object.assign({}, state, { phase: 'gameOver', winner: win });
+        }
+        broadcast(state);
+        return;
+      }
+
+      // Unknown / stale
+      clearPendingAction();
+    }
+    function clearPendingAction() {
+      const { set, ref, db } = window.FB || {};
+      if (set && myCode) set(ref(db, `sessions/${myCode}/state/pendingAction`), null);
+    }
+
+    async function broadcast(newState) {
+      if (!sessionRef || !window.FB) return;
+      if (newState.pendingAction === undefined) newState.pendingAction = null;
+      state = newState;
+      const { set, ref, db } = window.FB;
+      try {
+        await set(ref(db, `sessions/${myCode}/state`), deepClean(newState));
+      } catch (e) { console.error('[WW] broadcast failed:', e); }
+    }
+
+    async function sendAction(payload) {
+      if (!sessionRef || !window.FB) return;
+      const { set, ref, db } = window.FB;
+      await set(ref(db, `sessions/${myCode}/state/pendingAction`), Object.assign({ by: mySelfId, ts: Date.now() }, payload));
+    }
+
+    // ---- Player actions ----
+    function ww_flipCard() {
+      const card = document.getElementById('wwRoleCard');
+      if (!card) return;
+      card.classList.add('flipped');
+      // Mark as seen after a small delay
+      setTimeout(() => {
+        const { update, ref, db } = window.FB || {};
+        if (update && myCode && mySelfId) {
+          update(ref(db, `sessions/${myCode}/state/players/${mySelfId}`), { seen: true }).catch(() => {});
+        }
+      }, 600);
+    }
+    function ww_seerScan(targetId) { sendAction({ type: 'seer_scan', target: targetId }); }
+    function ww_seerDone() { sendAction({ type: 'seer_done' }); }
+    function ww_wolfVote(targetId) { sendAction({ type: 'wolf_vote', target: targetId }); }
+    function ww_witchHeal() { sendAction({ type: 'witch_action', action: 'heal' }); }
+    function ww_witchPoison(targetId) { sendAction({ type: 'witch_action', action: 'poison:' + targetId }); }
+    function ww_witchSkip() { sendAction({ type: 'witch_action', action: 'skip' }); }
+    function ww_continueToDiscuss() { sendAction({ type: 'continue_to_discuss' }); }
+    function ww_startVote() { sendAction({ type: 'start_vote' }); }
+    function ww_dayVote(targetId) { sendAction({ type: 'day_vote', target: targetId }); }
+    function ww_continueToNight() { sendAction({ type: 'continue_to_night' }); }
+    function ww_hunterShot(targetId) { sendAction({ type: 'hunter_shot', target: targetId }); }
+
+    // ---- Rendering ----
+    function renderAll() {
+      if (inWaiting) { renderWaiting(); return; }
+      if (!inSession) return;
+      document.getElementById('wwTopCode').textContent = myCode || '—';
+      const phaseText = phaseLabel();
+      document.getElementById('wwTopPhase').textContent = phaseText;
+      renderRoleReveal();
+      renderPlayersGrid();
+      renderPhaseInfo();
+      renderActionArea();
+    }
+    function phaseLabel() {
+      if (state.phase === 'roleReveal') return 'Rollen';
+      if (state.phase === 'night') return `Nacht ${state.nightNumber || 1}`;
+      if (state.phase === 'day') return `Tag ${state.dayNumber || 1}`;
+      if (state.phase === 'gameOver') return 'Ende';
+      return '—';
+    }
+    function renderRoleReveal() {
+      const wrap = document.getElementById('wwRoleReveal');
+      if (state.phase !== 'roleReveal') { wrap.style.display = 'none'; return; }
+      wrap.style.display = '';
+      const me = state.players[mySelfId];
+      if (!me || !me.role) return;
+      const info = ROLE_INFO[me.role];
+      document.getElementById('wwRoleIcon').textContent = info.icon;
+      document.getElementById('wwRoleName').textContent = info.name;
+      document.getElementById('wwRoleDesc').textContent = info.desc;
+      document.getElementById('wwRoleTeam').textContent = 'Team: ' + TEAM_NAMES[info.team];
+      const seen = Object.values(state.players).filter(p => p.seen).length;
+      const total = Object.keys(state.players).length;
+      document.getElementById('wwRoleStatus').textContent = `${seen} / ${total} bereit`;
+    }
+    function renderPlayersGrid() {
+      const wrap = document.getElementById('wwPlayersGrid');
+      if (state.phase === 'roleReveal' || state.phase === 'lobby') { wrap.innerHTML = ''; return; }
+      const me = state.players[mySelfId];
+      const order = state.seatOrder.length > 0 ? state.seatOrder : Object.keys(state.players);
+      const dayVotes = state.dayVotes || {};
+      const tally = {};
+      if (state.subPhase === 'vote') {
+        Object.values(dayVotes).forEach(t => { if (t) tally[t] = (tally[t] || 0) + 1; });
+      }
+      const html = order.map(id => {
+        const p = state.players[id];
+        if (!p) return '';
+        const isMe = id === mySelfId;
+        const isHost = id === state.host;
+        const dead = !p.alive;
+        let roleHint = '';
+        // Show role to dead players & in gameOver, plus wolves can see each other
+        if (dead || state.phase === 'gameOver') {
+          const info = ROLE_INFO[p.role];
+          if (info) roleHint = `<div class="ww-player-role">${info.icon} ${info.name}</div>`;
+        } else if (me && me.role === 'wolf' && p.role === 'wolf' && !isMe) {
+          roleHint = `<div class="ww-player-role wolf-known">🐺 Werwolf</div>`;
+        }
+        const voteCount = tally[id] || 0;
+        return `<div class="ww-player-tile ${dead ? 'dead' : ''} ${isMe ? 'me' : ''} ${voteCount > 0 ? 'voted' : ''}" data-votes="${voteCount}">
+          ${isHost ? '<span class="ww-player-host-badge">👑</span>' : ''}
+          <div class="ww-player-name">${escapeHtml(p.name)}${isMe ? ' (du)' : ''}</div>
+          ${roleHint}
+        </div>`;
+      }).join('');
+      wrap.innerHTML = html;
+    }
+    function renderPhaseInfo() {
+      const nameEl = document.getElementById('wwPhaseName');
+      const descEl = document.getElementById('wwPhaseDesc');
+      let name = '', desc = '';
+      if (state.phase === 'roleReveal') {
+        name = '🃏 Rollenverteilung';
+        desc = 'Schaue dir deine Karte an. Zeige sie niemandem!';
+      } else if (state.phase === 'night') {
+        name = '🌙 Nacht ' + (state.nightNumber || 1);
+        if (state.subPhase === 'seer') desc = 'Die Seherin schaut sich um...';
+        else if (state.subPhase === 'wolves') desc = 'Die Werwölfe pirschen umher...';
+        else if (state.subPhase === 'witch') desc = 'Die Hexe braut ihre Tränke...';
+      } else if (state.phase === 'day') {
+        name = '☀️ Tag ' + (state.dayNumber || 1);
+        if (state.subPhase === 'reveal') desc = 'Das Dorf erwacht...';
+        else if (state.subPhase === 'discussion') desc = 'Diskutiert und findet die Werwölfe!';
+        else if (state.subPhase === 'vote') desc = 'Stimmt ab — wer wird verbrannt?';
+        else if (state.subPhase === 'execute') desc = 'Das Urteil ist gefällt.';
+        else if (state.subPhase === 'hunterShot') desc = 'Der Jäger zielt...';
+      } else if (state.phase === 'gameOver') {
+        name = '🏁 Spielende';
+        desc = '';
+      }
+      nameEl.textContent = name;
+      descEl.textContent = desc;
+    }
+    function renderActionArea() {
+      const wrap = document.getElementById('wwActionArea');
+      if (state.phase === 'roleReveal') { wrap.innerHTML = ''; return; }
+      if (state.phase === 'gameOver') { wrap.innerHTML = renderGameOver(); return; }
+      const me = state.players[mySelfId];
+      if (!me) { wrap.innerHTML = ''; return; }
+
+      if (state.phase === 'night') {
+        if (state.subPhase === 'seer') wrap.innerHTML = renderSeerAction(me);
+        else if (state.subPhase === 'wolves') wrap.innerHTML = renderWolvesAction(me);
+        else if (state.subPhase === 'witch') wrap.innerHTML = renderWitchAction(me);
+        else wrap.innerHTML = '';
+      } else if (state.phase === 'day') {
+        if (state.subPhase === 'reveal') wrap.innerHTML = renderDayReveal(me);
+        else if (state.subPhase === 'hunterShot') wrap.innerHTML = renderHunterShot(me);
+        else if (state.subPhase === 'discussion') wrap.innerHTML = renderDiscussion(me);
+        else if (state.subPhase === 'vote') wrap.innerHTML = renderDayVote(me);
+        else if (state.subPhase === 'execute') wrap.innerHTML = renderExecute(me);
+        else wrap.innerHTML = '';
+      }
+    }
+
+    function renderSeerAction(me) {
+      if (me.role !== 'seer' || !me.alive) {
+        return `<div class="ww-action-wait"><div class="ww-action-wait-icon">🔮</div>Die Seherin schaut sich um...</div>`;
+      }
+      if (state.seerResult && state.seerResult.by === mySelfId) {
+        const target = state.players[state.seerResult.target];
+        const info = ROLE_INFO[state.seerResult.role];
+        return `<div class="ww-seer-result">
+          <div class="ww-seer-result-icon">${info.icon}</div>
+          <div class="ww-seer-result-name">${escapeHtml(target.name)} ist ${info.name}</div>
+          <div class="ww-seer-result-team">Team: ${TEAM_NAMES[info.team]}</div>
+        </div>
+        <button class="ww-action-btn" onclick="ww_seerDone()">FERTIG</button>`;
+      }
+      // Pick target
+      const targets = (state.seatOrder || []).filter(id => id !== mySelfId && state.players[id] && state.players[id].alive);
+      const list = targets.map(id => `<button class="ww-action-btn secondary" onclick="ww_seerScan('${id}')">${escapeHtml(state.players[id].name)}</button>`).join('');
+      return `<div class="ww-action-prompt">🔮 Wessen Rolle möchtest du sehen?</div>${list}`;
+    }
+
+    function renderWolvesAction(me) {
+      if (me.role !== 'wolf' || !me.alive) {
+        return `<div class="ww-action-wait"><div class="ww-action-wait-icon">🐺</div>Die Werwölfe pirschen umher...</div>`;
+      }
+      const wolfVotes = state.wolfVotes || {};
+      const myVote = wolfVotes[mySelfId];
+      const aliveWolves = Object.entries(state.players).filter(([id, p]) => p.role === 'wolf' && p.alive).map(([id]) => id);
+      const voteSummary = aliveWolves.map(id => {
+        const p = state.players[id];
+        const v = wolfVotes[id];
+        const vp = v ? state.players[v] : null;
+        return `<div style="font-family:Outfit,sans-serif;font-size:0.82rem;color:rgba(216,220,235,0.85);padding:0.2rem 0">${escapeHtml(p.name)}: ${vp ? '→ ' + escapeHtml(vp.name) : '—'}</div>`;
+      }).join('');
+      const targets = (state.seatOrder || []).filter(id => state.players[id] && state.players[id].alive && state.players[id].role !== 'wolf');
+      const list = targets.map(id => {
+        const isMyChoice = myVote === id;
+        return `<button class="ww-action-btn ${isMyChoice ? 'danger' : 'secondary'}" onclick="ww_wolfVote('${id}')">${escapeHtml(state.players[id].name)}${isMyChoice ? ' ✓' : ''}</button>`;
+      }).join('');
+      return `<div class="ww-action-prompt">🐺 Wen tötet ihr heute Nacht?</div>
+        <div style="background:rgba(40,15,15,0.5);border:1px solid rgba(239,68,68,0.3);border-radius:8px;padding:0.5rem 0.7rem;margin-bottom:0.7rem">${voteSummary}</div>
+        ${list}`;
+    }
+
+    function renderWitchAction(me) {
+      if (me.role !== 'witch' || !me.alive) {
+        return `<div class="ww-action-wait"><div class="ww-action-wait-icon">🧪</div>Die Hexe braut ihre Tränke...</div>`;
+      }
+      const used = state.witchUsed || { heal: false, poison: false };
+      const victim = state.witchVictim ? state.players[state.witchVictim] : null;
+      if (state.witchAction) {
+        return `<div class="ww-action-wait"><div class="ww-action-wait-icon">🧪</div>Entscheidung getroffen — warte auf die anderen...</div>`;
+      }
+      let victimInfo = victim
+        ? `<div class="ww-reveal-box">🐺 Die Werwölfe haben <b>${escapeHtml(victim.name)}</b> ausgewählt.</div>`
+        : `<div class="ww-reveal-box info">Niemand wurde von den Werwölfen gewählt.</div>`;
+      const healBtn = (!used.heal && victim) ? `<button class="ww-action-btn" onclick="ww_witchHeal()">💚 ${escapeHtml(victim.name)} HEILEN</button>` : '';
+      const poisonBtnList = !used.poison
+        ? (state.seatOrder || []).filter(id => state.players[id] && state.players[id].alive && id !== mySelfId).map(id =>
+            `<button class="ww-action-btn danger" onclick="ww_witchPoison('${id}')">☠️ ${escapeHtml(state.players[id].name)} VERGIFTEN</button>`
+          ).join('')
+        : '';
+      return `${victimInfo}
+        ${healBtn}
+        ${used.poison ? '' : '<div style="margin-top:0.8rem;font-family:Outfit,sans-serif;font-size:0.82rem;color:rgba(216,220,235,0.7);text-align:center">Oder einen anderen Spieler vergiften:</div>' + poisonBtnList}
+        <button class="ww-action-btn secondary" onclick="ww_witchSkip()" style="margin-top:0.8rem">NICHTS TUN</button>`;
+    }
+
+    function renderDayReveal(me) {
+      const deaths = state.lastNightDeaths || [];
+      let body;
+      if (deaths.length === 0) {
+        body = `<div class="ww-reveal-box peace">☀️ Wundersamerweise hat heute Nacht niemand das Zeitliche gesegnet!</div>`;
+      } else {
+        body = deaths.map(d => {
+          const p = state.players[d.id];
+          const info = ROLE_INFO[d.role];
+          return `<div class="ww-reveal-box">💀 <b>${escapeHtml(p.name)}</b> wurde gefunden.<br>Rolle: <b>${info.icon} ${info.name}</b></div>`;
+        }).join('');
+      }
+      const btn = (mySelfId === state.host)
+        ? `<button class="ww-action-btn" onclick="ww_continueToDiscuss()">WEITER ZUR DISKUSSION</button>`
+        : `<div class="ww-action-wait" style="margin-top:0.5rem">Warte auf den Host...</div>`;
+      return body + btn;
+    }
+
+    function renderDiscussion(me) {
+      const aliveCount = Object.values(state.players).filter(p => p.alive).length;
+      const btn = (mySelfId === state.host)
+        ? `<button class="ww-action-btn" onclick="ww_startVote()">ABSTIMMUNG STARTEN</button>`
+        : `<div class="ww-action-wait" style="margin-top:0.5rem">Warte bis der Host die Abstimmung startet...</div>`;
+      return `<div class="ww-action-prompt">💬 ${aliveCount} Spieler diskutieren wer ein Werwolf sein könnte.</div>${btn}`;
+    }
+
+    function renderDayVote(me) {
+      if (!me.alive) {
+        return `<div class="ww-action-wait"><div class="ww-action-wait-icon">💀</div>Du bist tot — schaue zu.</div>`;
+      }
+      const votes = state.dayVotes || {};
+      const myVote = votes[mySelfId];
+      if (myVote !== undefined) {
+        const target = state.players[myVote];
+        const voted = Object.keys(votes).length;
+        const aliveCount = Object.values(state.players).filter(p => p.alive).length;
+        return `<div class="ww-reveal-box info">Du hast gegen <b>${target ? escapeHtml(target.name) : '—'}</b> gestimmt.</div>
+          <div class="ww-action-prompt">Warte bis alle abgestimmt haben (${voted}/${aliveCount})</div>`;
+      }
+      const targets = (state.seatOrder || []).filter(id => state.players[id] && state.players[id].alive && id !== mySelfId);
+      const list = targets.map(id =>
+        `<button class="ww-action-btn secondary" onclick="ww_dayVote('${id}')">${escapeHtml(state.players[id].name)}</button>`
+      ).join('');
+      return `<div class="ww-action-prompt">🗳️ Wen willst du verbrennen?</div>${list}`;
+    }
+
+    function renderExecute(me) {
+      const executed = state.lastDayExecuted ? state.players[state.lastDayExecuted] : null;
+      let body;
+      if (executed) {
+        const info = ROLE_INFO[executed.role];
+        body = `<div class="ww-reveal-box">🔥 <b>${escapeHtml(executed.name)}</b> wurde verbrannt.<br>Rolle: <b>${info.icon} ${info.name}</b></div>`;
+      } else {
+        body = `<div class="ww-reveal-box info">Keine Mehrheit — niemand wurde verbrannt.</div>`;
+      }
+      const btn = (mySelfId === state.host)
+        ? `<button class="ww-action-btn" onclick="ww_continueToNight()">WEITER ZUR NACHT</button>`
+        : `<div class="ww-action-wait" style="margin-top:0.5rem">Warte auf den Host...</div>`;
+      return body + btn;
+    }
+
+    function renderHunterShot(me) {
+      const hunterId = state.hunterPending;
+      const hunter = hunterId ? state.players[hunterId] : null;
+      if (mySelfId !== hunterId) {
+        return `<div class="ww-action-wait"><div class="ww-action-wait-icon">🏹</div>${hunter ? escapeHtml(hunter.name) : 'Der Jäger'} zielt...</div>`;
+      }
+      const targets = (state.seatOrder || []).filter(id => state.players[id] && state.players[id].alive && id !== mySelfId);
+      const list = targets.map(id =>
+        `<button class="ww-action-btn danger" onclick="ww_hunterShot('${id}')">🎯 ${escapeHtml(state.players[id].name)}</button>`
+      ).join('');
+      return `<div class="ww-action-prompt">🏹 Du wurdest getötet — nimm einen mit in den Tod!</div>${list}
+        <button class="ww-action-btn secondary" onclick="ww_hunterShot('')" style="margin-top:0.8rem">NIEMANDEN MITNEHMEN</button>`;
+    }
+
+    function renderGameOver() {
+      const winner = state.winner;
+      const winText = winner === 'village' ? '🌾 Das Dorf gewinnt!' : (winner === 'wolves' ? '🐺 Die Werwölfe gewinnen!' : '🏁 Spielende');
+      const order = state.seatOrder.length > 0 ? state.seatOrder : Object.keys(state.players);
+      const rolesList = order.map(id => {
+        const p = state.players[id];
+        if (!p) return '';
+        const info = ROLE_INFO[p.role];
+        return `<div class="ww-gameover-role-row">
+          <span>${escapeHtml(p.name)}${p.alive ? '' : ' 💀'}</span>
+          <span>${info ? info.icon + ' ' + info.name : '—'}</span>
+        </div>`;
+      }).join('');
+      const restartBtn = (mySelfId === state.host)
+        ? `<button class="ww-action-btn" onclick="ww_resetGame()">NEUE RUNDE</button>`
+        : `<div style="font-family:Outfit,sans-serif;font-size:0.85rem;color:rgba(216,220,235,0.65);margin-top:0.6rem">Warte auf den Host für eine neue Runde...</div>`;
+      return `<div class="ww-gameover">
+        <div class="ww-gameover-title">${winText}</div>
+        <div class="ww-gameover-team">Team ${TEAM_NAMES[winner] || ''} hat gewonnen</div>
+        <div class="ww-gameover-roles">${rolesList}</div>
+        ${restartBtn}
+      </div>`;
+    }
+
+    // ---- Settings ----
+    function ww_openSettings() {
+      document.getElementById('wwResetBtn').style.display = amHost ? '' : 'none';
+      document.getElementById('wwHostOnlyLabel').style.display = amHost ? '' : 'none';
+      document.getElementById('wwSettingsModal').classList.add('active');
+    }
+    function ww_closeSettings() { document.getElementById('wwSettingsModal').classList.remove('active'); }
+    function ww_openSettingsWait() { document.getElementById('wwSettingsWaitModal').classList.add('active'); }
+    function ww_closeSettingsWait() { document.getElementById('wwSettingsWaitModal').classList.remove('active'); }
+
+    async function ww_resetGame() {
+      if (!amHost) return;
+      if (!confirm('Neue Runde starten? (alle Rollen werden neu verteilt)')) return;
+      const newPlayers = {};
+      for (const id of Object.keys(state.players)) {
+        newPlayers[id] = Object.assign({}, state.players[id], { role: null, alive: true, seen: false });
+      }
+      const newState = Object.assign({}, state, {
+        started: false,
+        phase: 'lobby',
+        subPhase: null,
+        players: newPlayers,
+        seatOrder: [],
+        nightNumber: 0,
+        dayNumber: 0,
+        wolfVotes: null,
+        seerResult: null,
+        witchUsed: { heal: false, poison: false },
+        witchVictim: null,
+        witchAction: null,
+        dayVotes: null,
+        lastNightDeaths: [],
+        lastDayExecuted: null,
+        hunterPending: null,
+        winner: null,
+        pendingAction: null,
+      });
+      state = newState;
+      broadcast(newState);
+      ww_closeSettings();
+    }
+
+    // ---- Init ----
+    function ww_init() {
+      document.getElementById('wwName').value = getStoredName();
+      if (!inSession) switchToLobby();
+    }
+    const origSwitch = window.switchApp;
+    window.switchApp = function(name) {
+      const r = origSwitch(name);
+      if (name === 'werwolf') ww_init();
+      return r;
+    };
+    document.addEventListener('DOMContentLoaded', () => {
+      if (document.getElementById('appWerwolf') && document.getElementById('appWerwolf').classList.contains('visible')) ww_init();
+    });
+
+    // Expose
+    window.ww_create = ww_create;
+    window.ww_join = ww_join;
+    window.ww_leave = ww_leave;
+    window.ww_startGame = ww_startGame;
+    window.ww_copyCode = ww_copyCode;
+    window.ww_adjustWolves = ww_adjustWolves;
+    window.ww_setRole = ww_setRole;
+    window.ww_flipCard = ww_flipCard;
+    window.ww_seerScan = ww_seerScan;
+    window.ww_seerDone = ww_seerDone;
+    window.ww_wolfVote = ww_wolfVote;
+    window.ww_witchHeal = ww_witchHeal;
+    window.ww_witchPoison = ww_witchPoison;
+    window.ww_witchSkip = ww_witchSkip;
+    window.ww_continueToDiscuss = ww_continueToDiscuss;
+    window.ww_startVote = ww_startVote;
+    window.ww_dayVote = ww_dayVote;
+    window.ww_continueToNight = ww_continueToNight;
+    window.ww_hunterShot = ww_hunterShot;
+    window.ww_openSettings = ww_openSettings;
+    window.ww_closeSettings = ww_closeSettings;
+    window.ww_openSettingsWait = ww_openSettingsWait;
+    window.ww_closeSettingsWait = ww_closeSettingsWait;
+    window.ww_resetGame = ww_resetGame;
+  })();
+
+  // ============================================================
+  // ============ IMPOSTOR ======================================
+  // ============================================================
+  (function() {
+    const MIN_PLAYERS = 3;
+    const MAX_PLAYERS = 15;
+
+    // Word categories
+    const CATEGORIES = {
+      berufe:    { name: '🎭 Berufe',      words: ['Arzt','Lehrer','Polizist','Bäcker','Pilot','Astronaut','Müllmann','Klempner','Anwalt','Friseur','Mechaniker','Zauberer','Detektiv','Koch','Architekt','Bauarbeiter','Krankenschwester','Förster','DJ','Schauspieler','Tierarzt','Programmierer','Fotograf','Journalist','Maler'] },
+      tiere:     { name: '🦁 Tiere',       words: ['Hund','Katze','Elefant','Löwe','Pinguin','Krokodil','Giraffe','Adler','Wal','Hai','Schmetterling','Pferd','Affe','Bär','Wolf','Eule','Tiger','Schwein','Schlange','Delfin','Igel','Känguru','Faultier','Frosch','Eichhörnchen'] },
+      staedte:   { name: '🏙️ Städte',      words: ['Berlin','Hamburg','München','Köln','Frankfurt','Stuttgart','Düsseldorf','Leipzig','Dresden','Nürnberg','Erlangen','Paris','London','New York','Tokio','Rom','Madrid','Wien','Amsterdam','Istanbul','Barcelona','Prag','Dubai','Rio','Sydney'] },
+      sport:     { name: '⚽ Sport',        words: ['Fußball','Tennis','Schwimmen','Boxen','Skifahren','Reiten','Klettern','Surfen','Golf','Volleyball','Eishockey','Formel 1','Marathon','Yoga','Schach','Bowling','Karate','Bogenschießen','Rudern','Badminton','Basketball','Radsport','Handball','Skateboard','Turnen'] },
+      filme:     { name: '🎬 Filme',        words: ['Titanic','Star Wars','Harry Potter','Avatar','Matrix','Inception','Joker','Pulp Fiction','Forrest Gump','Gladiator','Avengers','Der Pate','Fluch der Karibik','Herr der Ringe','Shrek','Findet Nemo','Toy Story','Frozen','Batman','Spider-Man','Jurassic Park','Indiana Jones','Rocky','Interstellar','Top Gun'] },
+      essen:     { name: '🍕 Essen',        words: ['Pizza','Sushi','Spaghetti','Burger','Salat','Schnitzel','Bratwurst','Currywurst','Döner','Lasagne','Pommes','Eis','Schokolade','Apfelstrudel','Käsekuchen','Brezel','Tacos','Risotto','Pad Thai','Quiche','Maultaschen','Spätzle','Gulasch','Sauerkraut','Knödel'] },
+      laender:   { name: '🌍 Länder',       words: ['Deutschland','Frankreich','Italien','Spanien','USA','Japan','Brasilien','Australien','Kanada','China','Indien','Russland','Mexiko','Türkei','Griechenland','Schweden','Norwegen','Niederlande','Ägypten','Argentinien','Südafrika','Thailand','Polen','Portugal','Island'] },
+      instrumente:{ name: '🎵 Instrumente',  words: ['Klavier','Gitarre','Geige','Trompete','Schlagzeug','Saxophon','Flöte','Cello','Klarinette','Akkordeon','Mundharmonika','Harfe','Ukulele','Bass','Triangel','Xylophon','Dudelsack','Tamburin','Banjo','Posaune','Orgel','Oboe','Marimba','Maracas','Sitar'] },
+      autos:     { name: '🚗 Automarken',   words: ['BMW','Mercedes','Audi','Porsche','Volkswagen','Tesla','Ferrari','Lamborghini','Bugatti','Toyota','Honda','Ford','Fiat','Opel','Hyundai','Mazda','Renault','Peugeot','Skoda','Volvo','Jeep','Mini','Bentley','Rolls-Royce','Aston Martin'] },
+      orte:      { name: '📍 Orte',         words: ['Strand','Krankenhaus','Schule','Flughafen','Bahnhof','Museum','Bibliothek','Schwimmbad','Fitnessstudio','Kino','Theater','Zoo','Park','Wald','Berg','Restaurant','Supermarkt','Friedhof','Kirche','Casino','Hotel','Tankstelle','Friseur','Zahnarzt','Apotheke'] },
+    };
+    const ROUND_TARGETS = { 3:2, 4:2, 5:2, 6:2, 7:3, 8:3, 9:3, 10:3, 11:3, 12:3, 13:3, 14:3, 15:3 };
+
+    // ---- Identity ----
+    function getSelfId() {
+      let id = localStorage.getItem('mp-self-id');
+      if (!id) {
+        id = 'd_' + Math.random().toString(36).slice(2, 10) + Math.random().toString(36).slice(2, 6);
+        localStorage.setItem('mp-self-id', id);
+      }
+      return id;
+    }
+    function getStoredName() { return localStorage.getItem('mp-display-name') || ''; }
+    function setStoredName(n) { try { localStorage.setItem('mp-display-name', n); } catch (e) {} }
+    function genCode() {
+      const chars = 'ABCDEFGHJKMNPQRSTUVWXYZ23456789';
+      let c = '';
+      for (let i = 0; i < 4; i++) c += chars[Math.floor(Math.random() * chars.length)];
+      return c;
+    }
+    function validateCode(code) {
+      if (!code) return null;
+      const cleaned = code.toUpperCase().replace(/[^A-Z0-9]/g, '');
+      if (cleaned.length < 3 || cleaned.length > 6) return null;
+      return cleaned;
+    }
+    function shuffle(arr) {
+      const a = arr.slice();
+      for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+      }
+      return a;
+    }
+    function toArray(v) {
+      if (v == null) return [];
+      if (Array.isArray(v)) return v;
+      if (typeof v === 'object') {
+        const keys = Object.keys(v).map(Number).filter(k => !isNaN(k)).sort((a, b) => a - b);
+        return keys.map(k => v[k]);
+      }
+      return [];
+    }
+    function deepClean(obj) {
+      if (obj === null || obj === undefined) return null;
+      if (typeof obj !== 'object') return obj;
+      if (Array.isArray(obj)) return obj.map(deepClean);
+      const out = {};
+      for (const k in obj) {
+        const v = obj[k];
+        if (v !== undefined) out[k] = deepClean(v);
+      }
+      return out;
+    }
+    function escapeHtml(s) {
+      return String(s).replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+    }
+    function normalizeWord(s) {
+      return String(s || '').toLowerCase().trim().replace(/[äöüß]/g, c => ({ä:'ae',ö:'oe',ü:'ue',ß:'ss'}[c])).replace(/[^a-z0-9]/g, '');
+    }
+
+    // ---- State ----
+    let state = { app: 'impostor', phase: 'lobby', players: {}, seatOrder: [], started: false };
+    let mySelfId = getSelfId();
+    let myCode = null;
+    let amHost = false;
+    let inSession = false;
+    let inWaiting = true;
+    let unsubSession = null;
+    let sessionRef = null;
+    let peerRef = null;
+
+    function showError(msg) {
+      const el = document.getElementById('impError');
+      if (!el) return;
+      el.textContent = msg;
+      clearTimeout(showError._tm);
+      showError._tm = setTimeout(() => { el.textContent = ''; }, 5000);
+    }
+    function showToast(msg) {
+      let t = document.getElementById('mpToast');
+      if (!t) {
+        t = document.createElement('div');
+        t.id = 'mpToast';
+        t.className = 'mp-toast';
+        document.body.appendChild(t);
+      }
+      t.textContent = msg;
+      t.classList.add('show');
+      clearTimeout(t._tm);
+      t._tm = setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function fillCategoryDropdown() {
+      const sel = document.getElementById('impCfgCategory');
+      if (!sel || sel.options.length > 0) return;
+      const opts = Object.entries(CATEGORIES).map(([k, v]) => `<option value="${k}">${v.name}</option>`);
+      opts.unshift('<option value="__random__">🎲 Zufällig</option>');
+      sel.innerHTML = opts.join('');
+    }
+
+    // ---- Lobby ----
+    async function imp_create() {
+      if (!window.FB) { showError('Firebase noch nicht geladen'); return; }
+      const name = (document.getElementById('impName').value.trim()) || ('Spieler ' + mySelfId.slice(2, 6));
+      setStoredName(name);
+      const codeIn = document.getElementById('impCreateCode').value.trim();
+      let code = codeIn ? validateCode(codeIn) : genCode();
+      if (codeIn && !code) { showError('Code: 3–6 Zeichen, nur A–Z und 0–9'); return; }
+      const { db, ref, get, set } = window.FB;
+      try {
+        const existing = await get(ref(db, 'sessions/' + code));
+        if (existing.exists()) {
+          const ex = existing.val();
+          const peerCount = Object.keys(ex.peers || {}).length;
+          if (peerCount === 0) {
+            await window.FB.remove(ref(db, 'sessions/' + code));
+          } else {
+            showError(`Code ${code} ist gerade aktiv (${peerCount} Spieler)`);
+            return;
+          }
+        }
+      } catch (e) { showError('Fehler beim Prüfen'); return; }
+
+      const initial = {
+        app: 'impostor',
+        host: mySelfId,
+        phase: 'lobby',
+        players: {
+          [mySelfId]: { name, joinedAt: Date.now(), seen: false, isImpostor: false, score: 0 }
+        },
+        seatOrder: [],
+        config: { impostors: 1, category: '__random__', impostorKnowsCategory: false, allowGuess: true },
+        roundNumber: 0,
+        category: null,
+        word: null,
+        currentSpeakerIdx: 0,
+        speakingRound: 0,    // how many full rotations completed
+        votes: null,
+        votedOut: null,       // id voted out
+        impostorIds: [],      // who is impostor this round
+        impostorGuess: null,   // guess string from impostor
+        roundOutcome: null,    // 'village' | 'impostors' | 'impostor_guessed'
+        createdAt: Date.now(),
+        started: false,
+        pendingAction: null,
+      };
+      try {
+        await set(ref(db, 'sessions/' + code), { state: initial, writerId: mySelfId });
+        myCode = code;
+        amHost = true;
+        await joinListeners(code, name);
+        switchToWaiting();
+      } catch (e) {
+        showError('Erstellen fehlgeschlagen: ' + (e.message || e));
+      }
+    }
+
+    async function imp_join() {
+      if (!window.FB) { showError('Firebase noch nicht geladen'); return; }
+      const name = (document.getElementById('impName').value.trim()) || ('Spieler ' + mySelfId.slice(2, 6));
+      setStoredName(name);
+      const code = validateCode(document.getElementById('impJoinCode').value);
+      if (!code) { showError('Code: 3–6 Zeichen'); return; }
+      const { db, ref, get, update } = window.FB;
+      try {
+        const snap = await get(ref(db, 'sessions/' + code));
+        if (!snap.exists()) { showError(`Session ${code} nicht gefunden`); return; }
+        const data = snap.val();
+        const peerCount = Object.keys(data.peers || {}).length;
+        if (peerCount === 0) {
+          await window.FB.remove(ref(db, 'sessions/' + code));
+          showError(`Session ${code} war abgelaufen — bitte neu erstellen`);
+          return;
+        }
+        if (data.state && data.state.app !== 'impostor') {
+          showError(`Code ${code} läuft in einer anderen App`);
+          return;
+        }
+        if (data.state && data.state.phase && data.state.phase !== 'lobby' && !(data.state.players && data.state.players[mySelfId])) {
+          showError('Runde läuft schon — kein Beitritt möglich');
+          return;
+        }
+        const players = (data.state && data.state.players) || {};
+        if (!players[mySelfId]) {
+          if (Object.keys(players).length >= MAX_PLAYERS) { showError('Session ist voll'); return; }
+          await update(ref(db, `sessions/${code}/state/players/${mySelfId}`), {
+            name, joinedAt: Date.now(), seen: false, isImpostor: false, score: 0,
+          });
+        } else {
+          await update(ref(db, `sessions/${code}/state/players/${mySelfId}`), { name });
+        }
+        myCode = code;
+        amHost = (data.state.host === mySelfId);
+        await joinListeners(code, name);
+        if (data.state.phase && data.state.phase !== 'lobby') switchToGame();
+        else switchToWaiting();
+      } catch (e) {
+        showError('Beitreten fehlgeschlagen: ' + (e.message || e));
+      }
+    }
+
+    async function joinListeners(code, name) {
+      const { db, ref, onValue, set, onDisconnect } = window.FB;
+      sessionRef = ref(db, 'sessions/' + code);
+      peerRef = ref(db, `sessions/${code}/peers/${mySelfId}`);
+      await set(peerRef, { name, lastSeen: Date.now() });
+      onDisconnect(peerRef).remove();
+
+      unsubSession = onValue(sessionRef, (snapshot) => {
+        if (!snapshot.exists()) { showError('Session beendet'); imp_leave(); return; }
+        const data = snapshot.val();
+        const newState = data.state || {};
+        newState.seatOrder = toArray(newState.seatOrder);
+        newState.impostorIds = toArray(newState.impostorIds);
+        newState.players = newState.players || {};
+        state = newState;
+        amHost = (state.host === mySelfId);
+        document.body.classList.toggle('mp-host', amHost);
+
+        if (state.phase && state.phase !== 'lobby' && inWaiting) switchToGame();
+        if (state.phase === 'lobby' && !inWaiting) switchToWaiting();
+
+        if (amHost && state.pendingAction) {
+          processPendingAction(state.pendingAction);
+          return;
+        }
+
+        // Auto-advance from wordReveal when all have seen
+        if (amHost && state.phase === 'wordReveal') {
+          const allSeen = Object.values(state.players).every(p => p.seen);
+          if (allSeen) {
+            setTimeout(() => { if (amHost && state.phase === 'wordReveal') startDiscussion(); }, 800);
+          }
+        }
+
+        renderAll();
+      });
+      inSession = true;
+    }
+
+    async function imp_leave() {
+      const { remove, update, get } = window.FB || {};
+      try { if (unsubSession) unsubSession(); } catch (e) {}
+      try {
+        if (peerRef && remove) await remove(peerRef);
+      } catch (e) {}
+      if (sessionRef && window.FB) {
+        try {
+          const snap = await get(sessionRef);
+          if (snap.exists()) {
+            const d = snap.val();
+            const remainingPeers = Object.keys(d.peers || {});
+            if (remainingPeers.length === 0) {
+              await remove(sessionRef);
+            } else {
+              await remove(window.FB.ref(window.FB.db, `sessions/${myCode}/state/players/${mySelfId}`));
+              if (amHost) {
+                await update(window.FB.ref(window.FB.db, `sessions/${myCode}/state`), { host: remainingPeers[0] });
+              }
+            }
+          }
+        } catch (e) {}
+      }
+      sessionRef = null; peerRef = null; unsubSession = null;
+      inSession = false; myCode = null; amHost = false;
+      switchToLobby();
+    }
+
+    // ---- View switching ----
+    function switchToLobby() {
+      document.getElementById('impLobby').style.display = '';
+      document.getElementById('impWaiting').style.display = 'none';
+      document.getElementById('impGame').style.display = 'none';
+      document.getElementById('impName').value = getStoredName();
+      inWaiting = false;
+      document.body.classList.add('in-multi-lobby');
+    }
+    function switchToWaiting() {
+      document.getElementById('impLobby').style.display = 'none';
+      document.getElementById('impWaiting').style.display = '';
+      document.getElementById('impGame').style.display = 'none';
+      inWaiting = true;
+      document.body.classList.remove('in-multi-lobby');
+      fillCategoryDropdown();
+      renderWaiting();
+    }
+    function switchToGame() {
+      document.getElementById('impLobby').style.display = 'none';
+      document.getElementById('impWaiting').style.display = 'none';
+      document.getElementById('impGame').style.display = '';
+      inWaiting = false;
+      document.body.classList.remove('in-multi-lobby');
+      // Reset card flip when entering new word reveal
+      const card = document.getElementById('impWordCard');
+      if (card && state.phase === 'wordReveal') card.classList.remove('flipped');
+      renderAll();
+    }
+
+    function imp_copyCode() {
+      if (!myCode) return;
+      try { navigator.clipboard.writeText(myCode); showToast('Code kopiert'); } catch (e) {}
+    }
+
+    // ---- Waiting room rendering ----
+    function renderWaiting() {
+      document.getElementById('impWaitCode').textContent = myCode || '—';
+      document.getElementById('impWaitCodeBig').textContent = myCode || '—';
+      const players = state.players || {};
+      const ids = Object.keys(players).sort((a, b) => (players[a].joinedAt || 0) - (players[b].joinedAt || 0));
+      document.getElementById('impWaitCount').textContent = `${ids.length}/${MAX_PLAYERS}`;
+      const html = ids.map(id => {
+        const p = players[id];
+        const isMe = id === mySelfId;
+        const isHost = id === state.host;
+        return `<div class="pm-waiting-player ${isMe ? 'me' : ''}">
+          <span>${escapeHtml(p.name)}${isMe ? ' (du)' : ''}</span>
+          ${isHost ? '<span style="margin-left:auto">👑</span>' : ''}
+        </div>`;
+      }).join('');
+      document.getElementById('impWaitPlayers').innerHTML = html;
+
+      const cfgSection = document.getElementById('impConfigSection');
+      if (amHost) {
+        cfgSection.style.display = '';
+        const cfg = state.config || { impostors: 1, category: '__random__', impostorKnowsCategory: false, allowGuess: true };
+        document.getElementById('impCfgCount').textContent = cfg.impostors;
+        const sel = document.getElementById('impCfgCategory');
+        if (sel.value !== cfg.category) sel.value = cfg.category;
+        document.getElementById('impCfgImpostorKnowsCat').checked = !!cfg.impostorKnowsCategory;
+        document.getElementById('impCfgGuessChance').checked = cfg.allowGuess !== false;
+      } else {
+        cfgSection.style.display = 'none';
+      }
+
+      const startBtn = document.getElementById('impStartBtn');
+      const hint = document.getElementById('impWaitHint');
+      if (amHost) {
+        startBtn.style.display = '';
+        const cfg = state.config || { impostors: 1 };
+        const valid = ids.length >= MIN_PLAYERS && ids.length > cfg.impostors;
+        startBtn.disabled = !valid;
+        hint.textContent = valid ? 'Du bist Host — du kannst starten' : `Min. ${MIN_PLAYERS} Spieler · mehr Spieler als Impostor`;
+      } else {
+        startBtn.style.display = 'none';
+        hint.textContent = 'Warte bis der Host startet...';
+      }
+    }
+
+    // ---- Host: config ----
+    async function imp_adjustImpostors(delta) {
+      if (!amHost) return;
+      const numPlayers = Object.keys(state.players || {}).length;
+      const maxImp = Math.max(1, Math.floor(numPlayers / 2));
+      const cfg = Object.assign({}, state.config || {});
+      cfg.impostors = Math.max(1, Math.min(maxImp, (cfg.impostors || 1) + delta));
+      await updateConfig(cfg);
+    }
+    async function imp_setCategory(cat) {
+      if (!amHost) return;
+      const cfg = Object.assign({}, state.config || {});
+      cfg.category = cat;
+      await updateConfig(cfg);
+    }
+    async function imp_setKnowsCat(v) {
+      if (!amHost) return;
+      const cfg = Object.assign({}, state.config || {});
+      cfg.impostorKnowsCategory = !!v;
+      await updateConfig(cfg);
+    }
+    async function imp_setGuessChance(v) {
+      if (!amHost) return;
+      const cfg = Object.assign({}, state.config || {});
+      cfg.allowGuess = !!v;
+      await updateConfig(cfg);
+    }
+    async function updateConfig(cfg) {
+      const { set, ref, db } = window.FB;
+      await set(ref(db, `sessions/${myCode}/state/config`), deepClean(cfg));
+    }
+
+    // ---- Host: start game ----
+    async function imp_startGame() {
+      if (!amHost) return;
+      const players = state.players || {};
+      const ids = Object.keys(players).sort((a, b) => (players[a].joinedAt || 0) - (players[b].joinedAt || 0));
+      if (ids.length < MIN_PLAYERS) { showError(`Min. ${MIN_PLAYERS} Spieler`); return; }
+      const cfg = state.config || { impostors: 1, category: '__random__' };
+      if (ids.length <= cfg.impostors) { showError('Zu viele Impostor für die Spielerzahl'); return; }
+
+      // Pick category
+      const catKey = cfg.category === '__random__' ? Object.keys(CATEGORIES)[Math.floor(Math.random() * Object.keys(CATEGORIES).length)] : cfg.category;
+      const cat = CATEGORIES[catKey];
+      if (!cat) { showError('Ungültige Kategorie'); return; }
+      const word = cat.words[Math.floor(Math.random() * cat.words.length)];
+
+      // Pick impostors
+      const shuffled = shuffle(ids);
+      const impostorIds = shuffled.slice(0, cfg.impostors);
+
+      // Reset seen flags for all players (keep scores)
+      const newPlayers = {};
+      for (const id of ids) {
+        newPlayers[id] = Object.assign({}, players[id], { seen: false, isImpostor: impostorIds.includes(id) });
+      }
+
+      const newState = Object.assign({}, state, {
+        phase: 'wordReveal',
+        started: true,
+        players: newPlayers,
+        seatOrder: shuffle(ids),
+        roundNumber: (state.roundNumber || 0) + 1,
+        category: catKey,
+        word,
+        impostorIds,
+        currentSpeakerIdx: 0,
+        speakingRound: 0,
+        votes: null,
+        votedOut: null,
+        impostorGuess: null,
+        roundOutcome: null,
+        pendingAction: null,
+      });
+      state = newState;
+      broadcast(newState);
+    }
+
+    function startDiscussion() {
+      if (!amHost) return;
+      state = Object.assign({}, state, {
+        phase: 'discussion',
+        currentSpeakerIdx: 0,
+        speakingRound: 0,
+        pendingAction: null,
+      });
+      broadcast(state);
+    }
+    function advanceSpeaker() {
+      if (!amHost) return;
+      const order = state.seatOrder || [];
+      let nextIdx = state.currentSpeakerIdx + 1;
+      let speakingRound = state.speakingRound || 0;
+      if (nextIdx >= order.length) {
+        nextIdx = 0;
+        speakingRound += 1;
+      }
+      state = Object.assign({}, state, { currentSpeakerIdx: nextIdx, speakingRound, pendingAction: null });
+      broadcast(state);
+    }
+    function startVote() {
+      if (!amHost) return;
+      state = Object.assign({}, state, { phase: 'vote', votes: {}, pendingAction: null });
+      broadcast(state);
+    }
+    function executeVote() {
+      if (!amHost) return;
+      const votes = state.votes || {};
+      const tally = {};
+      Object.values(votes).forEach(t => { if (t) tally[t] = (tally[t] || 0) + 1; });
+      let maxV = 0, cand = [];
+      for (const id in tally) {
+        if (tally[id] > maxV) { maxV = tally[id]; cand = [id]; }
+        else if (tally[id] === maxV) cand.push(id);
+      }
+      const votedOut = (cand.length === 1 && maxV > 0) ? cand[0] : null;
+      const cfg = state.config || {};
+      const wasImpostor = votedOut && state.impostorIds.includes(votedOut);
+      // If voted out is impostor AND allowGuess: go to impostorGuess phase
+      // Otherwise: resolve outcome
+      if (votedOut && wasImpostor && cfg.allowGuess) {
+        state = Object.assign({}, state, {
+          phase: 'impostorGuess',
+          votedOut,
+          pendingAction: null,
+        });
+        broadcast(state);
+        return;
+      }
+      // Resolve directly
+      const outcome = resolveOutcome(votedOut, null);
+      applyOutcome(votedOut, null, outcome);
+    }
+    function resolveOutcome(votedOut, guess) {
+      // village wins iff a single impostor was voted out (and didn't successfully guess word)
+      const wasImpostor = votedOut && state.impostorIds.includes(votedOut);
+      if (guess !== null) {
+        // Impostor was caught and tried to guess
+        const correct = normalizeWord(guess) === normalizeWord(state.word);
+        return correct ? 'impostor_guessed' : 'village';
+      }
+      if (wasImpostor) return 'village';
+      return 'impostors';
+    }
+    function applyOutcome(votedOut, guess, outcome) {
+      const newPlayers = JSON.parse(JSON.stringify(state.players));
+      // Scoring: village win → +1 each non-impostor; impostors win → +2 each impostor
+      const villageIds = Object.keys(newPlayers).filter(id => !state.impostorIds.includes(id));
+      const impIds = state.impostorIds;
+      if (outcome === 'village') {
+        villageIds.forEach(id => { newPlayers[id].score = (newPlayers[id].score || 0) + 1; });
+      } else {
+        impIds.forEach(id => { if (newPlayers[id]) newPlayers[id].score = (newPlayers[id].score || 0) + 2; });
+      }
+      state = Object.assign({}, state, {
+        phase: 'gameOver',
+        players: newPlayers,
+        votedOut,
+        impostorGuess: guess,
+        roundOutcome: outcome,
+        pendingAction: null,
+      });
+      broadcast(state);
+    }
+
+    // ---- Pending action ----
+    function processPendingAction(action) {
+      if (!amHost || !action) return;
+      console.log('[IMP] action', action, 'phase:', state.phase);
+      const me = state.players[action.by];
+      if (!me) { clearPendingAction(); return; }
+      const { type } = action;
+
+      if (type === 'next_speaker' && state.phase === 'discussion' && action.by === state.host) {
+        advanceSpeaker();
+        return;
+      }
+      if (type === 'start_vote' && state.phase === 'discussion' && action.by === state.host) {
+        startVote();
+        return;
+      }
+      if (type === 'vote' && state.phase === 'vote') {
+        const votes = Object.assign({}, state.votes || {});
+        votes[action.by] = action.target || null;
+        const ids = Object.keys(state.players);
+        const allVoted = ids.every(id => votes[id] !== undefined);
+        state = Object.assign({}, state, { votes, pendingAction: null });
+        broadcast(state);
+        if (allVoted) {
+          setTimeout(() => { if (amHost && state.phase === 'vote') executeVote(); }, 1000);
+        }
+        return;
+      }
+      if (type === 'impostor_guess' && state.phase === 'impostorGuess') {
+        // Only impostor can guess (or any impostor if multiple — first one wins)
+        if (!state.impostorIds.includes(action.by)) { clearPendingAction(); return; }
+        const guess = String(action.guess || '');
+        const outcome = resolveOutcome(state.votedOut, guess);
+        applyOutcome(state.votedOut, guess, outcome);
+        return;
+      }
+      if (type === 'next_round' && state.phase === 'gameOver' && action.by === state.host) {
+        // Start a new round with same players, fresh roles
+        startNewRound();
+        return;
+      }
+      clearPendingAction();
+    }
+    function clearPendingAction() {
+      const { set, ref, db } = window.FB || {};
+      if (set && myCode) set(ref(db, `sessions/${myCode}/state/pendingAction`), null);
+    }
+
+    async function startNewRound() {
+      if (!amHost) return;
+      const players = state.players || {};
+      const ids = Object.keys(players);
+      if (ids.length < MIN_PLAYERS) { showError(`Min. ${MIN_PLAYERS} Spieler`); return; }
+      const cfg = state.config || { impostors: 1, category: '__random__' };
+      const catKey = cfg.category === '__random__' ? Object.keys(CATEGORIES)[Math.floor(Math.random() * Object.keys(CATEGORIES).length)] : cfg.category;
+      const cat = CATEGORIES[catKey];
+      const word = cat.words[Math.floor(Math.random() * cat.words.length)];
+      const shuffled = shuffle(ids);
+      const impostorIds = shuffled.slice(0, cfg.impostors);
+      const newPlayers = {};
+      for (const id of ids) {
+        newPlayers[id] = Object.assign({}, players[id], { seen: false, isImpostor: impostorIds.includes(id) });
+      }
+      state = Object.assign({}, state, {
+        phase: 'wordReveal',
+        players: newPlayers,
+        seatOrder: shuffle(ids),
+        roundNumber: (state.roundNumber || 0) + 1,
+        category: catKey,
+        word,
+        impostorIds,
+        currentSpeakerIdx: 0,
+        speakingRound: 0,
+        votes: null,
+        votedOut: null,
+        impostorGuess: null,
+        roundOutcome: null,
+        pendingAction: null,
+      });
+      broadcast(state);
+    }
+
+    async function broadcast(newState) {
+      if (!sessionRef || !window.FB) return;
+      if (newState.pendingAction === undefined) newState.pendingAction = null;
+      state = newState;
+      const { set, ref, db } = window.FB;
+      try {
+        await set(ref(db, `sessions/${myCode}/state`), deepClean(newState));
+      } catch (e) { console.error('[IMP] broadcast failed:', e); }
+    }
+
+    async function sendAction(payload) {
+      if (!sessionRef || !window.FB) return;
+      const { set, ref, db } = window.FB;
+      await set(ref(db, `sessions/${myCode}/state/pendingAction`), Object.assign({ by: mySelfId, ts: Date.now() }, payload));
+    }
+
+    // ---- Player actions ----
+    function imp_flipCard() {
+      const card = document.getElementById('impWordCard');
+      if (!card) return;
+      card.classList.add('flipped');
+      setTimeout(() => {
+        const { update, ref, db } = window.FB || {};
+        if (update && myCode && mySelfId) {
+          update(ref(db, `sessions/${myCode}/state/players/${mySelfId}`), { seen: true }).catch(() => {});
+        }
+      }, 600);
+    }
+    function imp_nextSpeaker() { sendAction({ type: 'next_speaker' }); }
+    function imp_startVote() { sendAction({ type: 'start_vote' }); }
+    function imp_vote(targetId) { sendAction({ type: 'vote', target: targetId }); }
+    function imp_submitGuess() {
+      const inp = document.getElementById('impGuessInput');
+      const guess = inp ? inp.value.trim() : '';
+      if (!guess) { showToast('Bitte ein Wort eingeben'); return; }
+      sendAction({ type: 'impostor_guess', guess });
+    }
+    function imp_nextRound() { sendAction({ type: 'next_round' }); }
+
+    // ---- Rendering ----
+    function renderAll() {
+      if (inWaiting) { renderWaiting(); return; }
+      if (!inSession) return;
+      document.getElementById('impTopCode').textContent = myCode || '—';
+      document.getElementById('impTopPhase').textContent = phaseLabel();
+      renderWordReveal();
+      renderPlayersGrid();
+      renderPhaseInfo();
+      renderActionArea();
+    }
+    function phaseLabel() {
+      if (state.phase === 'wordReveal') return `Runde ${state.roundNumber || 1}`;
+      if (state.phase === 'discussion') return `Runde ${state.roundNumber || 1} · Hinweise`;
+      if (state.phase === 'vote') return `Runde ${state.roundNumber || 1} · Vote`;
+      if (state.phase === 'impostorGuess') return 'Rate-Chance';
+      if (state.phase === 'gameOver') return 'Auswertung';
+      return '—';
+    }
+    function renderWordReveal() {
+      const wrap = document.getElementById('impWordReveal');
+      if (state.phase !== 'wordReveal') { wrap.style.display = 'none'; return; }
+      wrap.style.display = '';
+      const me = state.players[mySelfId];
+      if (!me) return;
+      const cat = CATEGORIES[state.category];
+      const front = document.getElementById('impWordCardFront');
+      if (me.isImpostor) {
+        front.classList.add('is-impostor');
+        document.getElementById('impWordCat').textContent = (state.config && state.config.impostorKnowsCategory && cat) ? cat.name : 'GEHEIM';
+        document.getElementById('impWordMain').textContent = '🕵️ DU BIST IMPOSTOR';
+        document.getElementById('impWordTeam').textContent = (state.config && state.config.impostorKnowsCategory) ? 'Errate das Wort, bluffe weiter!' : 'Bluffe — du kennst das Wort nicht!';
+      } else {
+        front.classList.remove('is-impostor');
+        document.getElementById('impWordCat').textContent = cat ? cat.name : '—';
+        document.getElementById('impWordMain').textContent = state.word || '—';
+        document.getElementById('impWordTeam').textContent = 'Team: Crew · Finde den Impostor';
+      }
+      const seen = Object.values(state.players).filter(p => p.seen).length;
+      const total = Object.keys(state.players).length;
+      document.getElementById('impWordStatus').textContent = `${seen} / ${total} bereit`;
+    }
+    function renderPlayersGrid() {
+      const wrap = document.getElementById('impPlayersGrid');
+      if (state.phase === 'lobby' || state.phase === 'wordReveal') { wrap.innerHTML = ''; return; }
+      const order = state.seatOrder.length > 0 ? state.seatOrder : Object.keys(state.players);
+      const votes = state.votes || {};
+      const tally = {};
+      if (state.phase === 'vote') {
+        Object.values(votes).forEach(t => { if (t) tally[t] = (tally[t] || 0) + 1; });
+      }
+      const currentSpeakerId = state.phase === 'discussion' && state.seatOrder
+        ? state.seatOrder[state.currentSpeakerIdx % state.seatOrder.length]
+        : null;
+      const showImpostors = state.phase === 'gameOver';
+      const html = order.map(id => {
+        const p = state.players[id];
+        if (!p) return '';
+        const isMe = id === mySelfId;
+        const isHost = id === state.host;
+        const isSpeaker = id === currentSpeakerId;
+        const voteCount = tally[id] || 0;
+        const isImp = state.impostorIds && state.impostorIds.includes(id);
+        return `<div class="imp-player-tile ${isMe ? 'me' : ''} ${isSpeaker ? 'current-speaker' : ''} ${voteCount > 0 ? 'voted' : ''} ${showImpostors && isImp ? 'revealed-impostor' : ''}" data-votes="${voteCount}">
+          ${isHost ? '<span class="imp-player-host-badge">👑</span>' : ''}
+          ${showImpostors && isImp ? '<span class="imp-player-impostor-badge">🕵️</span>' : ''}
+          <div class="imp-player-name">${escapeHtml(p.name)}${isMe ? ' (du)' : ''}</div>
+          <div class="imp-player-score">${p.score || 0}</div>
+        </div>`;
+      }).join('');
+      wrap.innerHTML = html;
+    }
+    function renderPhaseInfo() {
+      const nameEl = document.getElementById('impPhaseName');
+      const descEl = document.getElementById('impPhaseDesc');
+      let name = '', desc = '';
+      if (state.phase === 'wordReveal') {
+        name = '🃏 Karten aufdecken';
+        desc = 'Schaue dir dein Wort an — niemandem zeigen!';
+      } else if (state.phase === 'discussion') {
+        name = '💬 Hinweis-Runde ' + ((state.speakingRound || 0) + 1);
+        desc = 'Nenne ein Stichwort zum Wort — vage genug für den Impostor, präzise genug fürs Team.';
+      } else if (state.phase === 'vote') {
+        name = '🗳️ Abstimmung';
+        desc = 'Wer ist der Impostor?';
+      } else if (state.phase === 'impostorGuess') {
+        name = '🎯 Rate-Chance';
+        desc = 'Der Impostor wurde enttarnt — hat aber eine letzte Chance.';
+      } else if (state.phase === 'gameOver') {
+        name = '🏁 Runden-Ende';
+        desc = '';
+      }
+      nameEl.textContent = name;
+      descEl.textContent = desc;
+    }
+    function renderActionArea() {
+      const wrap = document.getElementById('impActionArea');
+      if (state.phase === 'wordReveal') { wrap.innerHTML = ''; return; }
+      const me = state.players[mySelfId];
+      if (!me) { wrap.innerHTML = ''; return; }
+      if (state.phase === 'discussion') wrap.innerHTML = renderDiscussion(me);
+      else if (state.phase === 'vote') wrap.innerHTML = renderVote(me);
+      else if (state.phase === 'impostorGuess') wrap.innerHTML = renderImpostorGuess(me);
+      else if (state.phase === 'gameOver') wrap.innerHTML = renderGameOver();
+      else wrap.innerHTML = '';
+    }
+    function renderDiscussion(me) {
+      const order = state.seatOrder || [];
+      const speakerId = order[state.currentSpeakerIdx % order.length];
+      const speaker = state.players[speakerId];
+      const round = (state.speakingRound || 0) + 1;
+      const isHost = mySelfId === state.host;
+      const isMySpeak = speakerId === mySelfId;
+
+      const speakerBox = `<div class="imp-current-speaker-box">
+        <div class="imp-current-speaker-label">Aktuell am Zug</div>
+        <div class="imp-current-speaker-name">${escapeHtml(speaker ? speaker.name : '—')}${isMySpeak ? ' (du!)' : ''}</div>
+        <div class="imp-current-speaker-label" style="margin-top:0.4rem">Runde ${round}</div>
+      </div>`;
+
+      let controls = '';
+      if (isHost) {
+        controls = `<button class="imp-action-btn" onclick="imp_nextSpeaker()">${isMySpeak ? 'FERTIG — NÄCHSTER' : 'NÄCHSTER SPIELER'}</button>
+          <button class="imp-action-btn danger" onclick="imp_startVote()" style="margin-top:0.5rem">ABSTIMMUNG STARTEN</button>`;
+      } else {
+        controls = `<div class="imp-action-wait" style="margin-top:0.5rem">Host steuert den Reihum-Wechsel</div>`;
+      }
+      return speakerBox + controls;
+    }
+    function renderVote(me) {
+      const votes = state.votes || {};
+      const myVote = votes[mySelfId];
+      if (myVote !== undefined) {
+        const target = state.players[myVote];
+        const voted = Object.keys(votes).length;
+        const total = Object.keys(state.players).length;
+        return `<div class="imp-reveal-box">Du hast gegen <b>${target ? escapeHtml(target.name) : '—'}</b> gestimmt.</div>
+          <div class="imp-action-prompt">Warte bis alle abgestimmt haben (${voted}/${total})</div>`;
+      }
+      const targets = (state.seatOrder || []).filter(id => id !== mySelfId && state.players[id]);
+      const list = targets.map(id =>
+        `<button class="imp-action-btn secondary" onclick="imp_vote('${id}')">${escapeHtml(state.players[id].name)}</button>`
+      ).join('');
+      return `<div class="imp-action-prompt">🗳️ Wen verdächtigst du?</div>${list}`;
+    }
+    function renderImpostorGuess(me) {
+      const isImp = state.impostorIds.includes(mySelfId);
+      const votedOut = state.players[state.votedOut];
+      if (!isImp) {
+        return `<div class="imp-reveal-box impostor">🕵️ <b>${votedOut ? escapeHtml(votedOut.name) : '—'}</b> wurde enttarnt und ist Impostor!</div>
+          <div class="imp-action-wait"><div class="imp-action-wait-icon">🎯</div>Der Impostor hat noch eine Rate-Chance...</div>`;
+      }
+      // I am the (or an) impostor — show guess UI
+      const isMeVotedOut = state.votedOut === mySelfId;
+      if (!isMeVotedOut) {
+        return `<div class="imp-reveal-box impostor">Dein Mit-Impostor <b>${votedOut ? escapeHtml(votedOut.name) : '—'}</b> wurde enttarnt.</div>
+          <div class="imp-action-wait">Warte auf ${votedOut ? escapeHtml(votedOut.name) : 'den Impostor'}'s Rateversuch...</div>`;
+      }
+      const cat = CATEGORIES[state.category];
+      return `<div class="imp-reveal-box impostor">🕵️ Du wurdest enttarnt — aber wenn du jetzt das geheime Wort errätst, gewinnst du trotzdem!</div>
+        <div class="imp-action-prompt">Kategorie: <b>${cat ? cat.name : '—'}</b></div>
+        <input type="text" class="imp-guess-input" id="impGuessInput" placeholder="Dein Tipp..." autocomplete="off">
+        <button class="imp-action-btn success" onclick="imp_submitGuess()">RATEN!</button>`;
+    }
+    function renderGameOver() {
+      const outcome = state.roundOutcome;
+      const cat = CATEGORIES[state.category];
+      const votedOut = state.players[state.votedOut];
+      const impNames = (state.impostorIds || []).map(id => state.players[id] ? state.players[id].name : '?').join(', ');
+      let titleText, boxClass, boxBody;
+      if (outcome === 'village') {
+        titleText = '🎉 Crew gewinnt!';
+        boxClass = 'village';
+        boxBody = `Der Impostor wurde enttarnt.`;
+      } else if (outcome === 'impostor_guessed') {
+        titleText = '🕵️ Impostor gewinnt — durch Raten!';
+        boxClass = 'impostor';
+        boxBody = `Der Impostor hat das Wort erraten: "${escapeHtml(state.impostorGuess || '')}"`;
+      } else {
+        titleText = '🕵️ Impostor gewinnt!';
+        boxClass = 'impostor';
+        boxBody = votedOut ? `Ihr habt <b>${escapeHtml(votedOut.name)}</b> verdächtigt — aber das war ein Crew-Mitglied.` : 'Keine Mehrheit — der Impostor bleibt unentdeckt.';
+      }
+      const scoresHtml = Object.entries(state.players)
+        .sort(([,a],[,b]) => (b.score || 0) - (a.score || 0))
+        .map(([id, p]) => `<div class="imp-scoreboard-row"><span>${escapeHtml(p.name)}${state.impostorIds.includes(id) ? ' 🕵️' : ''}</span><span>${p.score || 0}</span></div>`)
+        .join('');
+      const restartBtn = (mySelfId === state.host)
+        ? `<button class="imp-action-btn" onclick="imp_nextRound()">NÄCHSTE RUNDE</button>`
+        : `<div style="font-family:Outfit,sans-serif;font-size:0.85rem;color:rgba(245,230,211,0.65);margin-top:0.6rem">Warte auf den Host für die nächste Runde...</div>`;
+      return `<div class="imp-gameover">
+        <div class="imp-gameover-title">${titleText}</div>
+        <div class="imp-gameover-word">Wort war: <b>${escapeHtml(state.word || '—')}</b> · ${cat ? cat.name : ''}</div>
+        <div class="imp-gameover-impostors">Impostor${state.impostorIds.length > 1 ? 'en' : ''}: ${escapeHtml(impNames)}</div>
+        <div class="imp-reveal-box ${boxClass}">${boxBody}</div>
+        <div class="imp-scoreboard">
+          <div class="imp-scoreboard-title">Punktestand</div>
+          ${scoresHtml}
+        </div>
+        ${restartBtn}
+      </div>`;
+    }
+
+    // ---- Settings ----
+    function imp_openSettings() {
+      document.getElementById('impResetBtn').style.display = amHost ? '' : 'none';
+      document.getElementById('impHostOnlyLabel').style.display = amHost ? '' : 'none';
+      document.getElementById('impSettingsModal').classList.add('active');
+    }
+    function imp_closeSettings() { document.getElementById('impSettingsModal').classList.remove('active'); }
+    function imp_openSettingsWait() { document.getElementById('impSettingsWaitModal').classList.add('active'); }
+    function imp_closeSettingsWait() { document.getElementById('impSettingsWaitModal').classList.remove('active'); }
+
+    async function imp_resetGame() {
+      if (!amHost) return;
+      if (!confirm('Zurück zur Lobby? Punkte werden zurückgesetzt.')) return;
+      const newPlayers = {};
+      for (const id of Object.keys(state.players)) {
+        newPlayers[id] = Object.assign({}, state.players[id], { seen: false, isImpostor: false, score: 0 });
+      }
+      state = Object.assign({}, state, {
+        phase: 'lobby',
+        started: false,
+        players: newPlayers,
+        seatOrder: [],
+        roundNumber: 0,
+        category: null,
+        word: null,
+        impostorIds: [],
+        currentSpeakerIdx: 0,
+        speakingRound: 0,
+        votes: null,
+        votedOut: null,
+        impostorGuess: null,
+        roundOutcome: null,
+        pendingAction: null,
+      });
+      broadcast(state);
+      imp_closeSettings();
+    }
+
+    // ---- Init ----
+    function imp_init() {
+      document.getElementById('impName').value = getStoredName();
+      fillCategoryDropdown();
+      if (!inSession) switchToLobby();
+    }
+    const origSwitch = window.switchApp;
+    window.switchApp = function(name) {
+      const r = origSwitch(name);
+      if (name === 'impostor') imp_init();
+      return r;
+    };
+    document.addEventListener('DOMContentLoaded', () => {
+      if (document.getElementById('appImpostor') && document.getElementById('appImpostor').classList.contains('visible')) imp_init();
+    });
+
+    // Expose
+    window.imp_create = imp_create;
+    window.imp_join = imp_join;
+    window.imp_leave = imp_leave;
+    window.imp_startGame = imp_startGame;
+    window.imp_copyCode = imp_copyCode;
+    window.imp_adjustImpostors = imp_adjustImpostors;
+    window.imp_setCategory = imp_setCategory;
+    window.imp_setKnowsCat = imp_setKnowsCat;
+    window.imp_setGuessChance = imp_setGuessChance;
+    window.imp_flipCard = imp_flipCard;
+    window.imp_nextSpeaker = imp_nextSpeaker;
+    window.imp_startVote = imp_startVote;
+    window.imp_vote = imp_vote;
+    window.imp_submitGuess = imp_submitGuess;
+    window.imp_nextRound = imp_nextRound;
+    window.imp_openSettings = imp_openSettings;
+    window.imp_closeSettings = imp_closeSettings;
+    window.imp_openSettingsWait = imp_openSettingsWait;
+    window.imp_closeSettingsWait = imp_closeSettingsWait;
+    window.imp_resetGame = imp_resetGame;
+  })();
+
+
 
 </script>
 
