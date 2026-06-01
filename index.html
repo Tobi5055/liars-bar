@@ -6034,10 +6034,18 @@
 
   function toggleAdminMode() {
     ADMIN.active = !ADMIN.active;
-    const btn = document.getElementById('adminToggleBtn');
-    if (btn) btn.style.display = ADMIN.active ? 'flex' : 'none';
     document.body.classList.toggle('admin-active', ADMIN.active);
+    updateAdminButtonVisibility();
     showAdminToast(ADMIN.active ? '🔧 ADMIN AKTIV' : '🔒 ADMIN AUS');
+  }
+
+  // Show admin button only when current app has admin support (liarsbar, alki)
+  function updateAdminButtonVisibility() {
+    const btn = document.getElementById('adminToggleBtn');
+    if (!btn) return;
+    const app = getCurrentAdminApp();
+    const hasPanel = app && window.adminAPI[app];
+    btn.style.display = (ADMIN.active && hasPanel) ? 'flex' : 'none';
   }
 
   function showAdminToast(msg) {
@@ -6682,6 +6690,9 @@
     // Set body class for multi-apps so we can hide the fixed burger
     const isMulti = (name === 'liarsbarMulti' || name === 'alkiMulti' || name === 'pokerMulti');
     document.body.classList.toggle('in-multi-app', isMulti);
+
+    // Update admin button visibility (only show in apps with admin panel support)
+    if (typeof updateAdminButtonVisibility === 'function') updateAdminButtonVisibility();
 
     // Update tab title and favicon
     const meta = APP_META[name];
