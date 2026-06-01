@@ -1959,6 +1959,91 @@
     display: none;
   }
   body.admin-active .pm-debug { display: block; }
+
+  /* Poker Admin Modal */
+  .pm-admin-modal {
+    max-width: 480px;
+    border-color: rgba(255,165,50,0.5);
+  }
+  .pm-admin-section {
+    margin-bottom: 1.2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba(216,224,240,0.1);
+  }
+  .pm-admin-section:last-of-type { border-bottom: none; }
+  .pm-admin-toggle {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.6rem;
+    padding: 0.6rem 0;
+    cursor: pointer;
+    font-family: 'Outfit', sans-serif;
+    color: #d8e8d0;
+    font-size: 0.9rem;
+  }
+  .pm-admin-toggle input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    margin-top: 2px;
+    accent-color: #4ade80;
+  }
+  .pm-admin-players {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+  .pm-admin-player {
+    display: grid;
+    grid-template-columns: 1fr auto auto;
+    gap: 0.5rem;
+    align-items: center;
+    background: rgba(0,0,0,0.3);
+    border: 1px solid rgba(34,197,94,0.2);
+    border-radius: 6px;
+    padding: 0.55rem 0.7rem;
+    font-family: 'Outfit', sans-serif;
+    color: #d8e8d0;
+    font-size: 0.88rem;
+  }
+  .pm-admin-player.out { opacity: 0.7; border-color: rgba(239,68,68,0.3); }
+  .pm-admin-player-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.1rem;
+  }
+  .pm-admin-player-name { font-weight: 600; }
+  .pm-admin-player-stack {
+    font-size: 0.78rem;
+    color: rgba(216,232,208,0.65);
+    font-family: 'Bebas Neue', sans-serif;
+    letter-spacing: 0.05em;
+  }
+  .pm-admin-player-stack.out { color: #ff8888; }
+  .pm-admin-rebuy-btn {
+    background: linear-gradient(135deg, #16a34a, #4ade80);
+    border: none;
+    color: white;
+    padding: 0.4rem 0.7rem;
+    border-radius: 5px;
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 600;
+    cursor: pointer;
+    letter-spacing: 0.05em;
+  }
+  .pm-admin-rebuy-btn:hover { filter: brightness(1.1); }
+  .pm-admin-rebuy-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+  .pm-admin-kick-btn {
+    background: rgba(239,68,68,0.15);
+    border: 1px solid rgba(239,68,68,0.4);
+    color: #ff8888;
+    padding: 0.4rem 0.55rem;
+    border-radius: 5px;
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.78rem;
+    cursor: pointer;
+  }
+  .pm-admin-kick-btn:hover { background: rgba(239,68,68,0.25); }
   .pm-debug summary {
     font-family: 'Outfit', sans-serif;
     font-size: 0.7rem;
@@ -5542,7 +5627,7 @@
 <div class="app app-multi app-liarsbar-multi" id="appLiarsbarMulti">
   <!-- LOBBY -->
   <div class="multi-lobby" id="lbmLobby">
-    <div class="multi-lobby-title">
+    <div class="multi-lobby-title" onclick="handleAdminTitleClick()" style="cursor:pointer">
       <span class="multi-lobby-emoji">🎰</span>
       <span>Liar's Bar</span>
       <span class="multi-tag">MULTI</span>
@@ -5581,7 +5666,7 @@
         <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
       </button>
       <div class="multi-topbar-mid">
-        <div class="multi-topbar-code" id="lbmTopCode">—</div>
+        <div class="multi-topbar-code" id="lbmTopCode" onclick="handleAdminTitleClick()" style="cursor:pointer">—</div>
         <div class="multi-topbar-peers" id="lbmTopPeers">0/8</div>
       </div>
       <button class="multi-topbar-btn multi-settings-btn" id="lbmSettingsBtn" onclick="lbm_openSettings()" title="Einstellungen">⚙</button>
@@ -5676,7 +5761,7 @@
 <div class="app app-multi app-alki-multi" id="appAlkiMulti">
   <!-- LOBBY -->
   <div class="multi-lobby alki-lobby" id="amLobby">
-    <div class="multi-lobby-title">
+    <div class="multi-lobby-title" onclick="handleAdminTitleClick()" style="cursor:pointer">
       <span class="multi-lobby-emoji">🥃</span>
       <span>Alki Edition</span>
       <span class="multi-tag">MULTI</span>
@@ -5715,7 +5800,7 @@
         <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
       </button>
       <div class="multi-topbar-mid">
-        <div class="multi-topbar-code" id="amTopCode">—</div>
+        <div class="multi-topbar-code" id="amTopCode" onclick="handleAdminTitleClick()" style="cursor:pointer">—</div>
         <div class="multi-topbar-peers" id="amTopPeers">0/8</div>
       </div>
       <button class="multi-topbar-btn multi-settings-btn" id="amSettingsBtn" onclick="am_openSettings()" title="Einstellungen">⚙</button>
@@ -5817,7 +5902,7 @@
 <div class="app app-multi app-poker-multi" id="appPokerMulti">
   <!-- LOBBY -->
   <div class="multi-lobby poker-lobby" id="pmLobby">
-    <div class="multi-lobby-title">
+    <div class="multi-lobby-title" onclick="handleAdminTitleClick()" style="cursor:pointer">
       <span class="multi-lobby-emoji">♠️</span>
       <span>Poker</span>
       <span class="multi-tag">MULTI</span>
@@ -5855,7 +5940,7 @@
         <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
       </button>
       <div class="multi-topbar-mid">
-        <div class="multi-topbar-code" id="pmWaitCode">—</div>
+        <div class="multi-topbar-code" id="pmWaitCode" onclick="handleAdminTitleClick()" style="cursor:pointer">—</div>
         <div class="multi-topbar-peers">WARTEZIMMER</div>
       </div>
       <button class="multi-topbar-btn multi-settings-btn" onclick="pm_openSettingsWait()" title="Einstellungen">⚙</button>
@@ -5990,6 +6075,38 @@
         <button class="multi-modal-close" onclick="pm_closeSettings()">FERTIG</button>
       </div>
     </div>
+
+    <!-- Admin Panel (host only, ADMIN mode) -->
+    <div class="multi-modal-bd pm-admin-modal-bd" id="pmAdminModal" onclick="if(event.target===this) pm_closeAdmin()">
+      <div class="multi-modal pm-admin-modal">
+        <div class="multi-modal-title">🔧 ADMIN — POKER</div>
+
+        <div class="pm-admin-section">
+          <div class="multi-settings-label">REGELN</div>
+          <label class="pm-admin-toggle">
+            <input type="checkbox" id="pmAdminLateJoin" onchange="pm_setLateJoin(this.checked)">
+            <span>Late Join erlauben (nächste Hand mit 1000 Chips)</span>
+          </label>
+          <label class="pm-admin-toggle">
+            <input type="checkbox" id="pmAdminRebuy" onchange="pm_setRebuyAllowed(this.checked)">
+            <span>Re-Buys erlauben (pleite Spieler können wieder rein)</span>
+          </label>
+        </div>
+
+        <div class="pm-admin-section">
+          <div class="multi-settings-label">SPIELER</div>
+          <div id="pmAdminPlayers" class="pm-admin-players">—</div>
+        </div>
+
+        <div class="pm-admin-section">
+          <div class="multi-settings-label">SPIEL-KONTROLLE</div>
+          <button class="multi-settings-btn-full" onclick="pm_forceNextHand()">Nächste Hand erzwingen</button>
+          <button class="multi-settings-btn-full multi-danger" onclick="pm_resetGame()">Komplett zurücksetzen (alle = 1000)</button>
+        </div>
+
+        <button class="multi-modal-close" onclick="pm_closeAdmin()">SCHLIESSEN</button>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -6018,6 +6135,7 @@
   function getCurrentAdminApp() {
     if (document.querySelector('.app-liarsbar.visible')) return 'liarsbar';
     if (document.querySelector('.app-alki.visible')) return 'alki';
+    if (document.querySelector('.app-poker-multi.visible')) return 'pokerMulti';
     return null;
   }
 
@@ -6039,12 +6157,12 @@
     showAdminToast(ADMIN.active ? '🔧 ADMIN AKTIV' : '🔒 ADMIN AUS');
   }
 
-  // Show admin button only when current app has admin support (liarsbar, alki)
+  // Show admin button only when current app has admin support
   function updateAdminButtonVisibility() {
     const btn = document.getElementById('adminToggleBtn');
     if (!btn) return;
     const app = getCurrentAdminApp();
-    const hasPanel = app && window.adminAPI[app];
+    const hasPanel = app && (window.adminAPI[app] || app === 'pokerMulti');
     btn.style.display = (ADMIN.active && hasPanel) ? 'flex' : 'none';
   }
 
@@ -6059,6 +6177,10 @@
 
   function openAdminPanel() {
     const app = getCurrentAdminApp();
+    if (app === 'pokerMulti' && typeof window.pm_openAdmin === 'function') {
+      window.pm_openAdmin();
+      return;
+    }
     if (!app || !window.adminAPI[app]) {
       showAdminToast('App nicht unterstützt');
       return;
@@ -10261,12 +10383,28 @@ nextRound();
         }
         if (data.state && data.state.started) {
           // Returning player check
-          if (!data.state.players || !data.state.players[mySelfId]) {
-            showError('Spiel läuft schon — kein Late Join möglich');
+          if (data.state.players && data.state.players[mySelfId]) {
+            // I'm a returning player → reconnect, update name, clear sittingOut if I was just temporarily away
+            await update(ref(db, `sessions/${code}/state/players/${mySelfId}`), { name });
+          } else if (data.state.lateJoinEnabled) {
+            // Late join allowed by host → add as sitting-out player, will join next hand
+            await update(ref(db, `sessions/${code}/state/players/${mySelfId}`), {
+              name,
+              stack: STARTING_STACK,
+              bet: 0,
+              roundBet: 0,
+              cards: [],
+              folded: true,    // sit out current hand
+              allIn: false,
+              joinedAt: Date.now(),
+              lastAction: 'WAIT',
+              sittingOut: true, // will be cleared on next hand start
+              pendingJoin: true, // flag for host to add to seatOrder
+            });
+          } else {
+            showError('Spiel läuft schon — Late Join nicht erlaubt');
             return;
           }
-          // I'm a returning player → just reconnect, update name
-          await update(ref(db, `sessions/${code}/state/players/${mySelfId}`), { name });
         } else {
           // Lobby: add as new player
           const players = (data.state && data.state.players) || {};
@@ -10505,6 +10643,22 @@ nextRound();
 
     function startNextHand() {
       if (!amHost) return;
+
+      // Process pending late joins → add to seatOrder
+      const currentSeatOrder = (state.seatOrder || []).slice();
+      const allPlayerIds = Object.keys(state.players || {});
+      for (const pid of allPlayerIds) {
+        const p = state.players[pid];
+        if (p && p.pendingJoin && !currentSeatOrder.includes(pid)) {
+          currentSeatOrder.push(pid);
+          state.players[pid].pendingJoin = false;
+          state.players[pid].sittingOut = false;
+          state.players[pid].folded = false;
+          state.players[pid].stack = STARTING_STACK;
+        }
+      }
+      state.seatOrder = currentSeatOrder;
+
       // Check who's still in (stack > 0 and not sittingOut)
       const playable = state.seatOrder.filter(id => {
         const p = state.players[id];
@@ -11066,6 +11220,117 @@ nextRound();
       if (handoverTimer) { clearTimeout(handoverTimer); handoverTimer = null; }
       startNextHand();
       pm_closeSettings();
+      pm_closeAdmin();
+    }
+
+    // ---- Admin (host-only controls) ----
+    function pm_openAdmin() {
+      if (!inSession) { return; }
+      if (!amHost) { showToast('Nur Host'); return; }
+      renderAdminPanel();
+      document.getElementById('pmAdminModal').classList.add('active');
+    }
+    function pm_closeAdmin() {
+      document.getElementById('pmAdminModal').classList.remove('active');
+    }
+    function renderAdminPanel() {
+      // Reflect current toggles
+      document.getElementById('pmAdminLateJoin').checked = !!state.lateJoinEnabled;
+      document.getElementById('pmAdminRebuy').checked = !!state.rebuyEnabled;
+
+      // Player list with rebuy/kick options
+      const wrap = document.getElementById('pmAdminPlayers');
+      const ids = (state.seatOrder && state.seatOrder.length > 0)
+        ? state.seatOrder
+        : Object.keys(state.players || {});
+      const html = ids.map(id => {
+        const p = state.players[id];
+        if (!p) return '';
+        const isOut = p.stack === 0;
+        const isMe = id === mySelfId;
+        const stackText = isOut ? 'PLEITE' : `${p.stack} Chips`;
+        const stackCls = isOut ? 'out' : '';
+        const canRebuy = (isOut || p.sittingOut) && !p.pendingJoin && !isMe;
+        const rebuyDisabled = !state.rebuyEnabled;
+        return `<div class="pm-admin-player ${isOut ? 'out' : ''}">
+          <div class="pm-admin-player-info">
+            <div class="pm-admin-player-name">${escapeHtml(p.name)}${isMe ? ' (du)' : ''}${id === state.host ? ' 👑' : ''}</div>
+            <div class="pm-admin-player-stack ${stackCls}">${stackText}${p.sittingOut ? ' · sitzt aus' : ''}${p.pendingJoin ? ' · joint nächste Hand' : ''}</div>
+          </div>
+          ${canRebuy ? `<button class="pm-admin-rebuy-btn" ${rebuyDisabled ? 'disabled title="Re-Buys zuerst aktivieren"' : ''} onclick="pm_rebuyPlayer('${id}')">RE-BUY 1000</button>` : '<div></div>'}
+          ${isMe ? '<div></div>' : `<button class="pm-admin-kick-btn" onclick="pm_kickPlayer('${id}')" title="Entfernen">✕</button>`}
+        </div>`;
+      }).join('');
+      wrap.innerHTML = html || '<div style="color:rgba(216,232,208,0.5);font-family:Outfit,sans-serif;font-size:0.85rem">— keine Spieler —</div>';
+    }
+    async function pm_setLateJoin(enabled) {
+      if (!amHost) return;
+      const { set, ref, db } = window.FB;
+      try { await set(ref(db, `sessions/${myCode}/state/lateJoinEnabled`), !!enabled); } catch(e) { console.error(e); }
+    }
+    async function pm_setRebuyAllowed(enabled) {
+      if (!amHost) return;
+      const { set, ref, db } = window.FB;
+      try { await set(ref(db, `sessions/${myCode}/state/rebuyEnabled`), !!enabled); } catch(e) { console.error(e); }
+      renderAdminPanel();  // re-render so rebuy buttons enable/disable
+    }
+    async function pm_rebuyPlayer(playerId) {
+      if (!amHost) return;
+      if (!state.rebuyEnabled) { showToast('Re-Buys erst aktivieren'); return; }
+      const p = state.players[playerId];
+      if (!p) return;
+      if (!confirm(`${p.name} mit 1000 Chips wieder einsteigen lassen?`)) return;
+      // Mark for rejoin next hand
+      const newPlayers = JSON.parse(JSON.stringify(state.players));
+      newPlayers[playerId] = Object.assign({}, newPlayers[playerId], {
+        stack: STARTING_STACK,
+        bet: 0,
+        roundBet: 0,
+        cards: [],
+        folded: true,        // sit out current hand
+        allIn: false,
+        sittingOut: true,    // cleared on next hand
+        pendingJoin: true,
+        lastAction: 'RE-BUY',
+      });
+      // If they're not in seatOrder, add them
+      const newSeatOrder = (state.seatOrder || []).slice();
+      if (!newSeatOrder.includes(playerId)) newSeatOrder.push(playerId);
+      const newState = Object.assign({}, state, {
+        players: newPlayers,
+        seatOrder: newSeatOrder,
+      });
+      state = newState;
+      broadcast(newState);
+      renderAdminPanel();
+      showToast(`${p.name}: Re-Buy gemacht`);
+    }
+    async function pm_kickPlayer(playerId) {
+      if (!amHost) return;
+      const p = state.players[playerId];
+      if (!p) return;
+      if (!confirm(`${p.name} aus dem Spiel werfen?`)) return;
+      const newPlayers = Object.assign({}, state.players);
+      delete newPlayers[playerId];
+      const newSeatOrder = (state.seatOrder || []).filter(id => id !== playerId);
+      // If kicked player was current → recompute
+      let newState = Object.assign({}, state, {
+        players: newPlayers,
+        seatOrder: newSeatOrder,
+      });
+      // If kicked was the host (shouldn't happen but defensive)
+      if (state.host === playerId) newState.host = mySelfId;
+      // If kicked was currentPlayer, repair
+      if (state.currentPlayer === playerId) {
+        newState.playersToAct = (state.playersToAct || []).filter(id => id !== playerId);
+        newState.currentPlayer = newState.playersToAct[0] || null;
+      } else {
+        newState.playersToAct = (state.playersToAct || []).filter(id => id !== playerId);
+      }
+      state = newState;
+      broadcast(newState);
+      renderAdminPanel();
+      showToast(`${p.name}: entfernt`);
     }
     function pm_resetGame() {
       if (!amHost) return;
@@ -11421,6 +11686,12 @@ nextRound();
     window.pm_closeSettingsWait = pm_closeSettingsWait;
     window.pm_forceNextHand = pm_forceNextHand;
     window.pm_resetGame = pm_resetGame;
+    window.pm_openAdmin = pm_openAdmin;
+    window.pm_closeAdmin = pm_closeAdmin;
+    window.pm_setLateJoin = pm_setLateJoin;
+    window.pm_setRebuyAllowed = pm_setRebuyAllowed;
+    window.pm_rebuyPlayer = pm_rebuyPlayer;
+    window.pm_kickPlayer = pm_kickPlayer;
   })();
 
 </script>
