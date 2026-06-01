@@ -1450,6 +1450,410 @@
   }
   .alki-stats-area .stat-row:last-child { border-bottom: none; }
 
+  /* ====================== SHARED GAME BASE (bs/wb/tb/cn) ====================== */
+  .g-waiting-content {
+    background: rgba(20,20,28,0.5); border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 12px; padding: 1.4rem 1.2rem; text-align: center; margin-top: 0.8rem;
+  }
+  .g-waiting-label {
+    font-family: 'Cinzel','Bebas Neue',sans-serif; font-size: 0.72rem; letter-spacing: 0.3em;
+    text-transform: uppercase; margin-bottom: 0.3rem; opacity: 0.7;
+  }
+  .g-waiting-code {
+    font-family: 'Bebas Neue',sans-serif; font-size: 3rem; letter-spacing: 0.35em;
+    color: white; margin-bottom: 0.5rem; font-weight: 700;
+  }
+  .g-start-btn { box-shadow: 0 6px 22px rgba(0,0,0,0.4) !important; }
+  .g-config-section {
+    background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 8px; padding: 0.9rem; margin: 1rem 0; text-align: left;
+  }
+  .g-config-row {
+    display: flex; justify-content: space-between; align-items: center; padding: 0.45rem 0;
+    font-family: 'Outfit',sans-serif; font-size: 0.9rem;
+  }
+  .g-counter { display: flex; align-items: center; gap: 0.6rem; }
+  .g-counter-btn {
+    width: 30px; height: 30px; border-radius: 4px; border: 1px solid rgba(255,255,255,0.3);
+    background: rgba(255,255,255,0.08); color: white; font-size: 1.1rem; cursor: pointer; font-weight: 600;
+  }
+  .g-counter-val { font-family: 'Bebas Neue',sans-serif; font-size: 1.3rem; min-width: 36px; text-align: center; }
+  .g-select {
+    width: 100%; padding: 0.5rem 0.7rem; border-radius: 6px; border: 1px solid rgba(255,255,255,0.3);
+    background: rgba(0,0,0,0.4); color: white; font-family: 'Outfit',sans-serif; font-size: 0.9rem; cursor: pointer;
+  }
+  .g-toggle {
+    display: flex; align-items: center; gap: 0.5rem; padding: 0.5rem 0; cursor: pointer;
+    font-family: 'Outfit',sans-serif; font-size: 0.88rem;
+  }
+  .g-toggle input { width: 18px; height: 18px; }
+  .g-btn {
+    color: white; border: none; padding: 0.9rem 1rem; border-radius: 8px;
+    font-family: 'Cinzel','Bebas Neue',sans-serif; font-size: 0.95rem; cursor: pointer;
+    font-weight: 700; letter-spacing: 0.15em; width: 100%; margin-top: 0.6rem; text-transform: uppercase;
+  }
+  .g-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+  .g-btn.secondary { background: rgba(255,255,255,0.1) !important; border: 1px solid rgba(255,255,255,0.3); }
+  .g-btn.danger { background: linear-gradient(135deg,#b91c1c,#ef4444) !important; }
+  .g-btn.success { background: linear-gradient(135deg,#15803d,#22c55e) !important; }
+  .g-phase {
+    text-align: center; padding: 0.7rem 0.5rem;
+  }
+  .g-phase-name { font-family: 'Cinzel','Bebas Neue',sans-serif; font-size: 1.2rem; letter-spacing: 0.15em; text-transform: uppercase; }
+  .g-phase-desc { font-family: 'Outfit',sans-serif; font-size: 0.85rem; opacity: 0.75; margin-top: 0.3rem; font-style: italic; }
+  .g-wait-box {
+    background: rgba(0,0,0,0.3); border: 1px dashed rgba(255,255,255,0.2); border-radius: 10px;
+    padding: 1.2rem; text-align: center; font-family: 'Outfit',sans-serif; opacity: 0.85; font-style: italic; margin: 0.5rem 0;
+  }
+  .g-wait-icon { font-size: 2rem; margin-bottom: 0.4rem; animation: gPulse 2s infinite; }
+  @keyframes gPulse { 0%,100% { opacity: 0.6; } 50% { opacity: 1; } }
+  .g-card {
+    background: rgba(0,0,0,0.35); border: 1px solid rgba(255,255,255,0.15); border-radius: 12px;
+    padding: 1.2rem; margin: 0.6rem 0; font-family: 'Outfit',sans-serif; line-height: 1.5;
+  }
+  .g-team-pick { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; margin: 0.5rem 0; }
+  .g-modal-title { font-family: 'Cinzel','Bebas Neue',sans-serif; }
+
+  /* ---- Black Stories theme ---- */
+  .app-bs { background: linear-gradient(180deg,#0d0a12 0%,#060409 100%); color: #e0d8e8; min-height: 100vh; }
+  .bs-lobby .multi-tag { background: linear-gradient(135deg,#3b0764,#7c3aed); }
+  .app-bs .multi-topbar { border-color: rgba(124,58,237,0.3); } .app-bs .multi-topbar-code { color: #c4b5fd; }
+  .bs-tint { border-color: rgba(124,58,237,0.3); } .bs-tint .g-waiting-label { color: rgba(196,181,253,0.8); }
+  .bs-btn { background: linear-gradient(135deg,#3b0764,#7c3aed) !important; }
+  .bs-modal { border-color: rgba(124,58,237,0.5); }
+  .bs-content { padding: 0.5rem 0; }
+  .bs-riddle {
+    background: linear-gradient(135deg,rgba(30,20,45,0.7),rgba(15,10,25,0.7));
+    border: 2px solid #7c3aed; border-radius: 14px; padding: 1.4rem; margin: 0.7rem 0;
+    font-family: 'Outfit',sans-serif; font-size: 1.05rem; line-height: 1.6; color: #ede4f5;
+    box-shadow: 0 0 25px rgba(124,58,237,0.25);
+  }
+  .bs-riddle-title { font-family: 'Cinzel','Bebas Neue',sans-serif; font-size: 1.3rem; color: #c4b5fd; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.6rem; text-align: center; }
+  .bs-solution {
+    background: rgba(20,40,20,0.5); border: 2px solid #22c55e; border-radius: 14px; padding: 1.4rem; margin: 0.7rem 0;
+    font-family: 'Outfit',sans-serif; font-size: 1rem; line-height: 1.6; color: #d8f5d8;
+  }
+  .bs-solution-title { font-family: 'Cinzel','Bebas Neue',sans-serif; font-size: 1rem; color: #4ade80; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.5rem; }
+  .bs-master-badge { display:inline-block; background: rgba(124,58,237,0.25); border: 1px solid #7c3aed; border-radius: 20px; padding: 0.3rem 0.9rem; font-family: 'Outfit',sans-serif; font-size: 0.85rem; color: #c4b5fd; margin: 0.4rem 0; }
+  .bs-btn-g { background: linear-gradient(135deg,#3b0764,#7c3aed); }
+
+  /* ---- Wer bin ich theme ---- */
+  .app-wb { background: linear-gradient(180deg,#0a1420 0%,#050a12 100%); color: #d8e8f5; min-height: 100vh; }
+  .wb-lobby .multi-tag { background: linear-gradient(135deg,#1e3a8a,#3b82f6); }
+  .app-wb .multi-topbar { border-color: rgba(59,130,246,0.3); } .app-wb .multi-topbar-code { color: #93c5fd; }
+  .wb-tint { border-color: rgba(59,130,246,0.3); } .wb-tint .g-waiting-label { color: rgba(147,197,253,0.8); }
+  .wb-btn { background: linear-gradient(135deg,#1e3a8a,#3b82f6) !important; }
+  .wb-modal { border-color: rgba(59,130,246,0.5); }
+  .wb-content { padding: 0.5rem 0; }
+  .wb-others-grid { display: grid; grid-template-columns: 1fr; gap: 0.5rem; margin: 0.6rem 0; }
+  .wb-other-tile {
+    display: flex; align-items: center; gap: 0.7rem; padding: 0.8rem 1rem;
+    background: rgba(15,30,50,0.6); border: 1px solid rgba(59,130,246,0.25); border-radius: 10px;
+  }
+  .wb-other-name { font-family: 'Outfit',sans-serif; font-size: 0.85rem; color: rgba(216,232,245,0.7); min-width: 80px; }
+  .wb-other-term { font-family: 'Cinzel','Bebas Neue',sans-serif; font-size: 1.15rem; color: white; letter-spacing: 0.05em; flex: 1; }
+  .wb-other-tile.guessed { opacity: 0.5; } .wb-other-tile.guessed .wb-other-term { text-decoration: line-through; }
+  .wb-my-card {
+    background: linear-gradient(135deg,rgba(30,58,138,0.4),rgba(15,30,60,0.4));
+    border: 2px solid #3b82f6; border-radius: 14px; padding: 1.5rem; text-align: center; margin: 0.7rem 0;
+  }
+  .wb-my-q { font-family: 'Cinzel','Bebas Neue',sans-serif; font-size: 2rem; color: white; margin-bottom: 0.3rem; }
+  .wb-my-hint { font-family: 'Outfit',sans-serif; font-size: 0.9rem; color: rgba(147,197,253,0.85); }
+  .wb-assign-input { width: 100%; padding: 0.8rem 1rem; border-radius: 8px; border: 1.5px solid rgba(59,130,246,0.4); background: rgba(0,0,0,0.4); color: white; font-family: 'Outfit',sans-serif; font-size: 1rem; margin: 0.5rem 0; }
+
+  /* ---- Tabu theme ---- */
+  .app-tb { background: linear-gradient(180deg,#1a0a12 0%,#0d0508 100%); color: #f5d8e4; min-height: 100vh; }
+  .tb-lobby .multi-tag { background: linear-gradient(135deg,#9d174d,#ec4899); }
+  .app-tb .multi-topbar { border-color: rgba(236,72,153,0.3); } .app-tb .multi-topbar-code { color: #f9a8d4; }
+  .tb-tint { border-color: rgba(236,72,153,0.3); } .tb-tint .g-waiting-label { color: rgba(249,168,212,0.8); }
+  .tb-btn { background: linear-gradient(135deg,#9d174d,#ec4899) !important; }
+  .tb-modal { border-color: rgba(236,72,153,0.5); }
+  .tb-content { padding: 0.5rem 0; }
+  .tb-teams { display: grid; grid-template-columns: 1fr 1fr; gap: 0.6rem; margin: 0.5rem 0; }
+  .tb-team-col { background: rgba(0,0,0,0.3); border-radius: 10px; padding: 0.7rem; border: 1px solid rgba(236,72,153,0.2); }
+  .tb-team-col.team-a { border-color: rgba(236,72,153,0.5); }
+  .tb-team-col.team-b { border-color: rgba(59,130,246,0.5); }
+  .tb-team-name { font-family: 'Cinzel','Bebas Neue',sans-serif; font-size: 0.95rem; letter-spacing: 0.1em; text-transform: uppercase; text-align: center; margin-bottom: 0.5rem; }
+  .tb-team-col.team-a .tb-team-name { color: #f9a8d4; } .tb-team-col.team-b .tb-team-name { color: #93c5fd; }
+  .tb-team-member { font-family: 'Outfit',sans-serif; font-size: 0.85rem; padding: 0.3rem 0.4rem; border-radius: 4px; color: #f5e0ec; }
+  .tb-team-member.me { background: rgba(255,255,255,0.1); font-weight: 600; }
+  .tb-join-btn { width: 100%; padding: 0.5rem; margin-top: 0.5rem; border-radius: 6px; border: 1px dashed rgba(255,255,255,0.3); background: transparent; color: rgba(255,255,255,0.7); font-family: 'Outfit',sans-serif; font-size: 0.8rem; cursor: pointer; }
+  .tb-scorebar { display: flex; justify-content: space-around; padding: 0.7rem; margin: 0.5rem 0; background: rgba(0,0,0,0.3); border-radius: 10px; }
+  .tb-score-team { text-align: center; }
+  .tb-score-team .lbl { font-family: 'Outfit',sans-serif; font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; }
+  .tb-score-team.a .lbl { color: #f9a8d4; } .tb-score-team.b .lbl { color: #93c5fd; }
+  .tb-score-team .val { font-family: 'Bebas Neue',sans-serif; font-size: 2rem; color: white; }
+  .tb-score-team.active { box-shadow: 0 0 0 2px rgba(255,255,255,0.4); border-radius: 8px; }
+  .tb-timer-big { font-family: 'Bebas Neue',sans-serif; font-size: 3.5rem; text-align: center; color: white; line-height: 1; }
+  .tb-timer-big.urgent { color: #ff5050; animation: gPulse 0.6s infinite; }
+  .tb-word-card {
+    background: linear-gradient(135deg,rgba(60,15,40,0.8),rgba(30,8,20,0.8)); border: 2px solid #ec4899;
+    border-radius: 14px; padding: 1.3rem; margin: 0.7rem 0; text-align: center; box-shadow: 0 0 25px rgba(236,72,153,0.3);
+  }
+  .tb-word-main { font-family: 'Cinzel','Bebas Neue',sans-serif; font-size: 2.2rem; color: white; letter-spacing: 0.05em; margin-bottom: 0.8rem; }
+  .tb-taboo-list { border-top: 1px solid rgba(236,72,153,0.3); padding-top: 0.7rem; }
+  .tb-taboo-label { font-family: 'Outfit',sans-serif; font-size: 0.72rem; letter-spacing: 0.2em; color: #ff8080; text-transform: uppercase; margin-bottom: 0.4rem; }
+  .tb-taboo-word { font-family: 'Outfit',sans-serif; font-size: 1.05rem; color: #ffb3c9; padding: 0.15rem 0; font-weight: 600; }
+  .tb-action-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.4rem; margin-top: 0.6rem; }
+
+  /* ---- Codenames theme ---- */
+  .app-cn { background: linear-gradient(180deg,#0f1419 0%,#070a0d 100%); color: #d8e0e8; min-height: 100vh; }
+  .cn-lobby .multi-tag { background: linear-gradient(135deg,#475569,#94a3b8); }
+  .app-cn .multi-topbar { border-color: rgba(148,163,184,0.3); } .app-cn .multi-topbar-code { color: #cbd5e1; }
+  .cn-tint { border-color: rgba(148,163,184,0.3); }
+  .cn-btn { background: linear-gradient(135deg,#475569,#64748b) !important; }
+  .cn-modal { border-color: rgba(148,163,184,0.5); }
+  .cn-content { padding: 0.3rem 0; }
+  .cn-teams { display: grid; grid-template-columns: 1fr 1fr; gap: 0.6rem; margin: 0.5rem 0; }
+  .cn-team-col { background: rgba(0,0,0,0.3); border-radius: 10px; padding: 0.6rem; }
+  .cn-team-col.red { border: 1px solid rgba(239,68,68,0.5); } .cn-team-col.blue { border: 1px solid rgba(59,130,246,0.5); }
+  .cn-team-name { font-family: 'Cinzel','Bebas Neue',sans-serif; font-size: 0.95rem; text-align: center; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.4rem; }
+  .cn-team-col.red .cn-team-name { color: #fca5a5; } .cn-team-col.blue .cn-team-name { color: #93c5fd; }
+  .cn-role-slot { font-family: 'Outfit',sans-serif; font-size: 0.8rem; padding: 0.3rem; border-radius: 4px; margin-bottom: 0.25rem; }
+  .cn-role-slot .role-lbl { font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; opacity: 0.6; }
+  .cn-role-slot.me { background: rgba(255,255,255,0.12); }
+  .cn-join-btn { width: 100%; padding: 0.4rem; margin-top: 0.3rem; border-radius: 5px; border: 1px dashed rgba(255,255,255,0.3); background: transparent; color: rgba(255,255,255,0.7); font-family: 'Outfit',sans-serif; font-size: 0.72rem; cursor: pointer; }
+  .cn-scorebar { display: flex; justify-content: space-around; align-items: center; padding: 0.5rem 0.7rem; margin: 0.4rem 0; background: rgba(0,0,0,0.3); border-radius: 10px; }
+  .cn-score { font-family: 'Bebas Neue',sans-serif; font-size: 1.8rem; }
+  .cn-score.red { color: #fca5a5; } .cn-score.blue { color: #93c5fd; }
+  .cn-score.active { text-shadow: 0 0 12px currentColor; }
+  .cn-turn-label { font-family: 'Outfit',sans-serif; font-size: 0.8rem; text-align: center; opacity: 0.8; }
+  .cn-clue-banner { text-align: center; padding: 0.7rem; margin: 0.4rem 0; background: rgba(255,255,255,0.06); border-radius: 10px; }
+  .cn-clue-word { font-family: 'Cinzel','Bebas Neue',sans-serif; font-size: 1.4rem; color: white; letter-spacing: 0.1em; }
+  .cn-clue-num { font-family: 'Bebas Neue',sans-serif; font-size: 1.1rem; color: #fbbf24; }
+  .cn-grid { display: grid; grid-template-columns: repeat(5,1fr); gap: 4px; margin: 0.5rem 0; }
+  .cn-card {
+    aspect-ratio: 1.3; display: flex; align-items: center; justify-content: center; text-align: center;
+    border-radius: 6px; padding: 2px; font-family: 'Outfit',sans-serif; font-size: 0.62rem; font-weight: 600;
+    background: #e8e0d0; color: #2a2a2a; cursor: pointer; line-height: 1.05; word-break: break-word;
+    border: 2px solid transparent; transition: transform 0.1s; user-select: none;
+  }
+  .cn-card:active { transform: scale(0.95); }
+  .cn-card.sm-red { border-color: #ef4444; }
+  .cn-card.sm-blue { border-color: #3b82f6; }
+  .cn-card.sm-neutral { border-color: #a8a29e; }
+  .cn-card.sm-assassin { border-color: #1a1a1a; background: #44403c; color: #e8e0d0; }
+  .cn-card.revealed-red { background: #dc2626; color: white; border-color: #dc2626; }
+  .cn-card.revealed-blue { background: #2563eb; color: white; border-color: #2563eb; }
+  .cn-card.revealed-neutral { background: #d6d3d1; color: #57534e; border-color: #d6d3d1; }
+  .cn-card.revealed-assassin { background: #1c1917; color: #ef4444; border-color: #000; }
+  .cn-card.revealed { cursor: default; opacity: 0.92; }
+  .cn-clue-input { width: 100%; padding: 0.7rem; border-radius: 8px; border: 1.5px solid rgba(148,163,184,0.4); background: rgba(0,0,0,0.4); color: white; font-family: 'Outfit',sans-serif; font-size: 1rem; margin: 0.4rem 0; }
+  .cn-clue-row { display: grid; grid-template-columns: 2fr 1fr; gap: 0.4rem; }
+  .cn-gameover {
+    background: linear-gradient(180deg,rgba(40,40,50,0.95),rgba(20,20,28,0.95)); border: 2px solid #94a3b8;
+    border-radius: 14px; padding: 1.5rem; text-align: center; margin: 0.6rem 0;
+  }
+  .cn-gameover-title { font-family: 'Cinzel','Bebas Neue',sans-serif; font-size: 1.6rem; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 0.5rem; }
+
+  /* ====================== STADT LAND FLUSS ====================== */
+  .app-slf {
+    background: linear-gradient(180deg, #06140f 0%, #030a07 100%);
+    color: #d6f5e8;
+    min-height: 100vh;
+  }
+  .slf-lobby .multi-tag { background: linear-gradient(135deg, #0f766e, #2dd4bf); }
+  .app-slf .multi-topbar { border-color: rgba(45,212,191,0.3); }
+  .app-slf .multi-topbar-code { color: #5eead4; }
+
+  .slf-waiting-content {
+    background: rgba(10,30,24,0.5);
+    border: 1px solid rgba(45,212,191,0.3);
+    border-radius: 12px;
+    padding: 1.4rem 1.2rem;
+    text-align: center;
+    margin-top: 0.8rem;
+  }
+  .slf-waiting-label {
+    font-family: 'Cinzel', 'Bebas Neue', sans-serif;
+    font-size: 0.72rem; letter-spacing: 0.3em;
+    color: rgba(94,234,212,0.7); text-transform: uppercase; margin-bottom: 0.3rem;
+  }
+  .slf-waiting-code {
+    font-family: 'Bebas Neue', sans-serif; font-size: 3rem; letter-spacing: 0.35em;
+    color: white; text-shadow: 0 0 30px rgba(45,212,191,0.5); margin-bottom: 0.5rem; font-weight: 700;
+  }
+  .slf-start-btn {
+    background: linear-gradient(135deg, #0f766e, #2dd4bf) !important;
+    box-shadow: 0 6px 22px rgba(45,212,191,0.4) !important;
+  }
+
+  .slf-config-section {
+    background: rgba(0,0,0,0.3); border: 1px solid rgba(45,212,191,0.25);
+    border-radius: 8px; padding: 0.9rem; margin: 1rem 0; text-align: left;
+  }
+  .slf-cat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.4rem; }
+  .slf-cat-chip {
+    display: flex; align-items: center; gap: 0.4rem; padding: 0.5rem 0.6rem;
+    background: rgba(0,0,0,0.3); border: 1px solid rgba(45,212,191,0.25);
+    border-radius: 6px; cursor: pointer; font-family: 'Outfit', sans-serif;
+    font-size: 0.85rem; color: #d6f5e8; user-select: none; transition: all 0.15s;
+  }
+  .slf-cat-chip.active {
+    background: rgba(45,212,191,0.2); border-color: #2dd4bf; color: white;
+  }
+  .slf-cat-chip input { width: 16px; height: 16px; accent-color: #2dd4bf; pointer-events: none; }
+  .slf-config-row {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 0.45rem 0; font-family: 'Outfit', sans-serif; color: #d6f5e8; font-size: 0.9rem;
+  }
+  .slf-config-counter { display: flex; align-items: center; gap: 0.6rem; }
+  .slf-counter-btn {
+    width: 30px; height: 30px; border-radius: 4px; border: 1px solid rgba(94,234,212,0.4);
+    background: rgba(45,212,191,0.15); color: #5eead4; font-size: 1.1rem; cursor: pointer; font-weight: 600;
+  }
+  .slf-counter-btn:hover { background: rgba(45,212,191,0.3); }
+  .slf-counter-val {
+    font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem; min-width: 36px; text-align: center; color: #5eead4;
+  }
+  .slf-mode-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.4rem; }
+  .slf-mode-btn {
+    padding: 0.6rem; border-radius: 6px; border: 1px solid rgba(45,212,191,0.3);
+    background: rgba(0,0,0,0.3); color: rgba(214,245,232,0.75); font-family: 'Outfit', sans-serif;
+    font-size: 0.85rem; cursor: pointer; transition: all 0.15s;
+  }
+  .slf-mode-btn.active { background: rgba(45,212,191,0.2); border-color: #2dd4bf; color: white; }
+
+  .slf-modal { border-color: rgba(45,212,191,0.5); }
+
+  /* Letter banner */
+  .slf-letter-banner {
+    text-align: center; padding: 1rem; margin: 0.6rem 0;
+    background: linear-gradient(135deg, rgba(15,118,110,0.2), rgba(45,212,191,0.15));
+    border: 2px solid #2dd4bf; border-radius: 14px;
+    box-shadow: 0 0 25px rgba(45,212,191,0.3);
+  }
+  .slf-letter-label {
+    font-family: 'Outfit', sans-serif; font-size: 0.72rem; letter-spacing: 0.3em;
+    color: rgba(94,234,212,0.8); text-transform: uppercase;
+  }
+  .slf-letter-big {
+    font-family: 'Bebas Neue', sans-serif; font-size: 5rem; line-height: 1; color: white;
+    text-shadow: 0 0 30px rgba(45,212,191,0.6); margin: 0.2rem 0;
+  }
+  .slf-letter-big.rolling { animation: slfRoll 0.08s steps(1) infinite; }
+  @keyframes slfRoll { 0% { opacity: 0.5; } 50% { opacity: 1; } 100% { opacity: 0.5; } }
+  .slf-timer {
+    font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; letter-spacing: 0.1em;
+    color: #5eead4;
+  }
+  .slf-timer.urgent { color: #ff5050; animation: slfPulse 0.6s infinite; }
+  @keyframes slfPulse { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
+
+  .slf-phase-info { text-align: center; padding: 0.6rem 0.5rem; }
+  .slf-phase-name {
+    font-family: 'Cinzel', 'Bebas Neue', sans-serif; font-size: 1.2rem; color: #5eead4;
+    letter-spacing: 0.15em; text-transform: uppercase;
+  }
+  .slf-phase-desc {
+    font-family: 'Outfit', sans-serif; font-size: 0.85rem; color: rgba(214,245,232,0.75);
+    margin-top: 0.3rem; font-style: italic;
+  }
+
+  .slf-content { padding: 0.5rem 0; }
+
+  /* Input fields */
+  .slf-input-row { margin-bottom: 0.6rem; }
+  .slf-input-label {
+    font-family: 'Outfit', sans-serif; font-size: 0.78rem; letter-spacing: 0.05em;
+    color: rgba(94,234,212,0.85); margin-bottom: 0.2rem; font-weight: 600;
+  }
+  .slf-answer-input {
+    width: 100%; padding: 0.75rem 0.9rem; border-radius: 8px;
+    border: 1.5px solid rgba(45,212,191,0.3); background: rgba(0,0,0,0.35);
+    color: white; font-family: 'Outfit', sans-serif; font-size: 1rem;
+  }
+  .slf-answer-input:focus { outline: none; border-color: #2dd4bf; }
+  .slf-answer-input:disabled { opacity: 0.6; }
+
+  .slf-btn {
+    background: linear-gradient(135deg, #0f766e, #2dd4bf); color: white; border: none;
+    padding: 0.9rem 1rem; border-radius: 8px; font-family: 'Cinzel', 'Bebas Neue', sans-serif;
+    font-size: 0.95rem; cursor: pointer; font-weight: 700; letter-spacing: 0.15em;
+    width: 100%; margin-top: 0.6rem; text-transform: uppercase;
+  }
+  .slf-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+  .slf-btn.danger { background: linear-gradient(135deg, #b91c1c, #ef4444); }
+  .slf-btn.secondary {
+    background: rgba(45,212,191,0.15); border: 1px solid rgba(94,234,212,0.4); color: #5eead4;
+  }
+  .slf-stop-btn {
+    background: linear-gradient(135deg, #b91c1c, #ef4444);
+    box-shadow: 0 6px 20px rgba(239,68,68,0.4);
+    font-size: 1.2rem; padding: 1.1rem;
+  }
+
+  .slf-waiting-status {
+    background: rgba(10,30,24,0.6); border: 1px dashed rgba(45,212,191,0.3);
+    border-radius: 10px; padding: 1rem; text-align: center;
+    font-family: 'Outfit', sans-serif; color: rgba(214,245,232,0.8); margin: 0.5rem 0;
+  }
+  .slf-writers { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; color: #5eead4; }
+
+  /* Review */
+  .slf-review-cat {
+    background: rgba(10,30,24,0.5); border: 1px solid rgba(45,212,191,0.25);
+    border-radius: 10px; padding: 0.8rem; margin-bottom: 0.7rem;
+  }
+  .slf-review-cat-name {
+    font-family: 'Cinzel', 'Bebas Neue', sans-serif; font-size: 1rem; color: #5eead4;
+    letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.5rem;
+    border-bottom: 1px solid rgba(45,212,191,0.2); padding-bottom: 0.3rem;
+  }
+  .slf-review-answer {
+    display: flex; align-items: center; gap: 0.5rem; padding: 0.4rem 0;
+    font-family: 'Outfit', sans-serif; font-size: 0.9rem;
+  }
+  .slf-review-answer .name {
+    color: rgba(214,245,232,0.7); font-size: 0.78rem; min-width: 70px;
+    overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  }
+  .slf-review-answer .ans { flex: 1; color: white; }
+  .slf-review-answer .ans.empty { color: rgba(214,245,232,0.3); font-style: italic; }
+  .slf-review-answer .ans.invalid { text-decoration: line-through; color: rgba(255,80,80,0.6); }
+  .slf-review-answer .pts {
+    font-family: 'Bebas Neue', sans-serif; font-size: 1rem; min-width: 34px; text-align: right;
+  }
+  .slf-review-answer .pts.p20 { color: #fbbf24; }
+  .slf-review-answer .pts.p10 { color: #4ade80; }
+  .slf-review-answer .pts.p5 { color: #5eead4; }
+  .slf-review-answer .pts.p0 { color: rgba(214,245,232,0.3); }
+  .slf-strike-btn {
+    background: rgba(255,80,80,0.15); border: 1px solid rgba(255,80,80,0.4);
+    color: #ff8080; border-radius: 4px; width: 26px; height: 26px; cursor: pointer;
+    font-size: 0.85rem; flex-shrink: 0;
+  }
+  .slf-strike-btn.struck { background: rgba(255,80,80,0.4); }
+
+  /* Scoreboard */
+  .slf-scoreboard {
+    background: rgba(0,0,0,0.4); border-radius: 8px; padding: 0.7rem; margin: 0.7rem 0;
+  }
+  .slf-scoreboard-title {
+    font-family: 'Outfit', sans-serif; font-size: 0.75rem; letter-spacing: 0.2em;
+    color: rgba(94,234,212,0.7); text-transform: uppercase; margin-bottom: 0.4rem; text-align: center;
+  }
+  .slf-scoreboard-row {
+    display: flex; justify-content: space-between; align-items: center; padding: 0.35rem 0;
+    font-family: 'Outfit', sans-serif; font-size: 0.9rem; color: #d6f5e8;
+    border-bottom: 1px solid rgba(45,212,191,0.15);
+  }
+  .slf-scoreboard-row .rank { color: rgba(94,234,212,0.7); min-width: 24px; }
+  .slf-scoreboard-row .delta { color: rgba(74,222,128,0.8); font-size: 0.78rem; margin-left: auto; margin-right: 0.6rem; }
+  .slf-scoreboard-row .total { font-family: 'Bebas Neue', sans-serif; color: #fbbf24; font-size: 1.1rem; min-width: 40px; text-align: right; }
+  .slf-scoreboard-row.leader .total { color: #fbbf24; text-shadow: 0 0 10px rgba(251,191,36,0.4); }
+
+  .slf-gameover {
+    background: linear-gradient(180deg, rgba(15,90,80,0.95), rgba(6,30,24,0.95));
+    border: 2px solid #2dd4bf; border-radius: 14px; padding: 1.5rem; text-align: center;
+    margin: 0.8rem 0; box-shadow: 0 0 30px rgba(45,212,191,0.4);
+  }
+  .slf-gameover-title {
+    font-family: 'Cinzel', 'Bebas Neue', sans-serif; font-size: 1.5rem; color: white;
+    letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 0.3rem;
+  }
+  .slf-gameover-winner { font-family: 'Outfit', sans-serif; font-size: 1.1rem; color: #fbbf24; margin-bottom: 1rem; }
+
   /* ====================== IMPOSTOR ====================== */
   .app-impostor {
     background: linear-gradient(180deg, #1a0a0a 0%, #0d0606 100%);
@@ -5875,7 +6279,7 @@
 <!-- Admin toggle (hidden by default, shown after 5x title clicks) -->
 <button class="admin-toggle" id="adminToggleBtn" onclick="openAdminPanel()" style="display:none" aria-label="Admin-Panel öffnen" title="Admin-Panel">🔧</button>
 
-<div class="app-version" id="appVersion">v1.0.6</div>
+<div class="app-version" id="appVersion">v1.0.8</div>
 
 <!-- Admin toast -->
 <div class="admin-toast" id="adminToast"></div>
@@ -5990,6 +6394,26 @@
     <button class="menu-item" data-app="impostor" onclick="switchApp('impostor')">
       <span class="icon">🕵️</span>
       <span>Impostor</span>
+    </button>
+    <button class="menu-item" data-app="slf" onclick="switchApp('slf')">
+      <span class="icon">📝</span>
+      <span>Stadt Land Fluss</span>
+    </button>
+    <button class="menu-item" data-app="blackstories" onclick="switchApp('blackstories')">
+      <span class="icon">🕯️</span>
+      <span>Black Stories</span>
+    </button>
+    <button class="menu-item" data-app="werbinich" onclick="switchApp('werbinich')">
+      <span class="icon">🤔</span>
+      <span>Wer bin ich</span>
+    </button>
+    <button class="menu-item" data-app="tabu" onclick="switchApp('tabu')">
+      <span class="icon">🚫</span>
+      <span>Tabu</span>
+    </button>
+    <button class="menu-item" data-app="codenames" onclick="switchApp('codenames')">
+      <span class="icon">🕶️</span>
+      <span>Codenames</span>
     </button>
   </div>
 </nav>
@@ -7399,6 +7823,440 @@
   </div>
 </div>
 
+<!-- ============ STADT LAND FLUSS ============ -->
+<div class="app app-multi app-slf" id="appSlf">
+  <!-- LOBBY -->
+  <div class="multi-lobby slf-lobby" id="slfLobby">
+    <div class="multi-lobby-title" onclick="handleAdminTitleClick()" style="cursor:pointer">
+      <span class="multi-lobby-emoji">📝</span>
+      <span>Stadt Land Fluss</span>
+      <span class="multi-tag">MULTI</span>
+    </div>
+    <div class="multi-lobby-sub">Live gegeneinander · 2–15 Spieler</div>
+
+    <div class="multi-lobby-section">
+      <label class="multi-lobby-label">DEIN NAME</label>
+      <input type="text" class="multi-input" id="slfName" maxlength="14" placeholder="z.B. Tobi" autocomplete="off">
+    </div>
+
+    <div class="multi-lobby-section">
+      <label class="multi-lobby-label">📝 NEUE RUNDE</label>
+      <div class="multi-lobby-row">
+        <input type="text" class="multi-input multi-code-in" id="slfCreateCode" maxlength="6" placeholder="(zufällig)" autocomplete="off" autocapitalize="characters">
+        <button class="multi-action-btn" onclick="slf_create()">ERSTELLEN</button>
+      </div>
+    </div>
+
+    <div class="multi-lobby-section">
+      <label class="multi-lobby-label">SPIEL BEITRETEN</label>
+      <div class="multi-lobby-row">
+        <input type="text" class="multi-input multi-code-in" id="slfJoinCode" maxlength="6" placeholder="CODE" autocomplete="off" autocapitalize="characters">
+        <button class="multi-action-btn" onclick="slf_join()">BEITRETEN</button>
+      </div>
+    </div>
+
+    <div class="multi-lobby-error" id="slfError"></div>
+  </div>
+
+  <!-- WAITING ROOM -->
+  <div class="multi-game slf-waiting" id="slfWaiting" style="display:none">
+    <div class="multi-topbar">
+      <button class="multi-topbar-btn multi-burger-btn" onclick="toggleMenu()" title="Menü">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+      <div class="multi-topbar-mid">
+        <div class="multi-topbar-code" id="slfWaitCode" onclick="handleAdminTitleClick()" style="cursor:pointer">—</div>
+        <div class="multi-topbar-peers">LOBBY</div>
+      </div>
+      <button class="multi-topbar-btn multi-settings-btn" onclick="slf_openSettingsWait()" title="Einstellungen">⚙</button>
+    </div>
+
+    <div class="slf-waiting-content">
+      <div class="slf-waiting-label">CODE</div>
+      <div class="slf-waiting-code" id="slfWaitCodeBig">—</div>
+      <button class="pm-mini-btn" onclick="slf_copyCode()">📋 Kopieren</button>
+
+      <div class="pm-waiting-section-label">SPIELER <span id="slfWaitCount">0/15</span></div>
+      <div class="pm-waiting-players" id="slfWaitPlayers"></div>
+
+      <div class="slf-config-section" id="slfConfigSection" style="display:none">
+        <div class="pm-waiting-section-label">KATEGORIEN</div>
+        <div class="slf-cat-grid" id="slfCatGrid"></div>
+
+        <div class="pm-waiting-section-label" style="margin-top:1rem">RUNDEN</div>
+        <div class="slf-config-row">
+          <div class="slf-config-counter">
+            <button class="slf-counter-btn" onclick="slf_adjustRounds(-1)">−</button>
+            <span class="slf-counter-val" id="slfCfgRounds">5</span>
+            <button class="slf-counter-btn" onclick="slf_adjustRounds(1)">+</button>
+          </div>
+        </div>
+
+        <div class="pm-waiting-section-label" style="margin-top:1rem">MODUS</div>
+        <div class="slf-mode-row">
+          <button class="slf-mode-btn" id="slfModeStopp" onclick="slf_setMode('stopp')">⏹ Erster stoppt</button>
+          <button class="slf-mode-btn" id="slfModeTimer" onclick="slf_setMode('timer')">⏱ Timer</button>
+        </div>
+        <div class="slf-config-row" id="slfTimerRow" style="display:none">
+          <span>Sekunden</span>
+          <div class="slf-config-counter">
+            <button class="slf-counter-btn" onclick="slf_adjustTimer(-15)">−</button>
+            <span class="slf-counter-val" id="slfCfgTimer">90</span>
+            <button class="slf-counter-btn" onclick="slf_adjustTimer(15)">+</button>
+          </div>
+        </div>
+      </div>
+
+      <button class="pm-start-btn slf-start-btn" id="slfStartBtn" onclick="slf_startGame()">SPIEL STARTEN</button>
+      <div class="pm-waiting-hint" id="slfWaitHint">Mindestens 2 Spieler · nur Host kann starten</div>
+    </div>
+
+    <div class="multi-modal-bd" id="slfSettingsWaitModal" onclick="if(event.target===this) slf_closeSettingsWait()">
+      <div class="multi-modal slf-modal">
+        <div class="multi-modal-title">EINSTELLUNGEN</div>
+        <div class="multi-settings-label">SESSION</div>
+        <button class="multi-settings-btn-full multi-leave-action" onclick="slf_closeSettingsWait(); slf_leave()">🚪 Session verlassen</button>
+        <button class="multi-modal-close" onclick="slf_closeSettingsWait()">FERTIG</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- GAME -->
+  <div class="multi-game slf-game" id="slfGame" style="display:none">
+    <div class="multi-topbar">
+      <button class="multi-topbar-btn multi-burger-btn" onclick="toggleMenu()" title="Menü">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+      <div class="multi-topbar-mid">
+        <div class="multi-topbar-code" id="slfTopCode" onclick="handleAdminTitleClick()" style="cursor:pointer">—</div>
+        <div class="multi-topbar-peers" id="slfTopPhase">Runde 1</div>
+      </div>
+      <button class="multi-topbar-btn multi-settings-btn" onclick="slf_openSettings()" title="Einstellungen">⚙</button>
+    </div>
+
+    <!-- Letter banner -->
+    <div class="slf-letter-banner" id="slfLetterBanner" style="display:none">
+      <div class="slf-letter-label">BUCHSTABE</div>
+      <div class="slf-letter-big" id="slfLetterBig">A</div>
+      <div class="slf-timer" id="slfTimer"></div>
+    </div>
+
+    <!-- Phase info -->
+    <div class="slf-phase-info" id="slfPhaseInfo">
+      <div class="slf-phase-name" id="slfPhaseName">—</div>
+      <div class="slf-phase-desc" id="slfPhaseDesc">—</div>
+    </div>
+
+    <!-- Action / content area -->
+    <div class="slf-content" id="slfContent"></div>
+
+    <!-- Settings -->
+    <div class="multi-modal-bd" id="slfSettingsModal" onclick="if(event.target===this) slf_closeSettings()">
+      <div class="multi-modal slf-modal">
+        <div class="multi-modal-title">EINSTELLUNGEN</div>
+        <div class="multi-settings-label" id="slfHostOnlyLabel">HOST</div>
+        <button class="multi-settings-btn-full multi-danger" id="slfResetBtn" onclick="slf_resetGame()" style="display:none">Zurück zur Lobby</button>
+        <div class="multi-settings-label" style="margin-top:1rem">SESSION</div>
+        <button class="multi-settings-btn-full multi-leave-action" onclick="slf_closeSettings(); slf_leave()">🚪 Session verlassen</button>
+        <button class="multi-modal-close" onclick="slf_closeSettings()">FERTIG</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ BLACK STORIES ============ -->
+<div class="app app-multi app-bs" id="appBlackstories">
+  <div class="multi-lobby bs-lobby" id="bsLobby">
+    <div class="multi-lobby-title" onclick="handleAdminTitleClick()" style="cursor:pointer">
+      <span class="multi-lobby-emoji">🕯️</span><span>Black Stories</span><span class="multi-tag">MULTI</span>
+    </div>
+    <div class="multi-lobby-sub">Düstere Rätsel · einer kennt die Lösung</div>
+    <div class="multi-lobby-section">
+      <label class="multi-lobby-label">DEIN NAME</label>
+      <input type="text" class="multi-input" id="bsName" maxlength="14" placeholder="z.B. Tobi" autocomplete="off">
+    </div>
+    <div class="multi-lobby-section">
+      <label class="multi-lobby-label">🕯️ NEUE RUNDE</label>
+      <div class="multi-lobby-row">
+        <input type="text" class="multi-input multi-code-in" id="bsCreateCode" maxlength="6" placeholder="(zufällig)" autocomplete="off" autocapitalize="characters">
+        <button class="multi-action-btn" onclick="bs_create()">ERSTELLEN</button>
+      </div>
+    </div>
+    <div class="multi-lobby-section">
+      <label class="multi-lobby-label">BEITRETEN</label>
+      <div class="multi-lobby-row">
+        <input type="text" class="multi-input multi-code-in" id="bsJoinCode" maxlength="6" placeholder="CODE" autocomplete="off" autocapitalize="characters">
+        <button class="multi-action-btn" onclick="bs_join()">BEITRETEN</button>
+      </div>
+    </div>
+    <div class="multi-lobby-error" id="bsError"></div>
+  </div>
+  <div class="multi-game bs-waiting" id="bsWaiting" style="display:none">
+    <div class="multi-topbar">
+      <button class="multi-topbar-btn multi-burger-btn" onclick="toggleMenu()"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
+      <div class="multi-topbar-mid"><div class="multi-topbar-code" id="bsWaitCode" onclick="handleAdminTitleClick()" style="cursor:pointer">—</div><div class="multi-topbar-peers">LOBBY</div></div>
+      <button class="multi-topbar-btn multi-settings-btn" onclick="bs_openSettingsWait()">⚙</button>
+    </div>
+    <div class="g-waiting-content bs-tint">
+      <div class="g-waiting-label">CODE</div>
+      <div class="g-waiting-code" id="bsWaitCodeBig">—</div>
+      <button class="pm-mini-btn" onclick="bs_copyCode()">📋 Kopieren</button>
+      <div class="pm-waiting-section-label">SPIELER <span id="bsWaitCount">0/20</span></div>
+      <div class="pm-waiting-players" id="bsWaitPlayers"></div>
+      <div class="pm-waiting-hint" style="margin-top:0.8rem">Der Spielleiter wechselt jede Runde reihum. Die anderen stellen Ja/Nein-Fragen.</div>
+      <button class="pm-start-btn g-start-btn bs-btn" id="bsStartBtn" onclick="bs_startGame()">SPIEL STARTEN</button>
+      <div class="pm-waiting-hint" id="bsWaitHint">Mindestens 2 Spieler · nur Host kann starten</div>
+    </div>
+    <div class="multi-modal-bd" id="bsSettingsWaitModal" onclick="if(event.target===this) bs_closeSettingsWait()">
+      <div class="multi-modal g-modal bs-modal"><div class="multi-modal-title">EINSTELLUNGEN</div>
+        <div class="multi-settings-label">SESSION</div>
+        <button class="multi-settings-btn-full multi-leave-action" onclick="bs_closeSettingsWait(); bs_leave()">🚪 Session verlassen</button>
+        <button class="multi-modal-close" onclick="bs_closeSettingsWait()">FERTIG</button>
+      </div>
+    </div>
+  </div>
+  <div class="multi-game bs-game" id="bsGame" style="display:none">
+    <div class="multi-topbar">
+      <button class="multi-topbar-btn multi-burger-btn" onclick="toggleMenu()"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
+      <div class="multi-topbar-mid"><div class="multi-topbar-code" id="bsTopCode" onclick="handleAdminTitleClick()" style="cursor:pointer">—</div><div class="multi-topbar-peers" id="bsTopPhase">Rätsel 1</div></div>
+      <button class="multi-topbar-btn multi-settings-btn" onclick="bs_openSettings()">⚙</button>
+    </div>
+    <div class="bs-content" id="bsContent"></div>
+    <div class="multi-modal-bd" id="bsSettingsModal" onclick="if(event.target===this) bs_closeSettings()">
+      <div class="multi-modal g-modal bs-modal"><div class="multi-modal-title">EINSTELLUNGEN</div>
+        <div class="multi-settings-label" id="bsHostOnlyLabel">HOST</div>
+        <button class="multi-settings-btn-full multi-danger" id="bsResetBtn" onclick="bs_resetGame()" style="display:none">Zurück zur Lobby</button>
+        <div class="multi-settings-label" style="margin-top:1rem">SESSION</div>
+        <button class="multi-settings-btn-full multi-leave-action" onclick="bs_closeSettings(); bs_leave()">🚪 Session verlassen</button>
+        <button class="multi-modal-close" onclick="bs_closeSettings()">FERTIG</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ WER BIN ICH ============ -->
+<div class="app app-multi app-wb" id="appWerbinich">
+  <div class="multi-lobby wb-lobby" id="wbLobby">
+    <div class="multi-lobby-title" onclick="handleAdminTitleClick()" style="cursor:pointer">
+      <span class="multi-lobby-emoji">🤔</span><span>Wer bin ich</span><span class="multi-tag">MULTI</span>
+    </div>
+    <div class="multi-lobby-sub">Jeder sieht alle außer sich selbst · 3–15 Spieler</div>
+    <div class="multi-lobby-section">
+      <label class="multi-lobby-label">DEIN NAME</label>
+      <input type="text" class="multi-input" id="wbName" maxlength="14" placeholder="z.B. Tobi" autocomplete="off">
+    </div>
+    <div class="multi-lobby-section">
+      <label class="multi-lobby-label">🤔 NEUE RUNDE</label>
+      <div class="multi-lobby-row">
+        <input type="text" class="multi-input multi-code-in" id="wbCreateCode" maxlength="6" placeholder="(zufällig)" autocomplete="off" autocapitalize="characters">
+        <button class="multi-action-btn" onclick="wb_create()">ERSTELLEN</button>
+      </div>
+    </div>
+    <div class="multi-lobby-section">
+      <label class="multi-lobby-label">BEITRETEN</label>
+      <div class="multi-lobby-row">
+        <input type="text" class="multi-input multi-code-in" id="wbJoinCode" maxlength="6" placeholder="CODE" autocomplete="off" autocapitalize="characters">
+        <button class="multi-action-btn" onclick="wb_join()">BEITRETEN</button>
+      </div>
+    </div>
+    <div class="multi-lobby-error" id="wbError"></div>
+  </div>
+  <div class="multi-game wb-waiting" id="wbWaiting" style="display:none">
+    <div class="multi-topbar">
+      <button class="multi-topbar-btn multi-burger-btn" onclick="toggleMenu()"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
+      <div class="multi-topbar-mid"><div class="multi-topbar-code" id="wbWaitCode" onclick="handleAdminTitleClick()" style="cursor:pointer">—</div><div class="multi-topbar-peers">LOBBY</div></div>
+      <button class="multi-topbar-btn multi-settings-btn" onclick="wb_openSettingsWait()">⚙</button>
+    </div>
+    <div class="g-waiting-content wb-tint">
+      <div class="g-waiting-label">CODE</div>
+      <div class="g-waiting-code" id="wbWaitCodeBig">—</div>
+      <button class="pm-mini-btn" onclick="wb_copyCode()">📋 Kopieren</button>
+      <div class="pm-waiting-section-label">SPIELER <span id="wbWaitCount">0/15</span></div>
+      <div class="pm-waiting-players" id="wbWaitPlayers"></div>
+      <div class="g-config-section" id="wbConfigSection" style="display:none">
+        <div class="pm-waiting-section-label">KATEGORIE</div>
+        <select class="g-select wb-select" id="wbCfgCategory" onchange="wb_setCategory(this.value)"></select>
+        <label class="g-toggle"><input type="checkbox" id="wbCfgAuto" checked onchange="wb_setAuto(this.checked)"><span>App vergibt Begriffe automatisch</span></label>
+        <div class="pm-waiting-hint" id="wbModeHint">Aus: jeder tippt einen Begriff für den nächsten Spieler.</div>
+      </div>
+      <button class="pm-start-btn g-start-btn wb-btn" id="wbStartBtn" onclick="wb_startGame()">SPIEL STARTEN</button>
+      <div class="pm-waiting-hint" id="wbWaitHint">Mindestens 3 Spieler · nur Host kann starten</div>
+    </div>
+    <div class="multi-modal-bd" id="wbSettingsWaitModal" onclick="if(event.target===this) wb_closeSettingsWait()">
+      <div class="multi-modal g-modal wb-modal"><div class="multi-modal-title">EINSTELLUNGEN</div>
+        <div class="multi-settings-label">SESSION</div>
+        <button class="multi-settings-btn-full multi-leave-action" onclick="wb_closeSettingsWait(); wb_leave()">🚪 Session verlassen</button>
+        <button class="multi-modal-close" onclick="wb_closeSettingsWait()">FERTIG</button>
+      </div>
+    </div>
+  </div>
+  <div class="multi-game wb-game" id="wbGame" style="display:none">
+    <div class="multi-topbar">
+      <button class="multi-topbar-btn multi-burger-btn" onclick="toggleMenu()"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
+      <div class="multi-topbar-mid"><div class="multi-topbar-code" id="wbTopCode" onclick="handleAdminTitleClick()" style="cursor:pointer">—</div><div class="multi-topbar-peers" id="wbTopPhase">Spiel</div></div>
+      <button class="multi-topbar-btn multi-settings-btn" onclick="wb_openSettings()">⚙</button>
+    </div>
+    <div class="wb-content" id="wbContent"></div>
+    <div class="multi-modal-bd" id="wbSettingsModal" onclick="if(event.target===this) wb_closeSettings()">
+      <div class="multi-modal g-modal wb-modal"><div class="multi-modal-title">EINSTELLUNGEN</div>
+        <div class="multi-settings-label" id="wbHostOnlyLabel">HOST</div>
+        <button class="multi-settings-btn-full multi-danger" id="wbResetBtn" onclick="wb_resetGame()" style="display:none">Zurück zur Lobby</button>
+        <div class="multi-settings-label" style="margin-top:1rem">SESSION</div>
+        <button class="multi-settings-btn-full multi-leave-action" onclick="wb_closeSettings(); wb_leave()">🚪 Session verlassen</button>
+        <button class="multi-modal-close" onclick="wb_closeSettings()">FERTIG</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ TABU ============ -->
+<div class="app app-multi app-tb" id="appTabu">
+  <div class="multi-lobby tb-lobby" id="tbLobby">
+    <div class="multi-lobby-title" onclick="handleAdminTitleClick()" style="cursor:pointer">
+      <span class="multi-lobby-emoji">🚫</span><span>Tabu</span><span class="multi-tag">MULTI</span>
+    </div>
+    <div class="multi-lobby-sub">Erkläre das Wort — ohne die Tabu-Wörter · 2 Teams</div>
+    <div class="multi-lobby-section">
+      <label class="multi-lobby-label">DEIN NAME</label>
+      <input type="text" class="multi-input" id="tbName" maxlength="14" placeholder="z.B. Tobi" autocomplete="off">
+    </div>
+    <div class="multi-lobby-section">
+      <label class="multi-lobby-label">🚫 NEUE RUNDE</label>
+      <div class="multi-lobby-row">
+        <input type="text" class="multi-input multi-code-in" id="tbCreateCode" maxlength="6" placeholder="(zufällig)" autocomplete="off" autocapitalize="characters">
+        <button class="multi-action-btn" onclick="tb_create()">ERSTELLEN</button>
+      </div>
+    </div>
+    <div class="multi-lobby-section">
+      <label class="multi-lobby-label">BEITRETEN</label>
+      <div class="multi-lobby-row">
+        <input type="text" class="multi-input multi-code-in" id="tbJoinCode" maxlength="6" placeholder="CODE" autocomplete="off" autocapitalize="characters">
+        <button class="multi-action-btn" onclick="tb_join()">BEITRETEN</button>
+      </div>
+    </div>
+    <div class="multi-lobby-error" id="tbError"></div>
+  </div>
+  <div class="multi-game tb-waiting" id="tbWaiting" style="display:none">
+    <div class="multi-topbar">
+      <button class="multi-topbar-btn multi-burger-btn" onclick="toggleMenu()"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
+      <div class="multi-topbar-mid"><div class="multi-topbar-code" id="tbWaitCode" onclick="handleAdminTitleClick()" style="cursor:pointer">—</div><div class="multi-topbar-peers">LOBBY</div></div>
+      <button class="multi-topbar-btn multi-settings-btn" onclick="tb_openSettingsWait()">⚙</button>
+    </div>
+    <div class="g-waiting-content tb-tint">
+      <div class="g-waiting-label">CODE</div>
+      <div class="g-waiting-code" id="tbWaitCodeBig">—</div>
+      <button class="pm-mini-btn" onclick="tb_copyCode()">📋 Kopieren</button>
+      <div class="pm-waiting-section-label">TEAMS</div>
+      <div class="tb-teams" id="tbTeams"></div>
+      <div class="g-config-section" id="tbConfigSection" style="display:none">
+        <div class="g-config-row"><span>⏱ Sekunden pro Zug</span>
+          <div class="g-counter"><button class="g-counter-btn" onclick="tb_adjustTimer(-15)">−</button><span class="g-counter-val" id="tbCfgTimer">60</span><button class="g-counter-btn" onclick="tb_adjustTimer(15)">+</button></div>
+        </div>
+        <div class="g-config-row"><span>🏆 Ziel-Punkte</span>
+          <div class="g-counter"><button class="g-counter-btn" onclick="tb_adjustGoal(-5)">−</button><span class="g-counter-val" id="tbCfgGoal">30</span><button class="g-counter-btn" onclick="tb_adjustGoal(5)">+</button></div>
+        </div>
+      </div>
+      <button class="pm-start-btn g-start-btn tb-btn" id="tbStartBtn" onclick="tb_startGame()">SPIEL STARTEN</button>
+      <div class="pm-waiting-hint" id="tbWaitHint">Min. 1 Spieler pro Team · nur Host kann starten</div>
+    </div>
+    <div class="multi-modal-bd" id="tbSettingsWaitModal" onclick="if(event.target===this) tb_closeSettingsWait()">
+      <div class="multi-modal g-modal tb-modal"><div class="multi-modal-title">EINSTELLUNGEN</div>
+        <div class="multi-settings-label">SESSION</div>
+        <button class="multi-settings-btn-full multi-leave-action" onclick="tb_closeSettingsWait(); tb_leave()">🚪 Session verlassen</button>
+        <button class="multi-modal-close" onclick="tb_closeSettingsWait()">FERTIG</button>
+      </div>
+    </div>
+  </div>
+  <div class="multi-game tb-game" id="tbGame" style="display:none">
+    <div class="multi-topbar">
+      <button class="multi-topbar-btn multi-burger-btn" onclick="toggleMenu()"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
+      <div class="multi-topbar-mid"><div class="multi-topbar-code" id="tbTopCode" onclick="handleAdminTitleClick()" style="cursor:pointer">—</div><div class="multi-topbar-peers" id="tbTopPhase">—</div></div>
+      <button class="multi-topbar-btn multi-settings-btn" onclick="tb_openSettings()">⚙</button>
+    </div>
+    <div class="tb-scorebar" id="tbScorebar"></div>
+    <div class="tb-content" id="tbContent"></div>
+    <div class="multi-modal-bd" id="tbSettingsModal" onclick="if(event.target===this) tb_closeSettings()">
+      <div class="multi-modal g-modal tb-modal"><div class="multi-modal-title">EINSTELLUNGEN</div>
+        <div class="multi-settings-label" id="tbHostOnlyLabel">HOST</div>
+        <button class="multi-settings-btn-full multi-danger" id="tbResetBtn" onclick="tb_resetGame()" style="display:none">Zurück zur Lobby</button>
+        <div class="multi-settings-label" style="margin-top:1rem">SESSION</div>
+        <button class="multi-settings-btn-full multi-leave-action" onclick="tb_closeSettings(); tb_leave()">🚪 Session verlassen</button>
+        <button class="multi-modal-close" onclick="tb_closeSettings()">FERTIG</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ CODENAMES ============ -->
+<div class="app app-multi app-cn" id="appCodenames">
+  <div class="multi-lobby cn-lobby" id="cnLobby">
+    <div class="multi-lobby-title" onclick="handleAdminTitleClick()" style="cursor:pointer">
+      <span class="multi-lobby-emoji">🕶️</span><span>Codenames</span><span class="multi-tag">MULTI</span>
+    </div>
+    <div class="multi-lobby-sub">Rot vs Blau · Spymaster gibt Hinweise · 4+ Spieler</div>
+    <div class="multi-lobby-section">
+      <label class="multi-lobby-label">DEIN NAME</label>
+      <input type="text" class="multi-input" id="cnName" maxlength="14" placeholder="z.B. Tobi" autocomplete="off">
+    </div>
+    <div class="multi-lobby-section">
+      <label class="multi-lobby-label">🕶️ NEUE RUNDE</label>
+      <div class="multi-lobby-row">
+        <input type="text" class="multi-input multi-code-in" id="cnCreateCode" maxlength="6" placeholder="(zufällig)" autocomplete="off" autocapitalize="characters">
+        <button class="multi-action-btn" onclick="cn_create()">ERSTELLEN</button>
+      </div>
+    </div>
+    <div class="multi-lobby-section">
+      <label class="multi-lobby-label">BEITRETEN</label>
+      <div class="multi-lobby-row">
+        <input type="text" class="multi-input multi-code-in" id="cnJoinCode" maxlength="6" placeholder="CODE" autocomplete="off" autocapitalize="characters">
+        <button class="multi-action-btn" onclick="cn_join()">BEITRETEN</button>
+      </div>
+    </div>
+    <div class="multi-lobby-error" id="cnError"></div>
+  </div>
+  <div class="multi-game cn-waiting" id="cnWaiting" style="display:none">
+    <div class="multi-topbar">
+      <button class="multi-topbar-btn multi-burger-btn" onclick="toggleMenu()"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
+      <div class="multi-topbar-mid"><div class="multi-topbar-code" id="cnWaitCode" onclick="handleAdminTitleClick()" style="cursor:pointer">—</div><div class="multi-topbar-peers">LOBBY</div></div>
+      <button class="multi-topbar-btn multi-settings-btn" onclick="cn_openSettingsWait()">⚙</button>
+    </div>
+    <div class="g-waiting-content cn-tint">
+      <div class="g-waiting-label">CODE</div>
+      <div class="g-waiting-code" id="cnWaitCodeBig">—</div>
+      <button class="pm-mini-btn" onclick="cn_copyCode()">📋 Kopieren</button>
+      <div class="pm-waiting-section-label">TEAMS &amp; ROLLEN</div>
+      <div class="cn-teams" id="cnTeams"></div>
+      <button class="pm-start-btn g-start-btn cn-btn" id="cnStartBtn" onclick="cn_startGame()">SPIEL STARTEN</button>
+      <div class="pm-waiting-hint" id="cnWaitHint">Pro Team: 1 Spymaster + min. 1 Agent</div>
+    </div>
+    <div class="multi-modal-bd" id="cnSettingsWaitModal" onclick="if(event.target===this) cn_closeSettingsWait()">
+      <div class="multi-modal g-modal cn-modal"><div class="multi-modal-title">EINSTELLUNGEN</div>
+        <div class="multi-settings-label">SESSION</div>
+        <button class="multi-settings-btn-full multi-leave-action" onclick="cn_closeSettingsWait(); cn_leave()">🚪 Session verlassen</button>
+        <button class="multi-modal-close" onclick="cn_closeSettingsWait()">FERTIG</button>
+      </div>
+    </div>
+  </div>
+  <div class="multi-game cn-game" id="cnGame" style="display:none">
+    <div class="multi-topbar">
+      <button class="multi-topbar-btn multi-burger-btn" onclick="toggleMenu()"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
+      <div class="multi-topbar-mid"><div class="multi-topbar-code" id="cnTopCode" onclick="handleAdminTitleClick()" style="cursor:pointer">—</div><div class="multi-topbar-peers" id="cnTopPhase">—</div></div>
+      <button class="multi-topbar-btn multi-settings-btn" onclick="cn_openSettings()">⚙</button>
+    </div>
+    <div class="cn-scorebar" id="cnScorebar"></div>
+    <div class="cn-content" id="cnContent"></div>
+    <div class="multi-modal-bd" id="cnSettingsModal" onclick="if(event.target===this) cn_closeSettings()">
+      <div class="multi-modal g-modal cn-modal"><div class="multi-modal-title">EINSTELLUNGEN</div>
+        <div class="multi-settings-label" id="cnHostOnlyLabel">HOST</div>
+        <button class="multi-settings-btn-full multi-danger" id="cnResetBtn" onclick="cn_resetGame()" style="display:none">Neues Spiel (Lobby)</button>
+        <div class="multi-settings-label" style="margin-top:1rem">SESSION</div>
+        <button class="multi-settings-btn-full multi-leave-action" onclick="cn_closeSettings(); cn_leave()">🚪 Session verlassen</button>
+        <button class="multi-modal-close" onclick="cn_closeSettings()">FERTIG</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 
 <script>
   // ============ APP SWITCHER ============
@@ -8077,6 +8935,11 @@
     pokerMulti:    { title: 'Poker Multi',      emoji: '♠️', theme: '#050a08' },
     werwolf:       { title: 'Werwolf',          emoji: '🐺', theme: '#0a0a18' },
     impostor:      { title: 'Impostor',         emoji: '🕵️', theme: '#1a0a0a' },
+    slf:           { title: 'Stadt Land Fluss',  emoji: '📝', theme: '#06140f' },
+    blackstories:  { title: 'Black Stories',     emoji: '🕯️', theme: '#0d0a12' },
+    werbinich:     { title: 'Wer bin ich',       emoji: '🤔', theme: '#0a1420' },
+    tabu:          { title: 'Tabu',              emoji: '🚫', theme: '#1a0a12' },
+    codenames:     { title: 'Codenames',         emoji: '🕶️', theme: '#0f1419' },
   };
 
   function setFavicon(emoji) {
@@ -8110,6 +8973,11 @@
       pokerMulti: 'appPokerMulti',
       werwolf: 'appWerwolf',
       impostor: 'appImpostor',
+      slf: 'appSlf',
+      blackstories: 'appBlackstories',
+      werbinich: 'appWerbinich',
+      tabu: 'appTabu',
+      codenames: 'appCodenames',
     };
     const id = idMap[name] || 'appLiarsbar';
     const el = document.getElementById(id);
@@ -8118,7 +8986,7 @@
     try { localStorage.setItem(APP_KEY, name); } catch (e) {}
 
     // Set body class for multi-apps so we can hide the fixed burger
-    const isMulti = (name === 'liarsbarMulti' || name === 'alkiMulti' || name === 'pokerMulti' || name === 'werwolf' || name === 'impostor');
+    const isMulti = ['liarsbarMulti','alkiMulti','pokerMulti','werwolf','impostor','slf','blackstories','werbinich','tabu','codenames'].includes(name);
     document.body.classList.toggle('in-multi-app', isMulti);
 
     // Update admin button visibility (only show in apps with admin panel support)
@@ -8154,7 +9022,7 @@
     let active = 'liarsbar';
     try {
       const saved = localStorage.getItem(APP_KEY);
-      if (['poker','liarsbar','alki','liarsbarMulti','alkiMulti','pokerMulti','werwolf','impostor'].includes(saved)) active = saved;
+      if (['poker','liarsbar','alki','liarsbarMulti','alkiMulti','pokerMulti','werwolf','impostor','slf','blackstories','werbinich','tabu','codenames'].includes(saved)) active = saved;
     } catch (e) {}
     switchApp(active);
   })();
@@ -15081,6 +15949,1554 @@ nextRound();
     window.imp_closeSettingsWait = imp_closeSettingsWait;
     window.imp_resetGame = imp_resetGame;
   })();
+
+  // ============================================================
+  // ============ STADT LAND FLUSS ==============================
+  // ============================================================
+  (function() {
+    const MIN_PLAYERS = 2;
+    const MAX_PLAYERS = 15;
+    const LETTERS = 'ABCDEFGHIJKLMNOPRSTUVWZ'; // ohne Q,X,Y
+    const ALL_CATEGORIES = ['Stadt', 'Land', 'Fluss', 'Name', 'Tier', 'Beruf', 'Pflanze', 'Marke', 'Essen', 'Film/Serie'];
+    const DEFAULT_CATEGORIES = ['Stadt', 'Land', 'Fluss', 'Name', 'Tier', 'Beruf'];
+
+    // ---- Identity / helpers ----
+    function getSelfId() {
+      let id = localStorage.getItem('mp-self-id');
+      if (!id) { id = 'd_' + Math.random().toString(36).slice(2, 10) + Math.random().toString(36).slice(2, 6); localStorage.setItem('mp-self-id', id); }
+      return id;
+    }
+    function getStoredName() { return localStorage.getItem('mp-display-name') || ''; }
+    function setStoredName(n) { try { localStorage.setItem('mp-display-name', n); } catch (e) {} }
+    function genCode() {
+      const chars = 'ABCDEFGHJKMNPQRSTUVWXYZ23456789';
+      let c = ''; for (let i = 0; i < 4; i++) c += chars[Math.floor(Math.random() * chars.length)];
+      return c;
+    }
+    function validateCode(code) {
+      if (!code) return null;
+      const cleaned = code.toUpperCase().replace(/[^A-Z0-9]/g, '');
+      if (cleaned.length < 3 || cleaned.length > 6) return null;
+      return cleaned;
+    }
+    function shuffle(arr) { const a = arr.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; }
+    function toArray(v) {
+      if (v == null) return [];
+      if (Array.isArray(v)) return v;
+      if (typeof v === 'object') { const keys = Object.keys(v).map(Number).filter(k => !isNaN(k)).sort((a, b) => a - b); return keys.map(k => v[k]); }
+      return [];
+    }
+    function deepClean(obj) {
+      if (obj === null || obj === undefined) return null;
+      if (typeof obj !== 'object') return obj;
+      if (Array.isArray(obj)) return obj.map(deepClean);
+      const out = {}; for (const k in obj) { const v = obj[k]; if (v !== undefined) out[k] = deepClean(v); } return out;
+    }
+    function escapeHtml(s) { return String(s).replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch])); }
+    function normAnswer(s) { return String(s || '').toLowerCase().trim().replace(/\s+/g, ' '); }
+
+    // ---- State ----
+    let state = { app: 'slf', phase: 'lobby', players: {}, seatOrder: [] };
+    let mySelfId = getSelfId();
+    let myCode = null, amHost = false, inSession = false, inWaiting = true;
+    let unsubSession = null, sessionRef = null, peerRef = null;
+    let inputsBuilt = false;       // playing-phase inputs built once
+    let builtForRound = -1;        // which round the inputs were built for
+    let writeDebounce = {};        // per-category debounce timers
+    let timerInterval = null;
+    let hostTimerTimeout = null;
+    let rollInterval = null;
+
+    function showError(msg) {
+      const el = document.getElementById('slfError'); if (!el) return;
+      el.textContent = msg; clearTimeout(showError._tm);
+      showError._tm = setTimeout(() => { el.textContent = ''; }, 5000);
+    }
+    function showToast(msg) {
+      let t = document.getElementById('mpToast');
+      if (!t) { t = document.createElement('div'); t.id = 'mpToast'; t.className = 'mp-toast'; document.body.appendChild(t); }
+      t.textContent = msg; t.classList.add('show'); clearTimeout(t._tm);
+      t._tm = setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function getConfig() {
+      return state.config || { categories: DEFAULT_CATEGORIES.slice(), rounds: 5, mode: 'stopp', timerSeconds: 90 };
+    }
+
+    // ---- Lobby ----
+    async function slf_create() {
+      if (!window.FB) { showError('Firebase noch nicht geladen'); return; }
+      const name = (document.getElementById('slfName').value.trim()) || ('Spieler ' + mySelfId.slice(2, 6));
+      setStoredName(name);
+      const codeIn = document.getElementById('slfCreateCode').value.trim();
+      let code = codeIn ? validateCode(codeIn) : genCode();
+      if (codeIn && !code) { showError('Code: 3–6 Zeichen, nur A–Z und 0–9'); return; }
+      const { db, ref, get, set } = window.FB;
+      try {
+        const existing = await get(ref(db, 'sessions/' + code));
+        if (existing.exists()) {
+          const ex = existing.val();
+          const peerCount = Object.keys(ex.peers || {}).length;
+          if (peerCount === 0) await window.FB.remove(ref(db, 'sessions/' + code));
+          else { showError(`Code ${code} ist gerade aktiv (${peerCount} Spieler)`); return; }
+        }
+      } catch (e) { showError('Fehler beim Prüfen'); return; }
+
+      const initial = {
+        app: 'slf', host: mySelfId, phase: 'lobby',
+        players: { [mySelfId]: { name, joinedAt: Date.now(), score: 0 } },
+        seatOrder: [],
+        config: { categories: DEFAULT_CATEGORIES.slice(), rounds: 5, mode: 'stopp', timerSeconds: 90 },
+        roundNumber: 0, currentLetter: null, roundStartedAt: null,
+        answers: null, invalidated: null, stoppedBy: null,
+        createdAt: Date.now(), pendingAction: null,
+      };
+      try {
+        await set(ref(db, 'sessions/' + code), { state: initial, writerId: mySelfId });
+        myCode = code; amHost = true;
+        await joinListeners(code, name); switchToWaiting();
+      } catch (e) { showError('Erstellen fehlgeschlagen: ' + (e.message || e)); }
+    }
+
+    async function slf_join() {
+      if (!window.FB) { showError('Firebase noch nicht geladen'); return; }
+      const name = (document.getElementById('slfName').value.trim()) || ('Spieler ' + mySelfId.slice(2, 6));
+      setStoredName(name);
+      const code = validateCode(document.getElementById('slfJoinCode').value);
+      if (!code) { showError('Code: 3–6 Zeichen'); return; }
+      const { db, ref, get, update } = window.FB;
+      try {
+        const snap = await get(ref(db, 'sessions/' + code));
+        if (!snap.exists()) { showError(`Session ${code} nicht gefunden`); return; }
+        const data = snap.val();
+        const peerCount = Object.keys(data.peers || {}).length;
+        if (peerCount === 0) { await window.FB.remove(ref(db, 'sessions/' + code)); showError(`Session ${code} war abgelaufen — bitte neu erstellen`); return; }
+        if (data.state && data.state.app !== 'slf') { showError(`Code ${code} läuft in einer anderen App`); return; }
+        const players = (data.state && data.state.players) || {};
+        const running = data.state && data.state.phase && data.state.phase !== 'lobby';
+        if (running && !players[mySelfId]) { showError('Spiel läuft schon — kein Beitritt möglich'); return; }
+        if (!players[mySelfId]) {
+          if (Object.keys(players).length >= MAX_PLAYERS) { showError('Session ist voll'); return; }
+          await update(ref(db, `sessions/${code}/state/players/${mySelfId}`), { name, joinedAt: Date.now(), score: 0 });
+        } else {
+          await update(ref(db, `sessions/${code}/state/players/${mySelfId}`), { name });
+        }
+        myCode = code; amHost = (data.state.host === mySelfId);
+        await joinListeners(code, name);
+        if (running) switchToGame(); else switchToWaiting();
+      } catch (e) { showError('Beitreten fehlgeschlagen: ' + (e.message || e)); }
+    }
+
+    async function joinListeners(code, name) {
+      const { db, ref, onValue, set, onDisconnect } = window.FB;
+      sessionRef = ref(db, 'sessions/' + code);
+      peerRef = ref(db, `sessions/${code}/peers/${mySelfId}`);
+      await set(peerRef, { name, lastSeen: Date.now() });
+      onDisconnect(peerRef).remove();
+
+      unsubSession = onValue(sessionRef, (snapshot) => {
+        if (!snapshot.exists()) { showError('Session beendet'); slf_leave(); return; }
+        const data = snapshot.val();
+        const ns = data.state || {};
+        ns.seatOrder = toArray(ns.seatOrder);
+        ns.players = ns.players || {};
+        if (ns.config) ns.config.categories = toArray(ns.config.categories);
+        state = ns;
+        amHost = (state.host === mySelfId);
+        document.body.classList.toggle('mp-host', amHost);
+
+        if (state.phase !== 'lobby' && inWaiting) switchToGame();
+        if (state.phase === 'lobby' && !inWaiting && inSession) switchToWaiting();
+
+        if (amHost && state.pendingAction) { processPendingAction(state.pendingAction); return; }
+
+        renderAll();
+      });
+      inSession = true;
+    }
+
+    async function slf_leave() {
+      stopTimers();
+      const { remove, update, get } = window.FB || {};
+      try { if (unsubSession) unsubSession(); } catch (e) {}
+      try { if (peerRef && remove) await remove(peerRef); } catch (e) {}
+      if (sessionRef && window.FB) {
+        try {
+          const snap = await get(sessionRef);
+          if (snap.exists()) {
+            const d = snap.val();
+            const remainingPeers = Object.keys(d.peers || {});
+            if (remainingPeers.length === 0) await remove(sessionRef);
+            else {
+              await remove(window.FB.ref(window.FB.db, `sessions/${myCode}/state/players/${mySelfId}`));
+              if (amHost) await update(window.FB.ref(window.FB.db, `sessions/${myCode}/state`), { host: remainingPeers[0] });
+            }
+          }
+        } catch (e) {}
+      }
+      sessionRef = null; peerRef = null; unsubSession = null;
+      inSession = false; myCode = null; amHost = false;
+      switchToLobby();
+    }
+
+    function stopTimers() {
+      if (timerInterval) { clearInterval(timerInterval); timerInterval = null; }
+      if (hostTimerTimeout) { clearTimeout(hostTimerTimeout); hostTimerTimeout = null; }
+      if (rollInterval) { clearInterval(rollInterval); rollInterval = null; }
+    }
+
+    // ---- View switching ----
+    function switchToLobby() {
+      document.getElementById('slfLobby').style.display = '';
+      document.getElementById('slfWaiting').style.display = 'none';
+      document.getElementById('slfGame').style.display = 'none';
+      document.getElementById('slfName').value = getStoredName();
+      inWaiting = false; document.body.classList.add('in-multi-lobby');
+      stopTimers();
+    }
+    function switchToWaiting() {
+      document.getElementById('slfLobby').style.display = 'none';
+      document.getElementById('slfWaiting').style.display = '';
+      document.getElementById('slfGame').style.display = 'none';
+      inWaiting = true; document.body.classList.remove('in-multi-lobby');
+      buildCatGrid(); renderWaiting();
+    }
+    function switchToGame() {
+      document.getElementById('slfLobby').style.display = 'none';
+      document.getElementById('slfWaiting').style.display = 'none';
+      document.getElementById('slfGame').style.display = '';
+      inWaiting = false; document.body.classList.remove('in-multi-lobby');
+      inputsBuilt = false; builtForRound = -1;
+      renderAll();
+    }
+    function slf_copyCode() { if (!myCode) return; try { navigator.clipboard.writeText(myCode); showToast('Code kopiert'); } catch (e) {} }
+
+    // ---- Waiting room ----
+    function buildCatGrid() {
+      const grid = document.getElementById('slfCatGrid');
+      if (!grid || grid.children.length > 0) return;
+      grid.innerHTML = ALL_CATEGORIES.map(cat =>
+        `<label class="slf-cat-chip" data-cat="${cat}" onclick="slf_toggleCat('${cat}')">
+          <input type="checkbox"><span>${cat}</span>
+        </label>`
+      ).join('');
+    }
+    function renderWaiting() {
+      document.getElementById('slfWaitCode').textContent = myCode || '—';
+      document.getElementById('slfWaitCodeBig').textContent = myCode || '—';
+      const players = state.players || {};
+      const ids = Object.keys(players).sort((a, b) => (players[a].joinedAt || 0) - (players[b].joinedAt || 0));
+      document.getElementById('slfWaitCount').textContent = `${ids.length}/${MAX_PLAYERS}`;
+      document.getElementById('slfWaitPlayers').innerHTML = ids.map(id => {
+        const p = players[id], isMe = id === mySelfId, isHost = id === state.host;
+        return `<div class="pm-waiting-player ${isMe ? 'me' : ''}"><span>${escapeHtml(p.name)}${isMe ? ' (du)' : ''}</span>${isHost ? '<span style="margin-left:auto">👑</span>' : ''}</div>`;
+      }).join('');
+
+      const cfg = getConfig();
+      const cfgSection = document.getElementById('slfConfigSection');
+      if (amHost) {
+        cfgSection.style.display = '';
+        document.querySelectorAll('#slfCatGrid .slf-cat-chip').forEach(chip => {
+          const cat = chip.dataset.cat;
+          const on = cfg.categories.includes(cat);
+          chip.classList.toggle('active', on);
+          const cb = chip.querySelector('input'); if (cb) cb.checked = on;
+        });
+        document.getElementById('slfCfgRounds').textContent = cfg.rounds;
+        document.getElementById('slfModeStopp').classList.toggle('active', cfg.mode === 'stopp');
+        document.getElementById('slfModeTimer').classList.toggle('active', cfg.mode === 'timer');
+        document.getElementById('slfTimerRow').style.display = cfg.mode === 'timer' ? '' : 'none';
+        document.getElementById('slfCfgTimer').textContent = cfg.timerSeconds;
+      } else {
+        cfgSection.style.display = 'none';
+      }
+
+      const startBtn = document.getElementById('slfStartBtn');
+      const hint = document.getElementById('slfWaitHint');
+      if (amHost) {
+        startBtn.style.display = '';
+        const valid = ids.length >= MIN_PLAYERS && cfg.categories.length >= 1;
+        startBtn.disabled = !valid;
+        hint.textContent = valid ? 'Du bist Host — du kannst starten' : `Min. ${MIN_PLAYERS} Spieler · min. 1 Kategorie`;
+      } else {
+        startBtn.style.display = 'none';
+        hint.textContent = 'Warte bis der Host startet...';
+      }
+    }
+
+    // ---- Host: config ----
+    async function slf_toggleCat(cat) {
+      if (!amHost) return;
+      const cfg = Object.assign({}, getConfig());
+      cfg.categories = cfg.categories.slice();
+      const i = cfg.categories.indexOf(cat);
+      if (i >= 0) { if (cfg.categories.length > 1) cfg.categories.splice(i, 1); }
+      else cfg.categories.push(cat);
+      // keep canonical order
+      cfg.categories = ALL_CATEGORIES.filter(c => cfg.categories.includes(c));
+      await updateConfig(cfg);
+    }
+    async function slf_adjustRounds(d) {
+      if (!amHost) return;
+      const cfg = Object.assign({}, getConfig());
+      cfg.rounds = Math.max(1, Math.min(20, (cfg.rounds || 5) + d));
+      await updateConfig(cfg);
+    }
+    async function slf_setMode(m) {
+      if (!amHost) return;
+      const cfg = Object.assign({}, getConfig()); cfg.mode = m; await updateConfig(cfg);
+    }
+    async function slf_adjustTimer(d) {
+      if (!amHost) return;
+      const cfg = Object.assign({}, getConfig());
+      cfg.timerSeconds = Math.max(30, Math.min(300, (cfg.timerSeconds || 90) + d));
+      await updateConfig(cfg);
+    }
+    async function updateConfig(cfg) {
+      const { set, ref, db } = window.FB;
+      await set(ref(db, `sessions/${myCode}/state/config`), deepClean(cfg));
+    }
+
+    // ---- Host: start / rounds ----
+    async function slf_startGame() {
+      if (!amHost) return;
+      const players = state.players || {};
+      const ids = Object.keys(players);
+      if (ids.length < MIN_PLAYERS) { showError(`Min. ${MIN_PLAYERS} Spieler`); return; }
+      // reset scores
+      const np = {};
+      for (const id of ids) np[id] = Object.assign({}, players[id], { score: 0 });
+      const seatOrder = Object.keys(players).sort((a, b) => (players[a].joinedAt || 0) - (players[b].joinedAt || 0));
+      state = Object.assign({}, state, { players: np, seatOrder, roundNumber: 0 });
+      await broadcast(state);
+      startNewRound();
+    }
+
+    function startNewRound() {
+      if (!amHost) return;
+      const letter = LETTERS[Math.floor(Math.random() * LETTERS.length)];
+      const ns = Object.assign({}, state, {
+        phase: 'playing',
+        roundNumber: (state.roundNumber || 0) + 1,
+        currentLetter: letter,
+        roundStartedAt: Date.now(),
+        answers: {}, invalidated: {}, stoppedBy: null,
+        pendingAction: null,
+      });
+      state = ns;
+      broadcast(ns);
+      // Timer mode → host schedules auto-stop
+      const cfg = getConfig();
+      if (cfg.mode === 'timer') {
+        if (hostTimerTimeout) clearTimeout(hostTimerTimeout);
+        hostTimerTimeout = setTimeout(() => {
+          if (amHost && state.phase === 'playing') resolveRound(null);
+        }, (cfg.timerSeconds || 90) * 1000 + 500);
+      }
+    }
+
+    async function resolveRound(stoppedBy) {
+      if (!amHost) return;
+      if (state.phase !== 'playing') return;
+      stopTimers();
+      // Pull freshest answers from DB to avoid race with last-second typing
+      const { get, ref, db } = window.FB;
+      let freshAnswers = state.answers || {};
+      try {
+        const snap = await get(ref(db, `sessions/${myCode}/state/answers`));
+        if (snap.exists()) freshAnswers = snap.val() || {};
+      } catch (e) {}
+      const ns = Object.assign({}, state, {
+        phase: 'review',
+        answers: freshAnswers,
+        invalidated: state.invalidated || {},
+        stoppedBy: stoppedBy || null,
+        pendingAction: null,
+      });
+      state = ns;
+      broadcast(ns);
+    }
+
+    function nextAfterReview() {
+      if (!amHost) return;
+      // add round scores to totals
+      const cfg = getConfig();
+      const scores = computeRoundScores();
+      const np = JSON.parse(JSON.stringify(state.players));
+      for (const id in scores) { if (np[id]) np[id].score = (np[id].score || 0) + scores[id].total; }
+      state = Object.assign({}, state, { players: np });
+      if ((state.roundNumber || 0) >= cfg.rounds) {
+        state = Object.assign({}, state, { phase: 'gameOver', pendingAction: null });
+        broadcast(state);
+      } else {
+        broadcast(state);
+        startNewRound();
+      }
+    }
+
+    // ---- Scoring (deterministic, any client) ----
+    function computeRoundScores() {
+      const cfg = getConfig();
+      const cats = cfg.categories || [];
+      const answers = state.answers || {};
+      const invalid = state.invalidated || {};
+      const playerIds = state.seatOrder.length ? state.seatOrder : Object.keys(state.players);
+      const result = {};
+      playerIds.forEach(id => { result[id] = { total: 0, byCat: {} }; });
+
+      cats.forEach(cat => {
+        // gather valid normalized answers
+        const valids = {}; // playerId -> normalized
+        let validCount = 0;
+        const freq = {};
+        playerIds.forEach(id => {
+          const raw = answers[id] && answers[id][cat];
+          const isInvalid = invalid[id] && invalid[id][cat];
+          const startsRight = raw && state.currentLetter && normAnswer(raw).charAt(0) === state.currentLetter.toLowerCase();
+          if (raw && !isInvalid && startsRight) {
+            const n = normAnswer(raw);
+            valids[id] = n; validCount++;
+            freq[n] = (freq[n] || 0) + 1;
+          }
+        });
+        playerIds.forEach(id => {
+          let pts = 0;
+          if (valids[id]) {
+            const n = valids[id];
+            if (freq[n] > 1) pts = 5;
+            else pts = (validCount === 1) ? 20 : 10;
+          }
+          result[id].byCat[cat] = pts;
+          result[id].total += pts;
+        });
+      });
+      return result;
+    }
+
+    // ---- Pending actions ----
+    function processPendingAction(action) {
+      if (!amHost || !action) return;
+      const { type } = action;
+      if (type === 'stop' && state.phase === 'playing') { resolveRound(action.by); return; }
+      if (type === 'toggle_invalid' && state.phase === 'review' && action.by === state.host) {
+        const inv = JSON.parse(JSON.stringify(state.invalidated || {}));
+        if (!inv[action.player]) inv[action.player] = {};
+        inv[action.player][action.cat] = !inv[action.player][action.cat];
+        if (!inv[action.player][action.cat]) delete inv[action.player][action.cat];
+        state = Object.assign({}, state, { invalidated: inv, pendingAction: null });
+        broadcast(state); return;
+      }
+      if (type === 'next_round' && state.phase === 'review' && action.by === state.host) { nextAfterReview(); return; }
+      clearPendingAction();
+    }
+    function clearPendingAction() {
+      const { set, ref, db } = window.FB || {};
+      if (set && myCode) set(ref(db, `sessions/${myCode}/state/pendingAction`), null);
+    }
+
+    async function broadcast(ns) {
+      if (!sessionRef || !window.FB) return;
+      if (ns.pendingAction === undefined) ns.pendingAction = null;
+      state = ns;
+      const { set, ref, db } = window.FB;
+      try { await set(ref(db, `sessions/${myCode}/state`), deepClean(ns)); } catch (e) { console.error('[SLF] broadcast', e); }
+    }
+    async function sendAction(payload) {
+      if (!sessionRef || !window.FB) return;
+      const { set, ref, db } = window.FB;
+      await set(ref(db, `sessions/${myCode}/state/pendingAction`), Object.assign({ by: mySelfId, ts: Date.now() }, payload));
+    }
+
+    // ---- Player: live answer writing ----
+    function slf_onInput(cat, value) {
+      if (writeDebounce[cat]) clearTimeout(writeDebounce[cat]);
+      writeDebounce[cat] = setTimeout(() => {
+        const { set, ref, db } = window.FB || {};
+        if (set && myCode) set(ref(db, `sessions/${myCode}/state/answers/${mySelfId}/${cat}`), String(value || '')).catch(() => {});
+      }, 350);
+    }
+    function slf_flushInputs() {
+      // write all current inputs immediately (used before STOP)
+      const cfg = getConfig();
+      const { set, ref, db } = window.FB || {};
+      const promises = [];
+      cfg.categories.forEach(cat => {
+        const el = document.getElementById('slfIn_' + cat.replace(/[^a-zA-Z]/g, ''));
+        if (el && set && myCode) promises.push(set(ref(db, `sessions/${myCode}/state/answers/${mySelfId}/${cat}`), String(el.value || '')).catch(() => {}));
+      });
+      return Promise.all(promises);
+    }
+    async function slf_stop() {
+      await slf_flushInputs();
+      // small delay so the write lands before host pulls answers
+      setTimeout(() => sendAction({ type: 'stop' }), 250);
+    }
+    function slf_toggleInvalid(player, cat) { sendAction({ type: 'toggle_invalid', player, cat }); }
+    function slf_nextRound() { sendAction({ type: 'next_round' }); }
+
+    // ---- Rendering ----
+    function renderAll() {
+      if (inWaiting) { renderWaiting(); return; }
+      if (!inSession) return;
+      document.getElementById('slfTopCode').textContent = myCode || '—';
+      const cfg = getConfig();
+      document.getElementById('slfTopPhase').textContent =
+        state.phase === 'gameOver' ? 'Endstand' : `Runde ${state.roundNumber || 1}/${cfg.rounds}`;
+
+      const banner = document.getElementById('slfLetterBanner');
+      if (state.phase === 'playing' || state.phase === 'review') {
+        banner.style.display = '';
+        document.getElementById('slfLetterBig').textContent = state.currentLetter || '?';
+        updateTimerDisplay();
+      } else {
+        banner.style.display = 'none';
+        stopTimers();
+      }
+
+      renderPhaseInfo();
+      renderContent();
+    }
+
+    function renderPhaseInfo() {
+      const nameEl = document.getElementById('slfPhaseName');
+      const descEl = document.getElementById('slfPhaseDesc');
+      let name = '', desc = '';
+      if (state.phase === 'playing') { name = '✍️ Schreiben!'; desc = 'Fülle alle Kategorien mit Wörtern, die mit dem Buchstaben beginnen.'; }
+      else if (state.phase === 'review') { name = '🔍 Auswertung'; desc = 'Punkte: 20 (einziger) · 10 (einzigartig) · 5 (doppelt) · 0 (leer/falsch)'; }
+      else if (state.phase === 'gameOver') { name = '🏁 Endstand'; desc = ''; }
+      nameEl.textContent = name; descEl.textContent = desc;
+    }
+
+    function updateTimerDisplay() {
+      const el = document.getElementById('slfTimer');
+      const cfg = getConfig();
+      if (state.phase !== 'playing') {
+        if (timerInterval) { clearInterval(timerInterval); timerInterval = null; }
+        if (state.phase === 'review') el.textContent = state.stoppedBy && state.players[state.stoppedBy] ? '⏹ ' + state.players[state.stoppedBy].name : '⏹ Zeit';
+        return;
+      }
+      if (cfg.mode !== 'timer') { el.textContent = ''; el.classList.remove('urgent'); return; }
+      if (timerInterval) clearInterval(timerInterval);
+      const tick = () => {
+        const elapsed = (Date.now() - (state.roundStartedAt || Date.now())) / 1000;
+        const left = Math.max(0, Math.ceil((cfg.timerSeconds || 90) - elapsed));
+        el.textContent = left + 's';
+        el.classList.toggle('urgent', left <= 10);
+        if (left <= 0 && timerInterval) { clearInterval(timerInterval); timerInterval = null; }
+      };
+      tick();
+      timerInterval = setInterval(tick, 250);
+    }
+
+    function renderContent() {
+      const wrap = document.getElementById('slfContent');
+      if (state.phase === 'playing') { renderPlaying(wrap); return; }
+      stopInputFlag();
+      if (state.phase === 'review') wrap.innerHTML = renderReview();
+      else if (state.phase === 'gameOver') wrap.innerHTML = renderGameOver();
+      else wrap.innerHTML = '';
+    }
+    function stopInputFlag() { inputsBuilt = false; }
+
+    function renderPlaying(wrap) {
+      const cfg = getConfig();
+      // Build inputs only once per round to preserve focus/typing
+      if (!inputsBuilt || builtForRound !== state.roundNumber) {
+        const inputsHtml = cfg.categories.map(cat => {
+          const safeId = 'slfIn_' + cat.replace(/[^a-zA-Z]/g, '');
+          return `<div class="slf-input-row">
+            <div class="slf-input-label">${escapeHtml(cat)}</div>
+            <input type="text" class="slf-answer-input" id="${safeId}" autocomplete="off"
+              oninput="slf_onInput('${cat}', this.value)" placeholder="${escapeHtml(state.currentLetter || '')}...">
+          </div>`;
+        }).join('');
+        wrap.innerHTML = `<div id="slfInputs">${inputsHtml}</div>
+          <button class="slf-btn slf-stop-btn" id="slfStopBtn" onclick="slf_stop()">⏹ STOPP — FERTIG!</button>
+          <div class="slf-waiting-status" id="slfPlayStatus"></div>`;
+        inputsBuilt = true; builtForRound = state.roundNumber;
+      }
+      // update status line without touching inputs
+      const statusEl = document.getElementById('slfPlayStatus');
+      if (statusEl) {
+        const total = Object.keys(state.players).length;
+        statusEl.innerHTML = `<div class="slf-writers">${total} Spieler dabei</div><div style="font-size:0.8rem;opacity:0.7">Wer zuerst „STOPP" drückt, beendet die Runde${cfg.mode === 'timer' ? ' (oder Timer läuft ab)' : ''}.</div>`;
+      }
+    }
+
+    function renderReview() {
+      const cfg = getConfig();
+      const scores = computeRoundScores();
+      const answers = state.answers || {};
+      const invalid = state.invalidated || {};
+      const ids = state.seatOrder.length ? state.seatOrder : Object.keys(state.players);
+
+      const cats = cfg.categories.map(cat => {
+        const rows = ids.map(id => {
+          const p = state.players[id]; if (!p) return '';
+          const raw = answers[id] && answers[id][cat] ? answers[id][cat] : '';
+          const isInvalid = invalid[id] && invalid[id][cat];
+          const startsRight = raw && state.currentLetter && normAnswer(raw).charAt(0) === state.currentLetter.toLowerCase();
+          const pts = scores[id].byCat[cat] || 0;
+          const ptsClass = pts === 20 ? 'p20' : pts === 10 ? 'p10' : pts === 5 ? 'p5' : 'p0';
+          let ansClass = 'ans';
+          if (!raw) ansClass += ' empty';
+          else if (isInvalid || !startsRight) ansClass += ' invalid';
+          const strikeBtn = amHost && raw
+            ? `<button class="slf-strike-btn ${isInvalid ? 'struck' : ''}" onclick="slf_toggleInvalid('${id}','${cat}')" title="Ungültig">✕</button>`
+            : '';
+          const ansText = raw ? escapeHtml(raw) : '—';
+          const wrongHint = (raw && !startsRight) ? ' ⚠️' : '';
+          return `<div class="slf-review-answer">
+            <span class="name">${escapeHtml(p.name)}</span>
+            <span class="${ansClass}">${ansText}${wrongHint}</span>
+            ${strikeBtn}
+            <span class="pts ${ptsClass}">${pts}</span>
+          </div>`;
+        }).join('');
+        return `<div class="slf-review-cat"><div class="slf-review-cat-name">${escapeHtml(cat)} · ${state.currentLetter}</div>${rows}</div>`;
+      }).join('');
+
+      // round subtotal scoreboard
+      const sorted = ids.slice().sort((a, b) => scores[b].total - scores[a].total);
+      const board = sorted.map(id => {
+        const p = state.players[id];
+        return `<div class="slf-scoreboard-row"><span>${escapeHtml(p.name)}</span><span class="delta">+${scores[id].total}</span><span class="total">${(p.score || 0) + scores[id].total}</span></div>`;
+      }).join('');
+
+      const ctrl = amHost
+        ? `<button class="slf-btn" onclick="slf_nextRound()">${(state.roundNumber || 0) >= cfg.rounds ? 'ENDSTAND ANZEIGEN' : 'NÄCHSTE RUNDE'}</button>`
+        : `<div class="slf-waiting-status">Warte auf den Host für die nächste Runde...</div>`;
+
+      return cats + `<div class="slf-scoreboard"><div class="slf-scoreboard-title">Punkte diese Runde · Gesamt</div>${board}</div>` + ctrl;
+    }
+
+    function renderGameOver() {
+      const ids = Object.keys(state.players).sort((a, b) => (state.players[b].score || 0) - (state.players[a].score || 0));
+      const winner = ids.length ? state.players[ids[0]] : null;
+      const board = ids.map((id, i) => {
+        const p = state.players[id];
+        return `<div class="slf-scoreboard-row ${i === 0 ? 'leader' : ''}"><span class="rank">${i + 1}.</span><span>${escapeHtml(p.name)}${id === mySelfId ? ' (du)' : ''}</span><span class="total">${p.score || 0}</span></div>`;
+      }).join('');
+      const restart = (mySelfId === state.host)
+        ? `<button class="slf-btn" onclick="slf_resetGame()">NEUES SPIEL</button>`
+        : `<div style="font-family:Outfit,sans-serif;font-size:0.85rem;color:rgba(214,245,232,0.65);margin-top:0.6rem">Warte auf den Host...</div>`;
+      return `<div class="slf-gameover">
+        <div class="slf-gameover-title">🏆 ${winner ? escapeHtml(winner.name) : '—'} gewinnt!</div>
+        <div class="slf-gameover-winner">${winner ? (winner.score || 0) + ' Punkte' : ''}</div>
+        <div class="slf-scoreboard">${board}</div>
+        ${restart}
+      </div>`;
+    }
+
+    // ---- Settings ----
+    function slf_openSettings() {
+      document.getElementById('slfResetBtn').style.display = amHost ? '' : 'none';
+      document.getElementById('slfHostOnlyLabel').style.display = amHost ? '' : 'none';
+      document.getElementById('slfSettingsModal').classList.add('active');
+    }
+    function slf_closeSettings() { document.getElementById('slfSettingsModal').classList.remove('active'); }
+    function slf_openSettingsWait() { document.getElementById('slfSettingsWaitModal').classList.add('active'); }
+    function slf_closeSettingsWait() { document.getElementById('slfSettingsWaitModal').classList.remove('active'); }
+
+    async function slf_resetGame() {
+      if (!amHost) return;
+      if (state.phase !== 'gameOver' && !confirm('Zurück zur Lobby? Aktuelles Spiel wird beendet.')) return;
+      stopTimers();
+      const np = {};
+      for (const id of Object.keys(state.players)) np[id] = Object.assign({}, state.players[id], { score: 0 });
+      state = Object.assign({}, state, {
+        phase: 'lobby', players: np, roundNumber: 0, currentLetter: null,
+        roundStartedAt: null, answers: null, invalidated: null, stoppedBy: null, pendingAction: null,
+      });
+      broadcast(state);
+      slf_closeSettings();
+    }
+
+    // ---- Init ----
+    function slf_init() {
+      document.getElementById('slfName').value = getStoredName();
+      buildCatGrid();
+      if (!inSession) switchToLobby();
+    }
+    const origSwitch = window.switchApp;
+    window.switchApp = function(name) {
+      const r = origSwitch(name);
+      if (name === 'slf') slf_init();
+      else if (inSession && name !== 'slf') stopTimers();
+      return r;
+    };
+    document.addEventListener('DOMContentLoaded', () => {
+      if (document.getElementById('appSlf') && document.getElementById('appSlf').classList.contains('visible')) slf_init();
+    });
+
+    // Expose
+    window.slf_create = slf_create;
+    window.slf_join = slf_join;
+    window.slf_leave = slf_leave;
+    window.slf_startGame = slf_startGame;
+    window.slf_copyCode = slf_copyCode;
+    window.slf_toggleCat = slf_toggleCat;
+    window.slf_adjustRounds = slf_adjustRounds;
+    window.slf_setMode = slf_setMode;
+    window.slf_adjustTimer = slf_adjustTimer;
+    window.slf_onInput = slf_onInput;
+    window.slf_stop = slf_stop;
+    window.slf_toggleInvalid = slf_toggleInvalid;
+    window.slf_nextRound = slf_nextRound;
+    window.slf_openSettings = slf_openSettings;
+    window.slf_closeSettings = slf_closeSettings;
+    window.slf_openSettingsWait = slf_openSettingsWait;
+    window.slf_closeSettingsWait = slf_closeSettingsWait;
+    window.slf_resetGame = slf_resetGame;
+  })();
+
+  // ============================================================
+  // ============ BLACK STORIES =================================
+  // ============================================================
+  (function() {
+    const MIN_PLAYERS = 2, MAX_PLAYERS = 20;
+    const STORIES = [
+      { r: 'Ein Mann liegt tot auf einem Feld. Neben ihm ein ungeöffnetes Päckchen. Was ist passiert?', s: 'Der Mann sprang mit einem Fallschirm aus einem Flugzeug, doch der Fallschirm (das Päckchen) öffnete sich nicht.' },
+      { r: 'Romeo und Julia liegen tot am Boden. Um sie herum Glasscherben und eine Wasserlache. Was ist passiert?', s: 'Romeo und Julia sind Fische. Ihr Aquarium ist zerbrochen — vermutlich von einer Katze umgestoßen.' },
+      { r: 'Ein Mann betritt eine Bar und bittet um ein Glas Wasser. Der Barkeeper zieht eine Pistole. Der Mann bedankt sich und geht. Warum?', s: 'Der Mann hatte Schluckauf. Der Barkeeper erschreckte ihn statt Wasser zu geben — der Schluckauf war weg.' },
+      { r: 'In einem Zimmer liegt ein toter Mann mit einem Streichholz in der Hand. Was ist passiert?', s: 'Mehrere Personen stürzten mit einem Heißluftballon ab. Sie zogen Streichhölzer — wer das kürzeste zog, sprang, um den Ballon zu entlasten. Er zog das kürzeste.' },
+      { r: 'Eine Frau ist tot. Sie starb an einem Stück Eis. Es war kein Unfall, doch niemand berührte sie. Was ist passiert?', s: 'Sie wurde mit einem Eiszapfen erstochen. Der schmolz und hinterließ keine Mordwaffe.' },
+      { r: 'Ein Mann fährt mit dem Aufzug. Regnet es, fährt er ganz nach oben. Ist es trocken, nur bis zur Hälfte. Warum?', s: 'Er ist kleinwüchsig und erreicht nur den unteren Knopf. Bei Regen nutzt er seinen Regenschirm, um den oberen Knopf zu drücken.' },
+      { r: 'Ein totes Paar liegt in einer Hütte in den Bergen. Die Hütte ist unversehrt. Was ist passiert?', s: 'Die "Hütte" ist ein abgestürztes Flugzeug.' },
+      { r: 'Eine Frau drückt auf einen Knopf und hunderte Menschen sterben. Was ist passiert?', s: 'Sie war Pilotin oder Soldatin und löste eine Bombe aus.' },
+      { r: 'Ein Mann liegt erschossen in seinem Auto. Auf dem Beifahrersitz liegt ein leeres Tonbandgerät. Was ist passiert?', s: 'Der Mann war ein Privatdetektiv. Er nahm ein Geständnis auf — der Täter erschoss ihn und nahm das Band mit.' },
+      { r: 'Eine Frau kauft jeden Tag dieselbe Zeitung, liest sie nie und wirft sie sofort weg. Warum?', s: 'Sie sammelt die Coupons / sie kontrolliert ob ihre eigene Todesanzeige (Versicherungsbetrug) gedruckt wurde — je nach Variante.' },
+      { r: 'Ein Mann wird tot im Wald gefunden, an einen Baum gelehnt, vollständig nackt. Was ist passiert?', s: 'Er sprang aus einem Flugzeug, sein Fallschirm versagte. Beim Aufprall riss die Kleidung. (Black-Stories-Klassiker)' },
+      { r: 'Albert stirbt mitten in der Wüste. In seiner Hand hält er einen Strohhalm. Was ist passiert?', s: 'Albert war mit anderen in einem Ballon abgestürzt. Sie zogen Strohhalme — er zog den kürzesten und musste springen.' },
+      { r: 'Eine Frau liegt tot im Bett. Das Fenster steht offen, der Raum ist eiskalt. Neben ihr eine Pfütze. Was ist passiert?', s: 'Ihr Mann hängte einen riesigen Eisblock über das Bett und öffnete das Fenster, damit er langsam schmilzt und sie erdrückt — keine Spuren.' },
+      { r: 'Ein Mann betritt einen Raum, in dem es nach frischer Farbe riecht, und weiß sofort, dass jemand sterben wird. Warum?', s: 'Er ist Henker. Der Geruch kommt von einer frisch gestrichenen Hinrichtungszelle.' },
+      { r: 'Zwei Männer betreten ein Restaurant, bestellen dasselbe Gericht mit Albatros. Einer isst, wird blass, geht nach Hause und erschießt sich. Warum?', s: 'Nach einem Schiffbruch hatte man ihm "Albatros" zu essen gegeben — in Wahrheit war es Fleisch eines gestorbenen Kameraden. Jetzt schmeckte echter Albatros anders, er erkannte die Wahrheit.' },
+      { r: 'Ein Mann liegt tot neben einem Felsen. In der Hand ein abgebrochenes Stück Holz. Was ist passiert?', s: 'Er war Bergsteiger. Sein Eispickel / Sicherungsholz brach beim Sturz.' },
+    ];
+
+    function getSelfId(){let id=localStorage.getItem('mp-self-id');if(!id){id='d_'+Math.random().toString(36).slice(2,10)+Math.random().toString(36).slice(2,6);localStorage.setItem('mp-self-id',id);}return id;}
+    function getStoredName(){return localStorage.getItem('mp-display-name')||'';}
+    function setStoredName(n){try{localStorage.setItem('mp-display-name',n);}catch(e){}}
+    function genCode(){const c='ABCDEFGHJKMNPQRSTUVWXYZ23456789';let s='';for(let i=0;i<4;i++)s+=c[Math.floor(Math.random()*c.length)];return s;}
+    function validateCode(code){if(!code)return null;const x=code.toUpperCase().replace(/[^A-Z0-9]/g,'');return(x.length<3||x.length>6)?null:x;}
+    function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+    function toArray(v){if(v==null)return[];if(Array.isArray(v))return v;if(typeof v==='object'){const k=Object.keys(v).map(Number).filter(n=>!isNaN(n)).sort((a,b)=>a-b);return k.map(i=>v[i]);}return[];}
+    function deepClean(o){if(o==null)return null;if(typeof o!=='object')return o;if(Array.isArray(o))return o.map(deepClean);const r={};for(const k in o)if(o[k]!==undefined)r[k]=deepClean(o[k]);return r;}
+    function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+
+    let state={app:'blackstories',phase:'lobby',players:{},seatOrder:[]};
+    let mySelfId=getSelfId(),myCode=null,amHost=false,inSession=false,inWaiting=true;
+    let unsubSession=null,sessionRef=null,peerRef=null;
+
+    function showError(m){const e=document.getElementById('bsError');if(!e)return;e.textContent=m;clearTimeout(showError._t);showError._t=setTimeout(()=>e.textContent='',5000);}
+    function showToast(m){let t=document.getElementById('mpToast');if(!t){t=document.createElement('div');t.id='mpToast';t.className='mp-toast';document.body.appendChild(t);}t.textContent=m;t.classList.add('show');clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('show'),2500);}
+
+    async function bs_create(){
+      if(!window.FB){showError('Firebase noch nicht geladen');return;}
+      const name=(document.getElementById('bsName').value.trim())||('Spieler '+mySelfId.slice(2,6));setStoredName(name);
+      const ci=document.getElementById('bsCreateCode').value.trim();let code=ci?validateCode(ci):genCode();
+      if(ci&&!code){showError('Code: 3–6 Zeichen');return;}
+      const{db,ref,get,set}=window.FB;
+      try{const ex=await get(ref(db,'sessions/'+code));if(ex.exists()){const v=ex.val();if(Object.keys(v.peers||{}).length===0)await window.FB.remove(ref(db,'sessions/'+code));else{showError(`Code ${code} ist aktiv`);return;}}}catch(e){showError('Fehler');return;}
+      const storyOrder=shuffle(STORIES.map((_,i)=>i));
+      const initial={app:'blackstories',host:mySelfId,phase:'lobby',players:{[mySelfId]:{name,joinedAt:Date.now(),solved:0}},seatOrder:[],storyOrder,storyPos:0,masterIdx:0,solutionShown:false,createdAt:Date.now(),pendingAction:null};
+      try{await set(ref(db,'sessions/'+code),{state:initial,writerId:mySelfId});myCode=code;amHost=true;await joinListeners(code,name);switchToWaiting();}catch(e){showError('Fehlgeschlagen: '+(e.message||e));}
+    }
+    async function bs_join(){
+      if(!window.FB){showError('Firebase noch nicht geladen');return;}
+      const name=(document.getElementById('bsName').value.trim())||('Spieler '+mySelfId.slice(2,6));setStoredName(name);
+      const code=validateCode(document.getElementById('bsJoinCode').value);if(!code){showError('Code: 3–6 Zeichen');return;}
+      const{db,ref,get,update}=window.FB;
+      try{const snap=await get(ref(db,'sessions/'+code));if(!snap.exists()){showError(`Session ${code} nicht gefunden`);return;}
+        const data=snap.val();if(Object.keys(data.peers||{}).length===0){await window.FB.remove(ref(db,'sessions/'+code));showError('War abgelaufen');return;}
+        if(data.state&&data.state.app!=='blackstories'){showError('Andere App');return;}
+        const players=(data.state&&data.state.players)||{};
+        if(!players[mySelfId]){if(Object.keys(players).length>=MAX_PLAYERS){showError('Voll');return;}await update(ref(db,`sessions/${code}/state/players/${mySelfId}`),{name,joinedAt:Date.now(),solved:0});}
+        else await update(ref(db,`sessions/${code}/state/players/${mySelfId}`),{name});
+        myCode=code;amHost=(data.state.host===mySelfId);await joinListeners(code,name);
+        if(data.state.phase&&data.state.phase!=='lobby')switchToGame();else switchToWaiting();
+      }catch(e){showError('Fehlgeschlagen: '+(e.message||e));}
+    }
+    async function joinListeners(code,name){
+      const{db,ref,onValue,set,onDisconnect}=window.FB;
+      sessionRef=ref(db,'sessions/'+code);peerRef=ref(db,`sessions/${code}/peers/${mySelfId}`);
+      await set(peerRef,{name,lastSeen:Date.now()});onDisconnect(peerRef).remove();
+      unsubSession=onValue(sessionRef,(snap)=>{
+        if(!snap.exists()){showError('Session beendet');bs_leave();return;}
+        const ns=snap.val().state||{};ns.seatOrder=toArray(ns.seatOrder);ns.storyOrder=toArray(ns.storyOrder);ns.players=ns.players||{};
+        state=ns;amHost=(state.host===mySelfId);document.body.classList.toggle('mp-host',amHost);
+        if(state.phase!=='lobby'&&inWaiting)switchToGame();
+        if(state.phase==='lobby'&&!inWaiting&&inSession)switchToWaiting();
+        if(amHost&&state.pendingAction){processPending(state.pendingAction);return;}
+        renderAll();
+      });
+      inSession=true;
+    }
+    async function bs_leave(){
+      const{remove,update,get}=window.FB||{};
+      try{if(unsubSession)unsubSession();}catch(e){}
+      try{if(peerRef&&remove)await remove(peerRef);}catch(e){}
+      if(sessionRef&&window.FB){try{const snap=await get(sessionRef);if(snap.exists()){const d=snap.val();const rp=Object.keys(d.peers||{});if(rp.length===0)await remove(sessionRef);else{await remove(window.FB.ref(window.FB.db,`sessions/${myCode}/state/players/${mySelfId}`));if(amHost)await update(window.FB.ref(window.FB.db,`sessions/${myCode}/state`),{host:rp[0]});}}}catch(e){}}
+      sessionRef=null;peerRef=null;unsubSession=null;inSession=false;myCode=null;amHost=false;switchToLobby();
+    }
+    function switchToLobby(){document.getElementById('bsLobby').style.display='';document.getElementById('bsWaiting').style.display='none';document.getElementById('bsGame').style.display='none';document.getElementById('bsName').value=getStoredName();inWaiting=false;document.body.classList.add('in-multi-lobby');}
+    function switchToWaiting(){document.getElementById('bsLobby').style.display='none';document.getElementById('bsWaiting').style.display='';document.getElementById('bsGame').style.display='none';inWaiting=true;document.body.classList.remove('in-multi-lobby');renderWaiting();}
+    function switchToGame(){document.getElementById('bsLobby').style.display='none';document.getElementById('bsWaiting').style.display='none';document.getElementById('bsGame').style.display='';inWaiting=false;document.body.classList.remove('in-multi-lobby');renderAll();}
+    function bs_copyCode(){if(!myCode)return;try{navigator.clipboard.writeText(myCode);showToast('Code kopiert');}catch(e){}}
+
+    function renderWaiting(){
+      document.getElementById('bsWaitCode').textContent=myCode||'—';document.getElementById('bsWaitCodeBig').textContent=myCode||'—';
+      const p=state.players||{};const ids=Object.keys(p).sort((a,b)=>(p[a].joinedAt||0)-(p[b].joinedAt||0));
+      document.getElementById('bsWaitCount').textContent=`${ids.length}/${MAX_PLAYERS}`;
+      document.getElementById('bsWaitPlayers').innerHTML=ids.map(id=>{const me=id===mySelfId,h=id===state.host;return `<div class="pm-waiting-player ${me?'me':''}"><span>${esc(p[id].name)}${me?' (du)':''}</span>${h?'<span style="margin-left:auto">👑</span>':''}</div>`;}).join('');
+      const sb=document.getElementById('bsStartBtn'),hint=document.getElementById('bsWaitHint');
+      if(amHost){sb.style.display='';sb.disabled=ids.length<MIN_PLAYERS;hint.textContent=ids.length<MIN_PLAYERS?`Min. ${MIN_PLAYERS} Spieler`:'Du bist Host';}else{sb.style.display='none';hint.textContent='Warte auf den Host...';}
+    }
+    async function bs_startGame(){
+      if(!amHost)return;const ids=Object.keys(state.players);if(ids.length<MIN_PLAYERS){showError(`Min. ${MIN_PLAYERS}`);return;}
+      const seatOrder=ids.sort((a,b)=>(state.players[a].joinedAt||0)-(state.players[b].joinedAt||0));
+      broadcast(Object.assign({},state,{phase:'playing',seatOrder,storyPos:0,masterIdx:0,solutionShown:false,pendingAction:null}));
+    }
+
+    function processPending(a){
+      if(!amHost||!a)return;const{type}=a;
+      if(type==='reveal'&&state.phase==='playing'&&a.by===currentMasterId()){broadcast(Object.assign({},state,{solutionShown:true,pendingAction:null}));return;}
+      if(type==='solved'&&state.phase==='playing'&&a.by===currentMasterId()){
+        // mark master credit + next story, rotate master
+        broadcast(Object.assign({},state,{solutionShown:true,pendingAction:null})); return;
+      }
+      if(type==='next'&&state.phase==='playing'&&a.by===state.host){nextStory();return;}
+      clearPending();
+    }
+    function nextStory(){
+      if(!amHost)return;
+      const total=state.storyOrder.length;
+      const nextPos=state.storyPos+1;
+      const nextMaster=(state.masterIdx+1)%state.seatOrder.length;
+      if(nextPos>=total){broadcast(Object.assign({},state,{phase:'gameOver',pendingAction:null}));return;}
+      broadcast(Object.assign({},state,{storyPos:nextPos,masterIdx:nextMaster,solutionShown:false,pendingAction:null}));
+    }
+    function clearPending(){const{set,ref,db}=window.FB||{};if(set&&myCode)set(ref(db,`sessions/${myCode}/state/pendingAction`),null);}
+    async function broadcast(ns){if(!sessionRef||!window.FB)return;if(ns.pendingAction===undefined)ns.pendingAction=null;state=ns;const{set,ref,db}=window.FB;try{await set(ref(db,`sessions/${myCode}/state`),deepClean(ns));}catch(e){console.error('[BS]',e);}}
+    async function sendAction(p){if(!sessionRef||!window.FB)return;const{set,ref,db}=window.FB;await set(ref(db,`sessions/${myCode}/state/pendingAction`),Object.assign({by:mySelfId,ts:Date.now()},p));}
+
+    function currentMasterId(){const o=state.seatOrder||[];return o.length?o[state.masterIdx%o.length]:null;}
+    function bs_reveal(){sendAction({type:'reveal'});}
+    function bs_next(){sendAction({type:'next'});}
+
+    function renderAll(){
+      if(inWaiting){renderWaiting();return;}if(!inSession)return;
+      document.getElementById('bsTopCode').textContent=myCode||'—';
+      document.getElementById('bsTopPhase').textContent=state.phase==='gameOver'?'Ende':`Rätsel ${(state.storyPos||0)+1}/${state.storyOrder.length}`;
+      const wrap=document.getElementById('bsContent');
+      if(state.phase==='gameOver'){wrap.innerHTML=renderOver();return;}
+      const idx=state.storyOrder[state.storyPos];const story=STORIES[idx];const masterId=currentMasterId();const master=state.players[masterId];const amMaster=masterId===mySelfId;
+      let html=`<div class="g-phase"><div class="g-phase-name" style="color:#c4b5fd">🕯️ Rätsel ${(state.storyPos||0)+1}</div></div>`;
+      html+=`<div style="text-align:center"><span class="bs-master-badge">🎙️ Spielleiter: ${esc(master?master.name:'—')}${amMaster?' (du)':''}</span></div>`;
+      html+=`<div class="bs-riddle"><div class="bs-riddle-title">Der Fall</div>${esc(story.r)}</div>`;
+      if(amMaster){
+        html+=`<div class="g-wait-box" style="font-style:normal">Du kennst die Lösung. Beantworte die Ja/Nein-Fragen der anderen — verrate nichts direkt!</div>`;
+        html+=`<div class="bs-solution"><div class="bs-solution-title">🔑 Auflösung (nur du)</div>${esc(story.s)}</div>`;
+        if(!state.solutionShown)html+=`<button class="g-btn bs-btn-g" onclick="bs_reveal()">LÖSUNG FÜR ALLE AUFDECKEN</button>`;
+        html+=`<button class="g-btn ${state.solutionShown?'bs-btn-g':'secondary'}" onclick="bs_next()">${state.storyPos+1>=state.storyOrder.length?'SPIEL BEENDEN':'NÄCHSTES RÄTSEL'}</button>`;
+      } else {
+        if(state.solutionShown){html+=`<div class="bs-solution"><div class="bs-solution-title">🔑 Auflösung</div>${esc(story.s)}</div>`;}
+        else html+=`<div class="g-wait-box"><div class="g-wait-icon">🕵️</div>Stellt ${esc(master?master.name:'dem Spielleiter')} Ja/Nein-Fragen, um den Fall zu lösen!</div>`;
+      }
+      wrap.innerHTML=html;
+    }
+    function renderOver(){
+      const restart=mySelfId===state.host?`<button class="g-btn bs-btn-g" onclick="bs_resetGame()">NEUE RUNDE</button>`:`<div class="g-wait-box">Warte auf den Host...</div>`;
+      return `<div class="g-phase"><div class="g-phase-name" style="color:#c4b5fd">🏁 Alle Rätsel gelöst!</div><div class="g-phase-desc">${state.storyOrder.length} Fälle geknackt.</div></div>${restart}`;
+    }
+
+    function bs_openSettings(){document.getElementById('bsResetBtn').style.display=amHost?'':'none';document.getElementById('bsHostOnlyLabel').style.display=amHost?'':'none';document.getElementById('bsSettingsModal').classList.add('active');}
+    function bs_closeSettings(){document.getElementById('bsSettingsModal').classList.remove('active');}
+    function bs_openSettingsWait(){document.getElementById('bsSettingsWaitModal').classList.add('active');}
+    function bs_closeSettingsWait(){document.getElementById('bsSettingsWaitModal').classList.remove('active');}
+    async function bs_resetGame(){if(!amHost)return;const storyOrder=shuffle(STORIES.map((_,i)=>i));broadcast(Object.assign({},state,{phase:'lobby',storyOrder,storyPos:0,masterIdx:0,solutionShown:false,pendingAction:null}));bs_closeSettings();}
+
+    function bs_init(){document.getElementById('bsName').value=getStoredName();if(!inSession)switchToLobby();}
+    const origSwitch=window.switchApp;window.switchApp=function(n){const r=origSwitch(n);if(n==='blackstories')bs_init();return r;};
+    document.addEventListener('DOMContentLoaded',()=>{const e=document.getElementById('appBlackstories');if(e&&e.classList.contains('visible'))bs_init();});
+
+    window.bs_create=bs_create;window.bs_join=bs_join;window.bs_leave=bs_leave;window.bs_startGame=bs_startGame;window.bs_copyCode=bs_copyCode;window.bs_reveal=bs_reveal;window.bs_next=bs_next;window.bs_openSettings=bs_openSettings;window.bs_closeSettings=bs_closeSettings;window.bs_openSettingsWait=bs_openSettingsWait;window.bs_closeSettingsWait=bs_closeSettingsWait;window.bs_resetGame=bs_resetGame;
+  })();
+
+  // ============================================================
+  // ============ WER BIN ICH ===================================
+  // ============================================================
+  (function() {
+    const MIN_PLAYERS=3,MAX_PLAYERS=15;
+    const CATS={
+      promis:{name:'🌟 Promis',words:['Albert Einstein','Lady Gaga','Cristiano Ronaldo','Angela Merkel','Barack Obama','Taylor Swift','Elon Musk','Michael Jackson','Beyoncé','Lionel Messi','Adele','Leonardo DiCaprio','Marilyn Monroe','Steve Jobs','Donald Trump','Rihanna','Brad Pitt','Madonna','Usain Bolt','Greta Thunberg']},
+      fiktiv:{name:'🎬 Film & Serie',words:['Harry Potter','Darth Vader','Batman','Sherlock Holmes','James Bond','Homer Simpson','Spider-Man','Gandalf','Joker','Mickey Mouse','Walter White','Yoda','Forrest Gump','Indiana Jones','Shrek','Mario','Pikachu','Wonder Woman','Frodo','Captain Jack Sparrow']},
+      tiere:{name:'🦁 Tiere',words:['Elefant','Pinguin','Känguru','Krokodil','Giraffe','Faultier','Tintenfisch','Adler','Delfin','Igel','Fledermaus','Chamäleon','Erdmännchen','Nashorn','Koala','Flamingo','Hai','Eule','Biber','Skorpion']},
+      berufe:{name:'💼 Berufe',words:['Astronaut','Feuerwehrmann','Tierarzt','Pilot','Koch','Lehrer','Polizist','Zauberer','Architekt','DJ','Müllmann','Chirurg','Bauer','Influencer','Bestatter','Pfarrer','Detektiv','Förster','Tätowierer','Richter']},
+      geschichte:{name:'📜 Geschichte',words:['Napoleon','Kleopatra','Julius Cäsar','Martin Luther King','Mahatma Gandhi','Christoph Kolumbus','Mozart','Leonardo da Vinci','Winston Churchill','Karl der Große','Marie Curie','Otto von Bismarck','Galileo Galilei','Che Guevara','Beethoven','Anne Frank','Jeanne dArc','Isaac Newton','Charles Darwin','Nikola Tesla']},
+    };
+    function getSelfId(){let id=localStorage.getItem('mp-self-id');if(!id){id='d_'+Math.random().toString(36).slice(2,10)+Math.random().toString(36).slice(2,6);localStorage.setItem('mp-self-id',id);}return id;}
+    function getStoredName(){return localStorage.getItem('mp-display-name')||'';}
+    function setStoredName(n){try{localStorage.setItem('mp-display-name',n);}catch(e){}}
+    function genCode(){const c='ABCDEFGHJKMNPQRSTUVWXYZ23456789';let s='';for(let i=0;i<4;i++)s+=c[Math.floor(Math.random()*c.length)];return s;}
+    function validateCode(code){if(!code)return null;const x=code.toUpperCase().replace(/[^A-Z0-9]/g,'');return(x.length<3||x.length>6)?null:x;}
+    function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+    function toArray(v){if(v==null)return[];if(Array.isArray(v))return v;if(typeof v==='object'){const k=Object.keys(v).map(Number).filter(n=>!isNaN(n)).sort((a,b)=>a-b);return k.map(i=>v[i]);}return[];}
+    function deepClean(o){if(o==null)return null;if(typeof o!=='object')return o;if(Array.isArray(o))return o.map(deepClean);const r={};for(const k in o)if(o[k]!==undefined)r[k]=deepClean(o[k]);return r;}
+    function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+
+    let state={app:'werbinich',phase:'lobby',players:{},seatOrder:[]};
+    let mySelfId=getSelfId(),myCode=null,amHost=false,inSession=false,inWaiting=true;
+    let unsubSession=null,sessionRef=null,peerRef=null;
+
+    function showError(m){const e=document.getElementById('wbError');if(!e)return;e.textContent=m;clearTimeout(showError._t);showError._t=setTimeout(()=>e.textContent='',5000);}
+    function showToast(m){let t=document.getElementById('mpToast');if(!t){t=document.createElement('div');t.id='mpToast';t.className='mp-toast';document.body.appendChild(t);}t.textContent=m;t.classList.add('show');clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('show'),2500);}
+    function getConfig(){return state.config||{category:'promis',auto:true};}
+    function fillCats(){const sel=document.getElementById('wbCfgCategory');if(!sel||sel.options.length>0)return;sel.innerHTML=Object.entries(CATS).map(([k,v])=>`<option value="${k}">${v.name}</option>`).join('');}
+
+    async function wb_create(){
+      if(!window.FB){showError('Firebase noch nicht geladen');return;}
+      const name=(document.getElementById('wbName').value.trim())||('Spieler '+mySelfId.slice(2,6));setStoredName(name);
+      const ci=document.getElementById('wbCreateCode').value.trim();let code=ci?validateCode(ci):genCode();if(ci&&!code){showError('Code: 3–6 Zeichen');return;}
+      const{db,ref,get,set}=window.FB;
+      try{const ex=await get(ref(db,'sessions/'+code));if(ex.exists()){const v=ex.val();if(Object.keys(v.peers||{}).length===0)await window.FB.remove(ref(db,'sessions/'+code));else{showError(`Code ${code} ist aktiv`);return;}}}catch(e){showError('Fehler');return;}
+      const initial={app:'werbinich',host:mySelfId,phase:'lobby',players:{[mySelfId]:{name,joinedAt:Date.now(),term:null,guessed:false}},seatOrder:[],config:{category:'promis',auto:true},createdAt:Date.now(),pendingAction:null};
+      try{await set(ref(db,'sessions/'+code),{state:initial,writerId:mySelfId});myCode=code;amHost=true;await joinListeners(code,name);switchToWaiting();}catch(e){showError('Fehlgeschlagen: '+(e.message||e));}
+    }
+    async function wb_join(){
+      if(!window.FB){showError('Firebase noch nicht geladen');return;}
+      const name=(document.getElementById('wbName').value.trim())||('Spieler '+mySelfId.slice(2,6));setStoredName(name);
+      const code=validateCode(document.getElementById('wbJoinCode').value);if(!code){showError('Code: 3–6 Zeichen');return;}
+      const{db,ref,get,update}=window.FB;
+      try{const snap=await get(ref(db,'sessions/'+code));if(!snap.exists()){showError(`Session ${code} nicht gefunden`);return;}
+        const data=snap.val();if(Object.keys(data.peers||{}).length===0){await window.FB.remove(ref(db,'sessions/'+code));showError('War abgelaufen');return;}
+        if(data.state&&data.state.app!=='werbinich'){showError('Andere App');return;}
+        const players=(data.state&&data.state.players)||{};const running=data.state&&data.state.phase&&data.state.phase!=='lobby';
+        if(running&&!players[mySelfId]){showError('Läuft schon');return;}
+        if(!players[mySelfId]){if(Object.keys(players).length>=MAX_PLAYERS){showError('Voll');return;}await update(ref(db,`sessions/${code}/state/players/${mySelfId}`),{name,joinedAt:Date.now(),term:null,guessed:false});}
+        else await update(ref(db,`sessions/${code}/state/players/${mySelfId}`),{name});
+        myCode=code;amHost=(data.state.host===mySelfId);await joinListeners(code,name);if(running)switchToGame();else switchToWaiting();
+      }catch(e){showError('Fehlgeschlagen: '+(e.message||e));}
+    }
+    async function joinListeners(code,name){
+      const{db,ref,onValue,set,onDisconnect}=window.FB;
+      sessionRef=ref(db,'sessions/'+code);peerRef=ref(db,`sessions/${code}/peers/${mySelfId}`);
+      await set(peerRef,{name,lastSeen:Date.now()});onDisconnect(peerRef).remove();
+      unsubSession=onValue(sessionRef,(snap)=>{
+        if(!snap.exists()){showError('Session beendet');wb_leave();return;}
+        const ns=snap.val().state||{};ns.seatOrder=toArray(ns.seatOrder);ns.players=ns.players||{};
+        state=ns;amHost=(state.host===mySelfId);document.body.classList.toggle('mp-host',amHost);
+        if(state.phase!=='lobby'&&inWaiting)switchToGame();if(state.phase==='lobby'&&!inWaiting&&inSession)switchToWaiting();
+        if(amHost&&state.pendingAction){processPending(state.pendingAction);return;}
+        renderAll();
+      });
+      inSession=true;
+    }
+    async function wb_leave(){
+      const{remove,update,get}=window.FB||{};
+      try{if(unsubSession)unsubSession();}catch(e){}try{if(peerRef&&remove)await remove(peerRef);}catch(e){}
+      if(sessionRef&&window.FB){try{const snap=await get(sessionRef);if(snap.exists()){const d=snap.val();const rp=Object.keys(d.peers||{});if(rp.length===0)await remove(sessionRef);else{await remove(window.FB.ref(window.FB.db,`sessions/${myCode}/state/players/${mySelfId}`));if(amHost)await update(window.FB.ref(window.FB.db,`sessions/${myCode}/state`),{host:rp[0]});}}}catch(e){}}
+      sessionRef=null;peerRef=null;unsubSession=null;inSession=false;myCode=null;amHost=false;switchToLobby();
+    }
+    function switchToLobby(){document.getElementById('wbLobby').style.display='';document.getElementById('wbWaiting').style.display='none';document.getElementById('wbGame').style.display='none';document.getElementById('wbName').value=getStoredName();inWaiting=false;document.body.classList.add('in-multi-lobby');}
+    function switchToWaiting(){document.getElementById('wbLobby').style.display='none';document.getElementById('wbWaiting').style.display='';document.getElementById('wbGame').style.display='none';inWaiting=true;document.body.classList.remove('in-multi-lobby');fillCats();renderWaiting();}
+    function switchToGame(){document.getElementById('wbLobby').style.display='none';document.getElementById('wbWaiting').style.display='none';document.getElementById('wbGame').style.display='';inWaiting=false;document.body.classList.remove('in-multi-lobby');renderAll();}
+    function wb_copyCode(){if(!myCode)return;try{navigator.clipboard.writeText(myCode);showToast('Code kopiert');}catch(e){}}
+
+    function renderWaiting(){
+      document.getElementById('wbWaitCode').textContent=myCode||'—';document.getElementById('wbWaitCodeBig').textContent=myCode||'—';
+      const p=state.players||{};const ids=Object.keys(p).sort((a,b)=>(p[a].joinedAt||0)-(p[b].joinedAt||0));
+      document.getElementById('wbWaitCount').textContent=`${ids.length}/${MAX_PLAYERS}`;
+      document.getElementById('wbWaitPlayers').innerHTML=ids.map(id=>{const me=id===mySelfId,h=id===state.host;return `<div class="pm-waiting-player ${me?'me':''}"><span>${esc(p[id].name)}${me?' (du)':''}</span>${h?'<span style="margin-left:auto">👑</span>':''}</div>`;}).join('');
+      const cfg=getConfig(),sec=document.getElementById('wbConfigSection');
+      if(amHost){sec.style.display='';const sel=document.getElementById('wbCfgCategory');if(sel.value!==cfg.category)sel.value=cfg.category;document.getElementById('wbCfgAuto').checked=cfg.auto!==false;document.getElementById('wbModeHint').textContent=cfg.auto!==false?'App vergibt jedem einen zufälligen Begriff aus der Kategorie.':'Aus: jeder tippt einen Begriff für den nächsten Spieler.';}
+      else sec.style.display='none';
+      const sb=document.getElementById('wbStartBtn'),hint=document.getElementById('wbWaitHint');
+      if(amHost){sb.style.display='';sb.disabled=ids.length<MIN_PLAYERS;hint.textContent=ids.length<MIN_PLAYERS?`Min. ${MIN_PLAYERS} Spieler`:'Du bist Host';}else{sb.style.display='none';hint.textContent='Warte auf den Host...';}
+    }
+    async function wb_setCategory(c){if(!amHost)return;const cfg=Object.assign({},getConfig());cfg.category=c;const{set,ref,db}=window.FB;await set(ref(db,`sessions/${myCode}/state/config`),deepClean(cfg));}
+    async function wb_setAuto(v){if(!amHost)return;const cfg=Object.assign({},getConfig());cfg.auto=!!v;const{set,ref,db}=window.FB;await set(ref(db,`sessions/${myCode}/state/config`),deepClean(cfg));}
+
+    async function wb_startGame(){
+      if(!amHost)return;const ids=Object.keys(state.players);if(ids.length<MIN_PLAYERS){showError(`Min. ${MIN_PLAYERS}`);return;}
+      const cfg=getConfig();const seatOrder=ids.sort((a,b)=>(state.players[a].joinedAt||0)-(state.players[b].joinedAt||0));
+      const np={};
+      if(cfg.auto!==false){
+        const words=shuffle(CATS[cfg.category].words);
+        seatOrder.forEach((id,i)=>{np[id]=Object.assign({},state.players[id],{term:words[i%words.length],guessed:false});});
+        broadcast(Object.assign({},state,{phase:'playing',seatOrder,players:np,pendingAction:null}));
+      } else {
+        seatOrder.forEach(id=>{np[id]=Object.assign({},state.players[id],{term:null,guessed:false});});
+        broadcast(Object.assign({},state,{phase:'assign',seatOrder,players:np,pendingAction:null}));
+      }
+    }
+
+    function processPending(a){
+      if(!amHost||!a)return;const{type}=a;
+      if(type==='assign'&&state.phase==='assign'){
+        const np=JSON.parse(JSON.stringify(state.players));
+        const order=state.seatOrder;const i=order.indexOf(a.by);const target=order[(i+1)%order.length];
+        if(np[target])np[target].term=String(a.term||'').slice(0,40);
+        const ns=Object.assign({},state,{players:np,pendingAction:null});
+        const allAssigned=order.every(id=>np[id]&&np[id].term);
+        if(allAssigned)ns.phase='playing';
+        broadcast(ns);return;
+      }
+      if(type==='guessed'){const np=JSON.parse(JSON.stringify(state.players));if(np[a.by])np[a.by].guessed=!np[a.by].guessed;broadcast(Object.assign({},state,{players:np,pendingAction:null}));return;}
+      clearPending();
+    }
+    function clearPending(){const{set,ref,db}=window.FB||{};if(set&&myCode)set(ref(db,`sessions/${myCode}/state/pendingAction`),null);}
+    async function broadcast(ns){if(!sessionRef||!window.FB)return;if(ns.pendingAction===undefined)ns.pendingAction=null;state=ns;const{set,ref,db}=window.FB;try{await set(ref(db,`sessions/${myCode}/state`),deepClean(ns));}catch(e){console.error('[WB]',e);}}
+    async function sendAction(p){if(!sessionRef||!window.FB)return;const{set,ref,db}=window.FB;await set(ref(db,`sessions/${myCode}/state/pendingAction`),Object.assign({by:mySelfId,ts:Date.now()},p));}
+
+    function wb_submitAssign(){const inp=document.getElementById('wbAssignInput');const t=inp?inp.value.trim():'';if(!t){showToast('Bitte einen Begriff eingeben');return;}sendAction({type:'assign',term:t});}
+    function wb_toggleGuessed(){sendAction({type:'guessed'});}
+
+    function renderAll(){
+      if(inWaiting){renderWaiting();return;}if(!inSession)return;
+      document.getElementById('wbTopCode').textContent=myCode||'—';
+      const wrap=document.getElementById('wbContent');
+      if(state.phase==='assign'){document.getElementById('wbTopPhase').textContent='Begriffe';wrap.innerHTML=renderAssign();return;}
+      document.getElementById('wbTopPhase').textContent='Spiel';
+      const order=state.seatOrder||[];const me=state.players[mySelfId];
+      let html=`<div class="g-phase"><div class="g-phase-name" style="color:#93c5fd">🤔 Wer bin ich?</div><div class="g-phase-desc">Du siehst alle Begriffe — außer deinem eigenen. Stelle Ja/Nein-Fragen!</div></div>`;
+      html+=`<div class="wb-my-card"><div class="wb-my-q">?</div><div class="wb-my-hint">Das bist DU — die anderen sehen deinen Begriff</div></div>`;
+      html+=`<div class="wb-others-grid">`+order.filter(id=>id!==mySelfId).map(id=>{const p=state.players[id];if(!p)return '';return `<div class="wb-other-tile ${p.guessed?'guessed':''}"><span class="wb-other-name">${esc(p.name)}</span><span class="wb-other-term">${esc(p.term||'—')}</span></div>`;}).join('')+`</div>`;
+      html+=`<button class="g-btn ${me&&me.guessed?'success':'wb-btn'}" onclick="wb_toggleGuessed()">${me&&me.guessed?'✓ ERRATEN — RÜCKGÄNGIG':'ICH HAB MICH ERRATEN!'}</button>`;
+      if(mySelfId===state.host)html+=`<button class="g-btn secondary" onclick="wb_resetGame()">NEUE RUNDE</button>`;
+      wrap.innerHTML=html;
+    }
+    function renderAssign(){
+      const order=state.seatOrder||[];const i=order.indexOf(mySelfId);const target=order[(i+1)%order.length];const tp=state.players[target];
+      const me=state.players[mySelfId];const done=me&&me.term;
+      const waiting=order.filter(id=>!(state.players[id]&&state.players[id].term)).length;
+      let html=`<div class="g-phase"><div class="g-phase-name" style="color:#93c5fd">✍️ Begriffe vergeben</div><div class="g-phase-desc">Tippe einen Begriff für den nächsten Spieler — geheim!</div></div>`;
+      if(done){html+=`<div class="g-wait-box"><div class="g-wait-icon">⏳</div>Du hast für <b>${esc(tp?tp.name:'?')}</b> vergeben. Warte auf ${waiting} weitere...</div>`;}
+      else{html+=`<div class="g-card">Begriff für: <b style="color:#93c5fd;font-size:1.2rem">${esc(tp?tp.name:'?')}</b></div><input type="text" class="wb-assign-input" id="wbAssignInput" maxlength="40" placeholder="z.B. eine Person, Figur, Tier..." autocomplete="off"><button class="g-btn wb-btn" onclick="wb_submitAssign()">VERGEBEN</button>`;}
+      return html;
+    }
+    function wb_openSettings(){document.getElementById('wbResetBtn').style.display=amHost?'':'none';document.getElementById('wbHostOnlyLabel').style.display=amHost?'':'none';document.getElementById('wbSettingsModal').classList.add('active');}
+    function wb_closeSettings(){document.getElementById('wbSettingsModal').classList.remove('active');}
+    function wb_openSettingsWait(){document.getElementById('wbSettingsWaitModal').classList.add('active');}
+    function wb_closeSettingsWait(){document.getElementById('wbSettingsWaitModal').classList.remove('active');}
+    async function wb_resetGame(){if(!amHost)return;const np={};for(const id of Object.keys(state.players))np[id]=Object.assign({},state.players[id],{term:null,guessed:false});broadcast(Object.assign({},state,{phase:'lobby',players:np,pendingAction:null}));wb_closeSettings();}
+
+    function wb_init(){document.getElementById('wbName').value=getStoredName();fillCats();if(!inSession)switchToLobby();}
+    const origSwitch=window.switchApp;window.switchApp=function(n){const r=origSwitch(n);if(n==='werbinich')wb_init();return r;};
+    document.addEventListener('DOMContentLoaded',()=>{const e=document.getElementById('appWerbinich');if(e&&e.classList.contains('visible'))wb_init();});
+
+    window.wb_create=wb_create;window.wb_join=wb_join;window.wb_leave=wb_leave;window.wb_startGame=wb_startGame;window.wb_copyCode=wb_copyCode;window.wb_setCategory=wb_setCategory;window.wb_setAuto=wb_setAuto;window.wb_submitAssign=wb_submitAssign;window.wb_toggleGuessed=wb_toggleGuessed;window.wb_openSettings=wb_openSettings;window.wb_closeSettings=wb_closeSettings;window.wb_openSettingsWait=wb_openSettingsWait;window.wb_closeSettingsWait=wb_closeSettingsWait;window.wb_resetGame=wb_resetGame;
+  })();
+
+  // ============================================================
+  // ============ TABU ==========================================
+  // ============================================================
+  (function() {
+    const CARDS=[
+      {w:'Pizza',t:['Italien','Käse','Teig','Belag','backen']},
+      {w:'Fußball',t:['Tor','Ball','Mannschaft','spielen','Rasen']},
+      {w:'Strand',t:['Sand','Meer','Sonne','Urlaub','Liegestuhl']},
+      {w:'Kaffee',t:['trinken','Tasse','Koffein','morgens','schwarz']},
+      {w:'Computer',t:['Bildschirm','Tastatur','Maus','Internet','arbeiten']},
+      {w:'Hund',t:['Tier','bellen','Leine','Katze','treu']},
+      {w:'Regen',t:['Wasser','Wolken','nass','Schirm','Wetter']},
+      {w:'Geburtstag',t:['feiern','Kuchen','Geschenk','Kerzen','Jahr']},
+      {w:'Schokolade',t:['süß','Kakao','braun','Tafel','naschen']},
+      {w:'Flugzeug',t:['fliegen','Himmel','Pilot','Flughafen','Urlaub']},
+      {w:'Schule',t:['lernen','Lehrer','Schüler','Klasse','Unterricht']},
+      {w:'Weihnachten',t:['Geschenke','Baum','Dezember','Fest','Schnee']},
+      {w:'Gitarre',t:['Saiten','spielen','Musik','Instrument','Band']},
+      {w:'Arzt',t:['Krankenhaus','Patient','Krankheit','behandeln','weiß']},
+      {w:'Berg',t:['hoch','wandern','Gipfel','klettern','Alpen']},
+      {w:'Telefon',t:['anrufen','Handy','sprechen','Nummer','klingeln']},
+      {w:'Buch',t:['lesen','Seiten','Autor','Geschichte','Bibliothek']},
+      {w:'Auto',t:['fahren','Räder','Motor','Straße','Lenkrad']},
+      {w:'Sonne',t:['hell','warm','Himmel','Tag','scheinen']},
+      {w:'Pinguin',t:['Antarktis','schwarz-weiß','watscheln','Vogel','Eis']},
+      {w:'Zahnarzt',t:['Zähne','bohren','Praxis','Schmerz','putzen']},
+      {w:'Pizza-Bäcker',t:['Ofen','Italien','Teig','liefern','Restaurant']},
+      {w:'Schneemann',t:['Winter','Schnee','Karotte','Nase','rollen']},
+      {w:'Fahrrad',t:['fahren','Pedale','Räder','Kette','Sattel']},
+      {w:'Kino',t:['Film','Leinwand','Popcorn','Karte','dunkel']},
+      {w:'Spinne',t:['Netz','acht','Beine','krabbeln','Angst']},
+      {w:'Feuerwehr',t:['Feuer','löschen','rot','Schlauch','Notruf']},
+      {w:'Banane',t:['gelb','Obst','krumm','Affe','schälen']},
+      {w:'König',t:['Krone','Thron','Reich','herrschen','Königin']},
+      {w:'Brille',t:['sehen','Augen','Gläser','Nase','Dioptrien']},
+      {w:'Vampir',t:['Blut','Zähne','Nacht','Sarg','Knoblauch']},
+      {w:'Lehrer',t:['Schule','unterrichten','Tafel','Schüler','Note']},
+      {w:'Schlüssel',t:['Tür','schließen','Schloss','Bund','aufsperren']},
+      {w:'Eis',t:['kalt','Sommer','Kugel','Waffel','lecken']},
+      {w:'Roboter',t:['Maschine','Metall','programmieren','künstlich','Zukunft']},
+      {w:'Regenbogen',t:['Farben','Himmel','Regen','Bogen','bunt']},
+      {w:'Pirat',t:['Schiff','Schatz','Augenklappe','Meer','Säbel']},
+      {w:'Kühlschrank',t:['kalt','Küche','Lebensmittel','Tür','Strom']},
+      {w:'Astronaut',t:['Weltraum','Rakete','Mond','Anzug','schweben']},
+      {w:'Zauberer',t:['Magie','Zylinder','Trick','Hase','Stab']},
+    ];
+    function getSelfId(){let id=localStorage.getItem('mp-self-id');if(!id){id='d_'+Math.random().toString(36).slice(2,10)+Math.random().toString(36).slice(2,6);localStorage.setItem('mp-self-id',id);}return id;}
+    function getStoredName(){return localStorage.getItem('mp-display-name')||'';}
+    function setStoredName(n){try{localStorage.setItem('mp-display-name',n);}catch(e){}}
+    function genCode(){const c='ABCDEFGHJKMNPQRSTUVWXYZ23456789';let s='';for(let i=0;i<4;i++)s+=c[Math.floor(Math.random()*c.length)];return s;}
+    function validateCode(code){if(!code)return null;const x=code.toUpperCase().replace(/[^A-Z0-9]/g,'');return(x.length<3||x.length>6)?null:x;}
+    function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+    function toArray(v){if(v==null)return[];if(Array.isArray(v))return v;if(typeof v==='object'){const k=Object.keys(v).map(Number).filter(n=>!isNaN(n)).sort((a,b)=>a-b);return k.map(i=>v[i]);}return[];}
+    function deepClean(o){if(o==null)return null;if(typeof o!=='object')return o;if(Array.isArray(o))return o.map(deepClean);const r={};for(const k in o)if(o[k]!==undefined)r[k]=deepClean(o[k]);return r;}
+    function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+
+    let state={app:'tabu',phase:'lobby',players:{},seatOrder:[]};
+    let mySelfId=getSelfId(),myCode=null,amHost=false,inSession=false,inWaiting=true;
+    let unsubSession=null,sessionRef=null,peerRef=null;
+    let timerInterval=null,hostTimeout=null;
+
+    function showError(m){const e=document.getElementById('tbError');if(!e)return;e.textContent=m;clearTimeout(showError._t);showError._t=setTimeout(()=>e.textContent='',5000);}
+    function showToast(m){let t=document.getElementById('mpToast');if(!t){t=document.createElement('div');t.id='mpToast';t.className='mp-toast';document.body.appendChild(t);}t.textContent=m;t.classList.add('show');clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('show'),2500);}
+    function getConfig(){return state.config||{timerSeconds:60,goal:30};}
+    function stopTimers(){if(timerInterval){clearInterval(timerInterval);timerInterval=null;}if(hostTimeout){clearTimeout(hostTimeout);hostTimeout=null;}}
+
+    async function tb_create(){
+      if(!window.FB){showError('Firebase noch nicht geladen');return;}
+      const name=(document.getElementById('tbName').value.trim())||('Spieler '+mySelfId.slice(2,6));setStoredName(name);
+      const ci=document.getElementById('tbCreateCode').value.trim();let code=ci?validateCode(ci):genCode();if(ci&&!code){showError('Code: 3–6 Zeichen');return;}
+      const{db,ref,get,set}=window.FB;
+      try{const ex=await get(ref(db,'sessions/'+code));if(ex.exists()){const v=ex.val();if(Object.keys(v.peers||{}).length===0)await window.FB.remove(ref(db,'sessions/'+code));else{showError(`Code ${code} ist aktiv`);return;}}}catch(e){showError('Fehler');return;}
+      const initial={app:'tabu',host:mySelfId,phase:'lobby',players:{[mySelfId]:{name,joinedAt:Date.now(),team:'a'}},seatOrder:[],config:{timerSeconds:60,goal:30},scoreA:0,scoreB:0,currentTeam:'a',explainerIdx:{a:0,b:0},currentExplainer:null,deck:[],deckPos:0,turnStartedAt:null,turnScore:0,roundActive:false,createdAt:Date.now(),pendingAction:null};
+      try{await set(ref(db,'sessions/'+code),{state:initial,writerId:mySelfId});myCode=code;amHost=true;await joinListeners(code,name);switchToWaiting();}catch(e){showError('Fehlgeschlagen: '+(e.message||e));}
+    }
+    async function tb_join(){
+      if(!window.FB){showError('Firebase noch nicht geladen');return;}
+      const name=(document.getElementById('tbName').value.trim())||('Spieler '+mySelfId.slice(2,6));setStoredName(name);
+      const code=validateCode(document.getElementById('tbJoinCode').value);if(!code){showError('Code: 3–6 Zeichen');return;}
+      const{db,ref,get,update}=window.FB;
+      try{const snap=await get(ref(db,'sessions/'+code));if(!snap.exists()){showError(`Session ${code} nicht gefunden`);return;}
+        const data=snap.val();if(Object.keys(data.peers||{}).length===0){await window.FB.remove(ref(db,'sessions/'+code));showError('War abgelaufen');return;}
+        if(data.state&&data.state.app!=='tabu'){showError('Andere App');return;}
+        const players=(data.state&&data.state.players)||{};const running=data.state&&data.state.phase&&data.state.phase!=='lobby';
+        if(running&&!players[mySelfId]){showError('Läuft schon');return;}
+        if(!players[mySelfId]){const aCount=Object.values(players).filter(p=>p.team==='a').length;const bCount=Object.values(players).filter(p=>p.team==='b').length;await update(ref(db,`sessions/${code}/state/players/${mySelfId}`),{name,joinedAt:Date.now(),team:aCount<=bCount?'a':'b'});}
+        else await update(ref(db,`sessions/${code}/state/players/${mySelfId}`),{name});
+        myCode=code;amHost=(data.state.host===mySelfId);await joinListeners(code,name);if(running)switchToGame();else switchToWaiting();
+      }catch(e){showError('Fehlgeschlagen: '+(e.message||e));}
+    }
+    async function joinListeners(code,name){
+      const{db,ref,onValue,set,onDisconnect}=window.FB;
+      sessionRef=ref(db,'sessions/'+code);peerRef=ref(db,`sessions/${code}/peers/${mySelfId}`);
+      await set(peerRef,{name,lastSeen:Date.now()});onDisconnect(peerRef).remove();
+      unsubSession=onValue(sessionRef,(snap)=>{
+        if(!snap.exists()){showError('Session beendet');tb_leave();return;}
+        const ns=snap.val().state||{};ns.seatOrder=toArray(ns.seatOrder);ns.deck=toArray(ns.deck);ns.players=ns.players||{};
+        state=ns;amHost=(state.host===mySelfId);document.body.classList.toggle('mp-host',amHost);
+        if(state.phase!=='lobby'&&inWaiting)switchToGame();if(state.phase==='lobby'&&!inWaiting&&inSession)switchToWaiting();
+        if(amHost&&state.pendingAction){processPending(state.pendingAction);return;}
+        renderAll();
+      });
+      inSession=true;
+    }
+    async function tb_leave(){
+      stopTimers();const{remove,update,get}=window.FB||{};
+      try{if(unsubSession)unsubSession();}catch(e){}try{if(peerRef&&remove)await remove(peerRef);}catch(e){}
+      if(sessionRef&&window.FB){try{const snap=await get(sessionRef);if(snap.exists()){const d=snap.val();const rp=Object.keys(d.peers||{});if(rp.length===0)await remove(sessionRef);else{await remove(window.FB.ref(window.FB.db,`sessions/${myCode}/state/players/${mySelfId}`));if(amHost)await update(window.FB.ref(window.FB.db,`sessions/${myCode}/state`),{host:rp[0]});}}}catch(e){}}
+      sessionRef=null;peerRef=null;unsubSession=null;inSession=false;myCode=null;amHost=false;switchToLobby();
+    }
+    function switchToLobby(){document.getElementById('tbLobby').style.display='';document.getElementById('tbWaiting').style.display='none';document.getElementById('tbGame').style.display='none';document.getElementById('tbName').value=getStoredName();inWaiting=false;document.body.classList.add('in-multi-lobby');stopTimers();}
+    function switchToWaiting(){document.getElementById('tbLobby').style.display='none';document.getElementById('tbWaiting').style.display='';document.getElementById('tbGame').style.display='none';inWaiting=true;document.body.classList.remove('in-multi-lobby');renderWaiting();}
+    function switchToGame(){document.getElementById('tbLobby').style.display='none';document.getElementById('tbWaiting').style.display='none';document.getElementById('tbGame').style.display='';inWaiting=false;document.body.classList.remove('in-multi-lobby');renderAll();}
+    function tb_copyCode(){if(!myCode)return;try{navigator.clipboard.writeText(myCode);showToast('Code kopiert');}catch(e){}}
+
+    function renderWaiting(){
+      document.getElementById('tbWaitCode').textContent=myCode||'—';document.getElementById('tbWaitCodeBig').textContent=myCode||'—';
+      const p=state.players||{};const ids=Object.keys(p);
+      const aIds=ids.filter(id=>p[id].team==='a'),bIds=ids.filter(id=>p[id].team==='b');
+      const col=(team,list,label)=>`<div class="tb-team-col team-${team==='a'?'a':'b'}"><div class="tb-team-name">${label}</div>${list.map(id=>`<div class="tb-team-member ${id===mySelfId?'me':''}">${esc(p[id].name)}${id===state.host?' 👑':''}</div>`).join('')||'<div style="opacity:0.4;font-size:0.8rem;text-align:center">leer</div>'}<button class="tb-join-btn" onclick="tb_joinTeam('${team}')">beitreten</button></div>`;
+      document.getElementById('tbTeams').innerHTML=col('a',aIds,'🌸 Team Pink')+col('b',bIds,'🔷 Team Blau');
+      const cfg=getConfig(),sec=document.getElementById('tbConfigSection');
+      if(amHost){sec.style.display='';document.getElementById('tbCfgTimer').textContent=cfg.timerSeconds;document.getElementById('tbCfgGoal').textContent=cfg.goal;}else sec.style.display='none';
+      const sb=document.getElementById('tbStartBtn'),hint=document.getElementById('tbWaitHint');
+      const valid=aIds.length>=1&&bIds.length>=1;
+      if(amHost){sb.style.display='';sb.disabled=!valid;hint.textContent=valid?'Du bist Host':'Beide Teams brauchen min. 1 Spieler';}else{sb.style.display='none';hint.textContent='Warte auf den Host...';}
+    }
+    async function tb_joinTeam(team){const{update,ref,db}=window.FB||{};if(update&&myCode)await update(ref(db,`sessions/${myCode}/state/players/${mySelfId}`),{team});}
+    async function tb_adjustTimer(d){if(!amHost)return;const cfg=Object.assign({},getConfig());cfg.timerSeconds=Math.max(30,Math.min(180,cfg.timerSeconds+d));const{set,ref,db}=window.FB;await set(ref(db,`sessions/${myCode}/state/config`),deepClean(cfg));}
+    async function tb_adjustGoal(d){if(!amHost)return;const cfg=Object.assign({},getConfig());cfg.goal=Math.max(10,Math.min(100,cfg.goal+d));const{set,ref,db}=window.FB;await set(ref(db,`sessions/${myCode}/state/config`),deepClean(cfg));}
+
+    function teamMembers(team){const p=state.players||{};return Object.keys(p).filter(id=>p[id].team===team).sort((a,b)=>(p[a].joinedAt||0)-(p[b].joinedAt||0));}
+    async function tb_startGame(){
+      if(!amHost)return;
+      if(teamMembers('a').length<1||teamMembers('b').length<1){showError('Beide Teams brauchen Spieler');return;}
+      const deck=shuffle(CARDS.map((_,i)=>i));
+      const explainer=teamMembers('a')[0];
+      broadcast(Object.assign({},state,{phase:'playing',scoreA:0,scoreB:0,currentTeam:'a',explainerIdx:{a:0,b:0},currentExplainer:explainer,deck,deckPos:0,turnStartedAt:null,turnScore:0,roundActive:false,pendingAction:null}));
+    }
+
+    function processPending(a){
+      if(!amHost||!a)return;const{type}=a;
+      if(type==='start_turn'&&state.phase==='playing'&&!state.roundActive&&a.by===state.currentExplainer){
+        const cfg=getConfig();
+        broadcast(Object.assign({},state,{roundActive:true,turnStartedAt:Date.now(),turnScore:0,pendingAction:null}));
+        if(hostTimeout)clearTimeout(hostTimeout);
+        hostTimeout=setTimeout(()=>{if(amHost&&state.roundActive)endTurn();},cfg.timerSeconds*1000+400);
+        return;
+      }
+      if(type==='card_result'&&state.phase==='playing'&&state.roundActive&&a.by===state.currentExplainer){
+        let delta=0;if(a.result==='correct')delta=1;else if(a.result==='taboo')delta=-1;
+        const team=state.currentTeam;
+        const ns=Object.assign({},state,{pendingAction:null});
+        if(team==='a')ns.scoreA=Math.max(0,(state.scoreA||0)+delta);else ns.scoreB=Math.max(0,(state.scoreB||0)+delta);
+        ns.turnScore=(state.turnScore||0)+delta;
+        ns.deckPos=(state.deckPos||0)+1;
+        if(ns.deckPos>=ns.deck.length){ns.deck=shuffle(CARDS.map((_,i)=>i));ns.deckPos=0;}
+        broadcast(ns);return;
+      }
+      if(type==='end_turn'&&state.phase==='playing'&&state.roundActive&&a.by===state.currentExplainer){endTurn();return;}
+      if(type==='next_turn'&&state.phase==='turnEnd'&&a.by===state.host){advanceTurn();return;}
+      clearPending();
+    }
+    function endTurn(){
+      if(!amHost)return;stopTimers();
+      const cfg=getConfig();
+      const ns=Object.assign({},state,{phase:'turnEnd',roundActive:false,pendingAction:null});
+      if((ns.scoreA>=cfg.goal)||(ns.scoreB>=cfg.goal))ns.phase='gameOver';
+      broadcast(ns);
+    }
+    function advanceTurn(){
+      if(!amHost)return;
+      const nextTeam=state.currentTeam==='a'?'b':'a';
+      const idx=Object.assign({},state.explainerIdx||{a:0,b:0});
+      // advance explainer index for the team that just played for next time
+      const members=teamMembers(nextTeam);
+      const nextExplainer=members.length?members[idx[nextTeam]%members.length]:null;
+      idx[nextTeam]=(idx[nextTeam]+1)%Math.max(1,members.length);
+      broadcast(Object.assign({},state,{phase:'playing',currentTeam:nextTeam,currentExplainer:nextExplainer,explainerIdx:idx,roundActive:false,turnStartedAt:null,turnScore:0,pendingAction:null}));
+    }
+    function clearPending(){const{set,ref,db}=window.FB||{};if(set&&myCode)set(ref(db,`sessions/${myCode}/state/pendingAction`),null);}
+    async function broadcast(ns){if(!sessionRef||!window.FB)return;if(ns.pendingAction===undefined)ns.pendingAction=null;state=ns;const{set,ref,db}=window.FB;try{await set(ref(db,`sessions/${myCode}/state`),deepClean(ns));}catch(e){console.error('[TB]',e);}}
+    async function sendAction(p){if(!sessionRef||!window.FB)return;const{set,ref,db}=window.FB;await set(ref(db,`sessions/${myCode}/state/pendingAction`),Object.assign({by:mySelfId,ts:Date.now()},p));}
+
+    function tb_startTurn(){sendAction({type:'start_turn'});}
+    function tb_result(r){sendAction({type:'card_result',result:r});}
+    function tb_endTurn(){sendAction({type:'end_turn'});}
+    function tb_nextTurn(){sendAction({type:'next_turn'});}
+
+    function renderAll(){
+      if(inWaiting){renderWaiting();return;}if(!inSession)return;
+      document.getElementById('tbTopCode').textContent=myCode||'—';
+      const cfg=getConfig();
+      const teamName=t=>t==='a'?'🌸 Pink':'🔷 Blau';
+      document.getElementById('tbTopPhase').textContent=state.phase==='gameOver'?'Ende':`${teamName(state.currentTeam)} am Zug`;
+      // scorebar
+      document.getElementById('tbScorebar').innerHTML=`
+        <div class="tb-score-team a ${state.currentTeam==='a'?'active':''}"><div class="lbl">🌸 Pink</div><div class="val">${state.scoreA||0}</div></div>
+        <div style="align-self:center;opacity:0.5;font-family:Outfit,sans-serif;font-size:0.8rem">Ziel ${cfg.goal}</div>
+        <div class="tb-score-team b ${state.currentTeam==='b'?'active':''}"><div class="lbl">🔷 Blau</div><div class="val">${state.scoreB||0}</div></div>`;
+      const wrap=document.getElementById('tbContent');
+      if(state.phase==='gameOver'){stopTimers();wrap.innerHTML=renderOver();return;}
+      if(state.phase==='turnEnd'){stopTimers();wrap.innerHTML=renderTurnEnd();return;}
+      // playing
+      const amExplainer=state.currentExplainer===mySelfId;
+      const exP=state.players[state.currentExplainer];
+      if(!state.roundActive){
+        let html=`<div class="g-phase"><div class="g-phase-name" style="color:#f9a8d4">${teamName(state.currentTeam)} ist dran</div><div class="g-phase-desc">Erklärer: ${esc(exP?exP.name:'—')}${amExplainer?' (du!)':''}</div></div>`;
+        if(amExplainer)html+=`<div class="g-card" style="text-align:center">Bereit? Sobald du startest, läuft der Timer (${cfg.timerSeconds}s). Erkläre so viele Begriffe wie möglich — ohne die Tabu-Wörter zu sagen!</div><button class="g-btn tb-btn" onclick="tb_startTurn()">⏱ TIMER STARTEN</button>`;
+        else html+=`<div class="g-wait-box"><div class="g-wait-icon">⏳</div>${esc(exP?exP.name:'Der Erklärer')} startet gleich den Zug...</div>`;
+        wrap.innerHTML=html;
+        return;
+      }
+      // active round
+      const card=CARDS[state.deck[state.deckPos%state.deck.length]];
+      if(amExplainer){
+        if(!document.getElementById('tbActiveWrap')){
+          wrap.innerHTML=`<div class="tb-timer-big" id="tbTimer">--</div><div id="tbActiveWrap"></div>`;
+        }
+        const aw=document.getElementById('tbActiveWrap');
+        aw.innerHTML=`<div class="tb-word-card"><div class="tb-word-main">${esc(card.w)}</div><div class="tb-taboo-list"><div class="tb-taboo-label">🚫 Tabu</div>${card.t.map(t=>`<div class="tb-taboo-word">${esc(t)}</div>`).join('')}</div></div>
+          <div class="tb-action-row"><button class="g-btn success" style="margin:0" onclick="tb_result('correct')">✓ Richtig</button><button class="g-btn secondary" style="margin:0" onclick="tb_result('skip')">⏭ Skip</button><button class="g-btn danger" style="margin:0" onclick="tb_result('taboo')">🚫 Tabu</button></div>
+          <button class="g-btn secondary" onclick="tb_endTurn()">Zug beenden</button>
+          <div style="text-align:center;font-family:Outfit,sans-serif;font-size:0.85rem;opacity:0.7;margin-top:0.4rem">Diese Runde: ${state.turnScore>=0?'+':''}${state.turnScore||0}</div>`;
+        startTimerDisplay();
+      } else {
+        const myTeam=state.players[mySelfId]&&state.players[mySelfId].team;
+        const guessing=myTeam===state.currentTeam;
+        wrap.innerHTML=`<div class="tb-timer-big" id="tbTimer">--</div>
+          <div class="g-wait-box" style="font-style:normal"><div class="g-wait-icon">${guessing?'🗣️':'👀'}</div>${guessing?'<b>Rate mit!</b> '+esc(exP?exP.name:'')+' erklärt — ruf die Begriffe!':'Team '+teamName(state.currentTeam)+' ist dran. Hört zu, ob ein Tabu-Wort fällt!'}</div>
+          <div style="text-align:center;font-family:Outfit,sans-serif;font-size:0.85rem;opacity:0.7">Punkte diese Runde: ${state.turnScore>=0?'+':''}${state.turnScore||0}</div>`;
+        startTimerDisplay();
+      }
+    }
+    function startTimerDisplay(){
+      const cfg=getConfig();
+      if(timerInterval)clearInterval(timerInterval);
+      const tick=()=>{const el=document.getElementById('tbTimer');if(!el){clearInterval(timerInterval);timerInterval=null;return;}const elapsed=(Date.now()-(state.turnStartedAt||Date.now()))/1000;const left=Math.max(0,Math.ceil(cfg.timerSeconds-elapsed));el.textContent=left;el.classList.toggle('urgent',left<=10);if(left<=0){clearInterval(timerInterval);timerInterval=null;}};
+      tick();timerInterval=setInterval(tick,250);
+    }
+    function renderTurnEnd(){
+      const teamName=t=>t==='a'?'🌸 Pink':'🔷 Blau';
+      let html=`<div class="g-phase"><div class="g-phase-name" style="color:#f9a8d4">⏱ Zeit abgelaufen!</div><div class="g-phase-desc">${teamName(state.currentTeam)} hat ${state.turnScore>=0?'+':''}${state.turnScore||0} Punkte geholt</div></div>`;
+      html+=`<div class="g-card" style="text-align:center;font-size:1.1rem">Punktestand:<br>🌸 ${state.scoreA||0} &nbsp;·&nbsp; 🔷 ${state.scoreB||0}</div>`;
+      if(mySelfId===state.host)html+=`<button class="g-btn tb-btn" onclick="tb_nextTurn()">NÄCHSTES TEAM</button>`;
+      else html+=`<div class="g-wait-box">Warte auf den Host...</div>`;
+      return html;
+    }
+    function renderOver(){
+      const cfg=getConfig();const winA=(state.scoreA||0)>=(state.scoreB||0);
+      const winner=state.scoreA===state.scoreB?'Unentschieden!':(winA?'🌸 Team Pink gewinnt!':'🔷 Team Blau gewinnt!');
+      let html=`<div class="bs-riddle" style="border-color:#ec4899;box-shadow:0 0 25px rgba(236,72,153,0.3)"><div class="bs-riddle-title" style="color:#f9a8d4">🏆 ${winner}</div><div style="text-align:center;font-size:1.3rem">🌸 ${state.scoreA||0} &nbsp;:&nbsp; ${state.scoreB||0} 🔷</div></div>`;
+      if(mySelfId===state.host)html+=`<button class="g-btn tb-btn" onclick="tb_resetGame()">NEUES SPIEL</button>`;
+      else html+=`<div class="g-wait-box">Warte auf den Host...</div>`;
+      return html;
+    }
+    function tb_openSettings(){document.getElementById('tbResetBtn').style.display=amHost?'':'none';document.getElementById('tbHostOnlyLabel').style.display=amHost?'':'none';document.getElementById('tbSettingsModal').classList.add('active');}
+    function tb_closeSettings(){document.getElementById('tbSettingsModal').classList.remove('active');}
+    function tb_openSettingsWait(){document.getElementById('tbSettingsWaitModal').classList.add('active');}
+    function tb_closeSettingsWait(){document.getElementById('tbSettingsWaitModal').classList.remove('active');}
+    async function tb_resetGame(){if(!amHost)return;stopTimers();broadcast(Object.assign({},state,{phase:'lobby',scoreA:0,scoreB:0,roundActive:false,turnStartedAt:null,turnScore:0,pendingAction:null}));tb_closeSettings();}
+
+    function tb_init(){document.getElementById('tbName').value=getStoredName();if(!inSession)switchToLobby();}
+    const origSwitch=window.switchApp;window.switchApp=function(n){const r=origSwitch(n);if(n==='tabu')tb_init();else if(inSession&&n!=='tabu')stopTimers();return r;};
+    document.addEventListener('DOMContentLoaded',()=>{const e=document.getElementById('appTabu');if(e&&e.classList.contains('visible'))tb_init();});
+
+    window.tb_create=tb_create;window.tb_join=tb_join;window.tb_leave=tb_leave;window.tb_startGame=tb_startGame;window.tb_copyCode=tb_copyCode;window.tb_joinTeam=tb_joinTeam;window.tb_adjustTimer=tb_adjustTimer;window.tb_adjustGoal=tb_adjustGoal;window.tb_startTurn=tb_startTurn;window.tb_result=tb_result;window.tb_endTurn=tb_endTurn;window.tb_nextTurn=tb_nextTurn;window.tb_openSettings=tb_openSettings;window.tb_closeSettings=tb_closeSettings;window.tb_openSettingsWait=tb_openSettingsWait;window.tb_closeSettingsWait=tb_closeSettingsWait;window.tb_resetGame=tb_resetGame;
+  })();
+
+  // ============================================================
+  // ============ CODENAMES =====================================
+  // ============================================================
+  (function() {
+    const WORDS=['Apfel','Stern','Wasser','Berg','Krone','Schlange','Brücke','Schatten','Feuer','Insel','Vogel','Maschine','Garten','Spiegel','Hammer','Wolke','Kerze','Schlüssel','Drache','Ritter','Schiff','Pfeil','Maske','Tunnel','Wald','Wüste','Anker','Glocke','Diamant','Engel','Rakete','Hexe','Pilz','Nadel','Pyramide','Roboter','Vulkan','Welle','Zelt','Orchester','Kompass','Falle','Sturm','Kristall','Käfig','Laterne','Schwert','Tiger','Adler','Wolf','Fuchs','Bär','Hai','Spinne','Skorpion','Pinguin','Elefant','Pferd','Hund','Katze','Maus','Eule','Frosch','Biene','Ameise','Pirat','König','Königin','Soldat','Spion','Arzt','Clown','Riese','Zwerg','Geist','Vampir','Zombie','Maulwurf','Cowboy','Indianer','Wikinger','Samurai','Bombe','Pistole','Kanone','Schild','Helm','Panzer','Sense','Axt','Speer','Banane','Zitrone','Kirsche','Traube','Erdbeere','Melone','Karotte','Gurke','Brot','Kuchen','Pizza','Suppe','Honig','Salz','Zucker','Pfeffer','Milch','Kaffee','Schule','Kirche','Schloss','Turm','Burg','Fabrik','Bahnhof','Hafen','Markt','Theater','Museum','Bank','Hotel','Strand','Höhle','Sumpf','Gletscher','Krater','Quelle','Fluss','See','Ozean','Himmel','Mond','Sonne','Planet','Komet','Galaxie','Blitz','Donner','Nebel','Regen','Schnee','Eis','Wind','Erde','Gold','Silber','Eisen','Stahl','Glas','Holz','Stein','Sand','Lehm','Seide','Wolle','Leder','Papier','Tinte','Feder','Buch','Brief','Karte','Uhr','Ring','Kette','Münze','Schatztruhe','Zauberstab','Trommel','Flöte','Geige','Klavier','Trompete','Harfe','Gitarre','Mikrofon','Ballon','Drachen','Schaukel','Rutsche','Karussell','Achterbahn','Zirkus','Bühne','Krawatte','Zepter','Thron'];
+    function getSelfId(){let id=localStorage.getItem('mp-self-id');if(!id){id='d_'+Math.random().toString(36).slice(2,10)+Math.random().toString(36).slice(2,6);localStorage.setItem('mp-self-id',id);}return id;}
+    function getStoredName(){return localStorage.getItem('mp-display-name')||'';}
+    function setStoredName(n){try{localStorage.setItem('mp-display-name',n);}catch(e){}}
+    function genCode(){const c='ABCDEFGHJKMNPQRSTUVWXYZ23456789';let s='';for(let i=0;i<4;i++)s+=c[Math.floor(Math.random()*c.length)];return s;}
+    function validateCode(code){if(!code)return null;const x=code.toUpperCase().replace(/[^A-Z0-9]/g,'');return(x.length<3||x.length>6)?null:x;}
+    function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+    function toArray(v){if(v==null)return[];if(Array.isArray(v))return v;if(typeof v==='object'){const k=Object.keys(v).map(Number).filter(n=>!isNaN(n)).sort((a,b)=>a-b);return k.map(i=>v[i]);}return[];}
+    function deepClean(o){if(o==null)return null;if(typeof o!=='object')return o;if(Array.isArray(o))return o.map(deepClean);const r={};for(const k in o)if(o[k]!==undefined)r[k]=deepClean(o[k]);return r;}
+    function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+
+    let state={app:'codenames',phase:'lobby',players:{}};
+    let mySelfId=getSelfId(),myCode=null,amHost=false,inSession=false,inWaiting=true;
+    let unsubSession=null,sessionRef=null,peerRef=null;
+
+    function showError(m){const e=document.getElementById('cnError');if(!e)return;e.textContent=m;clearTimeout(showError._t);showError._t=setTimeout(()=>e.textContent='',5000);}
+    function showToast(m){let t=document.getElementById('mpToast');if(!t){t=document.createElement('div');t.id='mpToast';t.className='mp-toast';document.body.appendChild(t);}t.textContent=m;t.classList.add('show');clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('show'),2500);}
+
+    async function cn_create(){
+      if(!window.FB){showError('Firebase noch nicht geladen');return;}
+      const name=(document.getElementById('cnName').value.trim())||('Spieler '+mySelfId.slice(2,6));setStoredName(name);
+      const ci=document.getElementById('cnCreateCode').value.trim();let code=ci?validateCode(ci):genCode();if(ci&&!code){showError('Code: 3–6 Zeichen');return;}
+      const{db,ref,get,set}=window.FB;
+      try{const ex=await get(ref(db,'sessions/'+code));if(ex.exists()){const v=ex.val();if(Object.keys(v.peers||{}).length===0)await window.FB.remove(ref(db,'sessions/'+code));else{showError(`Code ${code} ist aktiv`);return;}}}catch(e){showError('Fehler');return;}
+      const initial={app:'codenames',host:mySelfId,phase:'lobby',players:{[mySelfId]:{name,joinedAt:Date.now(),team:'red',role:'spymaster'}},grid:[],startTeam:null,currentTeam:null,turnPhase:null,clue:null,guessesLeft:0,redRemaining:0,blueRemaining:0,winner:null,lastEvent:null,createdAt:Date.now(),pendingAction:null};
+      try{await set(ref(db,'sessions/'+code),{state:initial,writerId:mySelfId});myCode=code;amHost=true;await joinListeners(code,name);switchToWaiting();}catch(e){showError('Fehlgeschlagen: '+(e.message||e));}
+    }
+    async function cn_join(){
+      if(!window.FB){showError('Firebase noch nicht geladen');return;}
+      const name=(document.getElementById('cnName').value.trim())||('Spieler '+mySelfId.slice(2,6));setStoredName(name);
+      const code=validateCode(document.getElementById('cnJoinCode').value);if(!code){showError('Code: 3–6 Zeichen');return;}
+      const{db,ref,get,update}=window.FB;
+      try{const snap=await get(ref(db,'sessions/'+code));if(!snap.exists()){showError(`Session ${code} nicht gefunden`);return;}
+        const data=snap.val();if(Object.keys(data.peers||{}).length===0){await window.FB.remove(ref(db,'sessions/'+code));showError('War abgelaufen');return;}
+        if(data.state&&data.state.app!=='codenames'){showError('Andere App');return;}
+        const players=(data.state&&data.state.players)||{};const running=data.state&&data.state.phase&&data.state.phase!=='lobby';
+        if(running&&!players[mySelfId]){showError('Läuft schon');return;}
+        if(!players[mySelfId]){const rc=Object.values(players).filter(p=>p.team==='red').length;const bc=Object.values(players).filter(p=>p.team==='blue').length;const team=rc<=bc?'red':'blue';await update(ref(db,`sessions/${code}/state/players/${mySelfId}`),{name,joinedAt:Date.now(),team,role:'operative'});}
+        else await update(ref(db,`sessions/${code}/state/players/${mySelfId}`),{name});
+        myCode=code;amHost=(data.state.host===mySelfId);await joinListeners(code,name);if(running)switchToGame();else switchToWaiting();
+      }catch(e){showError('Fehlgeschlagen: '+(e.message||e));}
+    }
+    async function joinListeners(code,name){
+      const{db,ref,onValue,set,onDisconnect}=window.FB;
+      sessionRef=ref(db,'sessions/'+code);peerRef=ref(db,`sessions/${code}/peers/${mySelfId}`);
+      await set(peerRef,{name,lastSeen:Date.now()});onDisconnect(peerRef).remove();
+      unsubSession=onValue(sessionRef,(snap)=>{
+        if(!snap.exists()){showError('Session beendet');cn_leave();return;}
+        const ns=snap.val().state||{};ns.grid=toArray(ns.grid);ns.players=ns.players||{};
+        state=ns;amHost=(state.host===mySelfId);document.body.classList.toggle('mp-host',amHost);
+        if(state.phase!=='lobby'&&inWaiting)switchToGame();if(state.phase==='lobby'&&!inWaiting&&inSession)switchToWaiting();
+        if(amHost&&state.pendingAction){processPending(state.pendingAction);return;}
+        renderAll();
+      });
+      inSession=true;
+    }
+    async function cn_leave(){
+      const{remove,update,get}=window.FB||{};
+      try{if(unsubSession)unsubSession();}catch(e){}try{if(peerRef&&remove)await remove(peerRef);}catch(e){}
+      if(sessionRef&&window.FB){try{const snap=await get(sessionRef);if(snap.exists()){const d=snap.val();const rp=Object.keys(d.peers||{});if(rp.length===0)await remove(sessionRef);else{await remove(window.FB.ref(window.FB.db,`sessions/${myCode}/state/players/${mySelfId}`));if(amHost)await update(window.FB.ref(window.FB.db,`sessions/${myCode}/state`),{host:rp[0]});}}}catch(e){}}
+      sessionRef=null;peerRef=null;unsubSession=null;inSession=false;myCode=null;amHost=false;switchToLobby();
+    }
+    function switchToLobby(){document.getElementById('cnLobby').style.display='';document.getElementById('cnWaiting').style.display='none';document.getElementById('cnGame').style.display='none';document.getElementById('cnName').value=getStoredName();inWaiting=false;document.body.classList.add('in-multi-lobby');}
+    function switchToWaiting(){document.getElementById('cnLobby').style.display='none';document.getElementById('cnWaiting').style.display='';document.getElementById('cnGame').style.display='none';inWaiting=true;document.body.classList.remove('in-multi-lobby');renderWaiting();}
+    function switchToGame(){document.getElementById('cnLobby').style.display='none';document.getElementById('cnWaiting').style.display='none';document.getElementById('cnGame').style.display='';inWaiting=false;document.body.classList.remove('in-multi-lobby');renderAll();}
+    function cn_copyCode(){if(!myCode)return;try{navigator.clipboard.writeText(myCode);showToast('Code kopiert');}catch(e){}}
+
+    function renderWaiting(){
+      document.getElementById('cnWaitCode').textContent=myCode||'—';document.getElementById('cnWaitCodeBig').textContent=myCode||'—';
+      const p=state.players||{};
+      const col=(team)=>{
+        const sm=Object.keys(p).filter(id=>p[id].team===team&&p[id].role==='spymaster');
+        const ops=Object.keys(p).filter(id=>p[id].team===team&&p[id].role==='operative');
+        const teamLbl=team==='red'?'🔴 Rot':'🔵 Blau';
+        const smSlot=`<div class="cn-role-slot ${sm.includes(mySelfId)?'me':''}"><div class="role-lbl">🕶️ Spymaster</div>${sm.length?sm.map(id=>esc(p[id].name)).join(', '):'<span style="opacity:0.4">frei</span>'}</div>`;
+        const opSlot=`<div class="cn-role-slot ${ops.includes(mySelfId)?'me':''}"><div class="role-lbl">🔍 Agenten</div>${ops.length?ops.map(id=>esc(p[id].name)).join(', '):'<span style="opacity:0.4">frei</span>'}</div>`;
+        return `<div class="cn-team-col ${team}"><div class="cn-team-name">${teamLbl}</div>${smSlot}${opSlot}<button class="cn-join-btn" onclick="cn_setRole('${team}','spymaster')">→ Spymaster</button><button class="cn-join-btn" onclick="cn_setRole('${team}','operative')">→ Agent</button></div>`;
+      };
+      document.getElementById('cnTeams').innerHTML=col('red')+col('blue');
+      const sb=document.getElementById('cnStartBtn'),hint=document.getElementById('cnWaitHint');
+      const v=validTeams();
+      if(amHost){sb.style.display='';sb.disabled=!v.ok;hint.textContent=v.ok?'Du bist Host':v.msg;}else{sb.style.display='none';hint.textContent='Warte auf den Host...';}
+    }
+    function validTeams(){
+      const p=state.players||{};
+      const rSm=Object.keys(p).filter(id=>p[id].team==='red'&&p[id].role==='spymaster').length;
+      const bSm=Object.keys(p).filter(id=>p[id].team==='blue'&&p[id].role==='spymaster').length;
+      const rOp=Object.keys(p).filter(id=>p[id].team==='red'&&p[id].role==='operative').length;
+      const bOp=Object.keys(p).filter(id=>p[id].team==='blue'&&p[id].role==='operative').length;
+      if(rSm!==1||bSm!==1)return{ok:false,msg:'Jedes Team braucht genau 1 Spymaster'};
+      if(rOp<1||bOp<1)return{ok:false,msg:'Jedes Team braucht min. 1 Agenten'};
+      return{ok:true,msg:''};
+    }
+    async function cn_setRole(team,role){
+      const{update,ref,db}=window.FB||{};if(!update||!myCode)return;
+      // only one spymaster per team: if picking spymaster and taken by someone else, block
+      if(role==='spymaster'){const p=state.players||{};const taken=Object.keys(p).find(id=>id!==mySelfId&&p[id].team===team&&p[id].role==='spymaster');if(taken){showToast('Spymaster ist schon vergeben');return;}}
+      await update(ref(db,`sessions/${myCode}/state/players/${mySelfId}`),{team,role});
+    }
+
+    async function cn_startGame(){
+      if(!amHost)return;const v=validTeams();if(!v.ok){showError(v.msg);return;}
+      const startTeam=Math.random()<0.5?'red':'blue';
+      const words=shuffle(WORDS).slice(0,25);
+      const colors=[];
+      const startCount=9,otherCount=8;
+      for(let i=0;i<startCount;i++)colors.push(startTeam);
+      for(let i=0;i<otherCount;i++)colors.push(startTeam==='red'?'blue':'red');
+      for(let i=0;i<7;i++)colors.push('neutral');
+      colors.push('assassin');
+      const sc=shuffle(colors);
+      const grid=words.map((w,i)=>({word:w,color:sc[i],revealed:false}));
+      broadcast(Object.assign({},state,{phase:'playing',grid,startTeam,currentTeam:startTeam,turnPhase:'clue',clue:null,guessesLeft:0,redRemaining:startTeam==='red'?9:8,blueRemaining:startTeam==='blue'?9:8,winner:null,lastEvent:null,pendingAction:null}));
+    }
+
+    function processPending(a){
+      if(!amHost||!a)return;const{type}=a;const p=state.players||{};const actor=p[a.by];
+      if(type==='clue'&&state.phase==='playing'&&state.turnPhase==='clue'&&actor&&actor.team===state.currentTeam&&actor.role==='spymaster'){
+        const num=Math.max(1,Math.min(9,parseInt(a.num)||1));
+        broadcast(Object.assign({},state,{clue:{word:String(a.word||'').slice(0,30),num},turnPhase:'guess',guessesLeft:num+1,lastEvent:null,pendingAction:null}));return;
+      }
+      if(type==='reveal'&&state.phase==='playing'&&state.turnPhase==='guess'&&actor&&actor.team===state.currentTeam&&actor.role==='operative'){
+        const idx=a.idx;const grid=state.grid.map(c=>Object.assign({},c));
+        if(idx<0||idx>=grid.length||grid[idx].revealed){clearPending();return;}
+        grid[idx].revealed=true;const color=grid[idx].color;
+        let ns=Object.assign({},state,{grid,pendingAction:null});
+        let red=state.redRemaining,blue=state.blueRemaining;
+        if(color==='assassin'){ns.winner=state.currentTeam==='red'?'blue':'red';ns.phase='gameOver';ns.lastEvent={type:'assassin',by:actor.name};broadcast(ns);return;}
+        if(color==='red')red--;if(color==='blue')blue--;
+        ns.redRemaining=red;ns.blueRemaining=blue;
+        if(red<=0){ns.winner='red';ns.phase='gameOver';broadcast(ns);return;}
+        if(blue<=0){ns.winner='blue';ns.phase='gameOver';broadcast(ns);return;}
+        if(color===state.currentTeam){
+          ns.guessesLeft=state.guessesLeft-1;ns.lastEvent={type:'hit',word:grid[idx].word};
+          if(ns.guessesLeft<=0){ns=switchTurn(ns);}
+        } else {
+          // neutral or opponent → turn ends
+          ns.lastEvent={type:color==='neutral'?'neutral':'enemy',word:grid[idx].word};
+          ns=switchTurn(ns);
+        }
+        broadcast(ns);return;
+      }
+      if(type==='pass'&&state.phase==='playing'&&state.turnPhase==='guess'&&actor&&actor.team===state.currentTeam&&actor.role==='operative'){
+        let ns=Object.assign({},state,{pendingAction:null,lastEvent:{type:'pass'}});ns=switchTurn(ns);broadcast(ns);return;
+      }
+      clearPending();
+    }
+    function switchTurn(ns){ns.currentTeam=ns.currentTeam==='red'?'blue':'red';ns.turnPhase='clue';ns.clue=null;ns.guessesLeft=0;return ns;}
+    function clearPending(){const{set,ref,db}=window.FB||{};if(set&&myCode)set(ref(db,`sessions/${myCode}/state/pendingAction`),null);}
+    async function broadcast(ns){if(!sessionRef||!window.FB)return;if(ns.pendingAction===undefined)ns.pendingAction=null;state=ns;const{set,ref,db}=window.FB;try{await set(ref(db,`sessions/${myCode}/state`),deepClean(ns));}catch(e){console.error('[CN]',e);}}
+    async function sendAction(p){if(!sessionRef||!window.FB)return;const{set,ref,db}=window.FB;await set(ref(db,`sessions/${myCode}/state/pendingAction`),Object.assign({by:mySelfId,ts:Date.now()},p));}
+
+    function cn_submitClue(){const w=document.getElementById('cnClueWord');const n=document.getElementById('cnClueNum');const word=w?w.value.trim():'';const num=n?n.value:'';if(!word){showToast('Hinweis-Wort eingeben');return;}sendAction({type:'clue',word,num});}
+    function cn_reveal(idx){const me=state.players[mySelfId];if(!me||me.role!=='operative'||me.team!==state.currentTeam||state.turnPhase!=='guess'){return;}if(state.grid[idx]&&state.grid[idx].revealed)return;sendAction({type:'reveal',idx});}
+    function cn_pass(){sendAction({type:'pass'});}
+
+    function renderAll(){
+      if(inWaiting){renderWaiting();return;}if(!inSession)return;
+      document.getElementById('cnTopCode').textContent=myCode||'—';
+      const me=state.players[mySelfId]||{};
+      const tName=t=>t==='red'?'🔴 Rot':'🔵 Blau';
+      if(state.phase==='gameOver'){
+        document.getElementById('cnTopPhase').textContent='Ende';
+        document.getElementById('cnScorebar').innerHTML='';
+        renderGrid(true);
+        return;
+      }
+      document.getElementById('cnTopPhase').textContent=`${tName(state.currentTeam)} · ${state.turnPhase==='clue'?'Hinweis':'Raten'}`;
+      document.getElementById('cnScorebar').innerHTML=`
+        <div class="cn-score red ${state.currentTeam==='red'?'active':''}">${state.redRemaining}</div>
+        <div class="cn-turn-label">${tName(state.currentTeam)} ist dran<br>${me.role==='spymaster'?'(du bist Spymaster)':'(du bist Agent)'}</div>
+        <div class="cn-score blue ${state.currentTeam==='blue'?'active':''}">${state.blueRemaining}</div>`;
+      renderGrid(false);
+    }
+
+    function renderGrid(reveal){
+      const wrap=document.getElementById('cnContent');
+      const me=state.players[mySelfId]||{};
+      const isSpymaster=me.role==='spymaster';
+      const showColors=reveal||isSpymaster;
+      const canTap=!reveal&&me.role==='operative'&&me.team===state.currentTeam&&state.turnPhase==='guess';
+      let top='';
+      if(!reveal){
+        if(state.turnPhase==='clue'){
+          if(isSpymaster&&me.team===state.currentTeam){
+            top=`<div class="cn-clue-banner"><div style="font-family:Outfit,sans-serif;font-size:0.85rem;opacity:0.8;margin-bottom:0.4rem">Gib deinem Team einen Hinweis (1 Wort + Zahl)</div><div class="cn-clue-row"><input type="text" class="cn-clue-input" id="cnClueWord" maxlength="30" placeholder="Hinweis-Wort" autocomplete="off"><input type="number" class="cn-clue-input" id="cnClueNum" min="1" max="9" value="1"></div><button class="g-btn cn-btn" onclick="cn_submitClue()">HINWEIS GEBEN</button></div>`;
+          } else {
+            const sm=Object.keys(state.players).find(id=>state.players[id].team===state.currentTeam&&state.players[id].role==='spymaster');
+            top=`<div class="cn-clue-banner"><div class="g-wait-icon" style="font-size:1.5rem">⏳</div><div style="font-family:Outfit,sans-serif;font-size:0.9rem">Spymaster ${esc(sm?state.players[sm].name:'')} überlegt einen Hinweis...</div></div>`;
+          }
+        } else if(state.clue){
+          top=`<div class="cn-clue-banner"><span class="cn-clue-word">${esc(state.clue.word)}</span> <span class="cn-clue-num">${state.clue.num}</span><div style="font-family:Outfit,sans-serif;font-size:0.8rem;opacity:0.7;margin-top:0.2rem">noch ${Math.max(0,state.guessesLeft)} Versuche</div></div>`;
+        }
+        if(state.lastEvent){
+          const le=state.lastEvent;let msg='';
+          if(le.type==='hit')msg=`✓ "${esc(le.word)}" war richtig!`;
+          else if(le.type==='neutral')msg=`⬜ "${esc(le.word)}" war neutral — Zug vorbei`;
+          else if(le.type==='enemy')msg=`✗ "${esc(le.word)}" war gegnerisch — Zug vorbei`;
+          else if(le.type==='pass')msg=`⏭ Zug beendet`;
+          if(msg)top+=`<div style="text-align:center;font-family:Outfit,sans-serif;font-size:0.82rem;opacity:0.8;margin:0.3rem 0">${msg}</div>`;
+        }
+      }
+      const cells=state.grid.map((c,i)=>{
+        let cls='cn-card';
+        if(c.revealed){cls+=' revealed revealed-'+c.color;}
+        else if(showColors){cls+=' sm-'+c.color;}
+        const tap=canTap&&!c.revealed?`onclick="cn_reveal(${i})"`:'';
+        return `<div class="${cls}" ${tap}>${esc(c.word)}</div>`;
+      }).join('');
+      let bottom='';
+      if(!reveal&&canTap)bottom=`<button class="g-btn secondary" onclick="cn_pass()">Zug beenden (Pass)</button>`;
+      if(reveal){
+        const tName=t=>t==='red'?'🔴 Rot':'🔵 Blau';
+        const winMsg=state.lastEvent&&state.lastEvent.type==='assassin'?`${tName(state.winner)} gewinnt — Gegner traf den Attentäter! 🗡️`:`${tName(state.winner)} gewinnt! 🎉`;
+        bottom=`<div class="cn-gameover"><div class="cn-gameover-title" style="color:${state.winner==='red'?'#fca5a5':'#93c5fd'}">${winMsg}</div>${mySelfId===state.host?'<button class="g-btn cn-btn" onclick="cn_resetGame()">NEUES SPIEL</button>':'<div class="g-wait-box">Warte auf den Host...</div>'}</div>`;
+      }
+      wrap.innerHTML=top+`<div class="cn-grid">${cells}</div>`+bottom;
+    }
+
+    function cn_openSettings(){document.getElementById('cnResetBtn').style.display=amHost?'':'none';document.getElementById('cnHostOnlyLabel').style.display=amHost?'':'none';document.getElementById('cnSettingsModal').classList.add('active');}
+    function cn_closeSettings(){document.getElementById('cnSettingsModal').classList.remove('active');}
+    function cn_openSettingsWait(){document.getElementById('cnSettingsWaitModal').classList.add('active');}
+    function cn_closeSettingsWait(){document.getElementById('cnSettingsWaitModal').classList.remove('active');}
+    async function cn_resetGame(){if(!amHost)return;broadcast(Object.assign({},state,{phase:'lobby',grid:[],clue:null,winner:null,lastEvent:null,turnPhase:null,currentTeam:null,pendingAction:null}));cn_closeSettings();}
+
+    function cn_init(){document.getElementById('cnName').value=getStoredName();if(!inSession)switchToLobby();}
+    const origSwitch=window.switchApp;window.switchApp=function(n){const r=origSwitch(n);if(n==='codenames')cn_init();return r;};
+    document.addEventListener('DOMContentLoaded',()=>{const e=document.getElementById('appCodenames');if(e&&e.classList.contains('visible'))cn_init();});
+
+    window.cn_create=cn_create;window.cn_join=cn_join;window.cn_leave=cn_leave;window.cn_startGame=cn_startGame;window.cn_copyCode=cn_copyCode;window.cn_setRole=cn_setRole;window.cn_submitClue=cn_submitClue;window.cn_reveal=cn_reveal;window.cn_pass=cn_pass;window.cn_openSettings=cn_openSettings;window.cn_closeSettings=cn_closeSettings;window.cn_openSettingsWait=cn_openSettingsWait;window.cn_closeSettingsWait=cn_closeSettingsWait;window.cn_resetGame=cn_resetGame;
+  })();
+
+
+
+
+
 
 
 
