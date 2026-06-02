@@ -1450,6 +1450,61 @@
   }
   .alki-stats-area .stat-row:last-child { border-bottom: none; }
 
+  /* ====================== HOME / LAUNCHER ====================== */
+  .app-home {
+    background:
+      radial-gradient(circle at 20% 0%, rgba(232,220,196,0.06), transparent 45%),
+      radial-gradient(circle at 85% 100%, rgba(120,90,255,0.07), transparent 45%),
+      linear-gradient(180deg, #0c0c12 0%, #08080c 100%);
+    color: #ece6da; min-height: 100vh;
+  }
+  .home-inner {
+    max-width: 600px; margin: 0 auto;
+    padding: calc(env(safe-area-inset-top) + 2.4rem) 1.1rem calc(env(safe-area-inset-bottom) + 2.5rem);
+  }
+  .home-header { text-align: center; margin-bottom: 1.6rem; }
+  .home-logo { font-size: 3rem; line-height: 1; margin-bottom: 0.3rem; filter: drop-shadow(0 0 18px rgba(232,220,196,0.25)); }
+  .home-title {
+    font-family: 'Cinzel', 'Bebas Neue', serif; font-size: 2.2rem; font-weight: 700;
+    letter-spacing: 0.08em; color: #fff; text-shadow: 0 2px 20px rgba(0,0,0,0.5);
+  }
+  .home-sub { font-family: 'Outfit', sans-serif; font-size: 0.92rem; color: rgba(236,230,218,0.55); letter-spacing: 0.15em; text-transform: uppercase; margin-top: 0.2rem; }
+  .home-section-label {
+    font-family: 'Outfit', sans-serif; font-size: 0.72rem; letter-spacing: 0.22em; text-transform: uppercase;
+    color: rgba(236,230,218,0.45); margin: 1.3rem 0.2rem 0.6rem; font-weight: 600;
+  }
+  .home-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.7rem; }
+  .home-tile {
+    position: relative; display: flex; flex-direction: column; align-items: flex-start;
+    gap: 0.15rem; padding: 1rem 0.95rem 0.9rem; border-radius: 14px; cursor: pointer; text-align: left;
+    background: linear-gradient(155deg, rgba(255,255,255,0.07), rgba(255,255,255,0.025));
+    border: 1px solid rgba(255,255,255,0.1);
+    transition: transform 0.12s ease, border-color 0.12s, background 0.12s;
+    -webkit-tap-highlight-color: transparent; overflow: hidden; min-height: 92px;
+  }
+  .home-tile::after {
+    content: ''; position: absolute; inset: 0; border-radius: 14px;
+    background: radial-gradient(circle at 100% 0%, var(--tile-glow, rgba(232,220,196,0.18)), transparent 60%);
+    opacity: 0.5; pointer-events: none;
+  }
+  .home-tile:active { transform: scale(0.96); }
+  .home-tile:hover { border-color: rgba(255,255,255,0.28); background: linear-gradient(155deg, rgba(255,255,255,0.1), rgba(255,255,255,0.04)); }
+  .home-tile-emoji { font-size: 1.9rem; line-height: 1; margin-bottom: 0.35rem; position: relative; z-index: 1; }
+  .home-tile-name {
+    font-family: 'Outfit', sans-serif; font-size: 0.98rem; font-weight: 600; color: #fff;
+    line-height: 1.15; position: relative; z-index: 1;
+  }
+  .home-tile-desc {
+    font-family: 'Outfit', sans-serif; font-size: 0.72rem; color: rgba(236,230,218,0.5);
+    line-height: 1.2; position: relative; z-index: 1;
+  }
+  .home-footer {
+    text-align: center; font-family: 'Outfit', sans-serif; font-size: 0.74rem;
+    color: rgba(236,230,218,0.35); margin-top: 1.8rem; line-height: 1.5; padding: 0 1rem;
+  }
+  body.in-home .burger { display: none !important; }
+  body.in-home .admin-toggle { display: none !important; }
+
   /* ====================== SHARED GAME BASE (bs/wb/tb/cn) ====================== */
   .g-waiting-content {
     background: rgba(20,20,28,0.5); border: 1px solid rgba(255,255,255,0.12);
@@ -6279,7 +6334,7 @@
 <!-- Admin toggle (hidden by default, shown after 5x title clicks) -->
 <button class="admin-toggle" id="adminToggleBtn" onclick="openAdminPanel()" style="display:none" aria-label="Admin-Panel öffnen" title="Admin-Panel">🔧</button>
 
-<div class="app-version" id="appVersion">v1.0.8</div>
+<div class="app-version" id="appVersion">v1.0.9</div>
 
 <!-- Admin toast -->
 <div class="admin-toast" id="adminToast"></div>
@@ -6373,6 +6428,10 @@
       <span class="icon">🥃</span>
       <span>Alki Edition</span>
     </button>
+    <button class="menu-item" data-app="impostorSolo" onclick="switchApp('impostorSolo')">
+      <span class="icon">🕵️</span>
+      <span>Impostor Solo</span>
+    </button>
     <div class="menu-divider"></div>
     <div class="menu-section-label">MULTIPLAYER</div>
     <button class="menu-item" data-app="liarsbarMulti" onclick="switchApp('liarsbarMulti')">
@@ -6464,6 +6523,19 @@
 </div>
 
 <!-- ====================== LIAR'S BAR ====================== -->
+<!-- ============ HOME / LAUNCHER ============ -->
+<div class="app app-home" id="appHome">
+  <div class="home-inner">
+    <div class="home-header">
+      <div class="home-logo">🎲</div>
+      <div class="home-title">Spieleabend</div>
+      <div class="home-sub">Wähle ein Spiel</div>
+    </div>
+    <div id="homeGrid"></div>
+    <div class="home-footer">Single-Device direkt losspielen · Multiplayer per Code auf mehreren Handys</div>
+  </div>
+</div>
+
 <div class="app app-liarsbar" id="appLiarsbar">
 <div class="container">
   <h1>LIAR'S BAR</h1>
@@ -8927,9 +8999,11 @@
   };
 
   const APP_META = {
+    home:          { title: 'Spieleabend',      emoji: '🎲', theme: '#08080c' },
     liarsbar:      { title: "Liar's Bar",       emoji: '🎰', theme: '#0d0604' },
     poker:         { title: 'Poker Trainer',    emoji: '🃏', theme: '#0d141f' },
     alki:          { title: 'Alki Edition',     emoji: '🥃', theme: '#2a0000' },
+    impostorSolo:  { title: 'Impostor Solo',    emoji: '🕵️', theme: '#1a0a0a' },
     liarsbarMulti: { title: "Liar's Bar Multi", emoji: '📱', theme: '#0d0604' },
     alkiMulti:     { title: 'Alki Multi',       emoji: '📱', theme: '#2a0000' },
     pokerMulti:    { title: 'Poker Multi',      emoji: '♠️', theme: '#050a08' },
@@ -8941,6 +9015,45 @@
     tabu:          { title: 'Tabu',              emoji: '🚫', theme: '#1a0a12' },
     codenames:     { title: 'Codenames',         emoji: '🕶️', theme: '#0f1419' },
   };
+
+  // Launcher / home screen config
+  const HOME_DESC = {
+    liarsbar: 'Bluff & Revolver', poker: 'Hände trainieren', alki: 'Trinkspiel-Klassiker',
+    impostorSolo: 'Handy rumgeben',
+    liarsbarMulti: 'Bluff online', alkiMulti: 'Trinken online', pokerMulti: 'Texas Hold\u2019em',
+    werwolf: 'Dorf vs. Wölfe', impostor: 'Wer kennt das Wort nicht?', slf: 'Live gegeneinander',
+    blackstories: 'Düstere Rätsel', werbinich: 'Errate dich selbst', tabu: 'Erklären ohne Tabu',
+    codenames: 'Rot vs. Blau',
+  };
+  const TILE_GLOW = {
+    liarsbar: 'rgba(212,160,90,0.30)', poker: 'rgba(80,150,255,0.28)', alki: 'rgba(255,80,80,0.28)',
+    impostorSolo: 'rgba(255,110,60,0.30)',
+    liarsbarMulti: 'rgba(212,160,90,0.30)', alkiMulti: 'rgba(255,80,80,0.28)', pokerMulti: 'rgba(60,200,140,0.28)',
+    werwolf: 'rgba(150,110,255,0.30)', impostor: 'rgba(255,110,60,0.30)', slf: 'rgba(45,212,191,0.30)',
+    blackstories: 'rgba(150,90,255,0.30)', werbinich: 'rgba(80,150,255,0.30)', tabu: 'rgba(236,72,153,0.30)',
+    codenames: 'rgba(150,170,200,0.30)',
+  };
+  const HOME_APPS = [
+    { group: 'SOLO · 1 GERÄT', items: ['liarsbar', 'poker', 'alki', 'impostorSolo'] },
+    { group: 'MULTIPLAYER · MEHRERE HANDYS', items: ['liarsbarMulti', 'alkiMulti', 'pokerMulti', 'werwolf', 'impostor', 'slf', 'blackstories', 'werbinich', 'tabu', 'codenames'] },
+  ];
+  function renderHomeGrid() {
+    const grid = document.getElementById('homeGrid');
+    if (!grid) return;
+    grid.innerHTML = HOME_APPS.map(sec => {
+      const tiles = sec.items.map(key => {
+        const m = APP_META[key]; if (!m) return '';
+        const d = HOME_DESC[key] || '';
+        const glow = TILE_GLOW[key] || 'rgba(232,220,196,0.18)';
+        return `<button class="home-tile" style="--tile-glow:${glow}" onclick="switchApp('${key}')">
+          <span class="home-tile-emoji">${m.emoji}</span>
+          <span class="home-tile-name">${m.title}</span>
+          ${d ? `<span class="home-tile-desc">${d}</span>` : ''}
+        </button>`;
+      }).join('');
+      return `<div class="home-section-label">${sec.group}</div><div class="home-grid">${tiles}</div>`;
+    }).join('');
+  }
 
   function setFavicon(emoji) {
     const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text y=".9em" font-size="90">${emoji}</text></svg>`;
@@ -8957,16 +9070,17 @@
   }
 
   function toggleMenu() {
-    document.getElementById('burger').classList.toggle('open');
-    document.getElementById('menuDrawer').classList.toggle('open');
-    document.getElementById('menuBackdrop').classList.toggle('open');
+    // Burger now acts as a "back to home" button — the drawer is replaced by the launcher
+    switchApp('home');
   }
 
   function switchApp(name) {
     document.querySelectorAll('.app').forEach(a => a.classList.remove('visible'));
     const idMap = {
+      home: 'appHome',
       poker: 'appPoker',
       alki: 'appAlki',
+      impostorSolo: 'appImpostorSolo',
       liarsbar: 'appLiarsbar',
       liarsbarMulti: 'appLiarsbarMulti',
       alkiMulti: 'appAlkiMulti',
@@ -8988,6 +9102,7 @@
     // Set body class for multi-apps so we can hide the fixed burger
     const isMulti = ['liarsbarMulti','alkiMulti','pokerMulti','werwolf','impostor','slf','blackstories','werbinich','tabu','codenames'].includes(name);
     document.body.classList.toggle('in-multi-app', isMulti);
+    document.body.classList.toggle('in-home', name === 'home');
 
     // Update admin button visibility (only show in apps with admin panel support)
     if (typeof updateAdminButtonVisibility === 'function') updateAdminButtonVisibility();
@@ -9012,19 +9127,18 @@
       }
     }
 
-    if (document.getElementById('menuDrawer').classList.contains('open')) {
-      toggleMenu();
+    const drawer = document.getElementById('menuDrawer');
+    if (drawer && drawer.classList.contains('open')) {
+      drawer.classList.remove('open');
+      const bd = document.getElementById('menuBackdrop'); if (bd) bd.classList.remove('open');
+      const bg = document.getElementById('burger'); if (bg) bg.classList.remove('open');
     }
   }
 
-  // Load saved app or default to liarsbar
+  // Build launcher and always start on the home screen
   (function() {
-    let active = 'liarsbar';
-    try {
-      const saved = localStorage.getItem(APP_KEY);
-      if (['poker','liarsbar','alki','liarsbarMulti','alkiMulti','pokerMulti','werwolf','impostor','slf','blackstories','werbinich','tabu','codenames'].includes(saved)) active = saved;
-    } catch (e) {}
-    switchApp(active);
+    renderHomeGrid();
+    switchApp('home');
   })();
 
   // ============ LIAR'S BAR JS ============
