@@ -13,6 +13,8 @@
 
 <title>Game Hub</title>
 <link rel="icon" id="favicon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ctext%20y%3D%22.9em%22%20font-size%3D%2290%22%3E%F0%9F%8E%B0%3C%2Ftext%3E%3C%2Fsvg%3E">
+<link rel="apple-touch-icon" href="icon.png">
+<link rel="apple-touch-icon" sizes="180x180" href="icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Special+Elite&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Outfit:wght@300;400;500;600;700;800;900&family=Bebas+Neue&family=Righteous&display=swap" rel="stylesheet">
@@ -6469,6 +6471,71 @@
     .app-alki button.action { font-size: 0.85rem; }
   }
 
+  /* ====================== SHARED GAME RULES ====================== */
+  .gr-backdrop {
+    position: fixed; inset: 0; background: rgba(0,0,0,0.72);
+    backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);
+    z-index: 3000; display: none; align-items: flex-end; justify-content: center;
+  }
+  .gr-backdrop.active { display: flex; }
+  @media (min-width: 600px) { .gr-backdrop { align-items: center; } }
+  .gr-modal {
+    background: linear-gradient(180deg, #17171f, #0e0e14);
+    border: 1px solid rgba(255,255,255,0.14);
+    border-radius: 18px 18px 0 0; width: 100%; max-width: 520px; max-height: 86vh;
+    display: flex; flex-direction: column;
+    padding: 1.2rem 1.2rem calc(1.2rem + env(safe-area-inset-bottom));
+    box-shadow: 0 -12px 44px rgba(0,0,0,0.55);
+    animation: grUp 0.22s ease;
+  }
+  @media (min-width: 600px) { .gr-modal { border-radius: 18px; animation: grPop 0.18s ease; } }
+  @keyframes grUp { from { transform: translateY(40px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+  @keyframes grPop { from { transform: scale(0.96); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+  .gr-modal-head { display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.7rem; flex-shrink: 0; }
+  .gr-modal-title {
+    font-family: 'Cinzel', 'Bebas Neue', sans-serif; font-size: 1.3rem; color: #fff;
+    letter-spacing: 0.04em; flex: 1;
+  }
+  .gr-close-x {
+    background: rgba(255,255,255,0.08); border: none; color: rgba(255,255,255,0.7);
+    width: 32px; height: 32px; border-radius: 8px; font-size: 1rem; cursor: pointer; flex-shrink: 0;
+  }
+  .gr-close-x:hover { background: rgba(255,255,255,0.16); color: #fff; }
+  .gr-body {
+    overflow-y: auto; -webkit-overflow-scrolling: touch;
+    font-family: 'Outfit', sans-serif; color: rgba(236,230,218,0.85);
+    font-size: 0.95rem; line-height: 1.5; padding-right: 0.2rem;
+  }
+  .gr-goal {
+    background: rgba(255,255,255,0.06); border-left: 3px solid #ffb24d;
+    border-radius: 0 8px 8px 0; padding: 0.7rem 0.9rem; margin-bottom: 0.9rem; color: #fff;
+  }
+  .gr-goal b { color: #ffb24d; }
+  .gr-h {
+    font-weight: 700; color: #fff; font-size: 0.92rem; letter-spacing: 0.02em;
+    margin: 0.95rem 0 0.25rem;
+  }
+  .gr-body p { margin: 0.3rem 0; }
+  .gr-body ul { margin: 0.35rem 0; padding-left: 1.15rem; }
+  .gr-body li { margin: 0.22rem 0; }
+  .gr-body b { color: #fff; }
+  .gr-done {
+    margin-top: 1rem; padding: 0.9rem; border: none; border-radius: 10px;
+    background: rgba(255,255,255,0.12); color: #fff; font-family: 'Outfit', sans-serif;
+    font-weight: 600; letter-spacing: 0.05em; cursor: pointer; flex-shrink: 0;
+  }
+  .gr-done:hover { background: rgba(255,255,255,0.18); }
+
+  /* "So wird gespielt" entry-screen button */
+  .rules-link {
+    align-self: center; display: inline-flex; align-items: center; gap: 0.4rem;
+    margin: 0.2rem auto 0; padding: 0.5rem 1.05rem;
+    background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.16);
+    border-radius: 20px; color: rgba(255,255,255,0.85);
+    font-family: 'Outfit', sans-serif; font-size: 0.82rem; cursor: pointer; transition: all 0.15s;
+  }
+  .rules-link:hover { background: rgba(255,255,255,0.14); border-color: rgba(255,255,255,0.32); color: #fff; }
+
   /* ====================== DESKTOP / RESPONSIVE (Ebene 1) ====================== */
   /* Das Mobile-Layout ist Default und bleibt unter 700px komplett unangetastet.
      Die folgenden Regeln verbessern nur breitere Screens (additiv via min-width). */
@@ -6520,7 +6587,7 @@
 <!-- Admin toggle (hidden by default, shown after 5x title clicks) -->
 <button class="admin-toggle" id="adminToggleBtn" onclick="openAdminPanel()" style="display:none" aria-label="Admin-Panel öffnen" title="Admin-Panel">🔧</button>
 
-<div class="app-version" id="appVersion">v1.1.2</div>
+<div class="app-version" id="appVersion">v1.1.4</div>
 
 <!-- Admin toast -->
 <div class="admin-toast" id="adminToast"></div>
@@ -6598,6 +6665,18 @@
 </div>
 
 <div class="menu-backdrop" id="menuBackdrop" onclick="toggleMenu()"></div>
+
+<!-- ============ SHARED GAME RULES MODAL ============ -->
+<div class="gr-backdrop" id="gameRulesModal" onclick="if(event.target===this) hideGameRules()">
+  <div class="gr-modal">
+    <div class="gr-modal-head">
+      <div class="gr-modal-title" id="grTitle">Regeln</div>
+      <button class="gr-close-x" onclick="hideGameRules()" aria-label="Schließen">✕</button>
+    </div>
+    <div class="gr-body" id="grBody"></div>
+    <button class="gr-done" onclick="hideGameRules()">VERSTANDEN</button>
+  </div>
+</div>
 
 <nav class="menu-drawer" id="menuDrawer">
   <div class="menu-header">Spiele</div>
@@ -6939,6 +7018,7 @@
     <div>
       <h1 class="title">Poker <span>Trainer</span></h1>
       <div class="subtitle">Texas Hold'em · Hände erkennen</div>
+      <button class="rules-link" onclick="showGameRules('poker')" style="margin-top:0.5rem">📖 So wird gespielt</button>
     </div>
     <div class="stats">
       <div class="stat">
@@ -7301,6 +7381,7 @@
       <span class="multi-tag">MULTI</span>
     </div>
     <div class="multi-lobby-sub">Mobile Multiplayer für 2–8 Spieler</div>
+    <button class="rules-link" onclick="showGameRules('liarsbarMulti')">📖 So wird gespielt</button>
 
     <div class="multi-lobby-section">
       <label class="multi-lobby-label">DEIN NAME</label>
@@ -7435,6 +7516,7 @@
       <span class="multi-tag">MULTI</span>
     </div>
     <div class="multi-lobby-sub">Mobile Multiplayer — wer säuft länger?</div>
+    <button class="rules-link" onclick="showGameRules('alkiMulti')">📖 So wird gespielt</button>
 
     <div class="multi-lobby-section">
       <label class="multi-lobby-label">DEIN NAME</label>
@@ -7576,6 +7658,7 @@
       <span class="multi-tag">MULTI</span>
     </div>
     <div class="multi-lobby-sub">Texas Hold'em · 1.000 Chips Start · 10/20 Blinds</div>
+    <button class="rules-link" onclick="showGameRules('pokerMulti')">📖 So wird gespielt</button>
 
     <div class="multi-lobby-section">
       <label class="multi-lobby-label">DEIN NAME</label>
@@ -7790,6 +7873,7 @@
       <span class="multi-tag">MULTI</span>
     </div>
     <div class="multi-lobby-sub">Klassische Werwolf-Runde · 4–15 Spieler</div>
+    <button class="rules-link" onclick="showGameRules('werwolf')">📖 So wird gespielt</button>
 
     <div class="multi-lobby-section">
       <label class="multi-lobby-label">DEIN NAME</label>
@@ -7941,6 +8025,7 @@
       <span class="multi-tag">MULTI</span>
     </div>
     <div class="multi-lobby-sub">Finde den Hochstapler · 3–15 Spieler</div>
+    <button class="rules-link" onclick="showGameRules('impostor')">📖 So wird gespielt</button>
 
     <div class="multi-lobby-section">
       <label class="multi-lobby-label">DEIN NAME</label>
@@ -8088,6 +8173,7 @@
     <div class="imps-head">
       <div class="imps-title">🕵️ Impostor Solo</div>
       <div class="imps-sub">Ein Handy · reihum aufdecken</div>
+      <button class="rules-link" onclick="showGameRules('impostorSolo')" style="margin-top:0.6rem">📖 So wird gespielt</button>
     </div>
 
     <div class="imps-box">
@@ -8188,6 +8274,7 @@
       <span class="multi-tag">MULTI</span>
     </div>
     <div class="multi-lobby-sub">Live gegeneinander · 2–15 Spieler</div>
+    <button class="rules-link" onclick="showGameRules('slf')">📖 So wird gespielt</button>
 
     <div class="multi-lobby-section">
       <label class="multi-lobby-label">DEIN NAME</label>
@@ -8326,6 +8413,7 @@
       <span class="multi-lobby-emoji">🕯️</span><span>Black Stories</span><span class="multi-tag">MULTI</span>
     </div>
     <div class="multi-lobby-sub">Düstere Rätsel · einer kennt die Lösung</div>
+    <button class="rules-link" onclick="showGameRules('blackstories')">📖 So wird gespielt</button>
     <div class="multi-lobby-section">
       <label class="multi-lobby-label">DEIN NAME</label>
       <input type="text" class="multi-input" id="bsName" maxlength="14" placeholder="z.B. Tobi" autocomplete="off">
@@ -8396,6 +8484,7 @@
       <span class="multi-lobby-emoji">🤔</span><span>Wer bin ich</span><span class="multi-tag">MULTI</span>
     </div>
     <div class="multi-lobby-sub">Jeder sieht alle außer sich selbst · 3–15 Spieler</div>
+    <button class="rules-link" onclick="showGameRules('werbinich')">📖 So wird gespielt</button>
     <div class="multi-lobby-section">
       <label class="multi-lobby-label">DEIN NAME</label>
       <input type="text" class="multi-input" id="wbName" maxlength="14" placeholder="z.B. Tobi" autocomplete="off">
@@ -8471,6 +8560,7 @@
       <span class="multi-lobby-emoji">🚫</span><span>Tabu</span><span class="multi-tag">MULTI</span>
     </div>
     <div class="multi-lobby-sub">Erkläre das Wort — ohne die Tabu-Wörter · 2 Teams</div>
+    <button class="rules-link" onclick="showGameRules('tabu')">📖 So wird gespielt</button>
     <div class="multi-lobby-section">
       <label class="multi-lobby-label">DEIN NAME</label>
       <input type="text" class="multi-input" id="tbName" maxlength="14" placeholder="z.B. Tobi" autocomplete="off">
@@ -8549,6 +8639,7 @@
       <span class="multi-lobby-emoji">🕶️</span><span>Codenames</span><span class="multi-tag">MULTI</span>
     </div>
     <div class="multi-lobby-sub">Rot vs Blau · Spymaster gibt Hinweise · 4+ Spieler</div>
+    <button class="rules-link" onclick="showGameRules('codenames')">📖 So wird gespielt</button>
     <div class="multi-lobby-section">
       <label class="multi-lobby-label">DEIN NAME</label>
       <input type="text" class="multi-input" id="cnName" maxlength="14" placeholder="z.B. Tobi" autocomplete="off">
@@ -9417,6 +9508,128 @@
       const bg = document.getElementById('burger'); if (bg) bg.classList.remove('open');
     }
   }
+
+  // ============ SHARED GAME RULES ============
+  const GAME_RULES = {
+    poker: { title: 'Poker Trainer', body: `
+      <div class="gr-goal"><b>Ziel:</b> Pokerhände schnell und sicher erkennen.</div>
+      <p>Reines Solo-Training, kein Gegner. Dir wird eine Situation bzw. Karten gezeigt — du wählst die richtige Antwort und bekommst sofort Feedback.</p>
+      <div class="gr-h">Oben im Blick</div>
+      <p>Deine Quote (<b>Richtig / Versuche</b>) und deine aktuelle <b>Streak</b>. Mit „Nächste Hand" geht's weiter.</p>` },
+
+    impostorSolo: { title: 'Impostor Solo', body: `
+      <div class="gr-goal"><b>Ziel:</b> Findet den Impostor — er kennt das geheime Wort nicht.</div>
+      <div class="gr-h">Ablauf</div>
+      <p>Spieler eintragen, dann <b>ein Handy reihum geben</b>. Jeder deckt allein seine Rolle auf: fast alle sehen dasselbe Wort, einer (oder mehrere) ist Impostor und sieht es nicht.</p>
+      <div class="gr-h">Diskussion</div>
+      <p>Reihum sagt jeder <b>ein Wort</b> zum Begriff — vage genug, dass der Impostor nicht auffliegt, klar genug, dass ihr ihn enttarnt. Danach abstimmen. „Auflösen" zeigt Wort + Impostor.</p>
+      <div class="gr-h">Optionen</div>
+      <p>Der Impostor kann optional die <b>Kategorie</b> oder ein <b>Tipp-Wort</b> (ein Köder aus derselben Kategorie) bekommen.</p>` },
+
+    liarsbarMulti: { title: "Liar's Bar Multi", body: `
+      <div class="gr-goal"><b>Ziel:</b> Letzter Überlebender am Tisch sein.</div>
+      <p>Jeder hat einen Revolver mit <b>einer Kugel</b> (6 Kammern). Pro Runde wird eine <b>Tischkarte</b> aufgedeckt (Bube, Dame, König, Ass).</p>
+      <div class="gr-h">Spielzug</div>
+      <p>Reihum legt man 1–3 Karten verdeckt ab und behauptet, es seien alles Tischkarten. Der Nächste glaubt es (legt selbst weiter) oder ruft <b>„Lügner!"</b>.</p>
+      <div class="gr-h">Auflösung</div>
+      <p>War mindestens eine gelegte Karte <b>keine</b> Tischkarte → der Lügner muss abdrücken. War alles korrekt → der Caller muss abdrücken.</p>
+      <div class="gr-h">Russisches Roulette</div>
+      <p>Abdrücken: Klick → überlebt, Bang → ausgeschieden. Wer alleine übrig bleibt, gewinnt.</p>` },
+
+    alkiMulti: { title: 'Alki Multi', body: `
+      <div class="gr-goal"><b>Ziel:</b> Die Trink-Variante von Liar's Bar — wer am längsten durchhält.</div>
+      <p>Gleiche Regeln wie Liar's Bar, nur ohne Revolver. Pro Runde eine Tischkarte, reihum 1–3 Karten verdeckt legen und Tischkarten behaupten — oder <b>„Lügner!"</b> rufen.</p>
+      <div class="gr-h">Statt Schuss: ans Glas</div>
+      <p>Wer überführt wird (gelogen &amp; gecallt, oder daneben gecallt) deckt auf: <b>🥃 Schluck</b>, <b>🍷 Shot</b> oder <b>💀 EX</b>. Schluck/Shot: weiter geht's. EX: Glas leeren und ausgeschieden.</p>
+      <p>Wer übrig bleibt, gewinnt.</p>` },
+
+    pokerMulti: { title: 'Poker Multi', body: `
+      <div class="gr-goal"><b>Ziel:</b> Texas Hold'em gegen Freunde — sammle alle Chips.</div>
+      <p>No-Limit Hold'em. Start: <b>1.000 Chips</b>, Blinds <b>10/20</b>. Jeder bekommt 2 Hole Cards.</p>
+      <div class="gr-h">Ablauf</div>
+      <p>Setzrunden über Flop, Turn und River — <b>Check / Call / Raise / Fold</b>. Die beste 5-Karten-Hand am Showdown gewinnt den Pot.</p>
+      <div class="gr-h">Ende</div>
+      <p>Wer keine Chips mehr hat, scheidet aus. Der Host steuert den Rundenstart.</p>` },
+
+    werwolf: { title: 'Werwolf', body: `
+      <div class="gr-goal"><b>Ziel:</b> Dorf gegen Werwölfe — deine Fraktion soll überleben.</div>
+      <p>Jeder bekommt heimlich eine Rolle: <b>Dorfbewohner, Werwolf, Seherin, Hexe, Jäger</b>.</p>
+      <div class="gr-h">Nacht</div>
+      <p>Die App führt durch: die Seherin prüft einen Spieler, die Werwölfe wählen ein Opfer, die Hexe kann heilen oder vergiften.</p>
+      <div class="gr-h">Tag</div>
+      <p>Aufdecken, wer gestorben ist, dann Diskussion und <b>Abstimmung</b> — der Mehrheits-Spieler wird hingerichtet. Stirbt der Jäger, reißt er jemanden mit.</p>
+      <div class="gr-h">Sieg</div>
+      <p>Das Dorf gewinnt, wenn alle Wölfe tot sind. Die Wölfe gewinnen, sobald sie genauso viele wie das Dorf sind.</p>` },
+
+    impostor: { title: 'Impostor', body: `
+      <div class="gr-goal"><b>Ziel:</b> Finde den Hochstapler, der das Wort nicht kennt.</div>
+      <p>Alle sehen heimlich dasselbe Wort — <b>außer dem/den Impostor(n)</b>.</p>
+      <div class="gr-h">Ablauf</div>
+      <p>Reihum beschreibt jeder das Wort mit <b>Andeutungen</b>, ohne es direkt zu verraten. Danach Abstimmung, wer der Impostor ist.</p>
+      <div class="gr-h">Rettung &amp; Punkte</div>
+      <p>Wird der Impostor enttarnt, darf er (optional) das Wort raten und sich noch retten. Die Crew punktet beim Enttarnen, der Impostor fürs Verstecken.</p>` },
+
+    slf: { title: 'Stadt Land Fluss', body: `
+      <div class="gr-goal"><b>Ziel:</b> Mit eigenen Begriffen die meisten Punkte sammeln.</div>
+      <p>Pro Runde ein <b>Zufallsbuchstabe</b>. Alle füllen gleichzeitig die Kategorien (Stadt, Land, Fluss …) mit Wörtern, die mit dem Buchstaben anfangen.</p>
+      <div class="gr-h">Rundenende</div>
+      <p>Wer zuerst <b>„Stopp"</b> drückt (oder der Timer abläuft) beendet die Runde für alle.</p>
+      <div class="gr-h">Punkte</div>
+      <ul>
+        <li><b>20</b> – nur du hast in der Kategorie was</li>
+        <li><b>10</b> – einzigartige Antwort</li>
+        <li><b>5</b> – jemand hat dasselbe</li>
+        <li><b>0</b> – leer oder falscher Buchstabe</li>
+      </ul>
+      <p>Der Host kann Quatsch-Antworten streichen. Nach allen Runden gewinnt die höchste Summe.</p>` },
+
+    blackstories: { title: 'Black Stories', body: `
+      <div class="gr-goal"><b>Ziel:</b> Das düstere Rätsel mit Ja/Nein-Fragen rekonstruieren.</div>
+      <p>Einer ist <b>Rätselmeister</b> und sieht die Auflösung. Alle anderen sehen nur die mysteriöse Ausgangslage.</p>
+      <div class="gr-h">Ablauf</div>
+      <p>Die Gruppe stellt Fragen, die der Meister nur mit <b>Ja, Nein oder „egal"</b> beantwortet, bis die ganze Geschichte aufgedeckt ist. Der Meister rotiert pro Rätsel.</p>
+      <p>Kein Punktesystem — es geht ums gemeinsame Knobeln.</p>` },
+
+    werbinich: { title: 'Wer bin ich?', body: `
+      <div class="gr-goal"><b>Ziel:</b> Errate, welche Figur „auf deiner Stirn klebt".</div>
+      <p>Jeder bekommt einen Begriff zugewiesen, den <b>alle anderen sehen — nur du selbst nicht</b>.</p>
+      <div class="gr-h">Ablauf</div>
+      <p>Reihum stellst du der Gruppe <b>Ja/Nein-Fragen</b>, um deinen eigenen Begriff einzukreisen. Wer ihn errät, markiert sich als „erraten".</p>` },
+
+    tabu: { title: 'Tabu', body: `
+      <div class="gr-goal"><b>Ziel:</b> Dein Team das Wort erraten lassen — ohne die Tabu-Wörter zu sagen.</div>
+      <p>Zwei Teams. Der <b>Erklärer</b> sieht ein Wort plus 5 verbotene Tabu-Wörter und umschreibt es, ohne diese (oder ihre Wortstämme) zu benutzen.</p>
+      <div class="gr-h">Punkte pro Karte</div>
+      <ul>
+        <li><b>Richtig</b> +1</li>
+        <li><b>Skip</b> 0</li>
+        <li><b>Tabu-Verstoß</b> −1</li>
+      </ul>
+      <p>Nach Ablauf des Timers ist das andere Team dran, der Erklärer rotiert. Wer zuerst die Zielpunkte erreicht, gewinnt.</p>` },
+
+    codenames: { title: 'Codenames', body: `
+      <div class="gr-goal"><b>Ziel:</b> Als Team alle eigenen Agenten finden — vor dem anderen Team.</div>
+      <p>Ein <b>5×5-Wortgitter</b>. Jedes Team hat einen <b>Spymaster</b>, der die geheime Farbkarte sieht (welches Wort zu welchem Team gehört).</p>
+      <div class="gr-h">Hinweis geben</div>
+      <p>Der Spymaster nennt pro Zug <b>ein Wort + eine Zahl</b> (so viele Begriffe passen zum Hinweis). Seine Operatives tippen dann Wörter an.</p>
+      <div class="gr-h">Aufdecken</div>
+      <ul>
+        <li><b>Eigene Farbe</b> → richtig, weiter raten</li>
+        <li><b>Neutral</b> → Zug endet</li>
+        <li><b>Gegner</b> → Punkt fürs andere Team</li>
+        <li><b>Attentäter</b> → sofort verloren!</li>
+      </ul>
+      <p>Wer zuerst alle eigenen Wörter aufgedeckt hat, gewinnt.</p>` },
+  };
+  function showGameRules(key) {
+    const r = GAME_RULES[key]; if (!r) return;
+    document.getElementById('grTitle').textContent = r.title;
+    document.getElementById('grBody').innerHTML = r.body;
+    document.getElementById('gameRulesModal').classList.add('active');
+  }
+  function hideGameRules() { document.getElementById('gameRulesModal').classList.remove('active'); }
+  window.showGameRules = showGameRules;
+  window.hideGameRules = hideGameRules;
 
   // Build launcher and always start on the home screen
   (function() {
