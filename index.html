@@ -125,8 +125,10 @@
     gap: 5px;
     z-index: 1000;
     padding: 0;
+    color: rgba(240,224,208,0.92);
     transition: all 0.2s;
   }
+  .burger svg { display: block; }
   .burger:hover { background: rgba(40,24,16,0.85); border-color: rgba(255,255,255,0.4); }
   .burger span {
     display: block;
@@ -1818,6 +1820,7 @@
     letter-spacing: 0.04em; text-shadow: 0 0 25px rgba(255,255,255,0.2);
   }
   .imps-reveal-cat { font-family: 'Outfit',sans-serif; font-size: 1rem; color: rgba(255,180,140,0.85); margin-top: 0.5rem; }
+  .imps-reveal-word.hint { color: #ff8c5a; text-shadow: 0 0 20px rgba(255,140,90,0.4); }
 
   /* Discussion */
   .imps-disc-inner { text-align: center; padding-top: 1.5rem; }
@@ -6471,14 +6474,18 @@
 <body>
 
 <!-- Burger menu -->
-<button class="burger" id="burger" onclick="toggleMenu()" aria-label="Menü">
-  <span></span><span></span><span></span>
+<button class="burger" id="burger" onclick="toggleMenu()" aria-label="Menü / Spiel verlassen" title="Menü">
+  <svg class="burger-exit-icon" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+    <polyline points="16 17 21 12 16 7"/>
+    <line x1="21" y1="12" x2="9" y2="12"/>
+  </svg>
 </button>
 
 <!-- Admin toggle (hidden by default, shown after 5x title clicks) -->
 <button class="admin-toggle" id="adminToggleBtn" onclick="openAdminPanel()" style="display:none" aria-label="Admin-Panel öffnen" title="Admin-Panel">🔧</button>
 
-<div class="app-version" id="appVersion">v1.1.0</div>
+<div class="app-version" id="appVersion">v1.1.1</div>
 
 <!-- Admin toast -->
 <div class="admin-toast" id="adminToast"></div>
@@ -8074,6 +8081,10 @@
       <label class="imps-toggle" onclick="imps_toggleKnows()">
         <span>Impostor kennt die Kategorie</span>
         <span class="imps-switch" id="impsKnowsSwitch"></span>
+      </label>
+      <label class="imps-toggle" onclick="imps_toggleHint()">
+        <span>Tipp-Wort für Impostor</span>
+        <span class="imps-switch" id="impsHintSwitch"></span>
       </label>
     </div>
 
@@ -16324,9 +16335,10 @@ nextRound();
     let selectedCat = 'random'; // 'random' or a key
     let impostorCount = 1;
     let impostorKnowsCategory = false;
+    let impostorGetsHint = false;
 
     // round state
-    let word = '', catKey = '', impostors = [], currentIdx = 0, revealed = false;
+    let word = '', catKey = '', impostors = [], currentIdx = 0, revealed = false, hintWord = '';
 
     function escapeHtml(s) { return String(s).replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch])); }
     function shuffle(arr) { const a = arr.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; }
@@ -16357,6 +16369,7 @@ nextRound();
       renderSetup();
     }
     function imps_toggleKnows() { impostorKnowsCategory = !impostorKnowsCategory; renderSetup(); }
+    function imps_toggleHint() { impostorGetsHint = !impostorGetsHint; renderSetup(); }
 
     function buildCatGrid() {
       const grid = document.getElementById('impsCatGrid');
@@ -16383,6 +16396,7 @@ nextRound();
       if (impostorCount > max) impostorCount = max;
       document.getElementById('impsImpCount').textContent = impostorCount;
       document.getElementById('impsKnowsSwitch').classList.toggle('on', impostorKnowsCategory);
+      document.getElementById('impsHintSwitch').classList.toggle('on', impostorGetsHint);
 
       const btn = document.getElementById('impsStartBtn');
       const hint = document.getElementById('impsSetupHint');
@@ -16400,6 +16414,8 @@ nextRound();
       catKey = (selectedCat === 'random') ? CAT_KEYS[Math.floor(Math.random() * CAT_KEYS.length)] : selectedCat;
       const cat = CATEGORIES[catKey];
       word = cat.words[Math.floor(Math.random() * cat.words.length)];
+      const others = cat.words.filter(w => w !== word);
+      hintWord = others.length ? others[Math.floor(Math.random() * others.length)] : '';
       const idxs = shuffle(players.map((_, i) => i));
       const cnt = Math.min(impostorCount, Math.max(1, Math.floor(players.length / 2)));
       impostors = idxs.slice(0, cnt);
@@ -16429,13 +16445,23 @@ nextRound();
       if (isImp) {
         roleEl.textContent = '🕵️ DER IMPOSTOR';
         roleEl.className = 'imps-reveal-role impostor';
-        wordEl.textContent = '';
-        catEl.textContent = impostorKnowsCategory ? ('Kategorie: ' + cat.name) : 'Tu so, als wüsstest du das Wort!';
+        if (impostorGetsHint && hintWord) {
+          wordEl.textContent = hintWord;
+          wordEl.className = 'imps-reveal-word hint';
+          let note = 'Tipp-Wort — NICHT das echte Wort!';
+          if (impostorKnowsCategory) note += ' · ' + cat.name;
+          catEl.textContent = note;
+        } else {
+          wordEl.textContent = '';
+          wordEl.className = 'imps-reveal-word';
+          catEl.textContent = impostorKnowsCategory ? ('Kategorie: ' + cat.name) : 'Tu so, als wüsstest du das Wort!';
+        }
         card.style.borderColor = 'rgba(255,80,80,0.5)';
       } else {
         roleEl.textContent = '✅ KEIN Impostor';
         roleEl.className = 'imps-reveal-role crew';
         wordEl.textContent = word;
+        wordEl.className = 'imps-reveal-word';
         catEl.textContent = cat.name;
         card.style.borderColor = 'rgba(74,222,128,0.45)';
       }
@@ -16485,6 +16511,7 @@ nextRound();
     window.imps_selectCat = imps_selectCat;
     window.imps_adjustImpostors = imps_adjustImpostors;
     window.imps_toggleKnows = imps_toggleKnows;
+    window.imps_toggleHint = imps_toggleHint;
     window.imps_start = imps_start;
     window.imps_reveal = imps_reveal;
     window.imps_next = imps_next;
