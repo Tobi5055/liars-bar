@@ -1701,6 +1701,150 @@
   }
   .cn-gameover-title { font-family: 'Cinzel','Bebas Neue',sans-serif; font-size: 1.6rem; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 0.5rem; }
 
+  /* ====================== IMPOSTOR SOLO ====================== */
+  .app-imps {
+    background: radial-gradient(circle at 50% 0%, #2a1208 0%, #1a0a0a 55%, #0a0505 100%);
+    color: #ffe8dc; min-height: 100vh; padding-bottom: 2rem;
+  }
+  .imps-screen { max-width: 480px; margin: 0 auto; padding: 1rem; }
+  .imps-head { text-align: center; padding: 1rem 0 0.5rem; }
+  .imps-title {
+    font-family: 'Cinzel', 'Bebas Neue', sans-serif; font-size: 1.8rem; color: #ff8c5a;
+    letter-spacing: 0.08em; text-shadow: 0 0 22px rgba(255,107,53,0.4);
+  }
+  .imps-sub { font-family: 'Outfit', sans-serif; font-size: 0.9rem; color: rgba(255,232,220,0.6); margin-top: 0.2rem; }
+
+  .imps-box {
+    background: rgba(40,18,12,0.5); border: 1px solid rgba(255,107,53,0.3);
+    border-radius: 12px; padding: 1rem; margin: 0.8rem 0;
+  }
+  .imps-box-label {
+    font-family: 'Outfit', sans-serif; font-size: 0.72rem; letter-spacing: 0.25em;
+    color: rgba(255,140,90,0.8); text-transform: uppercase; margin-bottom: 0.6rem;
+  }
+  .imps-add-row { display: flex; gap: 0.5rem; }
+  .imps-input {
+    flex: 1; padding: 0.7rem 0.9rem; border-radius: 8px; border: 1.5px solid rgba(255,107,53,0.3);
+    background: rgba(0,0,0,0.4); color: white; font-family: 'Outfit', sans-serif; font-size: 1rem;
+  }
+  .imps-input:focus { outline: none; border-color: #ff6b35; }
+  .imps-add-btn {
+    width: 48px; border-radius: 8px; border: none; background: linear-gradient(135deg,#a02828,#ff6b35);
+    color: white; font-size: 1.5rem; cursor: pointer; font-weight: 700; flex-shrink: 0;
+  }
+  .imps-player-list { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.7rem; }
+  .imps-player-chip {
+    display: flex; align-items: center; gap: 0.4rem; padding: 0.4rem 0.7rem;
+    background: rgba(255,107,53,0.15); border: 1px solid rgba(255,107,53,0.35);
+    border-radius: 20px; font-family: 'Outfit', sans-serif; font-size: 0.9rem; color: #ffe8dc;
+  }
+  .imps-player-chip button {
+    background: none; border: none; color: rgba(255,140,90,0.8); cursor: pointer;
+    font-size: 1.1rem; line-height: 1; padding: 0; margin-left: 0.1rem;
+  }
+  .imps-player-chip button:hover { color: #ff5050; }
+  .imps-empty-hint { font-family: 'Outfit', sans-serif; font-size: 0.85rem; color: rgba(255,232,220,0.4); font-style: italic; }
+
+  .imps-cat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.45rem; }
+  .imps-cat-chip {
+    padding: 0.6rem 0.5rem; border-radius: 8px; border: 1px solid rgba(255,107,53,0.25);
+    background: rgba(0,0,0,0.3); color: rgba(255,232,220,0.8); font-family: 'Outfit', sans-serif;
+    font-size: 0.88rem; cursor: pointer; text-align: center; transition: all 0.15s;
+  }
+  .imps-cat-chip.active { background: rgba(255,107,53,0.25); border-color: #ff6b35; color: white; }
+
+  .imps-row {
+    display: flex; justify-content: space-between; align-items: center;
+    font-family: 'Outfit', sans-serif; font-size: 0.95rem; color: #ffe8dc; padding: 0.2rem 0;
+  }
+  .imps-counter { display: flex; align-items: center; gap: 0.7rem; }
+  .imps-counter-btn {
+    width: 34px; height: 34px; border-radius: 6px; border: 1px solid rgba(255,140,90,0.4);
+    background: rgba(255,107,53,0.15); color: #ff8c5a; font-size: 1.2rem; cursor: pointer; font-weight: 600;
+  }
+  .imps-counter-val { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; min-width: 28px; text-align: center; color: #ff8c5a; }
+  .imps-toggle {
+    display: flex; justify-content: space-between; align-items: center; cursor: pointer;
+    font-family: 'Outfit', sans-serif; font-size: 0.95rem; color: #ffe8dc; padding: 0.7rem 0 0.2rem; user-select: none;
+  }
+  .imps-switch {
+    width: 46px; height: 26px; border-radius: 13px; background: rgba(0,0,0,0.5);
+    border: 1px solid rgba(255,107,53,0.3); position: relative; transition: all 0.2s; flex-shrink: 0;
+  }
+  .imps-switch::after {
+    content: ''; position: absolute; width: 20px; height: 20px; border-radius: 50%;
+    background: rgba(255,232,220,0.6); top: 2px; left: 2px; transition: all 0.2s;
+  }
+  .imps-switch.on { background: rgba(255,107,53,0.5); border-color: #ff6b35; }
+  .imps-switch.on::after { left: 22px; background: white; }
+
+  .imps-btn {
+    width: 100%; padding: 1rem; border-radius: 10px; border: none;
+    background: linear-gradient(135deg,#a02828,#ff6b35); color: white;
+    font-family: 'Cinzel','Bebas Neue',sans-serif; font-size: 1.05rem; font-weight: 700;
+    letter-spacing: 0.1em; cursor: pointer; margin-top: 0.7rem; text-transform: uppercase;
+    box-shadow: 0 6px 20px rgba(255,107,53,0.3);
+  }
+  .imps-btn:disabled { opacity: 0.4; cursor: not-allowed; box-shadow: none; }
+  .imps-btn.secondary {
+    background: rgba(255,107,53,0.15); border: 1px solid rgba(255,140,90,0.4); color: #ff8c5a; box-shadow: none;
+  }
+  .imps-btn.ghost { background: none; border: 1px solid rgba(255,232,220,0.2); color: rgba(255,232,220,0.6); box-shadow: none; font-size: 0.9rem; }
+  .imps-btn.imps-solve { background: linear-gradient(135deg,#16a34a,#4ade80); box-shadow: 0 6px 20px rgba(74,222,128,0.3); }
+  .imps-hint { text-align: center; font-family: 'Outfit',sans-serif; font-size: 0.82rem; color: rgba(255,232,220,0.5); margin-top: 0.6rem; }
+
+  /* Pass screen */
+  .imps-pass-inner { text-align: center; padding-top: 3rem; }
+  .imps-pass-icon { font-size: 3rem; margin-bottom: 1rem; }
+  .imps-pass-label { font-family: 'Outfit',sans-serif; font-size: 1.1rem; color: rgba(255,232,220,0.7); }
+  .imps-pass-name {
+    font-family: 'Cinzel','Bebas Neue',sans-serif; font-size: 2.6rem; color: #ff8c5a;
+    margin: 0.5rem 0 1.5rem; text-shadow: 0 0 25px rgba(255,107,53,0.4);
+  }
+  .imps-reveal-btn { max-width: 320px; margin: 0 auto; }
+
+  /* Reveal card */
+  .imps-reveal-card {
+    background: linear-gradient(160deg, rgba(60,25,15,0.95), rgba(26,10,10,0.95));
+    border: 2px solid rgba(255,107,53,0.5); border-radius: 18px; padding: 2.2rem 1.5rem;
+    text-align: center; margin-top: 2rem; box-shadow: 0 0 35px rgba(255,107,53,0.25);
+  }
+  .imps-reveal-who { font-family: 'Outfit',sans-serif; font-size: 1rem; color: rgba(255,232,220,0.6); margin-bottom: 1rem; }
+  .imps-reveal-role { font-family: 'Cinzel','Bebas Neue',sans-serif; font-size: 1.6rem; letter-spacing: 0.08em; }
+  .imps-reveal-role.crew { color: #4ade80; }
+  .imps-reveal-role.impostor { color: #ff5050; text-shadow: 0 0 22px rgba(255,80,80,0.5); }
+  .imps-reveal-word {
+    font-family: 'Bebas Neue',sans-serif; font-size: 3rem; color: white; margin-top: 0.8rem;
+    letter-spacing: 0.04em; text-shadow: 0 0 25px rgba(255,255,255,0.2);
+  }
+  .imps-reveal-cat { font-family: 'Outfit',sans-serif; font-size: 1rem; color: rgba(255,180,140,0.85); margin-top: 0.5rem; }
+
+  /* Discussion */
+  .imps-disc-inner { text-align: center; padding-top: 1.5rem; }
+  .imps-disc-icon { font-size: 3rem; }
+  .imps-disc-title { font-family: 'Cinzel','Bebas Neue',sans-serif; font-size: 1.6rem; color: #ff8c5a; margin: 0.5rem 0; }
+  .imps-disc-text {
+    font-family: 'Outfit',sans-serif; font-size: 0.98rem; line-height: 1.5; color: rgba(255,232,220,0.8);
+    background: rgba(40,18,12,0.5); border: 1px solid rgba(255,107,53,0.25); border-radius: 12px;
+    padding: 1rem; margin-bottom: 1rem;
+  }
+  .imps-disc-text b { color: #ff8c5a; }
+
+  /* Solution */
+  .imps-sol-card {
+    background: linear-gradient(160deg, rgba(20,60,30,0.6), rgba(26,10,10,0.9));
+    border: 2px solid rgba(74,222,128,0.4); border-radius: 18px; padding: 2rem 1.5rem;
+    text-align: center; margin-top: 2rem;
+  }
+  .imps-sol-label, .imps-sol-imp-label {
+    font-family: 'Outfit',sans-serif; font-size: 0.75rem; letter-spacing: 0.25em;
+    color: rgba(255,232,220,0.6); text-transform: uppercase;
+  }
+  .imps-sol-imp-label { margin-top: 1.4rem; color: rgba(255,120,120,0.8); }
+  .imps-sol-word { font-family: 'Bebas Neue',sans-serif; font-size: 3rem; color: white; margin: 0.3rem 0; }
+  .imps-sol-cat { font-family: 'Outfit',sans-serif; font-size: 0.95rem; color: rgba(255,180,140,0.8); }
+  .imps-sol-imps { font-family: 'Cinzel','Bebas Neue',sans-serif; font-size: 1.8rem; color: #ff5050; text-shadow: 0 0 20px rgba(255,80,80,0.4); margin-top: 0.2rem; }
+
   /* ====================== STADT LAND FLUSS ====================== */
   .app-slf {
     background: linear-gradient(180deg, #06140f 0%, #030a07 100%);
@@ -6334,7 +6478,7 @@
 <!-- Admin toggle (hidden by default, shown after 5x title clicks) -->
 <button class="admin-toggle" id="adminToggleBtn" onclick="openAdminPanel()" style="display:none" aria-label="Admin-Panel öffnen" title="Admin-Panel">🔧</button>
 
-<div class="app-version" id="appVersion">v1.0.9</div>
+<div class="app-version" id="appVersion">v1.1.0</div>
 
 <!-- Admin toast -->
 <div class="admin-toast" id="adminToast"></div>
@@ -7892,6 +8036,99 @@
         <button class="multi-modal-close" onclick="imp_closeSettings()">FERTIG</button>
       </div>
     </div>
+  </div>
+</div>
+
+<!-- ============ IMPOSTOR SOLO (Pass & Play) ============ -->
+<div class="app app-imps" id="appImpostorSolo">
+  <!-- SETUP -->
+  <div class="imps-screen" id="impsSetup">
+    <div class="imps-head">
+      <div class="imps-title">🕵️ Impostor Solo</div>
+      <div class="imps-sub">Ein Handy · reihum aufdecken</div>
+    </div>
+
+    <div class="imps-box">
+      <div class="imps-box-label">SPIELER</div>
+      <div class="imps-add-row">
+        <input type="text" class="imps-input" id="impsNameInput" maxlength="14" placeholder="Name eintippen" autocomplete="off" onkeydown="if(event.key==='Enter')imps_addPlayer()">
+        <button class="imps-add-btn" onclick="imps_addPlayer()">+</button>
+      </div>
+      <div class="imps-player-list" id="impsPlayerList"></div>
+    </div>
+
+    <div class="imps-box">
+      <div class="imps-box-label">KATEGORIE</div>
+      <div class="imps-cat-grid" id="impsCatGrid"></div>
+    </div>
+
+    <div class="imps-box">
+      <div class="imps-row">
+        <span>Anzahl Impostor</span>
+        <div class="imps-counter">
+          <button class="imps-counter-btn" onclick="imps_adjustImpostors(-1)">−</button>
+          <span class="imps-counter-val" id="impsImpCount">1</span>
+          <button class="imps-counter-btn" onclick="imps_adjustImpostors(1)">+</button>
+        </div>
+      </div>
+      <label class="imps-toggle" onclick="imps_toggleKnows()">
+        <span>Impostor kennt die Kategorie</span>
+        <span class="imps-switch" id="impsKnowsSwitch"></span>
+      </label>
+    </div>
+
+    <button class="imps-btn imps-start" id="impsStartBtn" onclick="imps_start()">SPIEL STARTEN</button>
+    <div class="imps-hint" id="impsSetupHint">Mindestens 3 Spieler</div>
+  </div>
+
+  <!-- PASS -->
+  <div class="imps-screen" id="impsPass" style="display:none">
+    <div class="imps-pass-inner">
+      <div class="imps-pass-icon">📱➡️</div>
+      <div class="imps-pass-label">Gib das Handy an</div>
+      <div class="imps-pass-name" id="impsPassName">—</div>
+      <button class="imps-btn imps-reveal-btn" onclick="imps_reveal()" id="impsRevealBtn">Bereit — aufdecken</button>
+      <div class="imps-hint">Nur <span id="impsPassNameHint">—</span> darf gucken!</div>
+    </div>
+  </div>
+
+  <!-- REVEAL -->
+  <div class="imps-screen" id="impsRevealScreen" style="display:none">
+    <div class="imps-reveal-card" id="impsRevealCard">
+      <div class="imps-reveal-who" id="impsRevealWho">—</div>
+      <div class="imps-reveal-role" id="impsRevealRole">—</div>
+      <div class="imps-reveal-word" id="impsRevealWord"></div>
+      <div class="imps-reveal-cat" id="impsRevealCat"></div>
+    </div>
+    <button class="imps-btn" id="impsNextBtn" onclick="imps_next()">Verstanden — weiter</button>
+  </div>
+
+  <!-- DISCUSSION -->
+  <div class="imps-screen" id="impsDiscussion" style="display:none">
+    <div class="imps-disc-inner">
+      <div class="imps-disc-icon">🗣️</div>
+      <div class="imps-disc-title">Alle haben gesehen!</div>
+      <div class="imps-disc-text">
+        Reihum sagt jeder <b>ein Wort</b> zum Begriff — vage genug, dass der Impostor nicht auffliegt, klar genug, dass ihr ihn enttarnt.
+        Dann stimmt ab, wer der Impostor ist.
+      </div>
+      <button class="imps-btn imps-solve" onclick="imps_solve()">🔍 Auflösen</button>
+      <button class="imps-btn secondary" onclick="imps_newRound()">🔄 Neue Runde (gleiche Spieler)</button>
+      <button class="imps-btn ghost" onclick="imps_toSetup()">⚙️ Zurück zum Setup</button>
+    </div>
+  </div>
+
+  <!-- SOLUTION -->
+  <div class="imps-screen" id="impsSolution" style="display:none">
+    <div class="imps-sol-card">
+      <div class="imps-sol-label">DAS WORT WAR</div>
+      <div class="imps-sol-word" id="impsSolWord">—</div>
+      <div class="imps-sol-cat" id="impsSolCat">—</div>
+      <div class="imps-sol-imp-label">IMPOSTOR</div>
+      <div class="imps-sol-imps" id="impsSolImps">—</div>
+    </div>
+    <button class="imps-btn imps-solve" onclick="imps_newRound()">🔄 Neue Runde</button>
+    <button class="imps-btn ghost" onclick="imps_toSetup()">⚙️ Zurück zum Setup</button>
   </div>
 </div>
 
@@ -16062,6 +16299,198 @@ nextRound();
     window.imp_openSettingsWait = imp_openSettingsWait;
     window.imp_closeSettingsWait = imp_closeSettingsWait;
     window.imp_resetGame = imp_resetGame;
+  })();
+
+  // ============================================================
+  // ============ IMPOSTOR SOLO (Pass & Play) ===================
+  // ============================================================
+  (function() {
+    const CATEGORIES = {
+      berufe:    { name: '🎭 Berufe',      words: ['Arzt','Lehrer','Polizist','Bäcker','Pilot','Astronaut','Müllmann','Klempner','Anwalt','Friseur','Mechaniker','Zauberer','Detektiv','Koch','Architekt','Bauarbeiter','Krankenschwester','Förster','DJ','Schauspieler','Tierarzt','Programmierer','Fotograf','Journalist','Maler'] },
+      tiere:     { name: '🦁 Tiere',       words: ['Hund','Katze','Elefant','Löwe','Pinguin','Krokodil','Giraffe','Adler','Wal','Hai','Schmetterling','Pferd','Affe','Bär','Wolf','Eule','Tiger','Schwein','Schlange','Delfin','Igel','Känguru','Faultier','Frosch','Eichhörnchen'] },
+      staedte:   { name: '🏙️ Städte',      words: ['Berlin','Hamburg','München','Köln','Frankfurt','Stuttgart','Düsseldorf','Leipzig','Dresden','Nürnberg','Erlangen','Paris','London','New York','Tokio','Rom','Madrid','Wien','Amsterdam','Istanbul','Barcelona','Prag','Dubai','Rio','Sydney'] },
+      sport:     { name: '⚽ Sport',        words: ['Fußball','Tennis','Schwimmen','Boxen','Skifahren','Reiten','Klettern','Surfen','Golf','Volleyball','Eishockey','Formel 1','Marathon','Yoga','Schach','Bowling','Karate','Bogenschießen','Rudern','Badminton','Basketball','Radsport','Handball','Skateboard','Turnen'] },
+      filme:     { name: '🎬 Filme',        words: ['Titanic','Star Wars','Harry Potter','Avatar','Matrix','Inception','Joker','Pulp Fiction','Forrest Gump','Gladiator','Avengers','Der Pate','Fluch der Karibik','Herr der Ringe','Shrek','Findet Nemo','Toy Story','Frozen','Batman','Spider-Man','Jurassic Park','Indiana Jones','Rocky','Interstellar','Top Gun'] },
+      essen:     { name: '🍕 Essen',        words: ['Pizza','Sushi','Spaghetti','Burger','Salat','Schnitzel','Bratwurst','Currywurst','Döner','Lasagne','Pommes','Eis','Schokolade','Apfelstrudel','Käsekuchen','Brezel','Tacos','Risotto','Pad Thai','Quiche','Maultaschen','Spätzle','Gulasch','Sauerkraut','Knödel'] },
+      laender:   { name: '🌍 Länder',       words: ['Deutschland','Frankreich','Italien','Spanien','USA','Japan','Brasilien','Australien','Kanada','China','Indien','Russland','Mexiko','Türkei','Griechenland','Schweden','Norwegen','Niederlande','Ägypten','Argentinien','Südafrika','Thailand','Polen','Portugal','Island'] },
+      instrumente:{ name: '🎵 Instrumente',  words: ['Klavier','Gitarre','Geige','Trompete','Schlagzeug','Saxophon','Flöte','Cello','Klarinette','Akkordeon','Mundharmonika','Harfe','Ukulele','Bass','Triangel','Xylophon','Dudelsack','Tamburin','Banjo','Posaune','Orgel','Oboe','Marimba','Maracas','Sitar'] },
+      autos:     { name: '🚗 Automarken',   words: ['BMW','Mercedes','Audi','Porsche','Volkswagen','Tesla','Ferrari','Lamborghini','Bugatti','Toyota','Honda','Ford','Fiat','Opel','Hyundai','Mazda','Renault','Peugeot','Skoda','Volvo','Jeep','Mini','Bentley','Rolls-Royce','Aston Martin'] },
+      orte:      { name: '📍 Orte',         words: ['Strand','Krankenhaus','Schule','Flughafen','Bahnhof','Museum','Bibliothek','Schwimmbad','Fitnessstudio','Kino','Theater','Zoo','Park','Wald','Berg','Restaurant','Supermarkt','Friedhof','Kirche','Casino','Hotel','Tankstelle','Friseur','Zahnarzt','Apotheke'] },
+    };
+    const CAT_KEYS = Object.keys(CATEGORIES);
+    const PLAYERS_KEY = 'imps-players-v1';
+
+    let players = [];
+    let selectedCat = 'random'; // 'random' or a key
+    let impostorCount = 1;
+    let impostorKnowsCategory = false;
+
+    // round state
+    let word = '', catKey = '', impostors = [], currentIdx = 0, revealed = false;
+
+    function escapeHtml(s) { return String(s).replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch])); }
+    function shuffle(arr) { const a = arr.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; }
+    function loadPlayers() { try { const s = JSON.parse(localStorage.getItem(PLAYERS_KEY)); if (Array.isArray(s)) players = s.slice(0, 15); } catch (e) {} }
+    function savePlayers() { try { localStorage.setItem(PLAYERS_KEY, JSON.stringify(players)); } catch (e) {} }
+
+    function show(screen) {
+      ['impsSetup','impsPass','impsRevealScreen','impsDiscussion','impsSolution'].forEach(id => {
+        const el = document.getElementById(id); if (el) el.style.display = (id === screen) ? '' : 'none';
+      });
+    }
+
+    // ---- Setup ----
+    function imps_addPlayer() {
+      const inp = document.getElementById('impsNameInput');
+      const name = inp.value.trim();
+      if (!name) return;
+      if (players.length >= 15) return;
+      if (players.some(p => p.toLowerCase() === name.toLowerCase())) { inp.value = ''; return; }
+      players.push(name); inp.value = ''; savePlayers();
+      renderSetup(); inp.focus();
+    }
+    function imps_removePlayer(i) { players.splice(i, 1); savePlayers(); renderSetup(); }
+    function imps_selectCat(key) { selectedCat = key; renderSetup(); }
+    function imps_adjustImpostors(d) {
+      const max = Math.max(1, Math.floor(players.length / 2) || 1);
+      impostorCount = Math.max(1, Math.min(max, impostorCount + d));
+      renderSetup();
+    }
+    function imps_toggleKnows() { impostorKnowsCategory = !impostorKnowsCategory; renderSetup(); }
+
+    function buildCatGrid() {
+      const grid = document.getElementById('impsCatGrid');
+      if (!grid || grid.children.length > 0) return;
+      const opts = [['random', '🎲 Zufällig']].concat(CAT_KEYS.map(k => [k, CATEGORIES[k].name]));
+      grid.innerHTML = opts.map(([key, label]) =>
+        `<button class="imps-cat-chip" data-cat="${key}" onclick="imps_selectCat('${key}')">${label}</button>`
+      ).join('');
+    }
+
+    function renderSetup() {
+      const list = document.getElementById('impsPlayerList');
+      if (players.length === 0) {
+        list.innerHTML = '<span class="imps-empty-hint">Noch keine Spieler...</span>';
+      } else {
+        list.innerHTML = players.map((p, i) =>
+          `<span class="imps-player-chip">${escapeHtml(p)}<button onclick="imps_removePlayer(${i})">×</button></span>`
+        ).join('');
+      }
+      document.querySelectorAll('#impsCatGrid .imps-cat-chip').forEach(chip =>
+        chip.classList.toggle('active', chip.dataset.cat === selectedCat));
+
+      const max = Math.max(1, Math.floor(players.length / 2) || 1);
+      if (impostorCount > max) impostorCount = max;
+      document.getElementById('impsImpCount').textContent = impostorCount;
+      document.getElementById('impsKnowsSwitch').classList.toggle('on', impostorKnowsCategory);
+
+      const btn = document.getElementById('impsStartBtn');
+      const hint = document.getElementById('impsSetupHint');
+      const ok = players.length >= 3;
+      btn.disabled = !ok;
+      hint.textContent = ok ? `${players.length} Spieler · ${impostorCount} Impostor` : 'Mindestens 3 Spieler';
+    }
+
+    // ---- Round ----
+    function imps_start() {
+      if (players.length < 3) return;
+      newRound();
+    }
+    function newRound() {
+      catKey = (selectedCat === 'random') ? CAT_KEYS[Math.floor(Math.random() * CAT_KEYS.length)] : selectedCat;
+      const cat = CATEGORIES[catKey];
+      word = cat.words[Math.floor(Math.random() * cat.words.length)];
+      const idxs = shuffle(players.map((_, i) => i));
+      const cnt = Math.min(impostorCount, Math.max(1, Math.floor(players.length / 2)));
+      impostors = idxs.slice(0, cnt);
+      currentIdx = 0; revealed = false;
+      showPass();
+    }
+    function imps_newRound() { newRound(); }
+
+    function showPass() {
+      revealed = false;
+      const name = players[currentIdx];
+      document.getElementById('impsPassName').textContent = name;
+      document.getElementById('impsPassNameHint').textContent = name;
+      show('impsPass');
+    }
+
+    function imps_reveal() {
+      revealed = true;
+      const name = players[currentIdx];
+      const isImp = impostors.includes(currentIdx);
+      const cat = CATEGORIES[catKey];
+      document.getElementById('impsRevealWho').textContent = name + ', du bist...';
+      const roleEl = document.getElementById('impsRevealRole');
+      const wordEl = document.getElementById('impsRevealWord');
+      const catEl = document.getElementById('impsRevealCat');
+      const card = document.getElementById('impsRevealCard');
+      if (isImp) {
+        roleEl.textContent = '🕵️ DER IMPOSTOR';
+        roleEl.className = 'imps-reveal-role impostor';
+        wordEl.textContent = '';
+        catEl.textContent = impostorKnowsCategory ? ('Kategorie: ' + cat.name) : 'Tu so, als wüsstest du das Wort!';
+        card.style.borderColor = 'rgba(255,80,80,0.5)';
+      } else {
+        roleEl.textContent = '✅ KEIN Impostor';
+        roleEl.className = 'imps-reveal-role crew';
+        wordEl.textContent = word;
+        catEl.textContent = cat.name;
+        card.style.borderColor = 'rgba(74,222,128,0.45)';
+      }
+      const nextBtn = document.getElementById('impsNextBtn');
+      const isLast = currentIdx >= players.length - 1;
+      nextBtn.textContent = isLast ? 'Fertig — alle haben gesehen' : 'Verstanden — weiter';
+      show('impsRevealScreen');
+    }
+
+    function imps_next() {
+      if (currentIdx >= players.length - 1) { show('impsDiscussion'); return; }
+      currentIdx++;
+      showPass();
+    }
+
+    function imps_solve() {
+      const cat = CATEGORIES[catKey];
+      document.getElementById('impsSolWord').textContent = word;
+      document.getElementById('impsSolCat').textContent = cat.name;
+      const names = impostors.map(i => players[i]).filter(Boolean);
+      document.getElementById('impsSolImps').textContent = names.join(' · ') || '—';
+      show('impsSolution');
+    }
+
+    function imps_toSetup() { show('impsSetup'); renderSetup(); }
+
+    // ---- Init ----
+    function imps_init() {
+      loadPlayers();
+      buildCatGrid();
+      show('impsSetup');
+      renderSetup();
+    }
+    const origSwitch = window.switchApp;
+    window.switchApp = function(name) {
+      const r = origSwitch(name);
+      if (name === 'impostorSolo') imps_init();
+      return r;
+    };
+    document.addEventListener('DOMContentLoaded', () => {
+      if (document.getElementById('appImpostorSolo') && document.getElementById('appImpostorSolo').classList.contains('visible')) imps_init();
+    });
+
+    // Expose
+    window.imps_addPlayer = imps_addPlayer;
+    window.imps_removePlayer = imps_removePlayer;
+    window.imps_selectCat = imps_selectCat;
+    window.imps_adjustImpostors = imps_adjustImpostors;
+    window.imps_toggleKnows = imps_toggleKnows;
+    window.imps_start = imps_start;
+    window.imps_reveal = imps_reveal;
+    window.imps_next = imps_next;
+    window.imps_solve = imps_solve;
+    window.imps_newRound = imps_newRound;
+    window.imps_toSetup = imps_toSetup;
   })();
 
   // ============================================================
