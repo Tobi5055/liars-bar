@@ -6471,6 +6471,116 @@
     .app-alki button.action { font-size: 0.85rem; }
   }
 
+  /* ====================== NOTEN-TRAINER ====================== */
+  .app-noten {
+    background: linear-gradient(180deg, #11141a 0%, #080a0e 100%);
+    color: #e8edf2; min-height: 100vh;
+  }
+  .nt-wrap { max-width: 460px; margin: 0 auto; padding: 1.2rem 1rem 2rem; }
+  .nt-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 0.5rem; }
+  .nt-title {
+    font-family: 'Cinzel', 'Bebas Neue', sans-serif; font-size: 1.7rem; font-weight: 700;
+    color: #fff; letter-spacing: 0.04em; margin: 0;
+  }
+  .nt-sub { font-family: 'Outfit', sans-serif; font-size: 0.85rem; color: rgba(232,237,242,0.55); margin-top: 0.1rem; }
+  .nt-gear {
+    background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.14); color: #cfe8dc;
+    width: 42px; height: 42px; border-radius: 10px; font-size: 1.2rem; cursor: pointer; flex-shrink: 0;
+  }
+  .nt-gear:hover { background: rgba(255,255,255,0.16); }
+
+  .nt-stats {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.5rem; margin: 0.6rem 0 1rem;
+  }
+  .nt-stat {
+    background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 10px; padding: 0.55rem 0.3rem; text-align: center;
+  }
+  .nt-stat-label { font-family: 'Outfit', sans-serif; font-size: 0.62rem; letter-spacing: 0.12em; color: rgba(232,237,242,0.5); text-transform: uppercase; }
+  .nt-stat-val { font-family: 'Bebas Neue', sans-serif; font-size: 1.45rem; color: #5ec8a0; line-height: 1.1; margin-top: 0.1rem; }
+
+  .nt-sheet {
+    background: #fbfbf8; border-radius: 14px; padding: 0.5rem 0.7rem;
+    box-shadow: 0 8px 28px rgba(0,0,0,0.4); margin-bottom: 0.5rem;
+  }
+  .nt-sheet svg { display: block; width: 100%; height: auto; }
+  .nt-staff-line { stroke: #1a1a1a; stroke-width: 2; }
+  .nt-ledger { stroke: #1a1a1a; stroke-width: 2.4; }
+  .nt-clef { fill: #111; }
+  .nt-note { fill: #111; }
+  .nt-acc { fill: #111; font-family: serif; }
+  .nt-note.correct-flash { fill: #16a34a; }
+  .nt-note.wrong-flash { fill: #dc2626; }
+
+  .nt-hint {
+    text-align: center; font-family: 'Outfit', sans-serif; font-size: 0.95rem;
+    color: rgba(94,200,160,0.9); min-height: 1.3rem; margin-bottom: 0.7rem; font-weight: 600; letter-spacing: 0.02em;
+  }
+
+  .nt-answers { display: grid; grid-template-columns: repeat(7, 1fr); gap: 0.38rem; }
+  .nt-ans {
+    aspect-ratio: 1 / 1.05; border-radius: 9px; border: 1px solid rgba(255,255,255,0.14);
+    background: linear-gradient(160deg, rgba(255,255,255,0.1), rgba(255,255,255,0.03));
+    color: #eef3f7; font-family: 'Outfit', sans-serif; font-size: 0.98rem; font-weight: 600;
+    cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.12s;
+    -webkit-tap-highlight-color: transparent; user-select: none;
+  }
+  .nt-ans:hover { background: rgba(255,255,255,0.16); border-color: rgba(255,255,255,0.3); }
+  .nt-ans:active { transform: scale(0.94); }
+  .nt-ans.correct { background: linear-gradient(160deg,#1f9d57,#16a34a); border-color: #22c55e; color: #fff; }
+  .nt-ans.wrong { background: linear-gradient(160deg,#c5302a,#b91c1c); border-color: #ef4444; color: #fff; }
+  .nt-ans.dim { opacity: 0.35; }
+  .nt-ans .acc { font-size: 0.78em; opacity: 0.85; margin-left: 0.02em; }
+  .nt-answers.rows3 { grid-template-rows: auto auto auto; }
+
+  .nt-next {
+    width: 100%; margin-top: 0.8rem; padding: 0.9rem; border: none; border-radius: 10px;
+    background: linear-gradient(135deg,#0f766e,#2dd4bf); color: #fff;
+    font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 1rem; letter-spacing: 0.04em; cursor: pointer;
+  }
+
+  /* Settings modal */
+  .nt-modal-bd {
+    position: fixed; inset: 0; background: rgba(0,0,0,0.72); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);
+    z-index: 3000; display: none; align-items: flex-end; justify-content: center;
+  }
+  .nt-modal-bd.active { display: flex; }
+  @media (min-width: 600px) { .nt-modal-bd { align-items: center; } }
+  .nt-modal {
+    background: linear-gradient(180deg,#181c22,#0e1014); border: 1px solid rgba(255,255,255,0.14);
+    border-radius: 18px 18px 0 0; width: 100%; max-width: 460px;
+    padding: 1.2rem 1.2rem calc(1.2rem + env(safe-area-inset-bottom)); box-shadow: 0 -12px 44px rgba(0,0,0,0.55);
+  }
+  @media (min-width: 600px) { .nt-modal { border-radius: 18px; } }
+  .nt-modal-title { font-family: 'Cinzel','Bebas Neue',sans-serif; font-size: 1.3rem; color: #fff; margin-bottom: 0.8rem; letter-spacing: 0.04em; }
+  .nt-set-label { font-family: 'Outfit',sans-serif; font-size: 0.72rem; letter-spacing: 0.18em; color: rgba(232,237,242,0.55); text-transform: uppercase; margin: 0.9rem 0 0.35rem; }
+  .nt-seg { display: flex; gap: 0.4rem; }
+  .nt-seg button {
+    flex: 1; padding: 0.6rem 0.4rem; border-radius: 8px; border: 1px solid rgba(255,255,255,0.14);
+    background: rgba(255,255,255,0.05); color: rgba(232,237,242,0.75);
+    font-family: 'Outfit',sans-serif; font-size: 0.85rem; cursor: pointer; transition: all 0.12s;
+  }
+  .nt-seg button.active { background: rgba(94,200,160,0.22); border-color: #5ec8a0; color: #fff; }
+  .nt-toggle {
+    display: flex; align-items: center; justify-content: space-between; cursor: pointer;
+    font-family: 'Outfit',sans-serif; font-size: 0.95rem; color: #e8edf2; padding: 0.85rem 0 0.2rem; user-select: none;
+  }
+  .nt-switch {
+    width: 46px; height: 26px; border-radius: 13px; background: rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.18);
+    position: relative; transition: all 0.2s; flex-shrink: 0;
+  }
+  .nt-switch::after { content: ''; position: absolute; width: 20px; height: 20px; border-radius: 50%; background: rgba(255,255,255,0.6); top: 2px; left: 2px; transition: all 0.2s; }
+  .nt-switch.on { background: rgba(94,200,160,0.5); border-color: #5ec8a0; }
+  .nt-switch.on::after { left: 22px; background: #fff; }
+  .nt-reset {
+    width: 100%; margin-top: 1.2rem; padding: 0.7rem; border: 1px solid rgba(255,120,120,0.4);
+    background: rgba(255,80,80,0.12); color: #ff9b9b; border-radius: 9px; font-family: 'Outfit',sans-serif; cursor: pointer; font-size: 0.88rem;
+  }
+  .nt-modal-close {
+    width: 100%; margin-top: 0.6rem; padding: 0.9rem; border: none; border-radius: 10px;
+    background: rgba(255,255,255,0.12); color: #fff; font-family: 'Outfit',sans-serif; font-weight: 600; letter-spacing: 0.05em; cursor: pointer;
+  }
+
   /* ====================== SHARED GAME RULES ====================== */
   .gr-backdrop {
     position: fixed; inset: 0; background: rgba(0,0,0,0.72);
@@ -6587,7 +6697,7 @@
 <!-- Admin toggle (hidden by default, shown after 5x title clicks) -->
 <button class="admin-toggle" id="adminToggleBtn" onclick="openAdminPanel()" style="display:none" aria-label="Admin-Panel öffnen" title="Admin-Panel">🔧</button>
 
-<div class="app-version" id="appVersion">v1.1.4</div>
+<div class="app-version" id="appVersion">v1.2.0</div>
 
 <!-- Admin toast -->
 <div class="admin-toast" id="adminToast"></div>
@@ -6696,6 +6806,10 @@
     <button class="menu-item" data-app="impostorSolo" onclick="switchApp('impostorSolo')">
       <span class="icon">🕵️</span>
       <span>Impostor Solo</span>
+    </button>
+    <button class="menu-item" data-app="noten" onclick="switchApp('noten')">
+      <span class="icon">🎼</span>
+      <span>Noten-Trainer</span>
     </button>
     <div class="menu-divider"></div>
     <div class="menu-section-label">MULTIPLAYER</div>
@@ -8264,6 +8378,65 @@
   </div>
 </div>
 
+<!-- ============ NOTEN-TRAINER ============ -->
+<div class="app app-noten" id="appNoten">
+  <div class="nt-wrap">
+    <header class="nt-header">
+      <div>
+        <h1 class="nt-title">Noten-Trainer</h1>
+        <div class="nt-sub">Noten lesen lernen</div>
+      </div>
+      <button class="nt-gear" onclick="nt_openSettings()" aria-label="Einstellungen">⚙</button>
+    </header>
+
+    <button class="rules-link" onclick="showGameRules('noten')" style="margin-bottom:0.5rem">📖 So wird gespielt</button>
+
+    <div class="nt-stats">
+      <div class="nt-stat"><div class="nt-stat-label">Richtig</div><div class="nt-stat-val" id="ntCorrect">0</div></div>
+      <div class="nt-stat"><div class="nt-stat-label">Quote</div><div class="nt-stat-val" id="ntRate">–</div></div>
+      <div class="nt-stat"><div class="nt-stat-label">Streak</div><div class="nt-stat-val" id="ntStreak">0</div></div>
+      <div class="nt-stat"><div class="nt-stat-label">Best</div><div class="nt-stat-val" id="ntBest">0</div></div>
+    </div>
+
+    <div class="nt-sheet" id="ntSheet"></div>
+    <div class="nt-hint" id="ntHint">&nbsp;</div>
+
+    <div class="nt-answers" id="ntAnswers"></div>
+    <button class="nt-next" id="ntNext" onclick="nt_next()" style="display:none">Weiter →</button>
+  </div>
+
+  <div class="nt-modal-bd" id="ntSettingsModal" onclick="if(event.target===this) nt_closeSettings()">
+    <div class="nt-modal">
+      <div class="nt-modal-title">Einstellungen</div>
+
+      <div class="nt-set-label">Schlüssel</div>
+      <div class="nt-seg" id="ntSegClef">
+        <button data-v="treble" onclick="nt_setClef('treble')">Violin</button>
+        <button data-v="bass" onclick="nt_setClef('bass')">Bass</button>
+        <button data-v="both" onclick="nt_setClef('both')">Beide</button>
+      </div>
+
+      <div class="nt-set-label">Notennamen</div>
+      <div class="nt-seg" id="ntSegNaming">
+        <button data-v="international" onclick="nt_setNaming('international')">Int. (B)</button>
+        <button data-v="german" onclick="nt_setNaming('german')">Deutsch (H)</button>
+      </div>
+
+      <label class="nt-toggle" onclick="nt_toggleAcc()">
+        <span>Vorzeichen (♯ / ♭)</span>
+        <span class="nt-switch" id="ntSwAcc"></span>
+      </label>
+      <label class="nt-toggle" onclick="nt_toggleHelp()">
+        <span>Hilfe: Notennamen anzeigen</span>
+        <span class="nt-switch" id="ntSwHelp"></span>
+      </label>
+
+      <button class="nt-reset" onclick="nt_resetStats()">Statistik zurücksetzen</button>
+      <button class="nt-modal-close" onclick="nt_closeSettings()">FERTIG</button>
+    </div>
+  </div>
+</div>
+
 <!-- ============ STADT LAND FLUSS ============ -->
 <div class="app app-multi app-slf" id="appSlf">
   <!-- LOBBY -->
@@ -9378,6 +9551,7 @@
     poker:         { title: 'Poker Trainer',    emoji: '🃏', theme: '#0d141f' },
     alki:          { title: 'Alki Edition',     emoji: '🥃', theme: '#2a0000' },
     impostorSolo:  { title: 'Impostor Solo',    emoji: '🕵️', theme: '#1a0a0a' },
+    noten:         { title: 'Noten-Trainer',    emoji: '🎼', theme: '#0e1014' },
     liarsbarMulti: { title: "Liar's Bar Multi", emoji: '📱', theme: '#0d0604' },
     alkiMulti:     { title: 'Alki Multi',       emoji: '📱', theme: '#2a0000' },
     pokerMulti:    { title: 'Poker Multi',      emoji: '♠️', theme: '#050a08' },
@@ -9393,7 +9567,7 @@
   // Launcher / home screen config
   const HOME_DESC = {
     liarsbar: 'Bluff & Revolver', poker: 'Hände trainieren', alki: 'Trinkspiel-Klassiker',
-    impostorSolo: 'Handy rumgeben',
+    impostorSolo: 'Handy rumgeben', noten: 'Noten lesen lernen',
     liarsbarMulti: 'Bluff online', alkiMulti: 'Trinken online', pokerMulti: 'Texas Hold\u2019em',
     werwolf: 'Dorf vs. Wölfe', impostor: 'Wer kennt das Wort nicht?', slf: 'Live gegeneinander',
     blackstories: 'Düstere Rätsel', werbinich: 'Errate dich selbst', tabu: 'Erklären ohne Tabu',
@@ -9401,14 +9575,14 @@
   };
   const TILE_GLOW = {
     liarsbar: 'rgba(212,160,90,0.30)', poker: 'rgba(80,150,255,0.28)', alki: 'rgba(255,80,80,0.28)',
-    impostorSolo: 'rgba(255,110,60,0.30)',
+    impostorSolo: 'rgba(255,110,60,0.30)', noten: 'rgba(90,200,160,0.28)',
     liarsbarMulti: 'rgba(212,160,90,0.30)', alkiMulti: 'rgba(255,80,80,0.28)', pokerMulti: 'rgba(60,200,140,0.28)',
     werwolf: 'rgba(150,110,255,0.30)', impostor: 'rgba(255,110,60,0.30)', slf: 'rgba(45,212,191,0.30)',
     blackstories: 'rgba(150,90,255,0.30)', werbinich: 'rgba(80,150,255,0.30)', tabu: 'rgba(236,72,153,0.30)',
     codenames: 'rgba(150,170,200,0.30)',
   };
   const HOME_APPS = [
-    { group: 'SOLO · 1 GERÄT', items: ['liarsbar', 'poker', 'alki', 'impostorSolo'] },
+    { group: 'SOLO · 1 GERÄT', items: ['liarsbar', 'poker', 'alki', 'impostorSolo', 'noten'] },
     { group: 'MULTIPLAYER · MEHRERE HANDYS', items: ['liarsbarMulti', 'alkiMulti', 'pokerMulti', 'werwolf', 'impostor', 'slf', 'blackstories', 'werbinich', 'tabu', 'codenames'] },
   ];
   function renderHomeGrid() {
@@ -9455,6 +9629,7 @@
       poker: 'appPoker',
       alki: 'appAlki',
       impostorSolo: 'appImpostorSolo',
+      noten: 'appNoten',
       liarsbar: 'appLiarsbar',
       liarsbarMulti: 'appLiarsbarMulti',
       alkiMulti: 'appAlkiMulti',
@@ -9509,8 +9684,237 @@
     }
   }
 
+
+  // ============================================================
+  // ============ NOTEN-TRAINER (Note Reading) ==================
+  // ============================================================
+  (function() {
+    const GCLEF = "M376 415C374 427 376 428 382 434C490 535 572 662 572 815C572 902 548 988 507 1048C492 1070 466 1098 455 1098C441 1098 410 1072 390 1050C316 968 292 843 292 739C292 681 299 616 306 575C308 563 309 561 297 551C153 432 0 289 0 87C0 -87 119 -252 364 -252C387 -252 413 -250 433 -246C444 -244 446 -243 448 -255C460 -322 475 -409 475 -456C475 -604 375 -622 316 -622C262 -622 236 -606 236 -593C236 -586 245 -583 268 -576C299 -567 335 -540 335 -482C335 -427 300 -380 239 -380C172 -380 132 -433 132 -495C132 -560 171 -658 322 -658C389 -658 519 -628 519 -458C519 -401 501 -306 490 -244C488 -232 489 -233 503 -227C604 -187 671 -102 671 11C671 139 577 252 430 252C404 252 404 252 401 270ZM470 943C503 943 530 916 530 861C530 750 435 660 356 591C349 585 345 586 343 599C339 625 337 659 337 691C337 847 409 943 470 943ZM361 262C364 243 364 244 346 238C258 208 201 129 201 44C201 -46 248 -110 316 -133C324 -136 336 -139 343 -139C351 -139 355 -134 355 -128C355 -121 347 -118 340 -115C298 -97 268 -54 268 -8C268 49 307 92 368 109C384 113 386 112 388 101L438 -197C440 -208 439 -208 424 -211C408 -214 388 -216 368 -216C193 -216 80 -119 80 20C80 79 90 158 173 252C233 319 279 356 326 394C336 402 338 401 340 390ZM430 103C428 115 429 118 441 117C522 110 589 42 589 -46C589 -109 551 -160 495 -188C483 -194 481 -194 479 -182Z";
+    const FCLEF = "M252 262C78 262 0 135 0 39C0 -41 42 -110 123 -110C186 -110 229 -66 229 -4C229 60 182 100 133 100C106 100 96 93 83 93C70 93 67 101 67 111C67 151 127 224 229 224C335 224 381 120 381 -37C381 -316 243 -472 10 -605C1 -610 -5 -615 -5 -623C-5 -629 -1 -635 8 -635C13 -635 19 -633 25 -630C271 -510 531 -332 531 -28C531 146 425 262 252 262ZM629 180C598 180 574 156 574 125C574 94 598 70 629 70C660 70 684 94 684 125C684 156 660 180 629 180ZM630 -71C599 -71 576 -94 576 -125C576 -156 599 -179 630 -179C661 -179 684 -156 684 -125C684 -94 661 -71 630 -71Z";
+    const LETTERS = ['C','D','E','F','G','A','B'];
+    const SETTINGS_KEY = 'nt-settings-v1';
+    const STATS_KEY = 'nt-stats-v1';
+
+    let settings = { clefs: 'treble', accidentals: false, naming: 'german', helpers: false };
+    let stats = { correct: 0, total: 0, streak: 0, best: 0 };
+    let cur = null;
+    let locked = false;
+    let started = false;
+
+    // diatonic ranges per clef: octave*7 + letterIndex
+    const RANGES = { treble: [28, 40], bass: [16, 28] }; // C4..A5 / E2..C4
+
+    function li(l) { return LETTERS.indexOf(l); }
+    function diaOf(l, o) { return o * 7 + li(l); }
+    function fromDia(d) { return { letter: LETTERS[((d % 7) + 7) % 7], octave: Math.floor(d / 7) }; }
+    function accSym(a) { return a === 'sharp' ? '♯' : a === 'flat' ? '♭' : ''; }
+
+    function displayName(letter, acc, naming) {
+      if (naming === 'german') {
+        if (letter === 'B' && acc === 'natural') return 'H';
+        if (letter === 'B' && acc === 'flat') return 'B';
+        if (letter === 'B' && acc === 'sharp') return 'H♯';
+      }
+      return letter + accSym(acc);
+    }
+
+    function load() {
+      try { const s = JSON.parse(localStorage.getItem(SETTINGS_KEY)); if (s) settings = Object.assign(settings, s); } catch (e) {}
+      try { const s = JSON.parse(localStorage.getItem(STATS_KEY)); if (s) stats = Object.assign(stats, s); } catch (e) {}
+    }
+    function saveSettings() { try { localStorage.setItem(SETTINGS_KEY, JSON.stringify(settings)); } catch (e) {} }
+    function saveStats() { try { localStorage.setItem(STATS_KEY, JSON.stringify(stats)); } catch (e) {} }
+
+    // ── generate a note ──
+    function generate() {
+      let clef = settings.clefs;
+      if (clef === 'both') clef = Math.random() < 0.5 ? 'treble' : 'bass';
+      const [lo, hi] = RANGES[clef];
+      const d = lo + Math.floor(Math.random() * (hi - lo + 1));
+      const { letter, octave } = fromDia(d);
+      let acc = 'natural';
+      if (settings.accidentals) {
+        const r = Math.random();
+        const sharpOk = ['C','D','F','G','A'].includes(letter);
+        const flatOk  = ['D','E','G','A','B'].includes(letter);
+        if (r < 0.30 && sharpOk) acc = 'sharp';
+        else if (r < 0.60 && flatOk) acc = 'flat';
+      }
+      cur = { clef, letter, octave, acc, d };
+    }
+
+    // ── SVG geometry ──
+    const VB_W = 360, VB_H = 232, GAP = 18, STAFF_TOP = 64, NOTE_X = 242;
+    function bottomLineY() { return STAFF_TOP + 4 * GAP; }
+    function baseDiaFor(clef) { return clef === 'treble' ? 30 : 18; }
+    function noteYFor(clef, d) { return bottomLineY() - (d - baseDiaFor(clef)) * (GAP / 2); }
+
+    function renderStaff() {
+      const clef = cur.clef, d = cur.d;
+      let svg = `<svg viewBox="0 0 ${VB_W} ${VB_H}" xmlns="http://www.w3.org/2000/svg">`;
+      for (let i = 0; i < 5; i++) { const y = STAFF_TOP + i * GAP; svg += `<line class="nt-staff-line" x1="14" y1="${y}" x2="${VB_W - 14}" y2="${y}"/>`; }
+      const scale = GAP / 250;
+      if (clef === 'treble') {
+        const gy = STAFF_TOP + 3 * GAP;
+        svg += `<path class="nt-clef" transform="translate(20 ${gy}) scale(${scale} ${-scale})" d="${GCLEF}"/>`;
+      } else {
+        const fy = STAFF_TOP + 1 * GAP;
+        svg += `<path class="nt-clef" transform="translate(22 ${fy}) scale(${scale} ${-scale})" d="${FCLEF}"/>`;
+      }
+      const base = baseDiaFor(clef), topLineDia = base + 8;
+      const lx1 = NOTE_X - 15, lx2 = NOTE_X + 15;
+      for (let v = base - 2; v >= d; v -= 2) { const y = noteYFor(clef, v); svg += `<line class="nt-ledger" x1="${lx1}" y1="${y}" x2="${lx2}" y2="${y}"/>`; }
+      for (let v = topLineDia + 2; v <= d; v += 2) { const y = noteYFor(clef, v); svg += `<line class="nt-ledger" x1="${lx1}" y1="${y}" x2="${lx2}" y2="${y}"/>`; }
+      const ny = noteYFor(clef, d);
+      if (cur.acc !== 'natural') {
+        const sym = cur.acc === 'sharp' ? '♯' : '♭';
+        const ay = cur.acc === 'flat' ? ny + GAP * 0.25 : ny + GAP * 0.55;
+        svg += `<text class="nt-acc" x="${NOTE_X - 30}" y="${ay}" font-size="${GAP * 2.6}" text-anchor="middle">${sym}</text>`;
+      }
+      svg += `<g transform="rotate(-18 ${NOTE_X} ${ny})">`;
+      svg += `<ellipse class="nt-note" cx="${NOTE_X}" cy="${ny}" rx="11.5" ry="8"/>`;
+      svg += `<ellipse cx="${NOTE_X}" cy="${ny}" rx="5.2" ry="6.2" fill="#fbfbf8"/>`;
+      svg += `</g></svg>`;
+      document.getElementById('ntSheet').innerHTML = svg;
+    }
+
+    // ── answer buttons ──
+    function btnHtml(letter, acc) {
+      const name = displayName(letter, acc, settings.naming);
+      const a = name.includes('♯') ? '♯' : name.includes('♭') ? '♭' : '';
+      const base = name.replace(/[♯♭]/, '');
+      return `<button class="nt-ans" data-l="${letter}" data-a="${acc}" onclick="nt_answer('${letter}','${acc}',this)">${base}${a ? `<span class="acc">${a}</span>` : ''}</button>`;
+    }
+    function renderAnswers() {
+      const wrap = document.getElementById('ntAnswers');
+      let html = '';
+      if (settings.accidentals) {
+        wrap.classList.add('rows3');
+        for (const l of LETTERS) html += btnHtml(l, 'sharp');
+        for (const l of LETTERS) html += btnHtml(l, 'natural');
+        for (const l of LETTERS) html += btnHtml(l, 'flat');
+      } else {
+        wrap.classList.remove('rows3');
+        for (const l of LETTERS) html += btnHtml(l, 'natural');
+      }
+      wrap.innerHTML = html;
+    }
+
+    function clearAnswerStates() {
+      document.querySelectorAll('#ntAnswers .nt-ans').forEach(b => b.classList.remove('correct', 'wrong', 'dim'));
+    }
+    function setHint(t, cls) {
+      const el = document.getElementById('ntHint');
+      el.textContent = t || '\u00a0';
+      el.style.color = cls === 'bad' ? 'rgba(255,140,140,0.95)' : cls === 'good' ? 'rgba(94,200,160,0.95)' : 'rgba(232,237,242,0.55)';
+    }
+    function updateStats() {
+      document.getElementById('ntCorrect').textContent = stats.correct;
+      document.getElementById('ntStreak').textContent = stats.streak;
+      document.getElementById('ntBest').textContent = stats.best;
+      document.getElementById('ntRate').textContent = stats.total ? Math.round(stats.correct / stats.total * 100) + '%' : '–';
+    }
+
+    function nt_answer(letter, acc, el) {
+      if (locked) return;
+      locked = true;
+      stats.total++;
+      const correct = (letter === cur.letter && acc === cur.acc);
+      if (correct) {
+        stats.correct++; stats.streak++; if (stats.streak > stats.best) stats.best = stats.streak;
+        el.classList.add('correct');
+        setHint('✓ Richtig!', 'good');
+        saveStats(); updateStats();
+        setTimeout(nt_next, 650);
+      } else {
+        stats.streak = 0;
+        el.classList.add('wrong');
+        const cb = [...document.querySelectorAll('#ntAnswers .nt-ans')].find(b => b.dataset.l === cur.letter && b.dataset.a === cur.acc);
+        if (cb) cb.classList.add('correct');
+        setHint('Richtig wäre: ' + displayName(cur.letter, cur.acc, settings.naming), 'bad');
+        saveStats(); updateStats();
+        document.getElementById('ntNext').style.display = '';
+      }
+    }
+
+    function nt_next() {
+      document.getElementById('ntNext').style.display = 'none';
+      clearAnswerStates();
+      locked = false;
+      const prev = cur ? cur.clef + ':' + cur.d + ':' + cur.acc : null;
+      let guard = 0;
+      do { generate(); guard++; } while (guard < 25 && (cur.clef + ':' + cur.d + ':' + cur.acc) === prev);
+      renderStaff();
+      if (settings.helpers) setHint('Tipp: ' + displayName(cur.letter, cur.acc, settings.naming), 'good');
+      else setHint('', '');
+    }
+
+    // ── settings ──
+    function syncSettingsUI() {
+      document.querySelectorAll('#ntSegClef button').forEach(b => b.classList.toggle('active', b.dataset.v === settings.clefs));
+      document.querySelectorAll('#ntSegNaming button').forEach(b => b.classList.toggle('active', b.dataset.v === settings.naming));
+      document.getElementById('ntSwAcc').classList.toggle('on', settings.accidentals);
+      document.getElementById('ntSwHelp').classList.toggle('on', settings.helpers);
+    }
+    function nt_setClef(v) { settings.clefs = v; saveSettings(); syncSettingsUI(); restart(); }
+    function nt_setNaming(v) { settings.naming = v; saveSettings(); syncSettingsUI(); renderAnswers(); if (cur) renderStaff(); if (settings.helpers && cur) setHint('Tipp: ' + displayName(cur.letter, cur.acc, settings.naming), 'good'); }
+    function nt_toggleAcc() { settings.accidentals = !settings.accidentals; saveSettings(); syncSettingsUI(); renderAnswers(); restart(); }
+    function nt_toggleHelp() { settings.helpers = !settings.helpers; saveSettings(); syncSettingsUI(); if (cur) { if (settings.helpers) setHint('Tipp: ' + displayName(cur.letter, cur.acc, settings.naming), 'good'); else setHint('', ''); } }
+
+    function restart() { locked = false; clearAnswerStates(); document.getElementById('ntNext').style.display = 'none'; nt_next(); }
+
+    function nt_openSettings() { syncSettingsUI(); document.getElementById('ntSettingsModal').classList.add('active'); }
+    function nt_closeSettings() { document.getElementById('ntSettingsModal').classList.remove('active'); }
+    function nt_resetStats() {
+      if (!confirm('Statistik wirklich zurücksetzen?')) return;
+      stats = { correct: 0, total: 0, streak: 0, best: 0 };
+      saveStats(); updateStats();
+    }
+
+    function nt_init() {
+      load();
+      syncSettingsUI();
+      renderAnswers();
+      updateStats();
+      if (!cur) nt_next(); else { renderStaff(); }
+      started = true;
+    }
+
+    const origSwitch = window.switchApp;
+    window.switchApp = function(name) {
+      const r = origSwitch(name);
+      if (name === 'noten') nt_init();
+      return r;
+    };
+    document.addEventListener('DOMContentLoaded', () => {
+      if (document.getElementById('appNoten') && document.getElementById('appNoten').classList.contains('visible')) nt_init();
+    });
+
+    window.nt_answer = nt_answer;
+    window.nt_next = nt_next;
+    window.nt_setClef = nt_setClef;
+    window.nt_setNaming = nt_setNaming;
+    window.nt_toggleAcc = nt_toggleAcc;
+    window.nt_toggleHelp = nt_toggleHelp;
+    window.nt_openSettings = nt_openSettings;
+    window.nt_closeSettings = nt_closeSettings;
+    window.nt_resetStats = nt_resetStats;
+  })();
+
   // ============ SHARED GAME RULES ============
   const GAME_RULES = {
+    noten: { title: 'Noten-Trainer', body: `
+      <div class="gr-goal"><b>Ziel:</b> Noten im Notensystem schnell und sicher lesen lernen.</div>
+      <p>Es erscheint eine Note auf dem Notensystem. Tippe den richtigen Notennamen unten an — sofortiges Feedback, richtig wird automatisch zur nächsten Note gewechselt.</p>
+      <div class="gr-h">Einstellungen (⚙)</div>
+      <ul>
+        <li><b>Schlüssel:</b> nur Violin, nur Bass oder beide gemischt</li>
+        <li><b>Notennamen:</b> International (B) oder Deutsch (H)</li>
+        <li><b>Vorzeichen:</b> ♯/♭ dazuschalten für Fortgeschrittene</li>
+        <li><b>Hilfe:</b> blendet den Notennamen als Tipp ein</li>
+      </ul>
+      <div class="gr-h">Statistik</div>
+      <p>Oben siehst du Richtig-Anzahl, Quote, aktuelle und beste Streak. Alles wird lokal gespeichert.</p>` },
     poker: { title: 'Poker Trainer', body: `
       <div class="gr-goal"><b>Ziel:</b> Pokerhände schnell und sicher erkennen.</div>
       <p>Reines Solo-Training, kein Gegner. Dir wird eine Situation bzw. Karten gezeigt — du wählst die richtige Antwort und bekommst sofort Feedback.</p>
