@@ -6697,7 +6697,7 @@
 <!-- Admin toggle (hidden by default, shown after 5x title clicks) -->
 <button class="admin-toggle" id="adminToggleBtn" onclick="openAdminPanel()" style="display:none" aria-label="Admin-Panel öffnen" title="Admin-Panel">🔧</button>
 
-<div class="app-version" id="appVersion">v1.2.0</div>
+<div class="app-version" id="appVersion">v1.2.1</div>
 
 <!-- Admin toast -->
 <div class="admin-toast" id="adminToast"></div>
@@ -8416,6 +8416,13 @@
         <button data-v="both" onclick="nt_setClef('both')">Beide</button>
       </div>
 
+      <div class="nt-set-label">Umfang</div>
+      <div class="nt-seg" id="ntSegRange">
+        <button data-v="einsteiger" onclick="nt_setRange('einsteiger')">Einsteiger</button>
+        <button data-v="amateur" onclick="nt_setRange('amateur')">Amateur</button>
+        <button data-v="profi" onclick="nt_setRange('profi')">Profi</button>
+      </div>
+
       <div class="nt-set-label">Notennamen</div>
       <div class="nt-seg" id="ntSegNaming">
         <button data-v="international" onclick="nt_setNaming('international')">Int. (B)</button>
@@ -9695,14 +9702,19 @@
     const SETTINGS_KEY = 'nt-settings-v1';
     const STATS_KEY = 'nt-stats-v1';
 
-    let settings = { clefs: 'treble', accidentals: false, naming: 'german', helpers: false };
+    let settings = { clefs: 'treble', accidentals: false, naming: 'german', helpers: false, range: 'einsteiger' };
     let stats = { correct: 0, total: 0, streak: 0, best: 0 };
     let cur = null;
     let locked = false;
     let started = false;
 
     // diatonic ranges per clef: octave*7 + letterIndex
-    const RANGES = { treble: [28, 40], bass: [16, 28] }; // C4..A5 / E2..C4
+    const RANGE_SETS = {
+      einsteiger: { treble: [28, 40], bass: [16, 28] }, // ~1 Hilfslinie
+      amateur:    { treble: [24, 44], bass: [12, 32] }, // ~3 Hilfslinien
+      profi:      { treble: [20, 48], bass: [8, 36]  }, // ~5 Hilfslinien
+    };
+    function currentRanges() { return RANGE_SETS[settings.range] || RANGE_SETS.einsteiger; }
 
     function li(l) { return LETTERS.indexOf(l); }
     function diaOf(l, o) { return o * 7 + li(l); }
@@ -9729,7 +9741,7 @@
     function generate() {
       let clef = settings.clefs;
       if (clef === 'both') clef = Math.random() < 0.5 ? 'treble' : 'bass';
-      const [lo, hi] = RANGES[clef];
+      const [lo, hi] = currentRanges()[clef];
       const d = lo + Math.floor(Math.random() * (hi - lo + 1));
       const { letter, octave } = fromDia(d);
       let acc = 'natural';
@@ -9744,21 +9756,32 @@
     }
 
     // ── SVG geometry ──
-    const VB_W = 360, VB_H = 232, GAP = 18, STAFF_TOP = 64, NOTE_X = 242;
-    function bottomLineY() { return STAFF_TOP + 4 * GAP; }
+    const VB_W = 360, GAP = 18, NOTE_X = 242;
+    let VStaffTop = 64, VHeight = 232; // computed per mode
+    function bottomLineY() { return VStaffTop + 4 * GAP; }
     function baseDiaFor(clef) { return clef === 'treble' ? 30 : 18; }
     function noteYFor(clef, d) { return bottomLineY() - (d - baseDiaFor(clef)) * (GAP / 2); }
+    function computeViewport() {
+      const clefs = settings.clefs === 'both' ? ['treble', 'bass'] : [settings.clefs];
+      const ranges = currentRanges();
+      let maxAbove = -99, maxBelow = 99;
+      clefs.forEach(c => { const base = baseDiaFor(c); const [lo, hi] = ranges[c]; maxAbove = Math.max(maxAbove, hi - base); maxBelow = Math.min(maxBelow, lo - base); });
+      const topPad = Math.max(0, maxAbove - 8) * (GAP / 2) + 16;
+      const botPad = Math.max(0, -maxBelow) * (GAP / 2) + 16;
+      VStaffTop = topPad + 8;
+      VHeight = VStaffTop + 4 * GAP + botPad + 8;
+    }
 
     function renderStaff() {
       const clef = cur.clef, d = cur.d;
-      let svg = `<svg viewBox="0 0 ${VB_W} ${VB_H}" xmlns="http://www.w3.org/2000/svg">`;
-      for (let i = 0; i < 5; i++) { const y = STAFF_TOP + i * GAP; svg += `<line class="nt-staff-line" x1="14" y1="${y}" x2="${VB_W - 14}" y2="${y}"/>`; }
+      let svg = `<svg viewBox="0 0 ${VB_W} ${VHeight}" xmlns="http://www.w3.org/2000/svg">`;
+      for (let i = 0; i < 5; i++) { const y = VStaffTop + i * GAP; svg += `<line class="nt-staff-line" x1="14" y1="${y}" x2="${VB_W - 14}" y2="${y}"/>`; }
       const scale = GAP / 250;
       if (clef === 'treble') {
-        const gy = STAFF_TOP + 3 * GAP;
+        const gy = VStaffTop + 3 * GAP;
         svg += `<path class="nt-clef" transform="translate(20 ${gy}) scale(${scale} ${-scale})" d="${GCLEF}"/>`;
       } else {
-        const fy = STAFF_TOP + 1 * GAP;
+        const fy = VStaffTop + 1 * GAP;
         svg += `<path class="nt-clef" transform="translate(22 ${fy}) scale(${scale} ${-scale})" d="${FCLEF}"/>`;
       }
       const base = baseDiaFor(clef), topLineDia = base + 8;
@@ -9852,16 +9875,18 @@
     // ── settings ──
     function syncSettingsUI() {
       document.querySelectorAll('#ntSegClef button').forEach(b => b.classList.toggle('active', b.dataset.v === settings.clefs));
+      document.querySelectorAll('#ntSegRange button').forEach(b => b.classList.toggle('active', b.dataset.v === settings.range));
       document.querySelectorAll('#ntSegNaming button').forEach(b => b.classList.toggle('active', b.dataset.v === settings.naming));
       document.getElementById('ntSwAcc').classList.toggle('on', settings.accidentals);
       document.getElementById('ntSwHelp').classList.toggle('on', settings.helpers);
     }
     function nt_setClef(v) { settings.clefs = v; saveSettings(); syncSettingsUI(); restart(); }
+    function nt_setRange(v) { settings.range = v; saveSettings(); syncSettingsUI(); restart(); }
     function nt_setNaming(v) { settings.naming = v; saveSettings(); syncSettingsUI(); renderAnswers(); if (cur) renderStaff(); if (settings.helpers && cur) setHint('Tipp: ' + displayName(cur.letter, cur.acc, settings.naming), 'good'); }
     function nt_toggleAcc() { settings.accidentals = !settings.accidentals; saveSettings(); syncSettingsUI(); renderAnswers(); restart(); }
     function nt_toggleHelp() { settings.helpers = !settings.helpers; saveSettings(); syncSettingsUI(); if (cur) { if (settings.helpers) setHint('Tipp: ' + displayName(cur.letter, cur.acc, settings.naming), 'good'); else setHint('', ''); } }
 
-    function restart() { locked = false; clearAnswerStates(); document.getElementById('ntNext').style.display = 'none'; nt_next(); }
+    function restart() { locked = false; clearAnswerStates(); document.getElementById('ntNext').style.display = 'none'; computeViewport(); nt_next(); }
 
     function nt_openSettings() { syncSettingsUI(); document.getElementById('ntSettingsModal').classList.add('active'); }
     function nt_closeSettings() { document.getElementById('ntSettingsModal').classList.remove('active'); }
@@ -9874,6 +9899,7 @@
     function nt_init() {
       load();
       syncSettingsUI();
+      computeViewport();
       renderAnswers();
       updateStats();
       if (!cur) nt_next(); else { renderStaff(); }
@@ -9893,6 +9919,7 @@
     window.nt_answer = nt_answer;
     window.nt_next = nt_next;
     window.nt_setClef = nt_setClef;
+    window.nt_setRange = nt_setRange;
     window.nt_setNaming = nt_setNaming;
     window.nt_toggleAcc = nt_toggleAcc;
     window.nt_toggleHelp = nt_toggleHelp;
@@ -9909,6 +9936,7 @@
       <div class="gr-h">Einstellungen (⚙)</div>
       <ul>
         <li><b>Schlüssel:</b> nur Violin, nur Bass oder beide gemischt</li>
+        <li><b>Umfang:</b> Einsteiger, Amateur oder Profi (mehr Hilfslinien)</li>
         <li><b>Notennamen:</b> International (B) oder Deutsch (H)</li>
         <li><b>Vorzeichen:</b> ♯/♭ dazuschalten für Fortgeschrittene</li>
         <li><b>Hilfe:</b> blendet den Notennamen als Tipp ein</li>
