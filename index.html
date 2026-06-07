@@ -6581,6 +6581,55 @@
     background: rgba(255,255,255,0.12); color: #fff; font-family: 'Outfit',sans-serif; font-weight: 600; letter-spacing: 0.05em; cursor: pointer;
   }
 
+  /* ====================== LIAR'S BAR MULTI extras ====================== */
+  .lbm-admin-modal { max-height: 86vh; overflow-y: auto; }
+  .lbm-admin-force, .lbm-admin-cards { display: flex; gap: 0.4rem; flex-wrap: wrap; }
+  .lbm-admin-force button, .lbm-admin-card {
+    flex: 1; min-width: 64px; padding: 0.55rem 0.4rem; border-radius: 8px;
+    border: 1px solid rgba(255,255,255,0.14); background: rgba(255,255,255,0.05); color: #eee;
+    font-family: 'Outfit', sans-serif; font-size: 0.85rem; cursor: pointer; transition: all 0.12s;
+  }
+  .lbm-admin-force button.active, .lbm-admin-card.active { background: rgba(255,165,50,0.22); border-color: #ffa532; color: #fff; }
+  .lbm-admin-players { display: flex; flex-direction: column; gap: 0.4rem; }
+  .lbm-admin-player {
+    display: flex; align-items: center; gap: 0.5rem; background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 0.5rem 0.6rem;
+  }
+  .lbm-admin-player-info { flex: 1; min-width: 0; }
+  .lbm-admin-player-name { font-family: 'Outfit', sans-serif; font-weight: 600; color: #fff; font-size: 0.9rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .lbm-admin-player-status { font-family: 'Outfit', sans-serif; font-size: 0.72rem; color: rgba(255,255,255,0.5); }
+  .lbm-admin-player-actions { display: flex; gap: 0.3rem; flex-shrink: 0; }
+  .lbm-admin-player-actions button {
+    width: 32px; height: 32px; border-radius: 7px; border: 1px solid rgba(255,255,255,0.14);
+    background: rgba(255,255,255,0.06); cursor: pointer; font-size: 0.95rem; display: flex; align-items: center; justify-content: center;
+  }
+  .lbm-admin-player-actions button:hover { background: rgba(255,255,255,0.14); }
+  .lbm-admin-player-actions .lbm-admin-kick { background: rgba(239,68,68,0.16); border-color: rgba(239,68,68,0.35); color: #ff8888; }
+  .lbm-admin-spacer { width: 32px; height: 32px; display: inline-block; }
+
+  .lbm-risk {
+    margin-left: auto; font-family: 'Outfit', sans-serif; font-size: 0.72rem; font-weight: 700;
+    padding: 0.18rem 0.5rem; border-radius: 20px; letter-spacing: 0.02em; white-space: nowrap;
+    border: 1px solid transparent;
+  }
+  .lbm-risk.low  { background: rgba(74,222,128,0.16); color: #6ee7a0; border-color: rgba(74,222,128,0.3); }
+  .lbm-risk.mid  { background: rgba(251,191,36,0.16); color: #fbbf24; border-color: rgba(251,191,36,0.32); }
+  .lbm-risk.high { background: rgba(239,68,68,0.18);  color: #ff8080; border-color: rgba(239,68,68,0.38); }
+  .lbm-risk.dead { background: transparent; color: rgba(255,255,255,0.4); }
+  .multi-player-row.dead .multi-player-name { text-decoration: line-through; opacity: 0.5; }
+
+  .lbm-confetti {
+    position: absolute; top: -24px; width: 10px; height: 14px; border-radius: 2px;
+    opacity: 0.95; pointer-events: none; z-index: 2;
+    animation-name: lbmConfettiFall; animation-timing-function: cubic-bezier(0.4,0.1,0.6,1); animation-fill-mode: forwards;
+  }
+  @keyframes lbmConfettiFall {
+    0%   { transform: translateY(0) rotate(0deg); opacity: 1; }
+    100% { transform: translateY(118vh) rotate(900deg); opacity: 0.5; }
+  }
+  .multi-winner.active .multi-winner-name { animation: lbmWinnerPop 0.5s cubic-bezier(0.2,1.4,0.5,1) both; }
+  @keyframes lbmWinnerPop { 0% { transform: scale(0.4); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
+
   /* ====================== SHARED GAME RULES ====================== */
   .gr-backdrop {
     position: fixed; inset: 0; background: rgba(0,0,0,0.72);
@@ -6697,7 +6746,7 @@
 <!-- Admin toggle (hidden by default, shown after 5x title clicks) -->
 <button class="admin-toggle" id="adminToggleBtn" onclick="openAdminPanel()" style="display:none" aria-label="Admin-Panel öffnen" title="Admin-Panel">🔧</button>
 
-<div class="app-version" id="appVersion">v1.2.1</div>
+<div class="app-version" id="appVersion">v1.3.1</div>
 
 <!-- Admin toast -->
 <div class="admin-toast" id="adminToast"></div>
@@ -7532,6 +7581,7 @@
         <div class="multi-topbar-code" id="lbmTopCode" onclick="handleAdminTitleClick()" style="cursor:pointer">—</div>
         <div class="multi-topbar-peers" id="lbmTopPeers">0/8</div>
       </div>
+      <button class="multi-topbar-btn multi-admin-btn" onclick="lbm_openAdmin()" title="Admin" aria-label="Admin" hidden style="display:none !important">🔧</button>
       <button class="multi-topbar-btn multi-settings-btn" id="lbmSettingsBtn" onclick="lbm_openSettings()" title="Einstellungen">⚙</button>
     </div>
 
@@ -7601,6 +7651,32 @@
       <div class="multi-winner-name" id="lbmWinnerName">—</div>
       <button class="multi-winner-btn" id="lbmWinnerBtn" onclick="lbm_newRound()">NEUE RUNDE</button>
       <div class="multi-winner-hint" id="lbmWinnerHint"></div>
+    </div>
+  </div>
+
+  <!-- Admin Panel (ADMIN mode) -->
+  <div class="multi-modal-bd" id="lbmAdminModal" onclick="if(event.target===this) lbm_closeAdmin()">
+    <div class="multi-modal lbm-admin-modal">
+      <div class="multi-modal-title">🔧 ADMIN — LIAR'S BAR</div>
+
+      <div class="multi-settings-label">NÄCHSTER SCHUSS ERZWINGEN</div>
+      <div class="lbm-admin-force" id="lbmAdminForce">
+        <button data-v="random" onclick="lbm_forceShot('random')">🎲 Zufall</button>
+        <button data-v="click" onclick="lbm_forceShot('click')">✓ Click</button>
+        <button data-v="bang" onclick="lbm_forceShot('bang')">💥 Bang</button>
+      </div>
+
+      <div class="multi-settings-label" style="margin-top:1rem">TISCHKARTE ERZWINGEN</div>
+      <div class="lbm-admin-cards" id="lbmAdminCards"></div>
+
+      <div class="multi-settings-label" style="margin-top:1rem">SPIELER</div>
+      <div class="lbm-admin-players" id="lbmAdminPlayers"></div>
+
+      <div class="multi-settings-label" style="margin-top:1rem">RUNDE</div>
+      <button class="multi-settings-btn-full" onclick="lbm_resetRevolvers()">Alle Revolver neu laden</button>
+      <button class="multi-settings-btn-full multi-danger" onclick="lbm_newRound()">Neue Runde (alle resetten)</button>
+
+      <button class="multi-modal-close" onclick="lbm_closeAdmin()">SCHLIESSEN</button>
     </div>
   </div>
 
@@ -8906,6 +8982,7 @@
   window.adminAPI = { liarsbar: null, alki: null };
 
   function getCurrentAdminApp() {
+    if (document.querySelector('.app-liarsbar-multi.visible')) return 'liarsbarMulti';
     if (document.querySelector('.app-liarsbar.visible')) return 'liarsbar';
     if (document.querySelector('.app-alki.visible')) return 'alki';
     if (document.querySelector('.app-poker-multi.visible')) return 'pokerMulti';
@@ -8945,7 +9022,7 @@
     const btn = document.getElementById('adminToggleBtn');
     if (!btn) return;
     const app = getCurrentAdminApp();
-    const hasPanel = app && (window.adminAPI[app] || app === 'pokerMulti');
+    const hasPanel = app && (window.adminAPI[app] || app === 'pokerMulti' || app === 'liarsbarMulti');
     btn.style.display = (ADMIN.active && hasPanel) ? 'flex' : 'none';
   }
 
@@ -8962,6 +9039,10 @@
     const app = getCurrentAdminApp();
     if (app === 'pokerMulti' && typeof window.pm_openAdmin === 'function') {
       window.pm_openAdmin();
+      return;
+    }
+    if (app === 'liarsbarMulti' && typeof window.lbm_openAdmin === 'function') {
+      window.lbm_openAdmin();
       return;
     }
     if (!app || !window.adminAPI[app]) {
@@ -10107,7 +10188,7 @@ const CARDS = {
   function makePlayer(i, name) {
     return {
       name: name || ('Spieler ' + (i + 1)),
-      bulletPos: Math.floor(Math.random() * 6),
+      bulletPos: -1,
       shotsFired: 0,
       alive: true,
     };
@@ -12034,6 +12115,47 @@ nextRound();
 
 
   // ============================================================
+  // ============ SOUND ENGINE (Web Audio, synthesized) =========
+  window.SFX = window.SFX || (function() {
+    let ctx = null;
+    function ac() {
+      if (!ctx) { try { ctx = new (window.AudioContext || window.webkitAudioContext)(); } catch (e) { return null; } }
+      if (ctx && ctx.state === 'suspended') { try { ctx.resume(); } catch (e) {} }
+      return ctx;
+    }
+    function tone(freq, t0, dur, type, g) {
+      const c = ac(); if (!c) return;
+      const o = c.createOscillator(), gain = c.createGain();
+      o.type = type || 'sine'; o.frequency.setValueAtTime(freq, t0);
+      o.connect(gain); gain.connect(c.destination);
+      gain.gain.setValueAtTime(0.0001, t0);
+      gain.gain.exponentialRampToValueAtTime(g || 0.3, t0 + 0.006);
+      gain.gain.exponentialRampToValueAtTime(0.0001, t0 + dur);
+      o.start(t0); o.stop(t0 + dur + 0.05);
+    }
+    function noise(t0, dur, g, type, freq, q) {
+      const c = ac(); if (!c) return;
+      const n = Math.floor(c.sampleRate * dur);
+      const buf = c.createBuffer(1, n, c.sampleRate);
+      const d = buf.getChannelData(0);
+      for (let i = 0; i < n; i++) d[i] = Math.random() * 2 - 1;
+      const src = c.createBufferSource(); src.buffer = buf;
+      const filt = c.createBiquadFilter(); filt.type = type || 'lowpass'; filt.frequency.value = freq || 1000; if (q) filt.Q.value = q;
+      const gain = c.createGain();
+      src.connect(filt); filt.connect(gain); gain.connect(c.destination);
+      gain.gain.setValueAtTime(g || 0.5, t0);
+      gain.gain.exponentialRampToValueAtTime(0.0001, t0 + dur);
+      src.start(t0); src.stop(t0 + dur + 0.02);
+    }
+    return {
+      ready() { ac(); },
+      click() { const c = ac(); if (!c) return; const t = c.currentTime; noise(t, 0.045, 0.35, 'highpass', 2600, 1); tone(1600, t, 0.05, 'square', 0.10); tone(430, t + 0.004, 0.09, 'triangle', 0.16); },
+      bang()  { const c = ac(); if (!c) return; const t = c.currentTime; noise(t, 0.32, 0.95, 'lowpass', 1900, 0.7); noise(t, 0.07, 0.7, 'highpass', 3200, 0.5); tone(68, t, 0.34, 'sine', 0.9); tone(120, t, 0.18, 'triangle', 0.4); },
+      draw()  { const c = ac(); if (!c) return; const t = c.currentTime; noise(t, 0.17, 0.22, 'bandpass', 1700, 0.8); tone(720, t + 0.02, 0.09, 'sine', 0.07); },
+      win()   { const c = ac(); if (!c) return; const t = c.currentTime; [523.25, 659.25, 783.99, 1046.5].forEach((f, i) => tone(f, t + i * 0.12, 0.5, 'triangle', 0.28)); },
+    };
+  })();
+
   // ============ LIAR'S BAR MULTI (Mobile P2P) =================
   // ============================================================
   (function() {
@@ -12093,6 +12215,8 @@ nextRound();
         lastAction: null, // {type, actor, target, result, ts}
         round: 1,
         winner: null,
+        pendingFire: null,
+        forcedResult: null,
         createdAt: 0,
         lastUpdate: 0,
       };
@@ -12103,6 +12227,9 @@ nextRound();
     let myCode = null;
     let amHost = false;
     let inSession = false;
+    let lastProcessedFire = null;
+    let lastWinnerShown = null;
+    let lastDrawnAt = null;
 
     function showError(msg) {
       const el = document.getElementById('lbmError');
@@ -12113,6 +12240,7 @@ nextRound();
 
     // ---- Create ----
     async function lbm_create() {
+      if (window.SFX) SFX.ready();
       if (!window.FB) { showError('Firebase noch nicht geladen — kurz warten'); return; }
       const nameEl = document.getElementById('lbmName');
       const name = (nameEl.value.trim()) || ('Spieler ' + mySelfId.slice(2, 6));
@@ -12151,7 +12279,7 @@ nextRound();
       initial.host = mySelfId;
       initial.players[mySelfId] = {
         name: name,
-        bulletPos: Math.floor(Math.random() * 6),
+        bulletPos: -1,
         shotsFired: 0,
         alive: true,
         joinedAt: Date.now(),
@@ -12173,6 +12301,7 @@ nextRound();
 
     // ---- Join ----
     async function lbm_join() {
+      if (window.SFX) SFX.ready();
       if (!window.FB) { showError('Firebase noch nicht geladen'); return; }
       const nameEl = document.getElementById('lbmName');
       const name = (nameEl.value.trim()) || ('Spieler ' + mySelfId.slice(2, 6));
@@ -12207,7 +12336,7 @@ nextRound();
           // Add as new player
           const newPlayer = {
             name: name,
-            bulletPos: Math.floor(Math.random() * 6),
+            bulletPos: -1,
             shotsFired: 0,
             alive: true,
             joinedAt: Date.now(),
@@ -12240,24 +12369,21 @@ nextRound();
           return;
         }
         const data = snapshot.val();
-        if (data.writerId === mySelfId && lastAppliedAction === (data.state && data.state.lastAction && data.state.lastAction.ts)) {
-          // Self-write, no need to re-apply
-          state = data.state || emptyState();
-          renderAll();
-          return;
-        }
         state = data.state || emptyState();
         amHost = (state.host === mySelfId);
-        // Handle new action animation
+
+        // HOST = server: process a pending fire request authoritatively
+        if (amHost && state.pendingFire && state.pendingFire.ts !== lastProcessedFire) {
+          lastProcessedFire = state.pendingFire.ts;
+          processFire(state.pendingFire);
+          return; // broadcast re-triggers onValue with the result
+        }
+
+        // EVERYONE animates the same result simultaneously (no pre-knowledge, no delay)
         const action = state.lastAction;
-        if (action && action.ts && action.ts !== lastAppliedAction && action.actor !== mySelfId) {
+        if (action && action.ts && action.ts !== lastAppliedAction) {
           lastAppliedAction = action.ts;
-          // Show suspense for other players' actions (synced)
-          if (action.type === 'fire') {
-            showSuspenseRemote(action);
-          }
-        } else if (action) {
-          lastAppliedAction = action.ts;
+          if (action.type === 'fire') { showSuspense(action); }
         }
         renderAll();
       });
@@ -12306,6 +12432,7 @@ nextRound();
 
     // ---- View switching ----
     function switchToLobby() {
+      lastDrawnAt = null;
       document.getElementById('lbmLobby').style.display = '';
       document.getElementById('lbmGame').style.display = 'none';
       // Pre-fill name
@@ -12343,6 +12470,9 @@ nextRound();
         cn.textContent = '— noch keine —';
         cn.className = 'multi-card-name empty';
       }
+      // Card-draw sound (all clients, skip the initial render)
+      if (lastDrawnAt === null) { lastDrawnAt = state.tableDrawnAt || 0; }
+      else if ((state.tableDrawnAt || 0) !== lastDrawnAt) { lastDrawnAt = state.tableDrawnAt || 0; if (state.tableCard && window.SFX) SFX.draw(); }
 
       // Draw button visibility
       const drawBtn = document.getElementById('lbmDrawBtn');
@@ -12366,7 +12496,14 @@ nextRound();
         const isHost = id === state.host;
         const cls = 'multi-player-row' + (isMe ? ' me' : '') + (!p.alive ? ' dead' : '') + (isHost ? ' host-tag' : '');
         const crown = isHost ? '<span class="multi-player-crown">👑</span>' : '';
-        return `<div class="${cls}"><span class="multi-player-dot"></span><span class="multi-player-name">${escapeHtml(p.name)}</span>${crown}</div>`;
+        const sf = p.shotsFired || 0;
+        const left = Math.max(1, 6 - sf);
+        const pct = Math.round(100 / left);
+        const rcls = pct >= 50 ? 'high' : pct >= 30 ? 'mid' : 'low';
+        const risk = p.alive
+          ? `<span class="lbm-risk ${rcls}" title="Risiko beim nächsten Schuss">1/${left} · ${pct}%</span>`
+          : `<span class="lbm-risk dead">💀</span>`;
+        return `<div class="${cls}"><span class="multi-player-dot"></span><span class="multi-player-name">${escapeHtml(p.name)}</span>${crown}${risk}</div>`;
       }).join('');
       document.getElementById('lbmPlayersList').innerHTML = playersHtml;
       document.getElementById('lbmAliveCount').textContent = `${alive}/${peerCount}`;
@@ -12398,13 +12535,17 @@ nextRound();
         }
       }
       const winnerEl = document.getElementById('lbmWinner');
-      if (state.winner && state.players[state.winner]) {
+      if (state.winner && state.players[state.winner] && !firing) {
         document.getElementById('lbmWinnerName').textContent = state.players[state.winner].name;
         document.getElementById('lbmWinnerBtn').disabled = !amHost;
         document.getElementById('lbmWinnerHint').textContent = amHost ? '' : 'Nur Host kann neue Runde starten';
-        winnerEl.classList.add('active');
-      } else {
+        if (!winnerEl.classList.contains('active')) {
+          winnerEl.classList.add('active');
+          if (lastWinnerShown !== state.winner) { lastWinnerShown = state.winner; if (window.SFX) SFX.win(); spawnConfetti(); }
+        }
+      } else if (!state.winner) {
         winnerEl.classList.remove('active');
+        lastWinnerShown = null;
       }
     }
 
@@ -12515,68 +12656,50 @@ nextRound();
     function performShot(shooterId, targetId) {
       const shooter = state.players[shooterId];
       const target = state.players[targetId];
-      if (!shooter || !target) return;
-      const isBang = shooter.bulletPos === shooter.shotsFired;
-      const ts = Date.now();
+      if (!shooter || !target || !shooter.alive || firing) return;
+      if (state.pendingFire) return; // a shot is already being resolved
+      if (window.SFX) SFX.ready();
       firing = true;
-
-      // Local suspense
-      showSuspenseLocal(shooterId, targetId, isBang, () => {
-        firing = false;
-        // Apply state change
-        const newPlayers = JSON.parse(JSON.stringify(state.players));
-        newPlayers[shooterId].shotsFired = shooter.shotsFired + 1;
-        if (isBang) {
-          newPlayers[targetId].alive = false;
-        }
-        // Broadcast
-        const lastAction = {
-          type: 'fire',
-          actor: shooterId,
-          target: targetId,
-          result: isBang ? 'bang' : 'click',
-          ts: ts,
-        };
-        lastAppliedAction = ts;
-        broadcastState({ players: newPlayers, lastAction });
-      });
+      renderAll(); // lock buttons immediately
+      const ts = Date.now();
+      clearTimeout(performShot._wd);
+      performShot._wd = setTimeout(() => { firing = false; renderAll(); }, 5000);
+      // Send request to the host (server) — DO NOT compute the result here
+      broadcastState({ pendingFire: { actor: shooterId, target: targetId, ts: ts } });
     }
 
-    function showSuspenseLocal(shooterId, targetId, isBang, onDone) {
-      const overlay = document.getElementById('lbmSuspense');
-      const actor = document.getElementById('lbmSuspenseActor');
-      const text = document.getElementById('lbmSuspenseText');
-      const result = document.getElementById('lbmSuspenseResult');
-      const shooter = state.players[shooterId];
-      const target = state.players[targetId];
-      actor.textContent = shooterId === targetId
-        ? `${shooter.name} → AUF SICH SELBST`
-        : `${shooter.name} → ${target.name}`;
-      text.style.display = 'block';
-      text.textContent = 'DRÜCK AB';
-      result.textContent = '';
-      result.className = 'multi-suspense-result';
-      overlay.classList.add('active');
-      setTimeout(() => {
-        text.style.display = 'none';
-        if (isBang) {
-          result.textContent = '💥 BANG';
-          result.classList.add('bang');
-        } else {
-          result.textContent = '✓ CLICK';
-          result.classList.add('click');
-        }
-        setTimeout(() => {
-          overlay.classList.remove('active');
-          if (onDone) onDone();
-        }, 1500);
-      }, 1100);
+    // HOST-ONLY: authoritative random outcome
+    function processFire(req) {
+      const shooter = state.players[req.actor];
+      const target = state.players[req.target];
+      if (!shooter || !target || !shooter.alive || !target.alive) {
+        broadcastState({ pendingFire: null });
+        return;
+      }
+      const sf = shooter.shotsFired || 0;
+      const chambersLeft = Math.max(1, 6 - sf);
+      let bang;
+      if (state.forcedResult === 'bang') bang = true;
+      else if (state.forcedResult === 'click') bang = false;
+      else bang = Math.random() < (1 / chambersLeft);
+      const newPlayers = JSON.parse(JSON.stringify(state.players));
+      newPlayers[req.actor].shotsFired = sf + 1;
+      if (bang) {
+        newPlayers[req.target].alive = false;
+        newPlayers[req.actor].bulletPos = sf; // reveal fatal chamber
+      }
+      const lastAction = { type: 'fire', actor: req.actor, target: req.target, result: bang ? 'bang' : 'click', ts: req.ts };
+      broadcastState({ players: newPlayers, lastAction: lastAction, pendingFire: null, forcedResult: null });
     }
 
-    function showSuspenseRemote(action) {
+    // Unified suspense — runs identically on every client at the same time
+    function showSuspense(action) {
+      clearTimeout(performShot._wd);
       const shooter = state.players[action.actor];
       const target = state.players[action.target];
-      if (!shooter || !target) return;
+      if (!shooter || !target) { firing = false; return; }
+      firing = true;
+      if (window.SFX) SFX.ready();
       const overlay = document.getElementById('lbmSuspense');
       const actor = document.getElementById('lbmSuspenseActor');
       const text = document.getElementById('lbmSuspenseText');
@@ -12594,19 +12717,41 @@ nextRound();
         if (action.result === 'bang') {
           result.textContent = '💥 BANG';
           result.classList.add('bang');
+          if (window.SFX) SFX.bang();
         } else {
           result.textContent = '✓ CLICK';
           result.classList.add('click');
+          if (window.SFX) SFX.click();
         }
-        setTimeout(() => overlay.classList.remove('active'), 1500);
+        setTimeout(() => {
+          overlay.classList.remove('active');
+          firing = false;
+          renderAll();
+        }, 1500);
       }, 1100);
+    }
+
+    function spawnConfetti() {
+      const host = document.getElementById('lbmWinner');
+      if (!host) return;
+      const colors = ['#ffd24a', '#ff6b6b', '#4ade80', '#5eb0ff', '#c084fc', '#ffffff'];
+      for (let i = 0; i < 44; i++) {
+        const piece = document.createElement('div');
+        piece.className = 'lbm-confetti';
+        piece.style.left = (Math.random() * 100) + '%';
+        piece.style.background = colors[Math.floor(Math.random() * colors.length)];
+        piece.style.animationDelay = (Math.random() * 0.7) + 's';
+        piece.style.animationDuration = (1.6 + Math.random() * 1.6) + 's';
+        host.appendChild(piece);
+        setTimeout(() => piece.remove(), 3800);
+      }
     }
 
     function lbm_reload() {
       const me = state.players[mySelfId];
       if (!me) return;
       const newPlayers = JSON.parse(JSON.stringify(state.players));
-      newPlayers[mySelfId].bulletPos = Math.floor(Math.random() * 6);
+      newPlayers[mySelfId].bulletPos = -1;
       newPlayers[mySelfId].shotsFired = 0;
       newPlayers[mySelfId].alive = true;
       broadcastState({ players: newPlayers });
@@ -12639,7 +12784,7 @@ nextRound();
       if (!amHost) return;
       const newPlayers = JSON.parse(JSON.stringify(state.players));
       Object.keys(newPlayers).forEach(id => {
-        newPlayers[id].bulletPos = Math.floor(Math.random() * 6);
+        newPlayers[id].bulletPos = -1;
         newPlayers[id].shotsFired = 0;
         newPlayers[id].alive = true;
       });
@@ -12656,6 +12801,75 @@ nextRound();
       if (!amHost) return;
       lbm_resetRevolvers();
       broadcastState({ tableCard: null, lastAction: null, round: state.round + 1, winner: null });
+    }
+
+    // ---- ADMIN MODE ----
+    function lbm_openAdmin() { renderAdmin(); document.getElementById('lbmAdminModal').classList.add('active'); }
+    function lbm_closeAdmin() { document.getElementById('lbmAdminModal').classList.remove('active'); }
+    function renderAdmin() {
+      if (!inSession) return;
+      const fv = state.forcedResult || 'random';
+      document.querySelectorAll('#lbmAdminForce button').forEach(b => b.classList.toggle('active', b.dataset.v === fv));
+      const cardsWrap = document.getElementById('lbmAdminCards');
+      const opts = [['', '🎲 Random']].concat(Object.entries(CARDS).map(([k, c]) => [k, c.rank + ' ' + c.suit]));
+      cardsWrap.innerHTML = opts.map(([k, label]) =>
+        `<button class="lbm-admin-card ${(state.tableCard || '') === k ? 'active' : ''}" onclick="lbm_adminCard('${k}')">${label}</button>`
+      ).join('');
+      const wrap = document.getElementById('lbmAdminPlayers');
+      const ids = Object.keys(state.players).sort((a, b) => (state.players[a].joinedAt || 0) - (state.players[b].joinedAt || 0));
+      wrap.innerHTML = ids.map(id => {
+        const pl = state.players[id];
+        const isMe = id === mySelfId, isHost = id === state.host;
+        const status = pl.alive ? `lebt · ${Math.max(0, 6 - (pl.shotsFired || 0))} Kammern` : '💀 tot';
+        return `<div class="lbm-admin-player">
+          <div class="lbm-admin-player-info">
+            <div class="lbm-admin-player-name">${escapeHtml(pl.name)}${isMe ? ' (du)' : ''}${isHost ? ' 👑' : ''}</div>
+            <div class="lbm-admin-player-status">${status}</div>
+          </div>
+          <div class="lbm-admin-player-actions">
+            ${pl.alive ? `<button onclick="lbm_admKill('${id}')" title="Töten">💀</button>` : `<button onclick="lbm_admRevive('${id}')" title="Wiederbeleben">❤️</button>`}
+            <button onclick="lbm_admResetGun('${id}')" title="Revolver neu laden">🔄</button>
+            ${isHost ? '<span class="lbm-admin-spacer"></span>' : `<button onclick="lbm_admMakeHost('${id}')" title="Zum Host machen">👑</button>`}
+            ${isMe ? '<span class="lbm-admin-spacer"></span>' : `<button class="lbm-admin-kick" onclick="lbm_admKick('${id}')" title="Aus Session entfernen">✕</button>`}
+          </div>
+        </div>`;
+      }).join('');
+    }
+    function lbm_forceShot(v) { broadcastState({ forcedResult: v === 'random' ? null : v }); renderAdmin(); }
+    function lbm_adminCard(k) {
+      document.getElementById('lbmCardDisplay').classList.add('drawing');
+      setTimeout(() => document.getElementById('lbmCardDisplay').classList.remove('drawing'), 400);
+      broadcastState({ tableCard: k || null, tableDrawnAt: Date.now() });
+      renderAdmin();
+    }
+    function lbm_admRevive(id) {
+      const np = JSON.parse(JSON.stringify(state.players));
+      if (np[id]) { np[id].alive = true; np[id].shotsFired = 0; np[id].bulletPos = -1; }
+      broadcastState({ players: np, winner: null });
+      renderAdmin();
+    }
+    function lbm_admKill(id) {
+      const np = JSON.parse(JSON.stringify(state.players));
+      if (np[id]) np[id].alive = false;
+      broadcastState({ players: np });
+      renderAdmin();
+    }
+    function lbm_admResetGun(id) {
+      const np = JSON.parse(JSON.stringify(state.players));
+      if (np[id]) { np[id].alive = true; np[id].shotsFired = 0; np[id].bulletPos = -1; }
+      broadcastState({ players: np });
+      renderAdmin();
+    }
+    function lbm_admMakeHost(id) { broadcastState({ host: id }); renderAdmin(); }
+    async function lbm_admKick(id) {
+      if (id === mySelfId) return;
+      if (!confirm('Diesen Spieler aus der Session entfernen?')) return;
+      const np = JSON.parse(JSON.stringify(state.players));
+      delete np[id];
+      broadcastState({ players: np });
+      const fb = window.FB;
+      try { if (fb && fb.remove) await fb.remove(fb.ref(fb.db, `sessions/${myCode}/peers/${id}`)); } catch (e) {}
+      renderAdmin();
     }
 
     // ---- Auto-init when switching to this app ----
@@ -12695,6 +12909,15 @@ nextRound();
     window.lbm_resetRevolvers = lbm_resetRevolvers;
     window.lbm_kickAll = lbm_kickAll;
     window.lbm_newRound = lbm_newRound;
+    window.lbm_openAdmin = lbm_openAdmin;
+    window.lbm_closeAdmin = lbm_closeAdmin;
+    window.lbm_forceShot = lbm_forceShot;
+    window.lbm_adminCard = lbm_adminCard;
+    window.lbm_admRevive = lbm_admRevive;
+    window.lbm_admKill = lbm_admKill;
+    window.lbm_admResetGun = lbm_admResetGun;
+    window.lbm_admMakeHost = lbm_admMakeHost;
+    window.lbm_admKick = lbm_admKick;
   })();
 
 
