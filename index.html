@@ -6471,6 +6471,20 @@
     .app-alki button.action { font-size: 0.85rem; }
   }
 
+  /* ====================== HIDDEN PIANO UNLOCK ====================== */
+  .home-piano-unlock { margin-top: 1.1rem; display: flex; justify-content: center; animation: pianoReveal 0.4s ease; }
+  @keyframes pianoReveal { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+  .home-piano-btn {
+    display: inline-flex; align-items: center; gap: 0.6rem; padding: 0.85rem 1.6rem; border-radius: 14px;
+    background: linear-gradient(135deg, rgba(40,40,52,0.9), rgba(20,20,28,0.9));
+    border: 1px solid rgba(94,200,160,0.4); color: #eaf3ee; cursor: pointer;
+    font-family: 'Cinzel', 'Bebas Neue', sans-serif; font-size: 1.05rem; letter-spacing: 0.06em;
+    box-shadow: 0 6px 22px rgba(0,0,0,0.4), inset 0 0 0 1px rgba(255,255,255,0.04); transition: all 0.15s;
+  }
+  .home-piano-btn:hover { border-color: rgba(94,200,160,0.7); transform: translateY(-2px); box-shadow: 0 10px 28px rgba(94,200,160,0.18); }
+  .home-piano-btn:active { transform: scale(0.97); }
+  .home-piano-emoji { font-size: 1.4rem; }
+
   /* ====================== NOTEN-TRAINER ====================== */
   .app-noten {
     background: linear-gradient(180deg, #11141a 0%, #080a0e 100%);
@@ -6512,6 +6526,13 @@
   .nt-note.correct-flash { fill: #16a34a; }
   .nt-note.wrong-flash { fill: #dc2626; }
 
+  .nt-listen {
+    display: block; margin: 0 auto 0.5rem; padding: 0.5rem 1.2rem; border-radius: 22px;
+    background: rgba(94,200,160,0.14); border: 1px solid rgba(94,200,160,0.35); color: #5ec8a0;
+    font-family: 'Outfit', sans-serif; font-size: 0.88rem; cursor: pointer; transition: all 0.12s;
+  }
+  .nt-listen:hover { background: rgba(94,200,160,0.24); }
+  .nt-listen:active { transform: scale(0.95); }
   .nt-hint {
     text-align: center; font-family: 'Outfit', sans-serif; font-size: 0.95rem;
     color: rgba(94,200,160,0.9); min-height: 1.3rem; margin-bottom: 0.7rem; font-weight: 600; letter-spacing: 0.02em;
@@ -6746,7 +6767,7 @@
 <!-- Admin toggle (hidden by default, shown after 5x title clicks) -->
 <button class="admin-toggle" id="adminToggleBtn" onclick="openAdminPanel()" style="display:none" aria-label="Admin-Panel öffnen" title="Admin-Panel">🔧</button>
 
-<div class="app-version" id="appVersion">v1.3.1</div>
+<div class="app-version" id="appVersion">v1.3.3</div>
 
 <!-- Admin toast -->
 <div class="admin-toast" id="adminToast"></div>
@@ -6856,10 +6877,6 @@
       <span class="icon">🕵️</span>
       <span>Impostor Solo</span>
     </button>
-    <button class="menu-item" data-app="noten" onclick="switchApp('noten')">
-      <span class="icon">🎼</span>
-      <span>Noten-Trainer</span>
-    </button>
     <div class="menu-divider"></div>
     <div class="menu-section-label">MULTIPLAYER</div>
     <button class="menu-item" data-app="liarsbarMulti" onclick="switchApp('liarsbarMulti')">
@@ -6956,10 +6973,16 @@
   <div class="home-inner">
     <div class="home-header">
       <div class="home-logo">🎲</div>
-      <div class="home-title">Spieleabend</div>
+      <div class="home-title" onclick="handleHomeTitleClick()" style="cursor:pointer">Spieleabend</div>
       <div class="home-sub">Wähle ein Spiel</div>
     </div>
     <div id="homeGrid"></div>
+    <div id="pianoUnlock" class="home-piano-unlock" style="display:none">
+      <button class="home-piano-btn" onclick="switchApp('noten')">
+        <span class="home-piano-emoji">🎹</span>
+        <span class="home-piano-text">Klavier-Trainer</span>
+      </button>
+    </div>
     <div class="home-footer">Single-Device direkt losspielen · Multiplayer per Code auf mehreren Handys</div>
   </div>
 </div>
@@ -8475,6 +8498,7 @@
     </div>
 
     <div class="nt-sheet" id="ntSheet"></div>
+    <button class="nt-listen" id="ntListenBtn" onclick="nt_listen()">🔊 Anhören</button>
     <div class="nt-hint" id="ntHint">&nbsp;</div>
 
     <div class="nt-answers" id="ntAnswers"></div>
@@ -8512,6 +8536,14 @@
       <label class="nt-toggle" onclick="nt_toggleHelp()">
         <span>Hilfe: Notennamen anzeigen</span>
         <span class="nt-switch" id="ntSwHelp"></span>
+      </label>
+      <label class="nt-toggle" onclick="nt_toggleSound()">
+        <span>🔊 Klavierton</span>
+        <span class="nt-switch" id="ntSwSound"></span>
+      </label>
+      <label class="nt-toggle" onclick="nt_toggleAuto()">
+        <span>Note automatisch vorspielen</span>
+        <span class="nt-switch" id="ntSwAuto"></span>
       </label>
 
       <button class="nt-reset" onclick="nt_resetStats()">Statistik zurücksetzen</button>
@@ -9670,7 +9702,7 @@
     codenames: 'rgba(150,170,200,0.30)',
   };
   const HOME_APPS = [
-    { group: 'SOLO · 1 GERÄT', items: ['liarsbar', 'poker', 'alki', 'impostorSolo', 'noten'] },
+    { group: 'SOLO · 1 GERÄT', items: ['liarsbar', 'poker', 'alki', 'impostorSolo'] },
     { group: 'MULTIPLAYER · MEHRERE HANDYS', items: ['liarsbarMulti', 'alkiMulti', 'pokerMulti', 'werwolf', 'impostor', 'slf', 'blackstories', 'werbinich', 'tabu', 'codenames'] },
   ];
   function renderHomeGrid() {
@@ -9783,7 +9815,7 @@
     const SETTINGS_KEY = 'nt-settings-v1';
     const STATS_KEY = 'nt-stats-v1';
 
-    let settings = { clefs: 'treble', accidentals: false, naming: 'german', helpers: false, range: 'einsteiger' };
+    let settings = { clefs: 'treble', accidentals: false, naming: 'german', helpers: false, range: 'einsteiger', sound: true, autoPlay: false };
     let stats = { correct: 0, total: 0, streak: 0, best: 0 };
     let cur = null;
     let locked = false;
@@ -9810,6 +9842,22 @@
       }
       return letter + accSym(acc);
     }
+
+    // ── piano playback ──
+    const SEMITONES = { C: 0, D: 2, E: 4, F: 5, G: 7, A: 9, B: 11 };
+    function noteFreq(letter, octave, acc) {
+      let st = SEMITONES[letter] + (acc === 'sharp' ? 1 : acc === 'flat' ? -1 : 0);
+      const midi = (octave + 1) * 12 + st;
+      return 440 * Math.pow(2, (midi - 69) / 12);
+    }
+    function playCurrentNote() {
+      if (!settings.sound || !cur || !window.SFX || !window.SFX.piano) return;
+      window.SFX.ready();
+      window.SFX.piano(noteFreq(cur.letter, cur.octave, cur.acc));
+    }
+    function nt_listen() { if (window.SFX) window.SFX.ready(); playCurrentNote(); }
+    function nt_toggleSound() { settings.sound = !settings.sound; saveSettings(); syncSettingsUI(); }
+    function nt_toggleAuto() { settings.autoPlay = !settings.autoPlay; saveSettings(); syncSettingsUI(); }
 
     function load() {
       try { const s = JSON.parse(localStorage.getItem(SETTINGS_KEY)); if (s) settings = Object.assign(settings, s); } catch (e) {}
@@ -9928,6 +9976,7 @@
         stats.correct++; stats.streak++; if (stats.streak > stats.best) stats.best = stats.streak;
         el.classList.add('correct');
         setHint('✓ Richtig!', 'good');
+        playCurrentNote();
         saveStats(); updateStats();
         setTimeout(nt_next, 650);
       } else {
@@ -9951,6 +10000,7 @@
       renderStaff();
       if (settings.helpers) setHint('Tipp: ' + displayName(cur.letter, cur.acc, settings.naming), 'good');
       else setHint('', '');
+      if (settings.autoPlay) playCurrentNote();
     }
 
     // ── settings ──
@@ -9960,6 +10010,10 @@
       document.querySelectorAll('#ntSegNaming button').forEach(b => b.classList.toggle('active', b.dataset.v === settings.naming));
       document.getElementById('ntSwAcc').classList.toggle('on', settings.accidentals);
       document.getElementById('ntSwHelp').classList.toggle('on', settings.helpers);
+      document.getElementById('ntSwSound').classList.toggle('on', settings.sound);
+      document.getElementById('ntSwAuto').classList.toggle('on', settings.autoPlay);
+      const lb = document.getElementById('ntListenBtn');
+      if (lb) lb.style.display = settings.sound ? '' : 'none';
     }
     function nt_setClef(v) { settings.clefs = v; saveSettings(); syncSettingsUI(); restart(); }
     function nt_setRange(v) { settings.range = v; saveSettings(); syncSettingsUI(); restart(); }
@@ -10001,6 +10055,9 @@
     window.nt_next = nt_next;
     window.nt_setClef = nt_setClef;
     window.nt_setRange = nt_setRange;
+    window.nt_listen = nt_listen;
+    window.nt_toggleSound = nt_toggleSound;
+    window.nt_toggleAuto = nt_toggleAuto;
     window.nt_setNaming = nt_setNaming;
     window.nt_toggleAcc = nt_toggleAcc;
     window.nt_toggleHelp = nt_toggleHelp;
@@ -10021,6 +10078,7 @@
         <li><b>Notennamen:</b> International (B) oder Deutsch (H)</li>
         <li><b>Vorzeichen:</b> ♯/♭ dazuschalten für Fortgeschrittene</li>
         <li><b>Hilfe:</b> blendet den Notennamen als Tipp ein</li>
+        <li><b>🔊 Klavierton:</b> Note anhören — optional automatisch bei jeder neuen Note</li>
       </ul>
       <div class="gr-h">Statistik</div>
       <p>Oben siehst du Richtig-Anzahl, Quote, aktuelle und beste Streak. Alles wird lokal gespeichert.</p>` },
@@ -10144,9 +10202,31 @@
   window.showGameRules = showGameRules;
   window.hideGameRules = hideGameRules;
 
+  // ============ HIDDEN PIANO TRAINER UNLOCK ============
+  let homeTitleClicks = 0, homeTitleTimer = null;
+  function handleHomeTitleClick() {
+    homeTitleClicks++;
+    if (homeTitleTimer) clearTimeout(homeTitleTimer);
+    homeTitleTimer = setTimeout(() => { homeTitleClicks = 0; }, 2500);
+    if (homeTitleClicks >= 5) {
+      homeTitleClicks = 0;
+      const el = document.getElementById('pianoUnlock');
+      const wasHidden = el && el.style.display === 'none';
+      unlockPiano();
+      if (wasHidden && typeof showAdminToast === 'function') showAdminToast('🎹 Klavier-Trainer freigeschaltet');
+    }
+  }
+  function unlockPiano() {
+    const el = document.getElementById('pianoUnlock');
+    if (el) el.style.display = '';
+    try { localStorage.setItem('piano-unlocked', '1'); } catch (e) {}
+  }
+  window.handleHomeTitleClick = handleHomeTitleClick;
+
   // Build launcher and always start on the home screen
   (function() {
     renderHomeGrid();
+    try { if (localStorage.getItem('piano-unlocked') === '1') unlockPiano(); } catch (e) {}
     switchApp('home');
   })();
 
@@ -12153,6 +12233,24 @@ nextRound();
       bang()  { const c = ac(); if (!c) return; const t = c.currentTime; noise(t, 0.32, 0.95, 'lowpass', 1900, 0.7); noise(t, 0.07, 0.7, 'highpass', 3200, 0.5); tone(68, t, 0.34, 'sine', 0.9); tone(120, t, 0.18, 'triangle', 0.4); },
       draw()  { const c = ac(); if (!c) return; const t = c.currentTime; noise(t, 0.17, 0.22, 'bandpass', 1700, 0.8); tone(720, t + 0.02, 0.09, 'sine', 0.07); },
       win()   { const c = ac(); if (!c) return; const t = c.currentTime; [523.25, 659.25, 783.99, 1046.5].forEach((f, i) => tone(f, t + i * 0.12, 0.5, 'triangle', 0.28)); },
+      piano(freq, dur, vel) {
+        const c = ac(); if (!c) return;
+        const t = c.currentTime; dur = dur || 1.5;
+        const out = c.createGain(); out.gain.value = vel || 0.5;
+        const lp = c.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.value = Math.min(9000, freq * 6 + 1400);
+        out.connect(lp); lp.connect(c.destination);
+        const partials = [[1, 1.0, 1.0], [2, 0.55, 0.82], [3, 0.32, 0.64], [4, 0.18, 0.5], [5, 0.10, 0.42], [6, 0.06, 0.34]];
+        partials.forEach(function(pr) {
+          const h = pr[0], g = pr[1], dm = pr[2];
+          const o = c.createOscillator(); o.type = 'sine'; o.frequency.value = freq * h;
+          const ga = c.createGain();
+          ga.gain.setValueAtTime(0.0001, t);
+          ga.gain.exponentialRampToValueAtTime(g, t + 0.006);
+          ga.gain.exponentialRampToValueAtTime(0.0001, t + dur * dm);
+          o.connect(ga); ga.connect(out);
+          o.start(t); o.stop(t + dur * dm + 0.05);
+        });
+      },
     };
   })();
 
