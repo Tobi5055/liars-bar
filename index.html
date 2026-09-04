@@ -5155,48 +5155,43 @@
     --wrong:        #d96452;
   }
 
-  /* --- Theme: Modern (flat slate/blau) --- */
+  /* --- Theme: Modern (flach, geometrisch, Slate/Blau) --- */
   .app-poker.theme-modern {
-    --felt-deep:  #0e1118;
-    --felt-mid:   #141a26;
-    --felt-light: #1c2534;
-    --gold:       #5b8dff;
-    --gold-soft:  #3f6fd0;
-    --cream:      #e9eef7;
-    --cream-dim:  #9aa6ba;
-    --card-white: #ffffff;
-    --card-shadow: rgba(0,0,0,0.5);
-    --red-suit:   #e5484d;
-    --black-suit: #10131a;
-    --correct:    #3fb950;
-    --wrong:      #f0533f;
+    --felt-deep:#0e1118; --felt-mid:#141a26; --felt-light:#1c2534;
+    --gold:#5b8dff; --gold-soft:#3f6fd0;
+    --cream:#e9eef7; --cream-dim:#9aa6ba;
+    --card-white:#ffffff; --card-shadow:rgba(0,0,0,0.5);
+    --red-suit:#e5484d; --black-suit:#10131a;
+    --correct:#3fb950; --wrong:#f0533f;
     background: linear-gradient(180deg, var(--felt-light) 0%, var(--felt-deep) 100%);
     background-attachment: fixed;
   }
-  .app-poker.theme-modern.visible::before { opacity: 0.35; }
-  .app-poker.theme-modern .title span { -webkit-text-fill-color: var(--gold); }
+  .app-poker.theme-modern.visible::before { opacity: 0.28; }
+  .app-poker.theme-modern .title { font-family: 'Outfit', sans-serif; font-style: normal; font-weight: 800; letter-spacing: -0.5px; }
+  .app-poker.theme-modern .subtitle { letter-spacing: 4px; }
+  .app-poker.theme-modern .phase-label { font-family: 'Outfit', sans-serif; font-style: normal; font-weight: 600; letter-spacing: 3px; font-size: 12px; }
+  .app-poker.theme-modern .card-rank { font-family: 'Outfit', sans-serif; font-weight: 700; }
+  .app-poker.theme-modern .table { border-radius: 10px; background: linear-gradient(180deg, var(--felt-mid), var(--felt-deep)); box-shadow: 0 8px 26px rgba(0,0,0,0.45); border-color: rgba(91,141,255,0.22); }
+  .app-poker.theme-modern .card { border-radius: 4px; box-shadow: 0 2px 8px var(--card-shadow); }
+  .app-poker.theme-modern .option { border-radius: 6px; backdrop-filter: none; -webkit-backdrop-filter: none; letter-spacing: 0.5px; border-color: rgba(91,141,255,0.28); }
+  .app-poker.theme-modern .option:hover:not(:disabled) { transform: none; box-shadow: none; background: rgba(91,141,255,0.14); }
+  .app-poker.theme-modern .next-btn { border-radius: 8px; box-shadow: none; letter-spacing: 3px; }
 
-  /* --- Theme: Fancy (lila/gold, Glow) --- */
+  /* --- Theme: Fancy (edel & dezent, Kupfer auf Anthrazit) --- */
   .app-poker.theme-fancy {
-    --felt-deep:  #150a29;
-    --felt-mid:   #271043;
-    --felt-light: #3a1a63;
-    --gold:       #ffd24a;
-    --gold-soft:  #e6a92f;
-    --cream:      #f6ecff;
-    --cream-dim:  #c4b0e0;
-    --card-white: #fbf7ff;
-    --card-shadow: rgba(80,0,120,0.5);
-    --red-suit:   #ff4d6d;
-    --black-suit: #241a3a;
-    --correct:    #4ade80;
-    --wrong:      #ff6b6b;
+    --felt-deep:#0b0b0d; --felt-mid:#161519; --felt-light:#232128;
+    --gold:#d9a679; --gold-soft:#b07f57;
+    --cream:#f0e9e2; --cream-dim:#b3a89d;
+    --card-white:#f7f2ec; --card-shadow:rgba(0,0,0,0.55);
+    --red-suit:#c46a6a; --black-suit:#22222c;
+    --correct:#7bbf8a; --wrong:#cf8272;
   }
-  .app-poker.theme-fancy .title { text-shadow: 0 0 20px rgba(255,210,74,0.55); }
-  .app-poker.theme-fancy .stat-value { text-shadow: 0 0 12px rgba(255,210,74,0.45); }
-  .app-poker.theme-fancy .table { box-shadow: 0 0 44px rgba(160,90,255,0.4), inset 0 0 60px rgba(120,60,200,0.22); }
-  .app-poker.theme-fancy .card { box-shadow: 0 6px 22px rgba(120,40,200,0.4); }
-  .app-poker.theme-fancy .option:hover:not(:disabled) { box-shadow: 0 0 18px rgba(255,210,74,0.35); }
+  .app-poker.theme-fancy .title { letter-spacing: 0.06em; text-shadow: 0 2px 12px rgba(0,0,0,0.55); }
+  .app-poker.theme-fancy .table { border-radius: 34px; border: 1px solid rgba(217,166,121,0.35); box-shadow: inset 0 0 55px rgba(0,0,0,0.5), 0 12px 34px rgba(0,0,0,0.45); }
+  .app-poker.theme-fancy .card { border-radius: 12px; box-shadow: 0 6px 18px var(--card-shadow); }
+  .app-poker.theme-fancy .option { border-radius: 16px; border-color: rgba(217,166,121,0.28); }
+  .app-poker.theme-fancy .option:hover:not(:disabled) { box-shadow: 0 6px 18px rgba(0,0,0,0.45); }
+  .app-poker.theme-fancy .next-btn { box-shadow: 0 4px 14px rgba(0,0,0,0.45); }
 
   /* --- Theme selector --- */
   .poker-themes { display: flex; gap: 0.4rem; justify-content: center; margin: 0.1rem auto 1.2rem; position: relative; z-index: 1; }
@@ -6851,7 +6846,7 @@
 <!-- Admin toggle (hidden by default, shown after 5x title clicks) -->
 <button class="admin-toggle" id="adminToggleBtn" onclick="openAdminPanel()" style="display:none" aria-label="Admin-Panel öffnen" title="Admin-Panel">🔧</button>
 
-<div class="app-version" id="appVersion">v1.4.1</div>
+<div class="app-version" id="appVersion">v1.4.2</div>
 
 <!-- Admin toast -->
 <div class="admin-toast" id="adminToast"></div>
@@ -10328,7 +10323,7 @@
   window.handleHomeTitleClick = handleHomeTitleClick;
 
   // ============ GLOBAL VISIBILITY (owner-controlled via Firebase) ============
-  const OWNER_PIN = '2468'; // <-- eigene PIN setzen
+  const OWNER_PIN = '1004'; // <-- eigene PIN setzen
   let logoClicks = 0, logoTimer = null;
 
   function initGlobalConfig(attempt) {
