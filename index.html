@@ -6841,6 +6841,78 @@
     font-family: 'Outfit', sans-serif; font-size: 0.85rem; cursor: pointer;
   }
 
+
+  /* ====================== GLOBAL THEMES ====================== */
+  /* "Klassisch" = no overrides (each game keeps its original identity).
+     Modern / Fancy / Eigenes re-skin the shared .multi-* components and
+     every app background, which covers all games at once.               */
+  body.gt-on {
+    --th-bg1:#0e1118; --th-bg2:#05070b; --th-surface:rgba(255,255,255,0.05);
+    --th-surface2:rgba(255,255,255,0.09); --th-border:rgba(255,255,255,0.16);
+    --th-accent:#5b8dff; --th-accent2:#3f6fd0; --th-text:#e9eef7; --th-dim:#9aa6ba;
+  }
+  body.gt-fancy {
+    --th-bg1:#141117; --th-bg2:#08070a; --th-surface:rgba(255,255,255,0.045);
+    --th-surface2:rgba(217,166,121,0.14); --th-border:rgba(217,166,121,0.3);
+    --th-accent:#d9a679; --th-accent2:#b07f57; --th-text:#f0e9e2; --th-dim:#b3a89d;
+  }
+
+  /* App backgrounds */
+  body.gt-on .app-liarsbar-multi, body.gt-on .app-alki-multi, body.gt-on .app-poker-multi,
+  body.gt-on .app-werwolf, body.gt-on .app-impostor, body.gt-on .app-slf,
+  body.gt-on .app-blackstories, body.gt-on .app-werbinich, body.gt-on .app-tabu,
+  body.gt-on .app-codenames, body.gt-on .app-imps, body.gt-on .app-home {
+    background: linear-gradient(180deg, var(--th-bg1) 0%, var(--th-bg2) 100%) !important;
+    color: var(--th-text);
+  }
+
+  /* Shared multiplayer chrome */
+  body.gt-on .multi-topbar { background: var(--th-surface) !important; border-color: var(--th-border) !important; }
+  body.gt-on .multi-topbar-code { color: var(--th-accent) !important; }
+  body.gt-on .multi-topbar-btn { background: var(--th-surface2) !important; border-color: var(--th-border) !important; color: var(--th-text) !important; }
+  body.gt-on .multi-lobby-title { color: var(--th-text) !important; }
+  body.gt-on .multi-lobby-sub, body.gt-on .multi-lobby-label, body.gt-on .multi-lobby-hint { color: var(--th-dim) !important; }
+  body.gt-on .multi-tag { background: var(--th-accent) !important; color: #0b0d12 !important; }
+  body.gt-on .multi-input { background: rgba(0,0,0,0.35) !important; border-color: var(--th-border) !important; color: var(--th-text) !important; }
+  body.gt-on .multi-input:focus { border-color: var(--th-accent) !important; }
+  body.gt-on .multi-action-btn, body.gt-on .multi-btn, body.gt-on .multi-draw-btn,
+  body.gt-on .pm-start-btn, body.gt-on .multi-start-btn {
+    background: linear-gradient(135deg, var(--th-accent2), var(--th-accent)) !important;
+    box-shadow: none !important; color: #0b0d12 !important;
+  }
+  body.gt-on .multi-player-row, body.gt-on .pm-waiting-player {
+    background: var(--th-surface) !important; border-color: var(--th-border) !important; color: var(--th-text) !important;
+  }
+  body.gt-on .multi-modal { background: linear-gradient(180deg, var(--th-bg1), var(--th-bg2)) !important; border-color: var(--th-border) !important; }
+  body.gt-on .multi-modal-title { color: var(--th-text) !important; }
+  body.gt-on .multi-settings-btn-full, body.gt-on .multi-modal-close {
+    background: var(--th-surface2) !important; border-color: var(--th-border) !important; color: var(--th-text) !important;
+  }
+  body.gt-on .multi-card-display { background: var(--th-surface) !important; border-color: var(--th-border) !important; }
+  body.gt-on .multi-card-name { color: var(--th-accent) !important; }
+  body.gt-on .pm-waiting-section-label, body.gt-on .multi-settings-label { color: var(--th-dim) !important; }
+  body.gt-on .g-btn, body.gt-on .slf-btn, body.gt-on .imps-btn {
+    background: linear-gradient(135deg, var(--th-accent2), var(--th-accent)) !important; color: #0b0d12 !important; box-shadow: none !important;
+  }
+  body.gt-on .rules-link { border-color: var(--th-border) !important; color: var(--th-text) !important; }
+
+  /* Home launcher */
+  body.gt-on .home-tile { background: var(--th-surface) !important; border-color: var(--th-border) !important; }
+  body.gt-on .home-tile-name { color: var(--th-text) !important; }
+  body.gt-on .home-tile-desc, body.gt-on .home-section-label, body.gt-on .home-sub { color: var(--th-dim) !important; }
+  body.gt-on .home-title { color: var(--th-text) !important; }
+
+  /* Theme picker inside the menu drawer */
+  .gt-picker { padding: 0.6rem 0.9rem 0.2rem; }
+  .gt-picker-label { font-family:'Outfit',sans-serif; font-size:0.62rem; letter-spacing:0.2em; text-transform:uppercase; color:rgba(255,255,255,0.4); margin-bottom:0.4rem; }
+  .gt-row { display:flex; gap:0.3rem; flex-wrap:wrap; }
+  .gt-row button {
+    flex:1; min-width:58px; padding:0.4rem 0.3rem; border-radius:7px; cursor:pointer;
+    border:1px solid rgba(255,255,255,0.16); background:rgba(255,255,255,0.06);
+    color:rgba(255,255,255,0.8); font-family:'Outfit',sans-serif; font-size:0.72rem;
+  }
+  .gt-row button.active { background:rgba(255,255,255,0.22); border-color:rgba(255,255,255,0.5); color:#fff; font-weight:700; }
+
   /* ====================== SHARED GAME RULES ====================== */
   .gr-backdrop {
     position: fixed; inset: 0; background: rgba(0,0,0,0.72);
@@ -6957,7 +7029,7 @@
 <!-- Admin toggle (hidden by default, shown after 5x title clicks) -->
 <button class="admin-toggle" id="adminToggleBtn" onclick="openAdminPanel()" style="display:none" aria-label="Admin-Panel öffnen" title="Admin-Panel">🔧</button>
 
-<div class="app-version" id="appVersion">v1.7.0</div>
+<div class="app-version" id="appVersion">v1.8.1</div>
 
 <!-- Admin toast -->
 <div class="admin-toast" id="adminToast"></div>
@@ -7048,6 +7120,22 @@
   </div>
 </div>
 
+<!-- ============ GLOBAL THEME EDITOR ============ -->
+<div class="ga-backdrop" id="gtEditor" onclick="if(event.target===this) gt_closeEditor()">
+  <div class="ga-modal">
+    <div class="ga-modal-title">🎨 Eigenes Design</div>
+    <div class="ga-modal-sub">Gilt für alle Spiele · sofort sichtbar</div>
+    <div class="ga-modal-sub" style="color:rgba(255,255,255,0.4)">Vorlage laden</div>
+    <div class="gt-row" style="margin-bottom:0.6rem">
+      <button onclick="gt_preset('modern')">Modern</button>
+      <button onclick="gt_preset('fancy')">Fancy</button>
+    </div>
+    <div class="ga-list" id="gtEdColors"></div>
+    <div class="ga-hint">„Klassisch" lässt jedem Spiel seine Originalfarben.</div>
+    <button class="ga-close" onclick="gt_closeEditor()">FERTIG</button>
+  </div>
+</div>
+
 <!-- ============ GLOBAL VISIBILITY ADMIN ============ -->
 <div class="ga-backdrop" id="globalAdminModal" onclick="if(event.target===this) closeGlobalAdmin()">
   <div class="ga-modal">
@@ -7061,6 +7149,16 @@
 
 <nav class="menu-drawer" id="menuDrawer">
   <div class="menu-header">Spiele</div>
+  <div class="gt-picker">
+    <div class="gt-picker-label">Design</div>
+    <div class="gt-row" id="gtRow">
+      <button data-g="classic" onclick="gt_set('classic')">Klassisch</button>
+      <button data-g="modern" onclick="gt_set('modern')">Modern</button>
+      <button data-g="fancy" onclick="gt_set('fancy')">Fancy</button>
+      <button data-g="custom" onclick="gt_set('custom')">Eigenes</button>
+      <button onclick="gt_openEditor()" title="Anpassen" style="flex:0 0 auto;min-width:38px">🎨</button>
+    </div>
+  </div>
   <div class="menu-items">
     <button class="menu-item" data-app="liarsbar" onclick="switchApp('liarsbar')">
       <span class="icon">🎰</span>
@@ -9281,6 +9379,19 @@
     return null;
   }
 
+  // PIN gate — remembered per browser tab so you don't retype it constantly
+  function adminPinVerified() {
+    try { return sessionStorage.getItem('admin-pin-ok') === '1'; } catch (e) { return false; }
+  }
+  function requestAdminPin() {
+    if (adminPinVerified()) return true;
+    const pin = prompt('Admin-PIN:');
+    if (pin === null) return false;
+    if (pin !== (window.OWNER_PIN_VALUE || '1004')) { showAdminToast('❌ Falsche PIN'); return false; }
+    try { sessionStorage.setItem('admin-pin-ok', '1'); } catch (e) {}
+    return true;
+  }
+
   function handleAdminTitleClick() {
     if (ADMIN.active) return; // already active, ignore clicks
     ADMIN.clickCount++;
@@ -9288,6 +9399,7 @@
     ADMIN.clickTimer = setTimeout(() => { ADMIN.clickCount = 0; }, ADMIN.CLICK_WINDOW_MS);
     if (ADMIN.clickCount >= ADMIN.CLICK_THRESHOLD) {
       ADMIN.clickCount = 0;
+      if (!requestAdminPin()) return;   // no PIN → nothing happens at all
       toggleAdminMode();
     }
   }
@@ -9306,6 +9418,7 @@
         b.style.cssText = 'display:none !important';
       }
     });
+    if (!ADMIN.active) { try { sessionStorage.removeItem('admin-pin-ok'); } catch (e) {} }
     showAdminToast(ADMIN.active ? '🔧 ADMIN AKTIV' : '🔒 ADMIN AUS');
   }
 
@@ -9328,6 +9441,7 @@
   }
 
   function openAdminPanel() {
+    if (!requestAdminPin()) return;
     const app = getCurrentAdminApp();
     if (app === 'pokerMulti' && typeof window.pm_openAdmin === 'function') {
       window.pm_openAdmin();
@@ -10466,6 +10580,61 @@
   window.showGameRules = showGameRules;
   window.hideGameRules = hideGameRules;
 
+  // ============ GLOBAL THEMES ============
+  const GT_FIELDS = [
+    ['th-bg1','Hintergrund oben'], ['th-bg2','Hintergrund unten'],
+    ['th-accent','Akzent'], ['th-accent2','Akzent dunkel'],
+    ['th-text','Text'], ['th-dim','Text gedämpft'],
+  ];
+  const GT_PRESETS = {
+    modern: { 'th-bg1':'#0e1118','th-bg2':'#05070b','th-accent':'#5b8dff','th-accent2':'#3f6fd0','th-text':'#e9eef7','th-dim':'#9aa6ba' },
+    fancy:  { 'th-bg1':'#141117','th-bg2':'#08070a','th-accent':'#d9a679','th-accent2':'#b07f57','th-text':'#f0e9e2','th-dim':'#b3a89d' },
+  };
+  let gtCustom = null;
+  function gt_loadCustom() {
+    if (gtCustom) return gtCustom;
+    let sv = null; try { sv = JSON.parse(localStorage.getItem('global-theme-custom')); } catch (e) {}
+    gtCustom = Object.assign({}, GT_PRESETS.modern, sv || {});
+    return gtCustom;
+  }
+  function gt_applyCustomVars() {
+    const c = gt_loadCustom(), b = document.body;
+    GT_FIELDS.forEach(function(f) { b.style.setProperty('--' + f[0], c[f[0]]); });
+    b.style.setProperty('--th-surface', 'rgba(255,255,255,0.05)');
+    b.style.setProperty('--th-surface2', 'rgba(255,255,255,0.09)');
+    b.style.setProperty('--th-border', 'rgba(255,255,255,0.16)');
+  }
+  function gt_clearCustomVars() {
+    const b = document.body;
+    GT_FIELDS.forEach(function(f) { b.style.removeProperty('--' + f[0]); });
+    ['--th-surface','--th-surface2','--th-border'].forEach(function(v) { b.style.removeProperty(v); });
+  }
+  function gt_set(name) {
+    const b = document.body;
+    b.classList.remove('gt-on','gt-fancy','gt-custom');
+    gt_clearCustomVars();
+    if (name === 'modern') b.classList.add('gt-on');
+    else if (name === 'fancy') b.classList.add('gt-on','gt-fancy');
+    else if (name === 'custom') { b.classList.add('gt-on','gt-custom'); gt_applyCustomVars(); }
+    document.querySelectorAll('#gtRow button[data-g]').forEach(function(x) { x.classList.toggle('active', x.dataset.g === name); });
+    try { localStorage.setItem('global-theme', name); } catch (e) {}
+  }
+  function gt_renderEditor() {
+    const c = gt_loadCustom();
+    const w = document.getElementById('gtEdColors');
+    if (w) w.innerHTML = GT_FIELDS.map(function(f) {
+      return '<label class="ga-row" style="cursor:default"><span class="ga-name">' + f[1] + '</span>' +
+        '<input type="color" value="' + c[f[0]] + '" oninput="gt_setColor(\'' + f[0] + '\', this.value)" style="width:44px;height:30px;border:1px solid rgba(255,255,255,0.2);border-radius:6px;background:none;cursor:pointer;padding:0"></label>';
+    }).join('');
+  }
+  function gt_openEditor() { gt_loadCustom(); gt_set('custom'); gt_renderEditor(); document.getElementById('gtEditor').classList.add('active'); }
+  function gt_closeEditor() { document.getElementById('gtEditor').classList.remove('active'); }
+  function gt_setColor(k, v) { gt_loadCustom(); gtCustom[k] = v; try { localStorage.setItem('global-theme-custom', JSON.stringify(gtCustom)); } catch (e) {} gt_applyCustomVars(); }
+  function gt_preset(n) { gtCustom = Object.assign({}, GT_PRESETS[n]); try { localStorage.setItem('global-theme-custom', JSON.stringify(gtCustom)); } catch (e) {} gt_applyCustomVars(); gt_renderEditor(); }
+  window.gt_set = gt_set; window.gt_openEditor = gt_openEditor; window.gt_closeEditor = gt_closeEditor;
+  window.gt_setColor = gt_setColor; window.gt_preset = gt_preset;
+  (function() { let t = 'classic'; try { t = localStorage.getItem('global-theme') || 'classic'; } catch (e) {} gt_set(t); })();
+
   // ============ HIDDEN PIANO TRAINER UNLOCK ============
   let homeTitleClicks = 0, homeTitleTimer = null;
   function handleHomeTitleClick() {
@@ -10488,7 +10657,8 @@
   window.handleHomeTitleClick = handleHomeTitleClick;
 
   // ============ GLOBAL VISIBILITY (owner-controlled via Firebase) ============
-  const OWNER_PIN = '1004'; // <-- eigene PIN setzen
+  const OWNER_PIN = '1004'; // <-- eigene PIN setzen (gilt auch für die Admin-Tools)
+  window.OWNER_PIN_VALUE = OWNER_PIN;
   let logoClicks = 0, logoTimer = null;
 
   function initGlobalConfig(attempt) {
