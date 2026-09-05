@@ -6787,6 +6787,16 @@
   .multi-winner.active .multi-winner-name { animation: lbmWinnerPop 0.5s cubic-bezier(0.2,1.4,0.5,1) both; }
   @keyframes lbmWinnerPop { 0% { transform: scale(0.4); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
 
+  /* ====================== POKER MULTI — ADMIN TOOLS ====================== */
+  .pm-adm-tools { grid-column: 1 / -1; display: flex; gap: 0.3rem; margin-top: 0.4rem; flex-wrap: wrap; }
+  .pm-adm-tools button {
+    flex: 1; min-width: 44px; padding: 0.35rem 0.3rem; border-radius: 6px;
+    border: 1px solid rgba(255,255,255,0.16); background: rgba(255,255,255,0.06); color: #e8f0e4;
+    font-family: 'Outfit', sans-serif; font-size: 0.74rem; cursor: pointer;
+  }
+  .pm-adm-tools button:hover { background: rgba(255,255,255,0.14); }
+  .pm-adm-spacer { flex: 1; min-width: 44px; }
+
   /* ====================== POKER MULTI — POSITION BADGES ====================== */
   .pm-badge.sb, .pm-badge.bb {
     font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 0.56rem; letter-spacing: 0.02em;
@@ -6947,7 +6957,7 @@
 <!-- Admin toggle (hidden by default, shown after 5x title clicks) -->
 <button class="admin-toggle" id="adminToggleBtn" onclick="openAdminPanel()" style="display:none" aria-label="Admin-Panel öffnen" title="Admin-Panel">🔧</button>
 
-<div class="app-version" id="appVersion">v1.6.2</div>
+<div class="app-version" id="appVersion">v1.7.0</div>
 
 <!-- Admin toast -->
 <div class="admin-toast" id="adminToast"></div>
@@ -8314,6 +8324,8 @@
 
         <div class="pm-admin-section">
           <div class="multi-settings-label">SPIEL-KONTROLLE</div>
+          <button class="multi-settings-btn-full" onclick="pm_giveAll(500)">Allen +500 Chips</button>
+          <button class="multi-settings-btn-full" onclick="pm_reviveAll()">Alle Pleiten zurückholen (1000)</button>
           <button class="multi-settings-btn-full" onclick="pm_forceNextHand()">Nächste Hand erzwingen</button>
           <button class="multi-settings-btn-full multi-danger" onclick="pm_resetGame()">Komplett zurücksetzen (alle = 1000)</button>
         </div>
@@ -14659,13 +14671,13 @@ nextRound();
       const allPlayerIds = Object.keys(state.players || {});
       for (const pid of allPlayerIds) {
         const p = state.players[pid];
-        if (p && p.pendingJoin && !currentSeatOrder.includes(pid)) {
-          currentSeatOrder.push(pid);
-          state.players[pid].pendingJoin = false;
-          state.players[pid].sittingOut = false;
-          state.players[pid].folded = false;
-          state.players[pid].stack = STARTING_STACK;
-        }
+        if (!p || !p.pendingJoin) continue;
+        // Re-activate regardless of whether they are already seated (re-buy case)
+        if (!currentSeatOrder.includes(pid)) currentSeatOrder.push(pid);
+        state.players[pid].pendingJoin = false;
+        state.players[pid].sittingOut = false;
+        state.players[pid].folded = false;
+        if (!(state.players[pid].stack > 0)) state.players[pid].stack = STARTING_STACK;
       }
       state.seatOrder = currentSeatOrder;
 
@@ -15260,7 +15272,7 @@ nextRound();
         const isMe = id === mySelfId;
         const stackText = isOut ? 'PLEITE' : `${p.stack} Chips`;
         const stackCls = isOut ? 'out' : '';
-        const canRebuy = (isOut || p.sittingOut) && !p.pendingJoin && !isMe;
+        const canRebuy = (isOut || p.sittingOut) && !p.pendingJoin;
         const rebuyDisabled = !state.rebuyEnabled;
         return `<div class="pm-admin-player ${isOut ? 'out' : ''}">
           <div class="pm-admin-player-info">
@@ -15269,10 +15281,73 @@ nextRound();
           </div>
           ${canRebuy ? `<button class="pm-admin-rebuy-btn" ${rebuyDisabled ? 'disabled title="Re-Buys zuerst aktivieren"' : ''} onclick="pm_rebuyPlayer('${id}')">RE-BUY 1000</button>` : '<div></div>'}
           ${isMe ? '<div></div>' : `<button class="pm-admin-kick-btn" onclick="pm_kickPlayer('${id}')" title="Entfernen">✕</button>`}
+          <div class="pm-adm-tools">
+            <button onclick="pm_giveChips('${id}', 500)" title="+500 Chips">+500</button>
+            <button onclick="pm_giveChips('${id}', -500)" title="−500 Chips">−500</button>
+            <button onclick="pm_setStack('${id}')" title="Stack setzen">✏️</button>
+            <button onclick="pm_toggleSitOut('${id}')" title="${p.sittingOut ? 'Wieder mitspielen' : 'Aussetzen lassen'}">${p.sittingOut ? '▶️' : '⏸'}</button>
+            ${id === state.host ? '<span class="pm-adm-spacer"></span>' : `<button onclick="pm_makeHost('${id}')" title="Zum Host machen">👑</button>`}
+          </div>
         </div>`;
       }).join('');
       wrap.innerHTML = html || '<div style="color:rgba(216,232,208,0.5);font-family:Outfit,sans-serif;font-size:0.85rem">— keine Spieler —</div>';
     }
+    function pm_adminPatch(mutator, msg) {
+      if (!amHost) { showToast('Nur der Host kann das'); return; }
+      const np = JSON.parse(JSON.stringify(state.players));
+      mutator(np);
+      broadcast(Object.assign({}, state, { players: np }));
+      if (msg) showToast(msg);
+      renderAdminPanel();
+    }
+    function pm_giveChips(id, amount) {
+      pm_adminPatch(function(np) {
+        if (!np[id]) return;
+        np[id].stack = Math.max(0, (np[id].stack || 0) + amount);
+      }, (amount > 0 ? '+' : '') + amount + ' Chips');
+    }
+    function pm_setStack(id) {
+      const p = state.players[id]; if (!p) return;
+      const v = prompt('Neuer Stack für ' + p.name + ':', p.stack);
+      if (v === null) return;
+      const n = parseInt(v, 10);
+      if (isNaN(n) || n < 0) { showToast('Ungültige Zahl'); return; }
+      pm_adminPatch(function(np) { if (np[id]) np[id].stack = n; }, 'Stack: ' + n);
+    }
+    function pm_toggleSitOut(id) {
+      const p = state.players[id]; if (!p) return;
+      const willSit = !p.sittingOut;
+      pm_adminPatch(function(np) {
+        if (!np[id]) return;
+        np[id].sittingOut = willSit;
+        if (willSit) { np[id].folded = true; }
+        else { np[id].pendingJoin = true; if (!(np[id].stack > 0)) np[id].stack = STARTING_STACK; }
+      }, willSit ? 'Setzt aus' : 'Ist ab nächster Hand dabei');
+    }
+    function pm_giveAll(amount) {
+      pm_adminPatch(function(np) {
+        Object.keys(np).forEach(function(id) { np[id].stack = Math.max(0, (np[id].stack || 0) + amount); });
+      }, 'Allen ' + (amount > 0 ? '+' : '') + amount);
+    }
+    function pm_reviveAll() {
+      pm_adminPatch(function(np) {
+        Object.keys(np).forEach(function(id) {
+          if (!(np[id].stack > 0) || np[id].sittingOut) {
+            np[id].stack = STARTING_STACK;
+            np[id].sittingOut = false;
+            np[id].pendingJoin = true;
+            np[id].folded = true;
+          }
+        });
+      }, 'Alle zurückgeholt');
+    }
+    function pm_makeHost(id) {
+      if (!amHost) return;
+      broadcast(Object.assign({}, state, { host: id }));
+      showToast('Host übergeben');
+      renderAdminPanel();
+    }
+
     async function pm_setLateJoin(enabled) {
       if (!amHost) return;
       const { set, ref, db } = window.FB;
@@ -15837,6 +15912,12 @@ nextRound();
     window.pm_setLateJoin = pm_setLateJoin;
     window.pm_setRebuyAllowed = pm_setRebuyAllowed;
     window.pm_rebuyPlayer = pm_rebuyPlayer;
+    window.pm_giveChips = pm_giveChips;
+    window.pm_setStack = pm_setStack;
+    window.pm_toggleSitOut = pm_toggleSitOut;
+    window.pm_giveAll = pm_giveAll;
+    window.pm_reviveAll = pm_reviveAll;
+    window.pm_makeHost = pm_makeHost;
     window.pm_kickPlayer = pm_kickPlayer;
   })();
 
