@@ -6925,6 +6925,12 @@
   body.gt-on .home-tile-desc, body.gt-on .home-section-label, body.gt-on .home-sub { color: var(--th-dim) !important; }
   body.gt-on .home-title { color: var(--th-text) !important; }
 
+  .home-theme {
+    margin-top: 1.6rem; padding: 0.85rem 0.9rem;
+    background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px;
+  }
+  .home-theme .gt-picker-label { text-align: center; }
+
   /* Theme picker inside the menu drawer */
   .gt-picker { padding: 0.6rem 0.9rem 0.2rem; }
   .gt-picker-label { font-family:'Outfit',sans-serif; font-size:0.62rem; letter-spacing:0.2em; text-transform:uppercase; color:rgba(255,255,255,0.4); margin-bottom:0.4rem; }
@@ -7052,7 +7058,7 @@
 <!-- Admin toggle (hidden by default, shown after 5x title clicks) -->
 <button class="admin-toggle" id="adminToggleBtn" onclick="openAdminPanel()" style="display:none" aria-label="Admin-Panel öffnen" title="Admin-Panel">🔧</button>
 
-<div class="app-version" id="appVersion">v1.9.0</div>
+<div class="app-version" id="appVersion">v1.9.1</div>
 
 <!-- Admin toast -->
 <div class="admin-toast" id="adminToast"></div>
@@ -7190,7 +7196,7 @@
   <div class="menu-header">Spiele</div>
   <div class="gt-picker">
     <div class="gt-picker-label">Design</div>
-    <div class="gt-row" id="gtRow">
+    <div class="gt-row gt-row-js" id="gtRow">
       <button data-g="classic" onclick="gt_set('classic')">Klassisch</button>
       <button data-g="modern" onclick="gt_set('modern')">Modern</button>
       <button data-g="fancy" onclick="gt_set('fancy')">Fancy</button>
@@ -7320,6 +7326,16 @@
         <span class="home-piano-emoji">🎹</span>
         <span class="home-piano-text">Klavier-Trainer</span>
       </button>
+    </div>
+    <div class="home-theme">
+      <div class="gt-picker-label">Design</div>
+      <div class="gt-row gt-row-js">
+        <button data-g="classic" onclick="gt_set('classic')">Klassisch</button>
+        <button data-g="modern" onclick="gt_set('modern')">Modern</button>
+        <button data-g="fancy" onclick="gt_set('fancy')">Fancy</button>
+        <button data-g="custom" onclick="gt_set('custom')">Eigenes</button>
+        <button onclick="gt_openEditor()" style="flex:0 0 auto;min-width:38px" title="Farben anpassen">🎨</button>
+      </div>
     </div>
     <div class="home-footer">Single-Device direkt losspielen · Multiplayer per Code auf mehreren Handys</div>
   </div>
@@ -10713,7 +10729,7 @@
     if (name === 'modern') b.classList.add('gt-on');
     else if (name === 'fancy') b.classList.add('gt-on','gt-fancy');
     else if (name === 'custom') { b.classList.add('gt-on','gt-custom'); gt_applyCustomVars(); }
-    document.querySelectorAll('#gtRow button[data-g]').forEach(function(x) { x.classList.toggle('active', x.dataset.g === name); });
+    document.querySelectorAll('.gt-row-js button[data-g]').forEach(function(x) { x.classList.toggle('active', x.dataset.g === name); });
     try { localStorage.setItem('global-theme', name); } catch (e) {}
   }
   function gt_renderEditor() {
