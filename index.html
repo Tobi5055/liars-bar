@@ -720,7 +720,11 @@
   body.admin-active .multi-admin-btn { display: flex !important; }
 
   /* Hide the floating admin button when inside a multi-app (we have one in the topbar) */
-  body.in-multi-app .admin-toggle { display: none !important; }
+  body.in-multi-app:not(.admin-active) .admin-toggle { display: none !important; }
+  body.in-multi-app.admin-active .admin-toggle {
+    top: auto; bottom: calc(env(safe-area-inset-bottom) + 74px);
+    right: calc(env(safe-area-inset-right) + 14px);
+  }
 
   .multi-leave-action {
     background: rgba(239,68,68,0.1) !important;
@@ -5193,6 +5197,59 @@
   .app-poker.theme-fancy .option:hover:not(:disabled) { box-shadow: 0 6px 18px rgba(0,0,0,0.45); }
   .app-poker.theme-fancy .next-btn { box-shadow: 0 4px 14px rgba(0,0,0,0.45); }
 
+  /* --- Custom theme (driven by inline vars on #appPoker) --- */
+  .app-poker.theme-custom.radius-sharp .table { border-radius: 8px; }
+  .app-poker.theme-custom.radius-sharp .card { border-radius: 3px; }
+  .app-poker.theme-custom.radius-sharp .option { border-radius: 5px; }
+  .app-poker.theme-custom.radius-sharp .next-btn { border-radius: 6px; }
+  .app-poker.theme-custom.radius-soft .table { border-radius: 20px; }
+  .app-poker.theme-custom.radius-soft .card { border-radius: 8px; }
+  .app-poker.theme-custom.radius-soft .option { border-radius: 12px; }
+  .app-poker.theme-custom.radius-soft .next-btn { border-radius: 14px; }
+  .app-poker.theme-custom.radius-round .table { border-radius: 34px; }
+  .app-poker.theme-custom.radius-round .card { border-radius: 14px; }
+  .app-poker.theme-custom.radius-round .option { border-radius: 22px; }
+  .app-poker.theme-custom.radius-round .next-btn { border-radius: 50px; }
+  .app-poker.theme-custom.font-sans .title { font-family: 'Outfit', sans-serif; font-style: normal; font-weight: 800; letter-spacing: -0.5px; }
+  .app-poker.theme-custom.font-sans .phase-label { font-family: 'Outfit', sans-serif; font-style: normal; font-weight: 600; }
+  .app-poker.theme-custom.font-sans .card-rank { font-family: 'Outfit', sans-serif; font-weight: 700; }
+
+  /* --- Theme editor --- */
+  .pk-theme-edit { padding: 0.45rem 0.7rem !important; }
+  .pk-ed-bd {
+    position: fixed; inset: 0; background: rgba(0,0,0,0.75); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);
+    z-index: 3100; display: none; align-items: flex-end; justify-content: center;
+  }
+  .pk-ed-bd.active { display: flex; }
+  @media (min-width: 600px) { .pk-ed-bd { align-items: center; } }
+  .pk-ed {
+    background: linear-gradient(180deg,#181c22,#0e1014); border: 1px solid rgba(255,255,255,0.14);
+    border-radius: 18px 18px 0 0; width: 100%; max-width: 460px; max-height: 86vh; overflow-y: auto;
+    padding: 1.2rem 1.2rem calc(1.2rem + env(safe-area-inset-bottom)); box-shadow: 0 -12px 44px rgba(0,0,0,0.55);
+  }
+  @media (min-width: 600px) { .pk-ed { border-radius: 18px; } }
+  .pk-ed-title { font-family: 'Cinzel','Bebas Neue',sans-serif; font-size: 1.25rem; color: #fff; letter-spacing: 0.04em; }
+  .pk-ed-sub { font-family: 'Outfit',sans-serif; font-size: 0.78rem; color: rgba(255,255,255,0.45); margin: 0.2rem 0 0.8rem; }
+  .pk-ed-label { font-family: 'Outfit',sans-serif; font-size: 0.7rem; letter-spacing: 0.18em; color: rgba(255,255,255,0.5); text-transform: uppercase; margin: 1rem 0 0.4rem; }
+  .pk-ed-presets, .pk-ed-seg { display: flex; gap: 0.4rem; }
+  .pk-ed-presets button, .pk-ed-seg button {
+    flex: 1; padding: 0.55rem 0.4rem; border-radius: 8px; border: 1px solid rgba(255,255,255,0.14);
+    background: rgba(255,255,255,0.05); color: rgba(255,255,255,0.8); font-family: 'Outfit',sans-serif; font-size: 0.84rem; cursor: pointer;
+  }
+  .pk-ed-seg button.active { background: rgba(94,200,160,0.22); border-color: #5ec8a0; color: #fff; }
+  .pk-ed-colors { display: flex; flex-direction: column; gap: 0.35rem; }
+  .pk-ed-row {
+    display: flex; align-items: center; gap: 0.7rem; padding: 0.45rem 0.6rem; border-radius: 8px;
+    background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
+  }
+  .pk-ed-row span { flex: 1; font-family: 'Outfit',sans-serif; font-size: 0.87rem; color: #eee; }
+  .pk-ed-row input[type=color] {
+    width: 44px; height: 30px; border: 1px solid rgba(255,255,255,0.2); border-radius: 6px;
+    background: none; cursor: pointer; padding: 0; flex-shrink: 0;
+  }
+  .pk-ed-reset { width: 100%; margin-top: 1.1rem; padding: 0.7rem; border: 1px solid rgba(255,120,120,0.4); background: rgba(255,80,80,0.12); color: #ff9b9b; border-radius: 9px; font-family: 'Outfit',sans-serif; cursor: pointer; font-size: 0.86rem; }
+  .pk-ed-close { width: 100%; margin-top: 0.6rem; padding: 0.9rem; border: none; border-radius: 10px; background: rgba(255,255,255,0.12); color: #fff; font-family: 'Outfit',sans-serif; font-weight: 600; letter-spacing: 0.05em; cursor: pointer; }
+
   /* --- Theme selector --- */
   .poker-themes { display: flex; gap: 0.4rem; justify-content: center; margin: 0.1rem auto 1.2rem; position: relative; z-index: 1; }
   .poker-themes button {
@@ -6730,6 +6787,50 @@
   .multi-winner.active .multi-winner-name { animation: lbmWinnerPop 0.5s cubic-bezier(0.2,1.4,0.5,1) both; }
   @keyframes lbmWinnerPop { 0% { transform: scale(0.4); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
 
+  /* ====================== POKER MULTI — POSITION BADGES ====================== */
+  .pm-badge.sb, .pm-badge.bb {
+    font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 0.56rem; letter-spacing: 0.02em;
+    padding: 0 4px; min-width: 20px; height: 16px; display: inline-flex; align-items: center; justify-content: center;
+    border-radius: 4px;
+  }
+  .pm-badge.sb { background: #3f7fd0; color: #fff; box-shadow: 0 0 8px rgba(63,127,208,0.5); }
+  .pm-badge.bb { background: #d06a3f; color: #fff; box-shadow: 0 0 8px rgba(208,106,63,0.5); }
+  .pm-my-pos { display: inline-flex; gap: 3px; margin-left: 5px; vertical-align: middle; }
+
+  /* ====================== POKER MULTI — SHOWDOWN REVEAL ====================== */
+  .pm-showdown-reveal { display: flex; flex-direction: column; gap: 0.4rem; margin: 0.7rem 0 0.2rem; text-align: left; }
+  .pm-reveal-row {
+    display: flex; align-items: center; gap: 0.6rem; padding: 0.4rem 0.55rem; border-radius: 9px;
+    background: rgba(0,0,0,0.28); border: 1px solid rgba(255,255,255,0.08);
+  }
+  .pm-reveal-row.win { background: rgba(212,168,67,0.16); border-color: rgba(212,168,67,0.5); }
+  .pm-reveal-cards { display: flex; gap: 0.2rem; flex-shrink: 0; }
+  .pm-reveal-cards .pm-card { width: 30px; height: 42px; font-size: 0.62rem; }
+  .pm-reveal-info { min-width: 0; flex: 1; }
+  .pm-reveal-name { font-family: 'Outfit', sans-serif; font-size: 0.86rem; font-weight: 600; color: #fff; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .pm-reveal-hand { font-family: 'Outfit', sans-serif; font-size: 0.75rem; color: rgba(240,225,190,0.7); }
+
+  /* ====================== POKER MULTI — BEGINNER COACH ====================== */
+  .pm-coach {
+    background: rgba(0,0,0,0.32); border: 1px solid rgba(212,168,67,0.28); border-radius: 12px;
+    padding: 0.7rem 0.8rem; margin: 0.6rem 0 0.2rem;
+  }
+  .pm-coach-head { display: flex; align-items: center; margin-bottom: 0.4rem; }
+  .pm-coach-title { flex: 1; font-family: 'Outfit', sans-serif; font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(240,225,190,0.75); }
+  .pm-coach-off { background: none; border: none; color: rgba(240,225,190,0.45); font-family: 'Outfit', sans-serif; font-size: 0.7rem; cursor: pointer; text-decoration: underline; }
+  .pm-coach-hand { font-family: 'Outfit', sans-serif; font-size: 1.02rem; font-weight: 700; color: #fff; margin-bottom: 0.45rem; }
+  .pm-coach-bar { height: 8px; border-radius: 5px; background: rgba(255,255,255,0.1); overflow: hidden; }
+  .pm-coach-fill { height: 100%; width: 0%; border-radius: 5px; transition: width 0.35s ease, background 0.35s ease; background: #6abf69; }
+  .pm-coach-row { display: flex; align-items: baseline; gap: 0.6rem; margin-top: 0.4rem; }
+  .pm-coach-eq { font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; color: #fff; line-height: 1; }
+  .pm-coach-rating { font-family: 'Outfit', sans-serif; font-size: 0.85rem; font-weight: 600; margin-left: auto; }
+  .pm-coach-tip { font-family: 'Outfit', sans-serif; font-size: 0.8rem; color: rgba(240,225,190,0.7); margin-top: 0.4rem; line-height: 1.35; }
+  .pm-coach-on {
+    display: block; width: 100%; margin: 0.6rem 0 0.2rem; padding: 0.6rem; border-radius: 10px;
+    background: rgba(212,168,67,0.12); border: 1px solid rgba(212,168,67,0.3); color: #e8d3a0;
+    font-family: 'Outfit', sans-serif; font-size: 0.85rem; cursor: pointer;
+  }
+
   /* ====================== SHARED GAME RULES ====================== */
   .gr-backdrop {
     position: fixed; inset: 0; background: rgba(0,0,0,0.72);
@@ -6846,7 +6947,7 @@
 <!-- Admin toggle (hidden by default, shown after 5x title clicks) -->
 <button class="admin-toggle" id="adminToggleBtn" onclick="openAdminPanel()" style="display:none" aria-label="Admin-Panel öffnen" title="Admin-Panel">🔧</button>
 
-<div class="app-version" id="appVersion">v1.4.2</div>
+<div class="app-version" id="appVersion">v1.6.2</div>
 
 <!-- Admin toast -->
 <div class="admin-toast" id="adminToast"></div>
@@ -7316,6 +7417,41 @@
     <button data-t="classic" onclick="pk_setTheme('classic')">Klassisch</button>
     <button data-t="modern" onclick="pk_setTheme('modern')">Modern</button>
     <button data-t="fancy" onclick="pk_setTheme('fancy')">Fancy</button>
+    <button data-t="custom" onclick="pk_setTheme('custom')">Eigenes</button>
+    <button class="pk-theme-edit" onclick="pk_openThemeEditor()" title="Theme anpassen">🎨</button>
+  </div>
+
+  <div class="pk-ed-bd" id="pkThemeEditor" onclick="if(event.target===this) pk_closeThemeEditor()">
+    <div class="pk-ed">
+      <div class="pk-ed-title">🎨 Eigenes Theme</div>
+      <div class="pk-ed-sub">Änderungen sind sofort sichtbar</div>
+
+      <div class="pk-ed-label">Vorlage laden</div>
+      <div class="pk-ed-presets">
+        <button onclick="pk_loadPreset('classic')">Klassisch</button>
+        <button onclick="pk_loadPreset('modern')">Modern</button>
+        <button onclick="pk_loadPreset('fancy')">Fancy</button>
+      </div>
+
+      <div class="pk-ed-label">Farben</div>
+      <div class="pk-ed-colors" id="pkEdColors"></div>
+
+      <div class="pk-ed-label">Ecken</div>
+      <div class="pk-ed-seg" id="pkEdRadius">
+        <button data-v="sharp" onclick="pk_setStyle('radius','sharp')">Eckig</button>
+        <button data-v="soft" onclick="pk_setStyle('radius','soft')">Weich</button>
+        <button data-v="round" onclick="pk_setStyle('radius','round')">Rund</button>
+      </div>
+
+      <div class="pk-ed-label">Schrift</div>
+      <div class="pk-ed-seg" id="pkEdFont">
+        <button data-v="serif" onclick="pk_setStyle('font','serif')">Serif</button>
+        <button data-v="sans" onclick="pk_setStyle('font','sans')">Sans</button>
+      </div>
+
+      <button class="pk-ed-reset" onclick="pk_resetCustom()">Auf Klassisch zurücksetzen</button>
+      <button class="pk-ed-close" onclick="pk_closeThemeEditor()">FERTIG</button>
+    </div>
   </div>
 
   <main class="table">
@@ -8073,6 +8209,7 @@
       <div class="pm-showdown-title">SHOWDOWN</div>
       <div class="pm-showdown-winner" id="pmShowdownWinner">—</div>
       <div class="pm-showdown-hand" id="pmShowdownHand"></div>
+      <div class="pm-showdown-reveal" id="pmShowdownReveal" style="display:none"></div>
       <div class="pm-showdown-hint" id="pmShowdownHint">Nächste Hand in 5s...</div>
     </div>
 
@@ -8095,6 +8232,21 @@
         <div class="pm-my-hand-strength" id="pmMyHandStrength"></div>
       </div>
     </div>
+
+    <div class="pm-coach" id="pmCoach" style="display:none">
+      <div class="pm-coach-head">
+        <span class="pm-coach-title">🎓 Anfänger-Hilfe</span>
+        <button class="pm-coach-off" onclick="pm_toggleCoach()">ausblenden</button>
+      </div>
+      <div class="pm-coach-hand" id="pmCoachHand">—</div>
+      <div class="pm-coach-bar"><div class="pm-coach-fill" id="pmCoachFill"></div></div>
+      <div class="pm-coach-row">
+        <span class="pm-coach-eq" id="pmCoachEq">–</span>
+        <span class="pm-coach-rating" id="pmCoachRating">–</span>
+      </div>
+      <div class="pm-coach-tip" id="pmCoachTip"></div>
+    </div>
+    <button class="pm-coach-on" id="pmCoachOn" onclick="pm_toggleCoach()" style="display:none">🎓 Anfänger-Hilfe einblenden</button>
 
     <!-- Action buttons -->
     <div class="pm-actions" id="pmActions">
@@ -9870,6 +10022,7 @@
     // Set body class for multi-apps so we can hide the fixed burger
     const isMulti = ['liarsbarMulti','alkiMulti','pokerMulti','werwolf','impostor','slf','blackstories','werbinich','tabu','codenames'].includes(name);
     document.body.classList.toggle('in-multi-app', isMulti);
+    try { updateAdminButtonVisibility(); } catch (e) {}
     document.body.classList.toggle('in-home', name === 'home');
 
     // Update admin button visibility (only show in apps with admin panel support)
@@ -10401,15 +10554,137 @@
   window.toggleGlobalApp = toggleGlobalApp;
 
   // ============ POKER TRAINER THEMES ============
+  const PK_FIELDS = [
+    ['felt-deep',  'Hintergrund dunkel'],
+    ['felt-mid',   'Hintergrund mitte'],
+    ['felt-light', 'Hintergrund hell'],
+    ['gold',       'Akzent'],
+    ['gold-soft',  'Akzent gedämpft'],
+    ['cream',      'Text'],
+    ['cream-dim',  'Text gedämpft'],
+    ['card-white', 'Kartenfläche'],
+    ['red-suit',   'Rote Farben'],
+    ['black-suit', 'Schwarze Farben'],
+    ['correct',    'Richtig'],
+    ['wrong',      'Falsch'],
+  ];
+  const PK_PRESETS = {
+    classic: { 'felt-deep':'#0a2e22','felt-mid':'#134736','felt-light':'#1a5d47','gold':'#d4a843','gold-soft':'#b89236','cream':'#f4ecd8','cream-dim':'#c9bf9f','card-white':'#fafaf6','red-suit':'#c0392b','black-suit':'#1a1a1a','correct':'#6abf69','wrong':'#d96452', radius:'round', font:'serif' },
+    modern:  { 'felt-deep':'#0e1118','felt-mid':'#141a26','felt-light':'#1c2534','gold':'#5b8dff','gold-soft':'#3f6fd0','cream':'#e9eef7','cream-dim':'#9aa6ba','card-white':'#ffffff','red-suit':'#e5484d','black-suit':'#10131a','correct':'#3fb950','wrong':'#f0533f', radius:'sharp', font:'sans' },
+    fancy:   { 'felt-deep':'#0b0b0d','felt-mid':'#161519','felt-light':'#232128','gold':'#d9a679','gold-soft':'#b07f57','cream':'#f0e9e2','cream-dim':'#b3a89d','card-white':'#f7f2ec','red-suit':'#c46a6a','black-suit':'#22222c','correct':'#7bbf8a','wrong':'#cf8272', radius:'round', font:'serif' },
+  };
+  let pkCustom = null;
+
+  function pk_loadCustom() {
+    if (pkCustom) return pkCustom;
+    let saved = null;
+    try { saved = JSON.parse(localStorage.getItem('poker-custom-theme')); } catch (e) {}
+    pkCustom = Object.assign({}, PK_PRESETS.classic, saved || {});
+    return pkCustom;
+  }
+  function pk_saveCustom() { try { localStorage.setItem('poker-custom-theme', JSON.stringify(pkCustom)); } catch (e) {} }
+  function pk_applyCustom() {
+    const el = document.getElementById('appPoker'); if (!el) return;
+    const c = pk_loadCustom();
+    PK_FIELDS.forEach(function(f) { el.style.setProperty('--' + f[0], c[f[0]]); });
+    el.classList.remove('radius-sharp','radius-soft','radius-round','font-serif','font-sans');
+    el.classList.add('radius-' + (c.radius || 'round'), 'font-' + (c.font || 'serif'));
+  }
+  function pk_clearCustomVars() {
+    const el = document.getElementById('appPoker'); if (!el) return;
+    PK_FIELDS.forEach(function(f) { el.style.removeProperty('--' + f[0]); });
+    el.classList.remove('radius-sharp','radius-soft','radius-round','font-serif','font-sans');
+  }
   function pk_setTheme(name) {
     const el = document.getElementById('appPoker'); if (!el) return;
-    el.classList.remove('theme-classic', 'theme-modern', 'theme-fancy');
+    el.classList.remove('theme-classic', 'theme-modern', 'theme-fancy', 'theme-custom');
     el.classList.add('theme-' + name);
-    document.querySelectorAll('#pokerThemes button').forEach(function(b) { b.classList.toggle('active', b.dataset.t === name); });
+    if (name === 'custom') pk_applyCustom(); else pk_clearCustomVars();
+    document.querySelectorAll('#pokerThemes button[data-t]').forEach(function(b) { b.classList.toggle('active', b.dataset.t === name); });
     try { localStorage.setItem('poker-theme', name); } catch (e) {}
   }
+  function pk_renderEditor() {
+    const c = pk_loadCustom();
+    const wrap = document.getElementById('pkEdColors');
+    if (wrap) wrap.innerHTML = PK_FIELDS.map(function(f) {
+      return '<label class="pk-ed-row"><span>' + f[1] + '</span>' +
+        '<input type="color" value="' + c[f[0]] + '" oninput="pk_setColor(\'' + f[0] + '\', this.value)"></label>';
+    }).join('');
+    document.querySelectorAll('#pkEdRadius button').forEach(function(b) { b.classList.toggle('active', b.dataset.v === (c.radius || 'round')); });
+    document.querySelectorAll('#pkEdFont button').forEach(function(b) { b.classList.toggle('active', b.dataset.v === (c.font || 'serif')); });
+  }
+  function pk_openThemeEditor() { pk_loadCustom(); pk_setTheme('custom'); pk_renderEditor(); document.getElementById('pkThemeEditor').classList.add('active'); }
+  function pk_closeThemeEditor() { document.getElementById('pkThemeEditor').classList.remove('active'); }
+  function pk_setColor(key, val) { pk_loadCustom(); pkCustom[key] = val; pk_saveCustom(); pk_applyCustom(); }
+  function pk_setStyle(key, val) { pk_loadCustom(); pkCustom[key] = val; pk_saveCustom(); pk_applyCustom(); pk_renderEditor(); }
+  function pk_loadPreset(name) { pkCustom = Object.assign({}, PK_PRESETS[name]); pk_saveCustom(); pk_applyCustom(); pk_renderEditor(); }
+  function pk_resetCustom() { pk_loadPreset('classic'); }
+
   window.pk_setTheme = pk_setTheme;
+  window.pk_openThemeEditor = pk_openThemeEditor;
+  window.pk_closeThemeEditor = pk_closeThemeEditor;
+  window.pk_setColor = pk_setColor;
+  window.pk_setStyle = pk_setStyle;
+  window.pk_loadPreset = pk_loadPreset;
+  window.pk_resetCustom = pk_resetCustom;
   (function() { let t = 'classic'; try { t = localStorage.getItem('poker-theme') || 'classic'; } catch (e) {} pk_setTheme(t); })();
+
+  // ============ SESSION PERSISTENCE / RECONNECT ============
+  const SESSION_KEY = 'active-session-v1';
+  const SESSION_MAX_AGE = 6 * 60 * 60 * 1000; // 6h
+
+  function saveActiveSession(app, code) {
+    try { localStorage.setItem(SESSION_KEY, JSON.stringify({ app: app, code: code, ts: Date.now() })); } catch (e) {}
+  }
+  function clearActiveSession() { try { localStorage.removeItem(SESSION_KEY); } catch (e) {} }
+  function getActiveSession() {
+    try {
+      const v = JSON.parse(localStorage.getItem(SESSION_KEY));
+      if (!v || !v.app || !v.code) return null;
+      if (Date.now() - (v.ts || 0) > SESSION_MAX_AGE) { clearActiveSession(); return null; }
+      return v;
+    } catch (e) { return null; }
+  }
+  // A session with players is worth rejoining even if no peer is currently online
+  // (a page reload briefly drops the peer). Truly dead sessions are removed by the
+  // scheduled Cloud Function, so the client stays lenient here.
+  function isSessionResumable(data) {
+    if (!data || !data.state) return false;
+    const pl = data.state.players || {};
+    if (!Object.keys(pl).length) return false;
+    const stamp = data.state.lastUpdate || data.state.createdAt || 0;
+    if (stamp && (Date.now() - stamp) > SESSION_MAX_AGE) return false;
+    return true;
+  }
+  window.saveActiveSession = saveActiveSession;
+  window.clearActiveSession = clearActiveSession;
+  window.isSessionResumable = isSessionResumable;
+
+  const RECONNECT_MAP = {
+    liarsbarMulti: ['lbmJoinCode', 'lbm_join'], alkiMulti: ['amJoinCode', 'am_join'],
+    pokerMulti: ['pmJoinCode', 'pm_join'],      werwolf:   ['wwJoinCode', 'ww_join'],
+    impostor:  ['impJoinCode', 'imp_join'],     slf:       ['slfJoinCode', 'slf_join'],
+    blackstories: ['bsJoinCode', 'bs_join'],    werbinich: ['wbJoinCode', 'wb_join'],
+    tabu:      ['tbJoinCode', 'tb_join'],       codenames: ['cnJoinCode', 'cn_join'],
+  };
+  function tryReconnect(attempt) {
+    const sess = getActiveSession();
+    if (!sess) return;
+    const map = RECONNECT_MAP[sess.app];
+    if (!map) { clearActiveSession(); return; }
+    if (window.FB_FAILED) return;
+    if (!window.FB) { if ((attempt || 0) < 50) setTimeout(function() { tryReconnect((attempt || 0) + 1); }, 150); return; }
+    const fn = window[map[1]];
+    if (typeof fn !== 'function') { if ((attempt || 0) < 50) setTimeout(function() { tryReconnect((attempt || 0) + 1); }, 150); return; }
+    switchApp(sess.app);
+    setTimeout(function() {
+      const inp = document.getElementById(map[0]);
+      if (!inp) return;
+      inp.value = sess.code;
+      if (typeof showAdminToast === 'function') showAdminToast('Verbinde mit ' + sess.code + ' …');
+      try { fn(); } catch (e) {}
+    }, 120);
+  }
 
   // Build launcher and always start on the home screen
   (function() {
@@ -10417,6 +10692,7 @@
     try { if (localStorage.getItem('piano-unlocked') === '1') unlockPiano(); } catch (e) {}
     switchApp('home');
     initGlobalConfig();
+    tryReconnect();
   })();
 
   // ============ LIAR'S BAR JS ============
@@ -12607,7 +12883,7 @@ nextRound();
         const data = snap.val();
         // Check if session is abandoned (no active peers)
         const peerCount = Object.keys(data.peers || {}).length;
-        if (peerCount === 0) {
+        if (peerCount === 0 && !isSessionResumable(data)) {
           console.log('[LBM] Cleaning up abandoned session on join:', code);
           await window.FB.remove(ref(db, 'sessions/' + code));
           showError(`Session ${code} war abgelaufen — bitte neu erstellen`);
@@ -12643,6 +12919,7 @@ nextRound();
     }
 
     async function joinSessionListeners(code, name) {
+      try { window.saveActiveSession && saveActiveSession('liarsbarMulti', code); } catch (e) {}
       const { db, ref, onValue, set, onDisconnect, serverTimestamp } = window.FB;
       sessionRef = ref(db, 'sessions/' + code);
       peerRef = ref(db, `sessions/${code}/peers/${mySelfId}`);
@@ -12680,6 +12957,7 @@ nextRound();
 
     // ---- Leave ----
     async function lbm_leave() {
+      try { window.clearActiveSession && clearActiveSession(); } catch (e) {}
       const { remove, update } = window.FB || {};
       try { if (unsubSession) unsubSession(); } catch (e) {}
       try {
@@ -13372,7 +13650,7 @@ nextRound();
         if (!snap.exists()) { showError(`Session ${code} nicht gefunden`); return; }
         const data = snap.val();
         const peerCount = Object.keys(data.peers || {}).length;
-        if (peerCount === 0) {
+        if (peerCount === 0 && !isSessionResumable(data)) {
           console.log('[AM] Cleaning up abandoned session on join:', code);
           await window.FB.remove(ref(db, 'sessions/' + code));
           showError(`Session ${code} war abgelaufen — bitte neu erstellen`);
@@ -13407,6 +13685,7 @@ nextRound();
     }
 
     async function joinSessionListeners(code, name) {
+      try { window.saveActiveSession && saveActiveSession('alkiMulti', code); } catch (e) {}
       const { db, ref, onValue, set, onDisconnect } = window.FB;
       sessionRef = ref(db, 'sessions/' + code);
       peerRef = ref(db, `sessions/${code}/peers/${mySelfId}`);
@@ -13437,6 +13716,7 @@ nextRound();
     }
 
     async function am_leave() {
+      try { window.clearActiveSession && clearActiveSession(); } catch (e) {}
       const { remove, update } = window.FB || {};
       try { if (unsubSession) unsubSession(); } catch (e) {}
       try {
@@ -14099,7 +14379,7 @@ nextRound();
         const data = snap.val();
         // Check if session is abandoned (no active peers)
         const peerCount = Object.keys(data.peers || {}).length;
-        if (peerCount === 0) {
+        if (peerCount === 0 && !isSessionResumable(data)) {
           console.log('[POKER] Cleaning up abandoned session on join:', code);
           await window.FB.remove(ref(db, 'sessions/' + code));
           showError(`Session ${code} war abgelaufen — bitte neu erstellen`);
@@ -14168,6 +14448,7 @@ nextRound();
     }
 
     async function joinListeners(code, name) {
+      try { window.saveActiveSession && saveActiveSession('pokerMulti', code); } catch (e) {}
       const { db, ref, onValue, set, onDisconnect } = window.FB;
       sessionRef = ref(db, 'sessions/' + code);
       peerRef = ref(db, `sessions/${code}/peers/${mySelfId}`);
@@ -14245,6 +14526,7 @@ nextRound();
     }
 
     async function pm_leave() {
+      try { window.clearActiveSession && clearActiveSession(); } catch (e) {}
       const { remove, update } = window.FB || {};
       try { if (unsubSession) unsubSession(); } catch (e) {}
       try {
@@ -14748,7 +15030,7 @@ nextRound();
         prevLevel = level;
       }
 
-      const handsInfo = eligible.map(e => ({ id: e.id, score: e.hand.score, name: e.hand.name }));
+      const handsInfo = eligible.map(e => ({ id: e.id, score: e.hand.score, name: e.hand.name, cards: (newPlayers[e.id].cards || []).slice() }));
       const winnersAll = new Set();
 
       for (const pot of pots) {
@@ -15178,11 +15460,11 @@ nextRound();
         if (p.folded && p.lastAction === 'FOLD') statusText = 'FOLD';
         else if (p.allIn) statusText = 'ALL-IN';
         else if (p.lastAction) statusText = p.lastAction;
-        else if (isSB) statusText = 'SB';
-        else if (isBB) statusText = 'BB';
 
         const badges = `
           ${isDealer ? '<span class="pm-badge dealer">D</span>' : ''}
+          ${isSB ? '<span class="pm-badge sb">SB</span>' : ''}
+          ${isBB ? '<span class="pm-badge bb">BB</span>' : ''}
           ${isHost ? '<span class="pm-badge host">👑</span>' : ''}
         `;
         const betLine = p.roundBet > 0 ? `<div class="pm-other-bet">→ ${p.roundBet}</div>` : '<div class="pm-other-bet"></div>';
@@ -15255,7 +15537,24 @@ nextRound();
     function renderMyArea() {
       const me = state.players[mySelfId];
       if (!me) return;
-      document.getElementById('pmMyName').textContent = me.name + (mySelfId === state.host ? ' 👑' : '');
+      let posHtml = '';
+      if (state.started && state.seatOrder && state.seatOrder.length) {
+        const dId = state.seatOrder[state.dealerIdx];
+        let sId, bId;
+        if (state.seatOrder.length === 2) {
+          sId = state.seatOrder[state.dealerIdx];
+          bId = state.seatOrder[(state.dealerIdx + 1) % state.seatOrder.length];
+        } else if (state.seatOrder.length > 2) {
+          sId = state.seatOrder[(state.dealerIdx + 1) % state.seatOrder.length];
+          bId = state.seatOrder[(state.dealerIdx + 2) % state.seatOrder.length];
+        }
+        if (mySelfId === dId) posHtml += '<span class="pm-badge dealer">D</span>';
+        if (mySelfId === sId) posHtml += '<span class="pm-badge sb">SB</span>';
+        if (mySelfId === bId) posHtml += '<span class="pm-badge bb">BB</span>';
+      }
+      document.getElementById('pmMyName').innerHTML =
+        escapeHtml(me.name) + (mySelfId === state.host ? ' 👑' : '') +
+        (posHtml ? ' <span class="pm-my-pos">' + posHtml + '</span>' : '');
       document.getElementById('pmMyStack').textContent = me.stack;
       document.getElementById('pmMyBet').textContent = me.roundBet;
       const cardsWrap = document.getElementById('pmMyCards');
@@ -15272,7 +15571,98 @@ nextRound();
       } else {
         handLabel.textContent = '';
       }
+      try { renderCoach(); } catch (e) {}
     }
+
+    // ---- BEGINNER COACH: hand description, rating, Monte-Carlo equity ----
+    let coachOn = true;
+    try { coachOn = localStorage.getItem('pm-coach') !== '0'; } catch (e) {}
+    let coachCache = { key: null, eq: null };
+
+    const RANK_WORD = { 14:'Ass', 13:'König', 12:'Dame', 11:'Bube', 10:'Zehn', 9:'Neun', 8:'Acht', 7:'Sieben', 6:'Sechs', 5:'Fünf', 4:'Vier', 3:'Drei', 2:'Zwei' };
+    function preflopLabel(cards) {
+      const a = rankVal(cards[0][0]), b = rankVal(cards[1][0]);
+      const suited = cards[0][1] === cards[1][1];
+      const hi = Math.max(a, b), lo = Math.min(a, b);
+      if (a === b) return 'Pocket ' + RANK_WORD[a] + 'e';
+      return RANK_WORD[hi] + ' + ' + RANK_WORD[lo] + (suited ? ' (suited)' : ' (offsuit)');
+    }
+    function equityMonteCarlo(hole, board, nOpp, iters) {
+      const dead = {};
+      hole.forEach(c => dead[c] = 1); board.forEach(c => dead[c] = 1);
+      const deck = newDeck().filter(c => !dead[c]);
+      let win = 0, tie = 0;
+      const need = 5 - board.length;
+      for (let it = 0; it < iters; it++) {
+        const d = deck.slice();
+        for (let i = d.length - 1; i > 0; i--) { const j = (Math.random() * (i + 1)) | 0; const t = d[i]; d[i] = d[j]; d[j] = t; }
+        let idx = 0;
+        const fullBoard = board.concat(d.slice(idx, idx + need)); idx += need;
+        const mine = evaluateHand(hole.concat(fullBoard)).score;
+        let best = -1, ties = 0;
+        for (let o = 0; o < nOpp; o++) {
+          const oh = [d[idx++], d[idx++]];
+          const sc = evaluateHand(oh.concat(fullBoard)).score;
+          if (sc > best) { best = sc; ties = 1; } else if (sc === best) ties++;
+        }
+        if (mine > best) win++;
+        else if (mine === best) tie += 1 / (ties + 1);
+      }
+      return (win + tie) / iters;
+    }
+    function renderCoach() {
+      const panel = document.getElementById('pmCoach');
+      const onBtn = document.getElementById('pmCoachOn');
+      if (!panel || !onBtn) return;
+      const me = state.players[mySelfId];
+      const active = me && me.cards && me.cards.length === 2 && !me.folded && !me.sittingOut && state.started;
+      if (!coachOn) { panel.style.display = 'none'; onBtn.style.display = active ? '' : 'none'; return; }
+      onBtn.style.display = 'none';
+      if (!active) { panel.style.display = 'none'; return; }
+      panel.style.display = '';
+
+      const board = (state.communityCards || []).slice();
+      const nOpp = Math.max(1, Object.keys(state.players).filter(function(id) {
+        const p = state.players[id];
+        return id !== mySelfId && !p.folded && !p.sittingOut && (p.stack > 0 || p.roundBet > 0);
+      }).length);
+
+      let handTxt;
+      if (board.length >= 3) handTxt = evaluateHand(me.cards.concat(board)).name;
+      else handTxt = preflopLabel(me.cards);
+      document.getElementById('pmCoachHand').textContent = handTxt;
+
+      const key = me.cards.join('') + '|' + board.join('') + '|' + nOpp;
+      let eq;
+      if (coachCache.key === key) eq = coachCache.eq;
+      else {
+        eq = equityMonteCarlo(me.cards, board, nOpp, board.length >= 4 ? 900 : 600);
+        coachCache = { key: key, eq: eq };
+      }
+      const pct = Math.round(eq * 100);
+      const fair = 1 / (nOpp + 1);
+      const ratio = eq / fair;
+      let rating, color, tip;
+      if (ratio >= 1.8)      { rating = 'Sehr stark'; color = '#4ade80'; tip = 'Klar überdurchschnittlich — hier darfst du setzen und erhöhen.'; }
+      else if (ratio >= 1.3) { rating = 'Stark';      color = '#6abf69'; tip = 'Besser als der Durchschnitt — mitgehen, oft auch erhöhen.'; }
+      else if (ratio >= 1.0) { rating = 'Solide';     color = '#d4a843'; tip = 'Ungefähr fairer Anteil — günstig mitgehen, teure Raises meiden.'; }
+      else if (ratio >= 0.7) { rating = 'Schwach';    color = '#e0913f'; tip = 'Unter dem fairen Anteil — nur billig weiterspielen.'; }
+      else                   { rating = 'Sehr schwach'; color = '#d96452'; tip = 'Deutlich hinten — meist passen (fold), außer es kostet nichts.'; }
+
+      document.getElementById('pmCoachEq').textContent = pct + '%';
+      const rEl = document.getElementById('pmCoachRating');
+      rEl.textContent = rating; rEl.style.color = color;
+      const fill = document.getElementById('pmCoachFill');
+      fill.style.width = Math.min(100, pct) + '%'; fill.style.background = color;
+      document.getElementById('pmCoachTip').textContent =
+        'Gewinnchance gegen ' + nOpp + (nOpp === 1 ? ' Gegner' : ' Gegner') + ' (fair wären ' + Math.round(fair * 100) + '%). ' + tip;
+    }
+    function pm_toggleCoach() {
+      coachOn = !coachOn;
+      try { localStorage.setItem('pm-coach', coachOn ? '1' : '0'); } catch (e) {}
+      renderCoach();
+    }
+    window.pm_toggleCoach = pm_toggleCoach;
 
     function renderActions() {
       const me = state.players[mySelfId];
@@ -15373,6 +15763,34 @@ nextRound();
         if (winnerHands.length > 0) handDescr = winnerHands[0].name + ` · ${sd.potWon} Chips`;
       }
       document.getElementById('pmShowdownHand').textContent = handDescr;
+
+      // Reveal every player's hole cards
+      const revealEl = document.getElementById('pmShowdownReveal');
+      if (revealEl) {
+        if (!sd.byFold && sd.hands && sd.hands.length) {
+          const ranked = sd.hands.slice().sort(function(a, b) { return b.score - a.score; });
+          revealEl.innerHTML = ranked.map(function(h) {
+            const pl = state.players[h.id];
+            const nm = pl ? pl.name : '—';
+            const won = sd.winners && sd.winners.indexOf(h.id) !== -1;
+            const cards = (h.cards && h.cards.length)
+              ? h.cards.map(function(c) { return cardHtml(c); }).join('')
+              : '<div class="pm-card pm-card-back"></div><div class="pm-card pm-card-back"></div>';
+            return '<div class="pm-reveal-row' + (won ? ' win' : '') + '">' +
+                     '<div class="pm-reveal-cards">' + cards + '</div>' +
+                     '<div class="pm-reveal-info">' +
+                       '<div class="pm-reveal-name">' + (won ? '🏆 ' : '') + escapeHtml(nm) + (h.id === mySelfId ? ' (du)' : '') + '</div>' +
+                       '<div class="pm-reveal-hand">' + h.name + '</div>' +
+                     '</div>' +
+                   '</div>';
+          }).join('');
+          revealEl.style.display = '';
+        } else {
+          revealEl.innerHTML = '';
+          revealEl.style.display = 'none';
+        }
+      }
+
       document.getElementById('pmShowdownHint').textContent = amHost ? 'Nächste Hand in 5s…' : 'Warte auf Host…';
     }
 
@@ -15606,7 +16024,7 @@ nextRound();
         if (!snap.exists()) { showError(`Session ${code} nicht gefunden`); return; }
         const data = snap.val();
         const peerCount = Object.keys(data.peers || {}).length;
-        if (peerCount === 0) {
+        if (peerCount === 0 && !isSessionResumable(data)) {
           await window.FB.remove(ref(db, 'sessions/' + code));
           showError(`Session ${code} war abgelaufen — bitte neu erstellen`);
           return;
@@ -15639,6 +16057,7 @@ nextRound();
     }
 
     async function joinListeners(code, name) {
+      try { window.saveActiveSession && saveActiveSession('werwolf', code); } catch (e) {}
       const { db, ref, onValue, set, onDisconnect } = window.FB;
       sessionRef = ref(db, 'sessions/' + code);
       peerRef = ref(db, `sessions/${code}/peers/${mySelfId}`);
@@ -15678,6 +16097,7 @@ nextRound();
     }
 
     async function ww_leave() {
+      try { window.clearActiveSession && clearActiveSession(); } catch (e) {}
       const { remove, update, get } = window.FB || {};
       try { if (unsubSession) unsubSession(); } catch (e) {}
       try {
@@ -16757,7 +17177,7 @@ nextRound();
         if (!snap.exists()) { showError(`Session ${code} nicht gefunden`); return; }
         const data = snap.val();
         const peerCount = Object.keys(data.peers || {}).length;
-        if (peerCount === 0) {
+        if (peerCount === 0 && !isSessionResumable(data)) {
           await window.FB.remove(ref(db, 'sessions/' + code));
           showError(`Session ${code} war abgelaufen — bitte neu erstellen`);
           return;
@@ -16790,6 +17210,7 @@ nextRound();
     }
 
     async function joinListeners(code, name) {
+      try { window.saveActiveSession && saveActiveSession('impostor', code); } catch (e) {}
       const { db, ref, onValue, set, onDisconnect } = window.FB;
       sessionRef = ref(db, 'sessions/' + code);
       peerRef = ref(db, `sessions/${code}/peers/${mySelfId}`);
@@ -16829,6 +17250,7 @@ nextRound();
     }
 
     async function imp_leave() {
+      try { window.clearActiveSession && clearActiveSession(); } catch (e) {}
       const { remove, update, get } = window.FB || {};
       try { if (unsubSession) unsubSession(); } catch (e) {}
       try {
@@ -17830,7 +18252,7 @@ nextRound();
         if (!snap.exists()) { showError(`Session ${code} nicht gefunden`); return; }
         const data = snap.val();
         const peerCount = Object.keys(data.peers || {}).length;
-        if (peerCount === 0) { await window.FB.remove(ref(db, 'sessions/' + code)); showError(`Session ${code} war abgelaufen — bitte neu erstellen`); return; }
+        if (peerCount === 0 && !isSessionResumable(data)) { await window.FB.remove(ref(db, 'sessions/' + code)); showError(`Session ${code} war abgelaufen — bitte neu erstellen`); return; }
         if (data.state && data.state.app !== 'slf') { showError(`Code ${code} läuft in einer anderen App`); return; }
         const players = (data.state && data.state.players) || {};
         const running = data.state && data.state.phase && data.state.phase !== 'lobby';
@@ -17848,6 +18270,7 @@ nextRound();
     }
 
     async function joinListeners(code, name) {
+      try { window.saveActiveSession && saveActiveSession('slf', code); } catch (e) {}
       const { db, ref, onValue, set, onDisconnect } = window.FB;
       sessionRef = ref(db, 'sessions/' + code);
       peerRef = ref(db, `sessions/${code}/peers/${mySelfId}`);
@@ -17876,6 +18299,7 @@ nextRound();
     }
 
     async function slf_leave() {
+      try { window.clearActiveSession && clearActiveSession(); } catch (e) {}
       stopTimers();
       const { remove, update, get } = window.FB || {};
       try { if (unsubSession) unsubSession(); } catch (e) {}
@@ -18468,7 +18892,7 @@ nextRound();
       const code=validateCode(document.getElementById('bsJoinCode').value);if(!code){showError('Code: 3–6 Zeichen');return;}
       const{db,ref,get,update}=window.FB;
       try{const snap=await get(ref(db,'sessions/'+code));if(!snap.exists()){showError(`Session ${code} nicht gefunden`);return;}
-        const data=snap.val();if(Object.keys(data.peers||{}).length===0){await window.FB.remove(ref(db,'sessions/'+code));showError('War abgelaufen');return;}
+        const data=snap.val();if(Object.keys(data.peers||{}).length===0&&!isSessionResumable(data)){await window.FB.remove(ref(db,'sessions/'+code));showError('War abgelaufen');return;}
         if(data.state&&data.state.app!=='blackstories'){showError('Andere App');return;}
         const players=(data.state&&data.state.players)||{};
         if(!players[mySelfId]){if(Object.keys(players).length>=MAX_PLAYERS){showError('Voll');return;}await update(ref(db,`sessions/${code}/state/players/${mySelfId}`),{name,joinedAt:Date.now(),solved:0});}
@@ -18478,6 +18902,7 @@ nextRound();
       }catch(e){showError('Fehlgeschlagen: '+(e.message||e));}
     }
     async function joinListeners(code,name){
+      try { window.saveActiveSession && saveActiveSession('blackstories', code); } catch (e) {}
       const{db,ref,onValue,set,onDisconnect}=window.FB;
       sessionRef=ref(db,'sessions/'+code);peerRef=ref(db,`sessions/${code}/peers/${mySelfId}`);
       await set(peerRef,{name,lastSeen:Date.now()});onDisconnect(peerRef).remove();
@@ -18493,6 +18918,7 @@ nextRound();
       inSession=true;
     }
     async function bs_leave(){
+      try { window.clearActiveSession && clearActiveSession(); } catch (e) {}
       const{remove,update,get}=window.FB||{};
       try{if(unsubSession)unsubSession();}catch(e){}
       try{if(peerRef&&remove)await remove(peerRef);}catch(e){}
@@ -18629,7 +19055,7 @@ nextRound();
       const code=validateCode(document.getElementById('wbJoinCode').value);if(!code){showError('Code: 3–6 Zeichen');return;}
       const{db,ref,get,update}=window.FB;
       try{const snap=await get(ref(db,'sessions/'+code));if(!snap.exists()){showError(`Session ${code} nicht gefunden`);return;}
-        const data=snap.val();if(Object.keys(data.peers||{}).length===0){await window.FB.remove(ref(db,'sessions/'+code));showError('War abgelaufen');return;}
+        const data=snap.val();if(Object.keys(data.peers||{}).length===0&&!isSessionResumable(data)){await window.FB.remove(ref(db,'sessions/'+code));showError('War abgelaufen');return;}
         if(data.state&&data.state.app!=='werbinich'){showError('Andere App');return;}
         const players=(data.state&&data.state.players)||{};const running=data.state&&data.state.phase&&data.state.phase!=='lobby';
         if(running&&!players[mySelfId]){showError('Läuft schon');return;}
@@ -18639,6 +19065,7 @@ nextRound();
       }catch(e){showError('Fehlgeschlagen: '+(e.message||e));}
     }
     async function joinListeners(code,name){
+      try { window.saveActiveSession && saveActiveSession('werbinich', code); } catch (e) {}
       const{db,ref,onValue,set,onDisconnect}=window.FB;
       sessionRef=ref(db,'sessions/'+code);peerRef=ref(db,`sessions/${code}/peers/${mySelfId}`);
       await set(peerRef,{name,lastSeen:Date.now()});onDisconnect(peerRef).remove();
@@ -18653,6 +19080,7 @@ nextRound();
       inSession=true;
     }
     async function wb_leave(){
+      try { window.clearActiveSession && clearActiveSession(); } catch (e) {}
       const{remove,update,get}=window.FB||{};
       try{if(unsubSession)unsubSession();}catch(e){}try{if(peerRef&&remove)await remove(peerRef);}catch(e){}
       if(sessionRef&&window.FB){try{const snap=await get(sessionRef);if(snap.exists()){const d=snap.val();const rp=Object.keys(d.peers||{});if(rp.length===0)await remove(sessionRef);else{await remove(window.FB.ref(window.FB.db,`sessions/${myCode}/state/players/${mySelfId}`));if(amHost)await update(window.FB.ref(window.FB.db,`sessions/${myCode}/state`),{host:rp[0]});}}}catch(e){}}
@@ -18829,7 +19257,7 @@ nextRound();
       const code=validateCode(document.getElementById('tbJoinCode').value);if(!code){showError('Code: 3–6 Zeichen');return;}
       const{db,ref,get,update}=window.FB;
       try{const snap=await get(ref(db,'sessions/'+code));if(!snap.exists()){showError(`Session ${code} nicht gefunden`);return;}
-        const data=snap.val();if(Object.keys(data.peers||{}).length===0){await window.FB.remove(ref(db,'sessions/'+code));showError('War abgelaufen');return;}
+        const data=snap.val();if(Object.keys(data.peers||{}).length===0&&!isSessionResumable(data)){await window.FB.remove(ref(db,'sessions/'+code));showError('War abgelaufen');return;}
         if(data.state&&data.state.app!=='tabu'){showError('Andere App');return;}
         const players=(data.state&&data.state.players)||{};const running=data.state&&data.state.phase&&data.state.phase!=='lobby';
         if(running&&!players[mySelfId]){showError('Läuft schon');return;}
@@ -18839,6 +19267,7 @@ nextRound();
       }catch(e){showError('Fehlgeschlagen: '+(e.message||e));}
     }
     async function joinListeners(code,name){
+      try { window.saveActiveSession && saveActiveSession('tabu', code); } catch (e) {}
       const{db,ref,onValue,set,onDisconnect}=window.FB;
       sessionRef=ref(db,'sessions/'+code);peerRef=ref(db,`sessions/${code}/peers/${mySelfId}`);
       await set(peerRef,{name,lastSeen:Date.now()});onDisconnect(peerRef).remove();
@@ -18853,6 +19282,7 @@ nextRound();
       inSession=true;
     }
     async function tb_leave(){
+      try { window.clearActiveSession && clearActiveSession(); } catch (e) {}
       stopTimers();const{remove,update,get}=window.FB||{};
       try{if(unsubSession)unsubSession();}catch(e){}try{if(peerRef&&remove)await remove(peerRef);}catch(e){}
       if(sessionRef&&window.FB){try{const snap=await get(sessionRef);if(snap.exists()){const d=snap.val();const rp=Object.keys(d.peers||{});if(rp.length===0)await remove(sessionRef);else{await remove(window.FB.ref(window.FB.db,`sessions/${myCode}/state/players/${mySelfId}`));if(amHost)await update(window.FB.ref(window.FB.db,`sessions/${myCode}/state`),{host:rp[0]});}}}catch(e){}}
@@ -19054,7 +19484,7 @@ nextRound();
       const code=validateCode(document.getElementById('cnJoinCode').value);if(!code){showError('Code: 3–6 Zeichen');return;}
       const{db,ref,get,update}=window.FB;
       try{const snap=await get(ref(db,'sessions/'+code));if(!snap.exists()){showError(`Session ${code} nicht gefunden`);return;}
-        const data=snap.val();if(Object.keys(data.peers||{}).length===0){await window.FB.remove(ref(db,'sessions/'+code));showError('War abgelaufen');return;}
+        const data=snap.val();if(Object.keys(data.peers||{}).length===0&&!isSessionResumable(data)){await window.FB.remove(ref(db,'sessions/'+code));showError('War abgelaufen');return;}
         if(data.state&&data.state.app!=='codenames'){showError('Andere App');return;}
         const players=(data.state&&data.state.players)||{};const running=data.state&&data.state.phase&&data.state.phase!=='lobby';
         if(running&&!players[mySelfId]){showError('Läuft schon');return;}
@@ -19064,6 +19494,7 @@ nextRound();
       }catch(e){showError('Fehlgeschlagen: '+(e.message||e));}
     }
     async function joinListeners(code,name){
+      try { window.saveActiveSession && saveActiveSession('codenames', code); } catch (e) {}
       const{db,ref,onValue,set,onDisconnect}=window.FB;
       sessionRef=ref(db,'sessions/'+code);peerRef=ref(db,`sessions/${code}/peers/${mySelfId}`);
       await set(peerRef,{name,lastSeen:Date.now()});onDisconnect(peerRef).remove();
@@ -19078,6 +19509,7 @@ nextRound();
       inSession=true;
     }
     async function cn_leave(){
+      try { window.clearActiveSession && clearActiveSession(); } catch (e) {}
       const{remove,update,get}=window.FB||{};
       try{if(unsubSession)unsubSession();}catch(e){}try{if(peerRef&&remove)await remove(peerRef);}catch(e){}
       if(sessionRef&&window.FB){try{const snap=await get(sessionRef);if(snap.exists()){const d=snap.val();const rp=Object.keys(d.peers||{});if(rp.length===0)await remove(sessionRef);else{await remove(window.FB.ref(window.FB.db,`sessions/${myCode}/state/players/${mySelfId}`));if(amHost)await update(window.FB.ref(window.FB.db,`sessions/${myCode}/state`),{host:rp[0]});}}}catch(e){}}
