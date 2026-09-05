@@ -6942,6 +6942,468 @@
   }
   .gt-row button.active { background:rgba(255,255,255,0.22); border-color:rgba(255,255,255,0.5); color:#fff; font-weight:700; }
 
+
+  /* ====================== GLASS THEMES ====================== */
+  /* animated colour blobs behind everything */
+  #gtBlobs { position: fixed; inset: 0; z-index: -2; overflow: hidden; pointer-events: none; display: none; }
+  body.gt-glass #gtBlobs, body.gt-glasslight #gtBlobs { display: block; }
+  .gt-blob { position: absolute; border-radius: 50%; filter: blur(90px); opacity: 0.22; }
+  body.gt-glasslight .gt-blob { opacity: 0.30; filter: blur(100px); }
+  .gt-blob.b1 { width: 46vmax; height: 46vmax; left: -14vmax; top: -12vmax; background: #6b6fd8; animation: gtFloat1 34s ease-in-out infinite; }
+  .gt-blob.b2 { width: 38vmax; height: 38vmax; right: -12vmax; top: 16vmax; background: #c98a5e; animation: gtFloat2 40s ease-in-out infinite; }
+  .gt-blob.b3 { width: 42vmax; height: 42vmax; left: 16vmax; bottom: -18vmax; background: #4aa3ad; animation: gtFloat3 46s ease-in-out infinite; }
+  @keyframes gtFloat1 { 0%,100%{transform:translate(0,0) scale(1)} 50%{transform:translate(5vmax,4vmax) scale(1.08)} }
+  @keyframes gtFloat2 { 0%,100%{transform:translate(0,0) scale(1)} 50%{transform:translate(-4vmax,5vmax) scale(0.94)} }
+  @keyframes gtFloat3 { 0%,100%{transform:translate(0,0) scale(1)} 50%{transform:translate(4vmax,-5vmax) scale(1.06)} }
+
+  /* ---- shared glass recipe ---- */
+  body.gt-glass, body.gt-glasslight { background: var(--gl-base) !important; }
+  body.gt-glass    { --gl-base:#07080d; --gl-panel:rgba(255,255,255,0.055); --gl-panel2:rgba(255,255,255,0.11);
+                     --gl-edge:rgba(255,255,255,0.28); --gl-text:#f6f8fc; --gl-dim:rgba(246,248,252,0.66); --gl-accent:#9dc0ff; }
+  body.gt-glasslight{ --gl-base:#f2f4fa; --gl-panel:rgba(255,255,255,0.42); --gl-panel2:rgba(255,255,255,0.62);
+                     --gl-edge:rgba(255,255,255,0.9); --gl-text:#141821; --gl-dim:rgba(20,24,33,0.62); --gl-accent:#2f5fd0; }
+  body.gt-glasslight .gt-blob { opacity: 0.42; }
+
+  /* app surfaces become transparent so the blobs show through */
+  body.gt-glass .app, body.gt-glasslight .app,
+  body.gt-glass .app-poker-multi, body.gt-glasslight .app-poker-multi,
+  body.gt-glass .app-home, body.gt-glasslight .app-home {
+    background: transparent !important; color: var(--gl-text) !important;
+  }
+  body.gt-glass .app-poker, body.gt-glasslight .app-poker { background: transparent !important; }
+  body.gt-glass .app-poker.visible::before, body.gt-glasslight .app-poker.visible::before { opacity: 0.25; }
+
+  /* frosted panels */
+  body.gt-glass .multi-topbar, body.gt-glasslight .multi-topbar,
+  body.gt-glass .multi-modal, body.gt-glasslight .multi-modal,
+  body.gt-glass .multi-player-row, body.gt-glasslight .multi-player-row,
+  body.gt-glass .pm-waiting-player, body.gt-glasslight .pm-waiting-player,
+  body.gt-glass .multi-card-display, body.gt-glasslight .multi-card-display,
+  body.gt-glass .home-tile, body.gt-glasslight .home-tile,
+  body.gt-glass .home-theme, body.gt-glasslight .home-theme,
+  body.gt-glass .pm-coach, body.gt-glasslight .pm-coach,
+  body.gt-glass .app-poker .table, body.gt-glasslight .app-poker .table,
+  body.gt-glass .app-poker .reference, body.gt-glasslight .app-poker .reference,
+  body.gt-glass .imps-box, body.gt-glasslight .imps-box,
+  body.gt-glass .nt-sheet, body.gt-glasslight .nt-sheet {
+    background: var(--gl-panel) !important;
+    -webkit-backdrop-filter: blur(22px) saturate(160%);
+    backdrop-filter: blur(22px) saturate(160%);
+    border: 1px solid var(--gl-edge) !important;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.30),
+                inset 0 1px 0 rgba(255,255,255,0.55),
+                inset 0 -1px 0 rgba(255,255,255,0.10) !important;
+  }
+  body.gt-glass .nt-sheet, body.gt-glasslight .nt-sheet { background: rgba(255,255,255,0.9) !important; }
+
+  /* text */
+  body.gt-glass .multi-lobby-title, body.gt-glasslight .multi-lobby-title,
+  body.gt-glass .multi-modal-title, body.gt-glasslight .multi-modal-title,
+  body.gt-glass .multi-player-name, body.gt-glasslight .multi-player-name,
+  body.gt-glass .home-title, body.gt-glasslight .home-title,
+  body.gt-glass .home-tile-name, body.gt-glasslight .home-tile-name,
+  body.gt-glass .pm-other-name, body.gt-glasslight .pm-other-name,
+  body.gt-glass .pm-my-name, body.gt-glasslight .pm-my-name,
+  body.gt-glass .app-poker .title, body.gt-glasslight .app-poker .title,
+  body.gt-glass .imps-title, body.gt-glasslight .imps-title,
+  body.gt-glass .nt-title, body.gt-glasslight .nt-title {
+    color: var(--gl-text) !important;
+  }
+  body.gt-glass .multi-lobby-sub, body.gt-glasslight .multi-lobby-sub,
+  body.gt-glass .multi-lobby-label, body.gt-glasslight .multi-lobby-label,
+  body.gt-glass .multi-lobby-hint, body.gt-glasslight .multi-lobby-hint,
+  body.gt-glass .home-tile-desc, body.gt-glasslight .home-tile-desc,
+  body.gt-glass .home-section-label, body.gt-glasslight .home-section-label,
+  body.gt-glass .home-sub, body.gt-glasslight .home-sub,
+  body.gt-glass .home-footer, body.gt-glasslight .home-footer,
+  body.gt-glass .app-poker .subtitle, body.gt-glasslight .app-poker .subtitle,
+  body.gt-glass .imps-sub, body.gt-glasslight .imps-sub,
+  body.gt-glass .nt-sub, body.gt-glasslight .nt-sub,
+  body.gt-glass .multi-settings-label, body.gt-glasslight .multi-settings-label,
+  body.gt-glass .gt-picker-label, body.gt-glasslight .gt-picker-label {
+    color: var(--gl-dim) !important;
+  }
+  body.gt-glass .multi-topbar-code, body.gt-glasslight .multi-topbar-code,
+  body.gt-glass .multi-card-name, body.gt-glasslight .multi-card-name { color: var(--gl-accent) !important; }
+
+  /* controls */
+  body.gt-glass .multi-input, body.gt-glasslight .multi-input,
+  body.gt-glass .imps-input, body.gt-glasslight .imps-input {
+    background: var(--gl-panel2) !important; border: 1px solid var(--gl-edge) !important; color: var(--gl-text) !important;
+  }
+  body.gt-glass .multi-input::placeholder, body.gt-glasslight .multi-input::placeholder { color: var(--gl-dim) !important; }
+  body.gt-glass .multi-action-btn, body.gt-glasslight .multi-action-btn,
+  body.gt-glass .multi-btn, body.gt-glasslight .multi-btn,
+  body.gt-glass .multi-draw-btn, body.gt-glasslight .multi-draw-btn,
+  body.gt-glass .pm-start-btn, body.gt-glasslight .pm-start-btn,
+  body.gt-glass .slf-btn, body.gt-glasslight .slf-btn,
+  body.gt-glass .imps-btn, body.gt-glasslight .imps-btn,
+  body.gt-glass .g-btn, body.gt-glasslight .g-btn {
+    background: var(--gl-panel2) !important; border: 1px solid var(--gl-edge) !important;
+    color: var(--gl-text) !important; box-shadow: 0 4px 18px rgba(0,0,0,0.16) !important;
+    -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
+  }
+  body.gt-glass .multi-topbar-btn, body.gt-glasslight .multi-topbar-btn,
+  body.gt-glass .multi-settings-btn-full, body.gt-glasslight .multi-settings-btn-full,
+  body.gt-glass .multi-modal-close, body.gt-glasslight .multi-modal-close,
+  body.gt-glass .rules-link, body.gt-glasslight .rules-link,
+  body.gt-glass .gt-row button, body.gt-glasslight .gt-row button {
+    background: var(--gl-panel2) !important; border: 1px solid var(--gl-edge) !important; color: var(--gl-text) !important;
+  }
+  body.gt-glass .gt-row button.active, body.gt-glasslight .gt-row button.active {
+    background: var(--gl-accent) !important; color: #fff !important; border-color: transparent !important;
+  }
+  /* light variant: menu drawer + version badge need dark text too */
+  body.gt-glasslight .menu-drawer { background: rgba(255,255,255,0.82) !important; -webkit-backdrop-filter: blur(24px); backdrop-filter: blur(24px); }
+  body.gt-glasslight .menu-item, body.gt-glasslight .menu-header, body.gt-glasslight .menu-section-label { color: #171a21 !important; }
+  body.gt-glasslight .app-version { color: rgba(23,26,33,0.45) !important; }
+  body.gt-glasslight .burger { color: #171a21 !important; background: rgba(255,255,255,0.6) !important; }
+
+
+  /* ---- glass: every remaining panel ---- */
+  body.gt-glass .panel,
+  body.gt-glass .pm-my-area,
+  body.gt-glass .pm-others-row .pm-other-player,
+  body.gt-glass .pm-pot-display,
+  body.gt-glass .pm-raise-panel,
+  body.gt-glass .pm-waiting-content,
+  body.gt-glass .pm-reveal-row,
+  body.gt-glass .pm-admin-player,
+  body.gt-glass .pm-modal,
+  body.gt-glass .pm-admin-modal,
+  body.gt-glass .ww-waiting-content,
+  body.gt-glass .ww-reveal-box,
+  body.gt-glass .ww-role-card-front,
+  body.gt-glass .ww-role-card-back,
+  body.gt-glass .ww-config-section,
+  body.gt-glass .ww-gameover,
+  body.gt-glass .ww-action-area,
+  body.gt-glass .ww-modal,
+  body.gt-glass .ww-players-grid .ww-player-btn,
+  body.gt-glass .imp-config-section,
+  body.gt-glass .imp-current-speaker-box,
+  body.gt-glass .imp-action-area,
+  body.gt-glass .imp-action-wait,
+  body.gt-glass .imp-gameover,
+  body.gt-glass .imp-modal,
+  body.gt-glass .slf-waiting-content,
+  body.gt-glass .slf-config-section,
+  body.gt-glass .slf-letter-banner,
+  body.gt-glass .slf-review-cat,
+  body.gt-glass .slf-scoreboard,
+  body.gt-glass .slf-waiting-status,
+  body.gt-glass .slf-gameover,
+  body.gt-glass .slf-modal,
+  body.gt-glass .g-waiting-content,
+  body.gt-glass .g-wait-box,
+  body.gt-glass .g-card,
+  body.gt-glass .g-phase,
+  body.gt-glass .g-config-section,
+  body.gt-glass .bs-riddle,
+  body.gt-glass .bs-solution,
+  body.gt-glass .bs-content,
+  body.gt-glass .bs-modal,
+  body.gt-glass .cn-clue-banner,
+  body.gt-glass .cn-scorebar,
+  body.gt-glass .cn-teams,
+  body.gt-glass .cn-team-col,
+  body.gt-glass .cn-role-slot,
+  body.gt-glass .cn-gameover,
+  body.gt-glass .cn-modal,
+  body.gt-glass .cn-content,
+  body.gt-glass .tb-word-card,
+  body.gt-glass .tb-content,
+  body.gt-glass .tb-modal,
+  body.gt-glass .imps-reveal-card,
+  body.gt-glass .imps-sol-card,
+  body.gt-glass .imps-disc-text,
+  body.gt-glass .nt-stat,
+  body.gt-glass .nt-modal,
+  body.gt-glass .gr-modal,
+  body.gt-glass .ga-modal,
+  body.gt-glass .pk-ed,
+  body.gt-glass .multi-suspense-box,
+  body.gt-glass .admin-panel,
+  body.gt-glasslight .panel,
+  body.gt-glasslight .pm-my-area,
+  body.gt-glasslight .pm-others-row .pm-other-player,
+  body.gt-glasslight .pm-pot-display,
+  body.gt-glasslight .pm-raise-panel,
+  body.gt-glasslight .pm-waiting-content,
+  body.gt-glasslight .pm-reveal-row,
+  body.gt-glasslight .pm-admin-player,
+  body.gt-glasslight .pm-modal,
+  body.gt-glasslight .pm-admin-modal,
+  body.gt-glasslight .ww-waiting-content,
+  body.gt-glasslight .ww-reveal-box,
+  body.gt-glasslight .ww-role-card-front,
+  body.gt-glasslight .ww-role-card-back,
+  body.gt-glasslight .ww-config-section,
+  body.gt-glasslight .ww-gameover,
+  body.gt-glasslight .ww-action-area,
+  body.gt-glasslight .ww-modal,
+  body.gt-glasslight .ww-players-grid .ww-player-btn,
+  body.gt-glasslight .imp-config-section,
+  body.gt-glasslight .imp-current-speaker-box,
+  body.gt-glasslight .imp-action-area,
+  body.gt-glasslight .imp-action-wait,
+  body.gt-glasslight .imp-gameover,
+  body.gt-glasslight .imp-modal,
+  body.gt-glasslight .slf-waiting-content,
+  body.gt-glasslight .slf-config-section,
+  body.gt-glasslight .slf-letter-banner,
+  body.gt-glasslight .slf-review-cat,
+  body.gt-glasslight .slf-scoreboard,
+  body.gt-glasslight .slf-waiting-status,
+  body.gt-glasslight .slf-gameover,
+  body.gt-glasslight .slf-modal,
+  body.gt-glasslight .g-waiting-content,
+  body.gt-glasslight .g-wait-box,
+  body.gt-glasslight .g-card,
+  body.gt-glasslight .g-phase,
+  body.gt-glasslight .g-config-section,
+  body.gt-glasslight .bs-riddle,
+  body.gt-glasslight .bs-solution,
+  body.gt-glasslight .bs-content,
+  body.gt-glasslight .bs-modal,
+  body.gt-glasslight .cn-clue-banner,
+  body.gt-glasslight .cn-scorebar,
+  body.gt-glasslight .cn-teams,
+  body.gt-glasslight .cn-team-col,
+  body.gt-glasslight .cn-role-slot,
+  body.gt-glasslight .cn-gameover,
+  body.gt-glasslight .cn-modal,
+  body.gt-glasslight .cn-content,
+  body.gt-glasslight .tb-word-card,
+  body.gt-glasslight .tb-content,
+  body.gt-glasslight .tb-modal,
+  body.gt-glasslight .imps-reveal-card,
+  body.gt-glasslight .imps-sol-card,
+  body.gt-glasslight .imps-disc-text,
+  body.gt-glasslight .nt-stat,
+  body.gt-glasslight .nt-modal,
+  body.gt-glasslight .gr-modal,
+  body.gt-glasslight .ga-modal,
+  body.gt-glasslight .pk-ed,
+  body.gt-glasslight .multi-suspense-box,
+  body.gt-glasslight .admin-panel {
+    background: var(--gl-panel) !important;
+    -webkit-backdrop-filter: blur(20px) saturate(160%);
+    backdrop-filter: blur(20px) saturate(160%);
+    border: 1px solid var(--gl-edge) !important;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.16), inset 0 1px 0 rgba(255,255,255,0.3) !important;
+    color: var(--gl-text) !important;
+  }
+
+  /* ---- glass: controls ---- */
+  body.gt-glass .g-btn,
+  body.gt-glass .g-start-btn,
+  body.gt-glass .g-select,
+  body.gt-glass .g-counter-btn,
+  body.gt-glass .g-toggle,
+  body.gt-glass .g-team-pick,
+  body.gt-glass .bs-btn,
+  body.gt-glass .bs-btn-g,
+  body.gt-glass .cn-btn,
+  body.gt-glass .cn-join-btn,
+  body.gt-glass .tb-action-row button,
+  body.gt-glass .cn-card,
+  body.gt-glass .ww-action-btn,
+  body.gt-glass .imp-action-btn,
+  body.gt-glass .slf-answer-input,
+  body.gt-glass .cn-clue-input,
+  body.gt-glass .nt-ans,
+  body.gt-glass .nt-seg button,
+  body.gt-glass .nt-listen,
+  body.gt-glass .nt-modal-close,
+  body.gt-glass .nt-gear,
+  body.gt-glass .imps-cat-chip,
+  body.gt-glass .imps-add-btn,
+  body.gt-glass .imps-counter-btn,
+  body.gt-glass .imps-player-chip,
+  body.gt-glass .slf-counter-btn,
+  body.gt-glass .slf-mode-btn,
+  body.gt-glass .slf-cat-chip,
+  body.gt-glass .imp-counter-btn,
+  body.gt-glass .gr-done,
+  body.gt-glass .ga-close,
+  body.gt-glass .pk-ed-close,
+  body.gt-glass .pmc-row button,
+  body.gt-glass .pm-adm-tools button,
+  body.gt-glass .multi-btn-self,
+  body.gt-glass .multi-btn-other,
+  body.gt-glass .multi-btn-reload,
+  body.gt-glass .multi-card-toggle,
+  body.gt-glasslight .g-btn,
+  body.gt-glasslight .g-start-btn,
+  body.gt-glasslight .g-select,
+  body.gt-glasslight .g-counter-btn,
+  body.gt-glasslight .g-toggle,
+  body.gt-glasslight .g-team-pick,
+  body.gt-glasslight .bs-btn,
+  body.gt-glasslight .bs-btn-g,
+  body.gt-glasslight .cn-btn,
+  body.gt-glasslight .cn-join-btn,
+  body.gt-glasslight .tb-action-row button,
+  body.gt-glasslight .cn-card,
+  body.gt-glasslight .ww-action-btn,
+  body.gt-glasslight .imp-action-btn,
+  body.gt-glasslight .slf-answer-input,
+  body.gt-glasslight .cn-clue-input,
+  body.gt-glasslight .nt-ans,
+  body.gt-glasslight .nt-seg button,
+  body.gt-glasslight .nt-listen,
+  body.gt-glasslight .nt-modal-close,
+  body.gt-glasslight .nt-gear,
+  body.gt-glasslight .imps-cat-chip,
+  body.gt-glasslight .imps-add-btn,
+  body.gt-glasslight .imps-counter-btn,
+  body.gt-glasslight .imps-player-chip,
+  body.gt-glasslight .slf-counter-btn,
+  body.gt-glasslight .slf-mode-btn,
+  body.gt-glasslight .slf-cat-chip,
+  body.gt-glasslight .imp-counter-btn,
+  body.gt-glasslight .gr-done,
+  body.gt-glasslight .ga-close,
+  body.gt-glasslight .pk-ed-close,
+  body.gt-glasslight .pmc-row button,
+  body.gt-glasslight .pm-adm-tools button,
+  body.gt-glasslight .multi-btn-self,
+  body.gt-glasslight .multi-btn-other,
+  body.gt-glasslight .multi-btn-reload,
+  body.gt-glasslight .multi-card-toggle {
+    background: var(--gl-panel2) !important;
+    -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
+    border: 1px solid var(--gl-edge) !important;
+    color: var(--gl-text) !important;
+    box-shadow: 0 3px 14px rgba(0,0,0,0.14) !important;
+  }
+
+  /* ---- glass: secondary text ---- */
+  body.gt-glass .ww-waiting-label,
+  body.gt-glass .slf-waiting-label,
+  body.gt-glass .g-waiting-label,
+  body.gt-glass .pm-waiting-label,
+  body.gt-glass .slf-phase-desc,
+  body.gt-glass .g-phase-desc,
+  body.gt-glass .imp-action-prompt,
+  body.gt-glass .bs-riddle-title,
+  body.gt-glass .cn-turn-label,
+  body.gt-glass .imps-box-label,
+  body.gt-glass .imps-pass-label,
+  body.gt-glass .nt-stat-label,
+  body.gt-glass .pm-waiting-hint,
+  body.gt-glass .pm-waiting-msg,
+  body.gt-glass .slf-scoreboard-title,
+  body.gt-glass .gr-body,
+  body.gt-glass .pm-coach-tip,
+  body.gt-glass .pm-reveal-hand,
+  body.gt-glasslight .ww-waiting-label,
+  body.gt-glasslight .slf-waiting-label,
+  body.gt-glasslight .g-waiting-label,
+  body.gt-glasslight .pm-waiting-label,
+  body.gt-glasslight .slf-phase-desc,
+  body.gt-glasslight .g-phase-desc,
+  body.gt-glasslight .imp-action-prompt,
+  body.gt-glasslight .bs-riddle-title,
+  body.gt-glasslight .cn-turn-label,
+  body.gt-glasslight .imps-box-label,
+  body.gt-glasslight .imps-pass-label,
+  body.gt-glasslight .nt-stat-label,
+  body.gt-glasslight .pm-waiting-hint,
+  body.gt-glasslight .pm-waiting-msg,
+  body.gt-glasslight .slf-scoreboard-title,
+  body.gt-glasslight .gr-body,
+  body.gt-glasslight .pm-coach-tip,
+  body.gt-glasslight .pm-reveal-hand { color: var(--gl-dim) !important; }
+  /* ---- glass: headings ---- */
+  body.gt-glass .ww-gameover-title,
+  body.gt-glass .slf-gameover-title,
+  body.gt-glass .cn-gameover-title,
+  body.gt-glass .g-phase-name,
+  body.gt-glass .slf-phase-name,
+  body.gt-glass .bs-solution-title,
+  body.gt-glass .imps-disc-title,
+  body.gt-glass .imps-pass-name,
+  body.gt-glass .imps-sol-word,
+  body.gt-glass .nt-stat-val,
+  body.gt-glass .gr-modal-title,
+  body.gt-glass .pm-reveal-name,
+  body.gt-glass .tb-word-card,
+  body.gt-glass .cn-clue-word,
+  body.gt-glasslight .ww-gameover-title,
+  body.gt-glasslight .slf-gameover-title,
+  body.gt-glasslight .cn-gameover-title,
+  body.gt-glasslight .g-phase-name,
+  body.gt-glasslight .slf-phase-name,
+  body.gt-glasslight .bs-solution-title,
+  body.gt-glasslight .imps-disc-title,
+  body.gt-glasslight .imps-pass-name,
+  body.gt-glasslight .imps-sol-word,
+  body.gt-glasslight .nt-stat-val,
+  body.gt-glasslight .gr-modal-title,
+  body.gt-glasslight .pm-reveal-name,
+  body.gt-glasslight .tb-word-card,
+  body.gt-glasslight .cn-clue-word { color: var(--gl-text) !important; }
+
+  /* keep playing cards readable — they stay opaque paper */
+  body.gt-glass .pm-card, body.gt-glasslight .pm-card,
+  body.gt-glass .card, body.gt-glasslight .card {
+    -webkit-backdrop-filter: none; backdrop-filter: none;
+  }
+  /* Codenames revealed cards keep their team colour */
+  body.gt-glass .cn-card[class*="revealed-"], body.gt-glasslight .cn-card[class*="revealed-"] {
+    -webkit-backdrop-filter: none; backdrop-filter: none;
+  }
+
+  /* ---- glass: Poker Trainer ---- */
+  body.gt-glass .app-poker .feedback, body.gt-glasslight .app-poker .feedback,
+  body.gt-glass .app-poker .ref-item, body.gt-glasslight .app-poker .ref-item,
+  body.gt-glass .app-poker .ref-list, body.gt-glasslight .app-poker .ref-list {
+    background: var(--gl-panel) !important;
+    -webkit-backdrop-filter: blur(20px) saturate(160%); backdrop-filter: blur(20px) saturate(160%);
+    border: 1px solid var(--gl-edge) !important; color: var(--gl-text) !important;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.45) !important;
+  }
+  body.gt-glass .app-poker .option, body.gt-glasslight .app-poker .option,
+  body.gt-glass .app-poker .next-btn, body.gt-glasslight .app-poker .next-btn {
+    background: var(--gl-panel2) !important;
+    -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
+    border: 1px solid var(--gl-edge) !important; color: var(--gl-text) !important;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.18) !important;
+  }
+  body.gt-glass .app-poker .title, body.gt-glasslight .app-poker .title,
+  body.gt-glass .app-poker .stat-value, body.gt-glasslight .app-poker .stat-value,
+  body.gt-glass .app-poker .feedback-headline, body.gt-glasslight .app-poker .feedback-headline,
+  body.gt-glass .app-poker .ref-name, body.gt-glasslight .app-poker .ref-name,
+  body.gt-glass .app-poker .question, body.gt-glasslight .app-poker .question {
+    color: var(--gl-text) !important;
+  }
+  body.gt-glass .app-poker .stat-label, body.gt-glasslight .app-poker .stat-label,
+  body.gt-glass .app-poker .ref-desc, body.gt-glasslight .app-poker .ref-desc,
+  body.gt-glass .app-poker .row-label, body.gt-glasslight .app-poker .row-label,
+  body.gt-glass .app-poker .phase-label, body.gt-glasslight .app-poker .phase-label,
+  body.gt-glass .app-poker .feedback-detail, body.gt-glasslight .app-poker .feedback-detail {
+    color: var(--gl-dim) !important;
+  }
+  body.gt-glass .app-poker .title span, body.gt-glasslight .app-poker .title span { color: var(--gl-accent) !important; }
+  /* the trainer's own theme bar should not fight the glass look */
+  body.gt-glass .poker-themes button, body.gt-glasslight .poker-themes button {
+    background: var(--gl-panel2) !important; border: 1px solid var(--gl-edge) !important; color: var(--gl-text) !important;
+  }
+  body.gt-glass .poker-themes button.active, body.gt-glasslight .poker-themes button.active {
+    background: var(--gl-accent) !important; color: #fff !important;
+  }
+  /* playing cards stay solid paper */
+  body.gt-glass .app-poker .card, body.gt-glasslight .app-poker .card {
+    background: var(--card-white) !important; -webkit-backdrop-filter: none; backdrop-filter: none;
+  }
+
+  /* glass: keep the launcher calm — tile glow fights the blobs */
+  body.gt-glass .home-tile::after, body.gt-glasslight .home-tile::after { opacity: 0.14; }
+  body.gt-glass .home-tile, body.gt-glasslight .home-tile { background: var(--gl-panel) !important; }
+  body.gt-glasslight .home-tile { background: rgba(255,255,255,0.55) !important; }
+
   /* ====================== SHARED GAME RULES ====================== */
   .gr-backdrop {
     position: fixed; inset: 0; background: rgba(0,0,0,0.72);
@@ -7058,7 +7520,7 @@
 <!-- Admin toggle (hidden by default, shown after 5x title clicks) -->
 <button class="admin-toggle" id="adminToggleBtn" onclick="openAdminPanel()" style="display:none" aria-label="Admin-Panel öffnen" title="Admin-Panel">🔧</button>
 
-<div class="app-version" id="appVersion">v1.9.1</div>
+<div class="app-version" id="appVersion">v2.1.2</div>
 
 <!-- Admin toast -->
 <div class="admin-toast" id="adminToast"></div>
@@ -7135,6 +7597,7 @@
   </div>
 </div>
 
+<div id="gtBlobs"><div class="gt-blob b1"></div><div class="gt-blob b2"></div><div class="gt-blob b3"></div></div>
 <div class="menu-backdrop" id="menuBackdrop" onclick="toggleMenu()"></div>
 
 <!-- ============ SHARED GAME RULES MODAL ============ -->
@@ -7200,7 +7663,9 @@
       <button data-g="classic" onclick="gt_set('classic')">Klassisch</button>
       <button data-g="modern" onclick="gt_set('modern')">Modern</button>
       <button data-g="fancy" onclick="gt_set('fancy')">Fancy</button>
-      <button data-g="custom" onclick="gt_set('custom')">Eigenes</button>
+      <button data-g="glass" onclick="gt_set('glass')">Glas</button>
+        <button data-g="glasslight" onclick="gt_set('glasslight')">Glas Hell</button>
+        <button data-g="custom" onclick="gt_set('custom')">Eigenes</button>
       <button onclick="gt_openEditor()" title="Anpassen" style="flex:0 0 auto;min-width:38px">🎨</button>
     </div>
   </div>
@@ -7333,6 +7798,8 @@
         <button data-g="classic" onclick="gt_set('classic')">Klassisch</button>
         <button data-g="modern" onclick="gt_set('modern')">Modern</button>
         <button data-g="fancy" onclick="gt_set('fancy')">Fancy</button>
+        <button data-g="glass" onclick="gt_set('glass')">Glas</button>
+        <button data-g="glasslight" onclick="gt_set('glasslight')">Glas Hell</button>
         <button data-g="custom" onclick="gt_set('custom')">Eigenes</button>
         <button onclick="gt_openEditor()" style="flex:0 0 auto;min-width:38px" title="Farben anpassen">🎨</button>
       </div>
@@ -10724,9 +11191,11 @@
   }
   function gt_set(name) {
     const b = document.body;
-    b.classList.remove('gt-on','gt-fancy','gt-custom');
+    b.classList.remove('gt-on','gt-fancy','gt-custom','gt-glass','gt-glasslight');
     gt_clearCustomVars();
-    if (name === 'modern') b.classList.add('gt-on');
+    if (name === 'glass') b.classList.add('gt-glass');
+    else if (name === 'glasslight') b.classList.add('gt-glasslight');
+    else if (name === 'modern') b.classList.add('gt-on');
     else if (name === 'fancy') b.classList.add('gt-on','gt-fancy');
     else if (name === 'custom') { b.classList.add('gt-on','gt-custom'); gt_applyCustomVars(); }
     document.querySelectorAll('.gt-row-js button[data-g]').forEach(function(x) { x.classList.toggle('active', x.dataset.g === name); });
