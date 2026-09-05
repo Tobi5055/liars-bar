@@ -3004,7 +3004,12 @@
 
   /* ====================== POKER MULTI ====================== */
   .app-poker-multi {
-    background: linear-gradient(180deg, #0a1f15 0%, #050a08 100%);
+    --pmc-bg1:#0a1f15; --pmc-bg2:#050a08;
+    --pmc-accent:#5fa9ff; --pmc-accent2:#2563eb;
+    --pmc-text:#d8e8d0;   --pmc-dim:#b8d0ed;
+    --pmc-gold:#ffd700;   --pmc-good:#4ade80; --pmc-good2:#16a34a;
+    --pmc-bad:#ef4444;
+    background: linear-gradient(180deg, var(--pmc-bg1) 0%, var(--pmc-bg2) 100%);
   }
   .poker-lobby .multi-tag {
     background: linear-gradient(135deg, #16a34a, #15803d);
@@ -3038,7 +3043,7 @@
   .pm-mini-btn {
     background: transparent;
     border: 1px solid rgba(34,197,94,0.4);
-    color: #4ade80;
+    color: var(--pmc-good);
     padding: 0.35rem 0.9rem;
     border-radius: 4px;
     font-family: 'Outfit', sans-serif;
@@ -3074,12 +3079,12 @@
     align-items: center;
     gap: 0.5rem;
     font-family: 'Outfit', sans-serif;
-    color: #d8e8d0;
+    color: var(--pmc-text);
     font-size: 0.9rem;
   }
-  .pm-waiting-player.me { background: rgba(34,197,94,0.1); border-color: #22c55e; color: #4ade80; font-weight: 600; }
+  .pm-waiting-player.me { background: rgba(34,197,94,0.1); border-color: var(--pmc-good); color: var(--pmc-good); font-weight: 600; }
   .pm-start-btn {
-    background: linear-gradient(135deg, #16a34a, #4ade80);
+    background: linear-gradient(135deg, var(--pmc-good2), var(--pmc-good));
     color: white;
     border: none;
     width: 100%;
@@ -3105,7 +3110,7 @@
 
   .pm-game { padding-bottom: 1rem; }
   .pm-game .multi-topbar { border-color: rgba(34,197,94,0.25); }
-  .pm-game .multi-topbar-code { color: #4ade80; }
+  .pm-game .multi-topbar-code { color: var(--pmc-good); }
 
   .pm-others-row {
     display: flex;
@@ -3130,15 +3135,15 @@
     transition: all 0.2s;
   }
   .pm-other-player.active {
-    border-color: var(--th-accent, #6ee7a0);
+    border-color: var(--th-accent, var(--pmc-good));
     background: rgba(255,255,255,0.07);
-    box-shadow: inset 0 0 0 1px var(--th-accent, #6ee7a0);
+    box-shadow: inset 0 0 0 1px var(--th-accent, var(--pmc-good));
   }
   /* subtle "it's your turn" marker instead of a neon halo */
   .pm-other-player.active::after {
     content: ''; position: absolute; left: 50%; bottom: -5px; transform: translateX(-50%);
     width: 22px; height: 3px; border-radius: 2px;
-    background: var(--th-accent, #6ee7a0);
+    background: var(--th-accent, var(--pmc-good));
     animation: pmActivePulse 1.6s ease-in-out infinite;
   }
   @keyframes pmActivePulse {
@@ -3148,12 +3153,12 @@
   .pm-other-player.folded { opacity: 0.4; }
   .pm-other-player.allin { border-color: #f0e4c8; }
   .pm-other-player.out { opacity: 0.3; filter: grayscale(1); }
-  .pm-other-player.winner { border-color: #ffd700; box-shadow: inset 0 0 0 1px rgba(255,215,0,0.55); background: rgba(255,215,0,0.1); }
+  .pm-other-player.winner { border-color: var(--pmc-gold); box-shadow: inset 0 0 0 1px rgba(255,215,0,0.55); background: rgba(255,215,0,0.1); }
 
   .pm-other-name {
     font-family: 'Outfit', sans-serif;
     font-size: 0.78rem;
-    color: #d8e8d0;
+    color: var(--pmc-text);
     font-weight: 600;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -3162,14 +3167,14 @@
   .pm-other-stack {
     font-family: 'Bebas Neue', sans-serif;
     font-size: 0.95rem;
-    color: #4ade80;
+    color: var(--pmc-good);
     letter-spacing: 0.05em;
     margin-top: 0.1rem;
   }
   .pm-other-bet {
     font-family: 'Outfit', sans-serif;
     font-size: 0.7rem;
-    color: #f0d05a;
+    color: var(--pmc-gold);
     margin-top: 0.1rem;
     min-height: 0.9em;
   }
@@ -3194,8 +3199,8 @@
     font-weight: 700;
   }
   .pm-badge.dealer { color: white; background: #444; border-color: white; }
-  .pm-badge.sb { color: #5fa9ff; border-color: #5fa9ff; }
-  .pm-badge.bb { color: #ff6b6b; border-color: #ff6b6b; }
+  .pm-badge.sb { color: var(--pmc-accent); border-color: var(--pmc-accent); }
+  .pm-badge.bb { color: var(--pmc-bad); border-color: var(--pmc-bad); }
   .pm-other-status {
     font-family: 'Outfit', sans-serif;
     font-size: 0.65rem;
@@ -3221,7 +3226,7 @@
   .pm-pot-value {
     font-family: 'Bebas Neue', sans-serif;
     font-size: 1.8rem;
-    color: #ffd700;
+    color: var(--pmc-gold);
     letter-spacing: 0.1em;
     text-shadow: 0 0 18px rgba(255,215,0,0.4);
     line-height: 1;
@@ -3302,7 +3307,7 @@
   .pm-status-line {
     font-family: 'Outfit', sans-serif;
     font-size: 0.9rem;
-    color: #d8e8d0;
+    color: var(--pmc-text);
     margin-top: 0.15rem;
   }
 
@@ -3333,7 +3338,7 @@
   .pm-my-name {
     font-family: 'Outfit', sans-serif;
     font-size: 0.95rem;
-    color: #4ade80;
+    color: var(--pmc-good);
     font-weight: 700;
   }
   .pm-my-stack-row {
@@ -3344,7 +3349,7 @@
   }
   .pm-stack-label { color: rgba(216,232,208,0.6); }
   .pm-stack-val { color: white; font-weight: 600; }
-  .pm-bet-val { color: #f0d05a; font-weight: 600; }
+  .pm-bet-val { color: var(--pmc-gold); font-weight: 600; }
   .pm-my-hand-strength {
     font-family: 'Cinzel', 'Outfit', sans-serif;
     font-size: 0.72rem;
@@ -3390,17 +3395,17 @@
   .pm-action-fold {
     background: linear-gradient(135deg, #4a1a1a, #6b2a2a);
     border-color: rgba(239,68,68,0.5);
-    color: #ff8888;
+    color: var(--pmc-bad);
   }
   .pm-action-call {
     background: linear-gradient(135deg, #1a3a4a, #2a5a6b);
     border-color: rgba(95,169,255,0.5);
-    color: #b8d0ed;
+    color: var(--pmc-dim);
   }
   .pm-action-raise {
     background: linear-gradient(135deg, #4a3a1a, #6b5a2a);
     border-color: rgba(240,208,90,0.5);
-    color: #f0d05a;
+    color: var(--pmc-gold);
   }
 
   .pm-waiting-msg {
@@ -3411,7 +3416,7 @@
     text-align: center;
     font-family: 'Outfit', sans-serif;
     font-size: 0.88rem;
-    color: #b8d0ed;
+    color: var(--pmc-dim);
     margin-top: 0.2rem;
   }
 
@@ -3434,7 +3439,7 @@
   .pm-raise-amount {
     font-family: 'Bebas Neue', sans-serif;
     font-size: 2.5rem;
-    color: #ffd700;
+    color: var(--pmc-gold);
     text-align: center;
     line-height: 1;
     margin: 0.3rem 0 0.7rem;
@@ -3443,7 +3448,7 @@
   .pm-raise-slider {
     width: 100%;
     margin: 0.5rem 0;
-    accent-color: #f0d05a;
+    accent-color: var(--pmc-gold);
   }
   .pm-raise-presets {
     display: grid;
@@ -3481,7 +3486,7 @@
     letter-spacing: 0.1em;
   }
   .pm-raise-confirm {
-    background: linear-gradient(135deg, #c4972a, #ffd700);
+    background: linear-gradient(135deg, #c4972a, var(--pmc-gold));
     border: none;
     color: #1a1a1a;
     padding: 0.7rem;
@@ -3496,7 +3501,7 @@
 
   .pm-showdown {
     background: linear-gradient(180deg, rgba(40,30,15,0.95), rgba(20,15,8,0.95));
-    border: 2px solid #ffd700;
+    border: 2px solid var(--pmc-gold);
     border-radius: 12px;
     padding: 1.2rem;
     text-align: center;
@@ -3512,7 +3517,7 @@
     font-family: 'Cinzel', 'Bebas Neue', sans-serif;
     font-size: 0.85rem;
     letter-spacing: 0.4em;
-    color: #ffd700;
+    color: var(--pmc-gold);
     text-transform: uppercase;
   }
   .pm-showdown-winner {
@@ -3573,14 +3578,14 @@
     padding: 0.6rem 0;
     cursor: pointer;
     font-family: 'Outfit', sans-serif;
-    color: #d8e8d0;
+    color: var(--pmc-text);
     font-size: 0.9rem;
   }
   .pm-admin-toggle input[type="checkbox"] {
     width: 18px;
     height: 18px;
     margin-top: 2px;
-    accent-color: #4ade80;
+    accent-color: var(--pmc-good);
   }
   .pm-admin-players {
     display: flex;
@@ -3597,7 +3602,7 @@
     border-radius: 6px;
     padding: 0.55rem 0.7rem;
     font-family: 'Outfit', sans-serif;
-    color: #d8e8d0;
+    color: var(--pmc-text);
     font-size: 0.88rem;
   }
   .pm-admin-player.out { opacity: 0.7; border-color: rgba(239,68,68,0.3); }
@@ -3613,9 +3618,9 @@
     font-family: 'Bebas Neue', sans-serif;
     letter-spacing: 0.05em;
   }
-  .pm-admin-player-stack.out { color: #ff8888; }
+  .pm-admin-player-stack.out { color: var(--pmc-bad); }
   .pm-admin-rebuy-btn {
-    background: linear-gradient(135deg, #16a34a, #4ade80);
+    background: linear-gradient(135deg, var(--pmc-good2), var(--pmc-good));
     border: none;
     color: white;
     padding: 0.4rem 0.7rem;
@@ -3631,7 +3636,7 @@
   .pm-admin-kick-btn {
     background: rgba(239,68,68,0.15);
     border: 1px solid rgba(239,68,68,0.4);
-    color: #ff8888;
+    color: var(--pmc-bad);
     padding: 0.4rem 0.55rem;
     border-radius: 5px;
     font-family: 'Outfit', sans-serif;
@@ -3655,7 +3660,7 @@
     word-break: break-all;
     line-height: 1.4;
   }
-  .pm-debug-body .pm-debug-warn { color: #ff8888; }
+  .pm-debug-body .pm-debug-warn { color: var(--pmc-bad); }
 
   .menu-mp { position: relative; }
   .mp-badge {
@@ -6796,6 +6801,15 @@
   .multi-winner.active .multi-winner-name { animation: lbmWinnerPop 0.5s cubic-bezier(0.2,1.4,0.5,1) both; }
   @keyframes lbmWinnerPop { 0% { transform: scale(0.4); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
 
+  /* ====================== POKER MULTI — THEME PICKER ====================== */
+  .pmc-row { display:flex; gap:0.3rem; flex-wrap:wrap; margin-bottom:0.6rem; }
+  .pmc-row button {
+    flex:1; min-width:60px; padding:0.45rem 0.3rem; border-radius:7px; cursor:pointer;
+    border:1px solid rgba(255,255,255,0.16); background:rgba(255,255,255,0.06);
+    color:rgba(255,255,255,0.8); font-family:'Outfit',sans-serif; font-size:0.75rem;
+  }
+  .pmc-row button.active { background:rgba(255,255,255,0.22); border-color:rgba(255,255,255,0.5); color:#fff; font-weight:700; }
+
   /* ====================== POKER MULTI — ADMIN TOOLS ====================== */
   .pm-adm-tools { grid-column: 1 / -1; display: flex; gap: 0.3rem; margin-top: 0.4rem; flex-wrap: wrap; }
   .pm-adm-tools button {
@@ -7038,7 +7052,7 @@
 <!-- Admin toggle (hidden by default, shown after 5x title clicks) -->
 <button class="admin-toggle" id="adminToggleBtn" onclick="openAdminPanel()" style="display:none" aria-label="Admin-Panel öffnen" title="Admin-Panel">🔧</button>
 
-<div class="app-version" id="appVersion">v1.8.3</div>
+<div class="app-version" id="appVersion">v1.9.0</div>
 
 <!-- Admin toast -->
 <div class="admin-toast" id="adminToast"></div>
@@ -7126,6 +7140,22 @@
     </div>
     <div class="gr-body" id="grBody"></div>
     <button class="gr-done" onclick="hideGameRules()">VERSTANDEN</button>
+  </div>
+</div>
+
+<!-- ============ POKER MULTI THEME EDITOR ============ -->
+<div class="ga-backdrop" id="pmcEditor" onclick="if(event.target===this) pmc_closeEditor()">
+  <div class="ga-modal">
+    <div class="ga-modal-title">🎨 Poker Multi — Farben</div>
+    <div class="ga-modal-sub">Nur für Poker Multi · sofort sichtbar</div>
+    <div class="ga-modal-sub" style="color:rgba(255,255,255,0.4)">Vorlage laden</div>
+    <div class="pmc-row" style="margin-bottom:0.6rem">
+      <button onclick="pmc_preset('default')">Standard</button>
+      <button onclick="pmc_preset('midnight')">Midnight</button>
+      <button onclick="pmc_preset('copper')">Copper</button>
+    </div>
+    <div class="ga-list" id="pmcColors"></div>
+    <button class="ga-close" onclick="pmc_closeEditor()">FERTIG</button>
   </div>
 </div>
 
@@ -8398,6 +8428,14 @@
     <div class="multi-modal-bd" id="pmSettingsModal" onclick="if(event.target===this) pm_closeSettings()">
       <div class="multi-modal pm-modal">
         <div class="multi-modal-title">EINSTELLUNGEN</div>
+        <div class="multi-settings-label">DESIGN (POKER MULTI)</div>
+        <div class="pmc-row" id="pmcRow">
+          <button data-c="default" onclick="pmc_set('default')">Standard</button>
+          <button data-c="midnight" onclick="pmc_set('midnight')">Midnight</button>
+          <button data-c="copper" onclick="pmc_set('copper')">Copper</button>
+          <button data-c="custom" onclick="pmc_set('custom')">Eigenes</button>
+          <button onclick="pmc_openEditor()" style="flex:0 0 auto;min-width:38px" title="Farben anpassen">🎨</button>
+        </div>
         <div class="multi-settings-label" id="pmHostOnlyLabel">RUNDE (HOST)</div>
         <button class="multi-settings-btn-full" id="pmNextHandBtn" onclick="pm_forceNextHand()" style="display:none">Nächste Hand erzwingen</button>
         <button class="multi-settings-btn-full multi-danger" id="pmResetGameBtn" onclick="pm_resetGame()" style="display:none">Spiel komplett zurücksetzen (1000 Chips für alle)</button>
@@ -10588,6 +10626,56 @@
   function hideGameRules() { document.getElementById('gameRulesModal').classList.remove('active'); }
   window.showGameRules = showGameRules;
   window.hideGameRules = hideGameRules;
+
+  // ============ POKER MULTI COLOURS ============
+  const PMC_FIELDS = [
+    ['pmc-bg1','Hintergrund oben'], ['pmc-bg2','Hintergrund unten'],
+    ['pmc-accent','Akzent'], ['pmc-text','Text'], ['pmc-dim','Text gedämpft'],
+    ['pmc-gold','Gold / Pot'], ['pmc-good','Grün / aktiv'], ['pmc-bad','Rot / Fold'],
+  ];
+  const PMC_PRESETS = {
+    default:  { 'pmc-bg1':'#0a1f15','pmc-bg2':'#050a08','pmc-accent':'#5fa9ff','pmc-text':'#d8e8d0','pmc-dim':'#b8d0ed','pmc-gold':'#ffd700','pmc-good':'#4ade80','pmc-bad':'#ef4444' },
+    midnight: { 'pmc-bg1':'#0e1118','pmc-bg2':'#05070b','pmc-accent':'#5b8dff','pmc-text':'#e9eef7','pmc-dim':'#9aa6ba','pmc-gold':'#e8c15a','pmc-good':'#3fb950','pmc-bad':'#f0533f' },
+    copper:   { 'pmc-bg1':'#141117','pmc-bg2':'#08070a','pmc-accent':'#d9a679','pmc-text':'#f0e9e2','pmc-dim':'#b3a89d','pmc-gold':'#e3bc7a','pmc-good':'#7bbf8a','pmc-bad':'#cf8272' },
+  };
+  let pmcCustom = null;
+  function pmc_loadCustom() {
+    if (pmcCustom) return pmcCustom;
+    let sv = null; try { sv = JSON.parse(localStorage.getItem('pmc-custom')); } catch (e) {}
+    pmcCustom = Object.assign({}, PMC_PRESETS.default, sv || {});
+    return pmcCustom;
+  }
+  function pmc_apply(map) {
+    const el = document.getElementById('appPokerMulti'); if (!el) return;
+    PMC_FIELDS.forEach(function(f) {
+      if (map && map[f[0]]) el.style.setProperty('--' + f[0], map[f[0]]);
+      else el.style.removeProperty('--' + f[0]);
+    });
+    el.style.setProperty('--pmc-accent2', (map && map['pmc-accent']) ? map['pmc-accent'] : '');
+    el.style.setProperty('--pmc-good2', (map && map['pmc-good']) ? map['pmc-good'] : '');
+  }
+  function pmc_set(name) {
+    if (name === 'default') pmc_apply(null);
+    else if (name === 'custom') pmc_apply(pmc_loadCustom());
+    else pmc_apply(PMC_PRESETS[name]);
+    document.querySelectorAll('#pmcRow button[data-c]').forEach(function(b) { b.classList.toggle('active', b.dataset.c === name); });
+    try { localStorage.setItem('pmc-theme', name); } catch (e) {}
+  }
+  function pmc_renderEditor() {
+    const c = pmc_loadCustom();
+    const w = document.getElementById('pmcColors');
+    if (w) w.innerHTML = PMC_FIELDS.map(function(f) {
+      return '<label class="ga-row" style="cursor:default"><span class="ga-name">' + f[1] + '</span>' +
+        '<input type="color" value="' + c[f[0]] + '" oninput="pmc_setColor(\'' + f[0] + '\', this.value)" style="width:44px;height:30px;border:1px solid rgba(255,255,255,0.2);border-radius:6px;background:none;cursor:pointer;padding:0"></label>';
+    }).join('');
+  }
+  function pmc_openEditor() { pmc_loadCustom(); pmc_set('custom'); pmc_renderEditor(); document.getElementById('pmcEditor').classList.add('active'); }
+  function pmc_closeEditor() { document.getElementById('pmcEditor').classList.remove('active'); }
+  function pmc_setColor(k, v) { pmc_loadCustom(); pmcCustom[k] = v; try { localStorage.setItem('pmc-custom', JSON.stringify(pmcCustom)); } catch (e) {} pmc_apply(pmcCustom); }
+  function pmc_preset(n) { pmcCustom = Object.assign({}, PMC_PRESETS[n]); try { localStorage.setItem('pmc-custom', JSON.stringify(pmcCustom)); } catch (e) {} pmc_apply(pmcCustom); pmc_renderEditor(); }
+  window.pmc_set = pmc_set; window.pmc_openEditor = pmc_openEditor; window.pmc_closeEditor = pmc_closeEditor;
+  window.pmc_setColor = pmc_setColor; window.pmc_preset = pmc_preset;
+  (function() { let t = 'default'; try { t = localStorage.getItem('pmc-theme') || 'default'; } catch (e) {} pmc_set(t); })();
 
   // ============ GLOBAL THEMES ============
   const GT_FIELDS = [
