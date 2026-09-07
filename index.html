@@ -7431,6 +7431,24 @@
   .app-poker .gd-gest b { display: block; color: var(--cream); font-size: 13.5px; margin-bottom: 2px; }
   .app-poker .gd-gest span:not(.gd-ico) { color: var(--cream-dim); font-size: 13px; line-height: 1.5; }
 
+
+  /* ====================== CARD FLIP ANIMATION ====================== */
+  @keyframes pkFlipIn {
+    0%   { transform: perspective(700px) rotateY(-92deg) translateY(-8px) scale(0.94); opacity: 0; }
+    55%  { opacity: 1; }
+    75%  { transform: perspective(700px) rotateY(9deg) translateY(0) scale(1.03); }
+    100% { transform: perspective(700px) rotateY(0) translateY(0) scale(1); opacity: 1; }
+  }
+  .card.flip-in, .pm-card.flip-in {
+    animation: pkFlipIn 0.52s cubic-bezier(0.24, 0.9, 0.32, 1.2) both;
+    transform-origin: 50% 50%;
+    backface-visibility: hidden;
+  }
+  .card, .pm-card { position: relative; }
+  @media (prefers-reduced-motion: reduce) {
+    .card.flip-in, .pm-card.flip-in { animation-duration: 0.01s; }
+  }
+
   /* ====================== SHARED GAME RULES ====================== */
   .gr-backdrop {
     position: fixed; inset: 0; background: rgba(0,0,0,0.72);
@@ -7548,7 +7566,7 @@
 <!-- Admin toggle (hidden by default, shown after 5x title clicks) -->
 <button class="admin-toggle" id="adminToggleBtn" onclick="openAdminPanel()" style="display:none" aria-label="Admin-Panel öffnen" title="Admin-Panel">🔧</button>
 
-<div class="app-version" id="appVersion">v2.4.0</div>
+<div class="app-version" id="appVersion">v2.5.1</div>
 
 <!-- Admin toast -->
 <div class="admin-toast" id="adminToast"></div>
@@ -12372,10 +12390,16 @@ function cardHTML(card, isHole = false) {
 
 function renderScenario(scenario) {
   document.getElementById('phase').textContent = scenario.phase.name;
-  document.getElementById('community').innerHTML =
-    scenario.community.map(c => cardHTML(c)).join('');
-  document.getElementById('hole').innerHTML =
-    scenario.hole.map(c => cardHTML(c, true)).join('');
+  const comm = document.getElementById('community');
+  const hole = document.getElementById('hole');
+  comm.innerHTML = scenario.community.map(c => cardHTML(c)).join('');
+  hole.innerHTML = scenario.hole.map(c => cardHTML(c, true)).join('');
+  // deal them in one after another
+  const all = [...comm.children, ...hole.children];
+  all.forEach((el, i) => {
+    el.classList.add('flip-in');
+    el.style.animationDelay = (i * 90) + 'ms';
+  });
 }
 
 function renderOptions(options, correctType) {
@@ -16407,18 +16431,34 @@ nextRound();
       wrap.innerHTML = html;
     }
 
+    let lastCommunityKey = '';
     function renderCommunity() {
       const wrap = document.getElementById('pmCommunity');
       const cards = state.communityCards || [];
+      const key = cards.join(',');
+      // how many were already on the table before this update?
+      const prev = lastCommunityKey ? lastCommunityKey.split(',').filter(Boolean).length : 0;
+      const isNewDeal = !key.startsWith(lastCommunityKey.replace(/,$/, '')) || cards.length < prev;
+      const firstNew = isNewDeal ? 0 : prev;
+
       let html = '';
       for (let i = 0; i < 5; i++) {
-        if (i < cards.length) {
-          html += cardHtml(cards[i]);
-        } else {
-          html += '<div class="pm-card pm-card-empty"></div>';
-        }
+        if (i < cards.length) html += cardHtml(cards[i]);
+        else html += '<div class="pm-card pm-card-empty"></div>';
       }
       wrap.innerHTML = html;
+
+      if (key !== lastCommunityKey) {
+        let n = 0;
+        for (let i = firstNew; i < cards.length; i++) {
+          const el = wrap.children[i];
+          if (!el) continue;
+          el.classList.add('flip-in');
+          el.style.animationDelay = (n * 110) + 'ms';
+          n++;
+        }
+        lastCommunityKey = key;
+      }
     }
 
     function cardHtml(card) {
@@ -16464,6 +16504,9 @@ nextRound();
     function renderMyArea() {
       const me = state.players[mySelfId];
       if (!me) return;
+      const myCardKey = (me.cards || []).join(',');
+      const cardsChanged = myCardKey !== renderMyArea._lastCards;
+      renderMyArea._lastCards = myCardKey;
       let posHtml = '';
       if (state.started && state.seatOrder && state.seatOrder.length) {
         const dId = state.seatOrder[state.dealerIdx];
@@ -16696,6 +16739,7 @@ nextRound();
       if (revealEl) {
         if (!sd.byFold && sd.hands && sd.hands.length) {
           const ranked = sd.hands.slice().sort(function(a, b) { return b.score - a.score; });
+          revealEl.dataset.flip = '1';
           revealEl.innerHTML = ranked.map(function(h) {
             const pl = state.players[h.id];
             const nm = pl ? pl.name : '—';
@@ -16712,6 +16756,14 @@ nextRound();
                    '</div>';
           }).join('');
           revealEl.style.display = '';
+          if (revealEl.dataset.flipped !== sd.ts + '') {
+            revealEl.dataset.flipped = sd.ts + '';
+            const cs = revealEl.querySelectorAll('.pm-card');
+            cs.forEach(function(el, i) {
+              el.classList.add('flip-in');
+              el.style.animationDelay = (i * 70) + 'ms';
+            });
+          }
         } else {
           revealEl.innerHTML = '';
           revealEl.style.display = 'none';
