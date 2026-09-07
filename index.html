@@ -5265,6 +5265,34 @@
   .pk-ed-reset { width: 100%; margin-top: 1.1rem; padding: 0.7rem; border: 1px solid rgba(255,120,120,0.4); background: rgba(255,80,80,0.12); color: #ff9b9b; border-radius: 9px; font-family: 'Outfit',sans-serif; cursor: pointer; font-size: 0.86rem; }
   .pk-ed-close { width: 100%; margin-top: 0.6rem; padding: 0.9rem; border: none; border-radius: 10px; background: rgba(255,255,255,0.12); color: #fff; font-family: 'Outfit',sans-serif; font-weight: 600; letter-spacing: 0.05em; cursor: pointer; }
 
+  /* --- Theme: Glossy (Glas-Optik, lokal im Trainer) --- */
+  .app-poker.theme-glossy {
+    --felt-deep:#0a0c12; --felt-mid:#12151d; --felt-light:#1b1f2a;
+    --gold:#9dc0ff; --gold-soft:#5f7fc4;
+    --cream:#f6f8fc; --cream-dim:rgba(246,248,252,0.66);
+    --card-white:#fbfbf8; --card-shadow:rgba(0,0,0,0.5);
+    --red-suit:#e5484d; --black-suit:#14171f;
+    --correct:#4ade80; --wrong:#f0533f;
+    --pk-r-table: 24px; --pk-r-panel: 16px;
+  }
+  .app-poker.theme-glossy .table,
+  .app-poker.theme-glossy .reference,
+  .app-poker.theme-glossy .feedback {
+    background: rgba(255,255,255,0.06) !important;
+    -webkit-backdrop-filter: blur(22px) saturate(160%); backdrop-filter: blur(22px) saturate(160%);
+    border: 1px solid rgba(255,255,255,0.28) !important;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.5) !important;
+  }
+  /* never touch a marked answer — correct/wrong must stay visible */
+  .app-poker.theme-glossy .option:not(.correct):not(.wrong) {
+    background: rgba(255,255,255,0.11);
+    -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
+    border: 1px solid rgba(255,255,255,0.28);
+  }
+  .app-poker.theme-glossy .next-btn {
+    background: rgba(255,255,255,0.13); border: 1px solid rgba(255,255,255,0.3); color: var(--cream);
+  }
+
   /* --- Theme selector --- */
   .poker-themes { display: flex; gap: 0.4rem; justify-content: center; margin: 0.1rem auto 1.2rem; position: relative; z-index: 1; }
   .poker-themes button {
@@ -5547,6 +5575,10 @@
     min-height: 70px;
     opacity: 0;
     transition: opacity 0.3s;
+    padding: 18px 18px 20px;
+    border-radius: var(--pk-r-panel, 14px);
+    background: rgba(0,0,0,0.18);
+    border: 1px solid rgba(212,168,67,0.14);
   }
   .app-poker .feedback.show {  opacity: 1; }
   .app-poker .feedback-headline { 
@@ -5562,7 +5594,7 @@
     color: var(--cream-dim);
     font-size: 14px;
     line-height: 1.5;
-    max-width: 580px;
+    max-width: 620px;
     margin: 0 auto;
   }
   .app-poker .feedback-detail strong { 
@@ -5621,11 +5653,11 @@
     margin-bottom: 14px;
   }
   .app-poker .fb-strategy { 
-    margin: 14px auto 0;
+    margin: 14px 0 0;
     padding: 12px 16px;
     background: rgba(0,0,0,0.28);
-    border-left: 2px solid var(--gold);
-    border-radius: 4px;
+    border-left: 3px solid var(--gold);
+    border-radius: 0 8px 8px 0;
     text-align: left;
     font-size: 13.5px;
     color: var(--cream);
@@ -6966,24 +6998,20 @@
 
   /* app surfaces become transparent so the blobs show through */
   body.gt-glass .app, body.gt-glasslight .app,
-  body.gt-glass .app-poker-multi, body.gt-glasslight .app-poker-multi,
+  body.gt-glass:not(.pmc-on) .app-poker-multi, body.gt-glasslight:not(.pmc-on) .app-poker-multi,
   body.gt-glass .app-home, body.gt-glasslight .app-home {
     background: transparent !important; color: var(--gl-text) !important;
   }
-  body.gt-glass .app-poker, body.gt-glasslight .app-poker { background: transparent !important; }
-  body.gt-glass .app-poker.visible::before, body.gt-glasslight .app-poker.visible::before { opacity: 0.25; }
 
   /* frosted panels */
   body.gt-glass .multi-topbar, body.gt-glasslight .multi-topbar,
   body.gt-glass .multi-modal, body.gt-glasslight .multi-modal,
   body.gt-glass .multi-player-row, body.gt-glasslight .multi-player-row,
-  body.gt-glass .pm-waiting-player, body.gt-glasslight .pm-waiting-player,
+  body.gt-glass:not(.pmc-on) .pm-waiting-player, body.gt-glasslight:not(.pmc-on) .pm-waiting-player,
   body.gt-glass .multi-card-display, body.gt-glasslight .multi-card-display,
   body.gt-glass .home-tile, body.gt-glasslight .home-tile,
   body.gt-glass .home-theme, body.gt-glasslight .home-theme,
-  body.gt-glass .pm-coach, body.gt-glasslight .pm-coach,
-  body.gt-glass .app-poker .table, body.gt-glasslight .app-poker .table,
-  body.gt-glass .app-poker .reference, body.gt-glasslight .app-poker .reference,
+  body.gt-glass:not(.pmc-on) .pm-coach, body.gt-glasslight:not(.pmc-on) .pm-coach,
   body.gt-glass .imps-box, body.gt-glasslight .imps-box,
   body.gt-glass .nt-sheet, body.gt-glasslight .nt-sheet {
     background: var(--gl-panel) !important;
@@ -7002,9 +7030,8 @@
   body.gt-glass .multi-player-name, body.gt-glasslight .multi-player-name,
   body.gt-glass .home-title, body.gt-glasslight .home-title,
   body.gt-glass .home-tile-name, body.gt-glasslight .home-tile-name,
-  body.gt-glass .pm-other-name, body.gt-glasslight .pm-other-name,
-  body.gt-glass .pm-my-name, body.gt-glasslight .pm-my-name,
-  body.gt-glass .app-poker .title, body.gt-glasslight .app-poker .title,
+  body.gt-glass:not(.pmc-on) .pm-other-name, body.gt-glasslight:not(.pmc-on) .pm-other-name,
+  body.gt-glass:not(.pmc-on) .pm-my-name, body.gt-glasslight:not(.pmc-on) .pm-my-name,
   body.gt-glass .imps-title, body.gt-glasslight .imps-title,
   body.gt-glass .nt-title, body.gt-glasslight .nt-title {
     color: var(--gl-text) !important;
@@ -7016,7 +7043,6 @@
   body.gt-glass .home-section-label, body.gt-glasslight .home-section-label,
   body.gt-glass .home-sub, body.gt-glasslight .home-sub,
   body.gt-glass .home-footer, body.gt-glasslight .home-footer,
-  body.gt-glass .app-poker .subtitle, body.gt-glasslight .app-poker .subtitle,
   body.gt-glass .imps-sub, body.gt-glasslight .imps-sub,
   body.gt-glass .nt-sub, body.gt-glasslight .nt-sub,
   body.gt-glass .multi-settings-label, body.gt-glasslight .multi-settings-label,
@@ -7035,7 +7061,7 @@
   body.gt-glass .multi-action-btn, body.gt-glasslight .multi-action-btn,
   body.gt-glass .multi-btn, body.gt-glasslight .multi-btn,
   body.gt-glass .multi-draw-btn, body.gt-glasslight .multi-draw-btn,
-  body.gt-glass .pm-start-btn, body.gt-glasslight .pm-start-btn,
+  body.gt-glass:not(.pmc-on) .pm-start-btn, body.gt-glasslight:not(.pmc-on) .pm-start-btn,
   body.gt-glass .slf-btn, body.gt-glasslight .slf-btn,
   body.gt-glass .imps-btn, body.gt-glasslight .imps-btn,
   body.gt-glass .g-btn, body.gt-glasslight .g-btn {
@@ -7062,15 +7088,15 @@
 
   /* ---- glass: every remaining panel ---- */
   body.gt-glass .panel,
-  body.gt-glass .pm-my-area,
-  body.gt-glass .pm-others-row .pm-other-player,
-  body.gt-glass .pm-pot-display,
-  body.gt-glass .pm-raise-panel,
-  body.gt-glass .pm-waiting-content,
-  body.gt-glass .pm-reveal-row,
-  body.gt-glass .pm-admin-player,
-  body.gt-glass .pm-modal,
-  body.gt-glass .pm-admin-modal,
+  body.gt-glass:not(.pmc-on) .pm-my-area,
+  body.gt-glass:not(.pmc-on) .pm-others-row .pm-other-player,
+  body.gt-glass:not(.pmc-on) .pm-pot-display,
+  body.gt-glass:not(.pmc-on) .pm-raise-panel,
+  body.gt-glass:not(.pmc-on) .pm-waiting-content,
+  body.gt-glass:not(.pmc-on) .pm-reveal-row,
+  body.gt-glass:not(.pmc-on) .pm-admin-player,
+  body.gt-glass:not(.pmc-on) .pm-modal,
+  body.gt-glass:not(.pmc-on) .pm-admin-modal,
   body.gt-glass .ww-waiting-content,
   body.gt-glass .ww-reveal-box,
   body.gt-glass .ww-role-card-front,
@@ -7125,15 +7151,15 @@
   body.gt-glass .multi-suspense-box,
   body.gt-glass .admin-panel,
   body.gt-glasslight .panel,
-  body.gt-glasslight .pm-my-area,
-  body.gt-glasslight .pm-others-row .pm-other-player,
-  body.gt-glasslight .pm-pot-display,
-  body.gt-glasslight .pm-raise-panel,
-  body.gt-glasslight .pm-waiting-content,
-  body.gt-glasslight .pm-reveal-row,
-  body.gt-glasslight .pm-admin-player,
-  body.gt-glasslight .pm-modal,
-  body.gt-glasslight .pm-admin-modal,
+  body.gt-glasslight:not(.pmc-on) .pm-my-area,
+  body.gt-glasslight:not(.pmc-on) .pm-others-row .pm-other-player,
+  body.gt-glasslight:not(.pmc-on) .pm-pot-display,
+  body.gt-glasslight:not(.pmc-on) .pm-raise-panel,
+  body.gt-glasslight:not(.pmc-on) .pm-waiting-content,
+  body.gt-glasslight:not(.pmc-on) .pm-reveal-row,
+  body.gt-glasslight:not(.pmc-on) .pm-admin-player,
+  body.gt-glasslight:not(.pmc-on) .pm-modal,
+  body.gt-glasslight:not(.pmc-on) .pm-admin-modal,
   body.gt-glasslight .ww-waiting-content,
   body.gt-glasslight .ww-reveal-box,
   body.gt-glasslight .ww-role-card-front,
@@ -7229,7 +7255,7 @@
   body.gt-glass .ga-close,
   body.gt-glass .pk-ed-close,
   body.gt-glass .pmc-row button,
-  body.gt-glass .pm-adm-tools button,
+  body.gt-glass:not(.pmc-on) .pm-adm-tools button,
   body.gt-glass .multi-btn-self,
   body.gt-glass .multi-btn-other,
   body.gt-glass .multi-btn-reload,
@@ -7267,7 +7293,7 @@
   body.gt-glasslight .ga-close,
   body.gt-glasslight .pk-ed-close,
   body.gt-glasslight .pmc-row button,
-  body.gt-glasslight .pm-adm-tools button,
+  body.gt-glasslight:not(.pmc-on) .pm-adm-tools button,
   body.gt-glasslight .multi-btn-self,
   body.gt-glasslight .multi-btn-other,
   body.gt-glasslight .multi-btn-reload,
@@ -7283,7 +7309,7 @@
   body.gt-glass .ww-waiting-label,
   body.gt-glass .slf-waiting-label,
   body.gt-glass .g-waiting-label,
-  body.gt-glass .pm-waiting-label,
+  body.gt-glass:not(.pmc-on) .pm-waiting-label,
   body.gt-glass .slf-phase-desc,
   body.gt-glass .g-phase-desc,
   body.gt-glass .imp-action-prompt,
@@ -7292,16 +7318,16 @@
   body.gt-glass .imps-box-label,
   body.gt-glass .imps-pass-label,
   body.gt-glass .nt-stat-label,
-  body.gt-glass .pm-waiting-hint,
-  body.gt-glass .pm-waiting-msg,
+  body.gt-glass:not(.pmc-on) .pm-waiting-hint,
+  body.gt-glass:not(.pmc-on) .pm-waiting-msg,
   body.gt-glass .slf-scoreboard-title,
   body.gt-glass .gr-body,
-  body.gt-glass .pm-coach-tip,
-  body.gt-glass .pm-reveal-hand,
+  body.gt-glass:not(.pmc-on) .pm-coach-tip,
+  body.gt-glass:not(.pmc-on) .pm-reveal-hand,
   body.gt-glasslight .ww-waiting-label,
   body.gt-glasslight .slf-waiting-label,
   body.gt-glasslight .g-waiting-label,
-  body.gt-glasslight .pm-waiting-label,
+  body.gt-glasslight:not(.pmc-on) .pm-waiting-label,
   body.gt-glasslight .slf-phase-desc,
   body.gt-glasslight .g-phase-desc,
   body.gt-glasslight .imp-action-prompt,
@@ -7310,12 +7336,12 @@
   body.gt-glasslight .imps-box-label,
   body.gt-glasslight .imps-pass-label,
   body.gt-glasslight .nt-stat-label,
-  body.gt-glasslight .pm-waiting-hint,
-  body.gt-glasslight .pm-waiting-msg,
+  body.gt-glasslight:not(.pmc-on) .pm-waiting-hint,
+  body.gt-glasslight:not(.pmc-on) .pm-waiting-msg,
   body.gt-glasslight .slf-scoreboard-title,
   body.gt-glasslight .gr-body,
-  body.gt-glasslight .pm-coach-tip,
-  body.gt-glasslight .pm-reveal-hand { color: var(--gl-dim) !important; }
+  body.gt-glasslight:not(.pmc-on) .pm-coach-tip,
+  body.gt-glasslight:not(.pmc-on) .pm-reveal-hand { color: var(--gl-dim) !important; }
   /* ---- glass: headings ---- */
   body.gt-glass .ww-gameover-title,
   body.gt-glass .slf-gameover-title,
@@ -7328,7 +7354,7 @@
   body.gt-glass .imps-sol-word,
   body.gt-glass .nt-stat-val,
   body.gt-glass .gr-modal-title,
-  body.gt-glass .pm-reveal-name,
+  body.gt-glass:not(.pmc-on) .pm-reveal-name,
   body.gt-glass .tb-word-card,
   body.gt-glass .cn-clue-word,
   body.gt-glasslight .ww-gameover-title,
@@ -7342,12 +7368,12 @@
   body.gt-glasslight .imps-sol-word,
   body.gt-glasslight .nt-stat-val,
   body.gt-glasslight .gr-modal-title,
-  body.gt-glasslight .pm-reveal-name,
+  body.gt-glasslight:not(.pmc-on) .pm-reveal-name,
   body.gt-glasslight .tb-word-card,
   body.gt-glasslight .cn-clue-word { color: var(--gl-text) !important; }
 
   /* keep playing cards readable — they stay opaque paper */
-  body.gt-glass .pm-card, body.gt-glasslight .pm-card,
+  body.gt-glass:not(.pmc-on) .pm-card, body.gt-glasslight:not(.pmc-on) .pm-card,
   body.gt-glass .card, body.gt-glasslight .card {
     -webkit-backdrop-filter: none; backdrop-filter: none;
   }
@@ -7356,53 +7382,54 @@
     -webkit-backdrop-filter: none; backdrop-filter: none;
   }
 
-  /* ---- glass: Poker Trainer ---- */
-  body.gt-glass .app-poker .feedback, body.gt-glasslight .app-poker .feedback,
-  body.gt-glass .app-poker .ref-item, body.gt-glasslight .app-poker .ref-item,
-  body.gt-glass .app-poker .ref-list, body.gt-glasslight .app-poker .ref-list {
-    background: var(--gl-panel) !important;
-    -webkit-backdrop-filter: blur(20px) saturate(160%); backdrop-filter: blur(20px) saturate(160%);
-    border: 1px solid var(--gl-edge) !important; color: var(--gl-text) !important;
-    box-shadow: inset 0 1px 0 rgba(255,255,255,0.45) !important;
-  }
-  body.gt-glass .app-poker .option, body.gt-glasslight .app-poker .option,
-  body.gt-glass .app-poker .next-btn, body.gt-glasslight .app-poker .next-btn {
-    background: var(--gl-panel2) !important;
-    -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
-    border: 1px solid var(--gl-edge) !important; color: var(--gl-text) !important;
-    box-shadow: 0 4px 16px rgba(0,0,0,0.18) !important;
-  }
-  body.gt-glass .app-poker .title, body.gt-glasslight .app-poker .title,
-  body.gt-glass .app-poker .stat-value, body.gt-glasslight .app-poker .stat-value,
-  body.gt-glass .app-poker .feedback-headline, body.gt-glasslight .app-poker .feedback-headline,
-  body.gt-glass .app-poker .ref-name, body.gt-glasslight .app-poker .ref-name,
-  body.gt-glass .app-poker .question, body.gt-glasslight .app-poker .question {
-    color: var(--gl-text) !important;
-  }
-  body.gt-glass .app-poker .stat-label, body.gt-glasslight .app-poker .stat-label,
-  body.gt-glass .app-poker .ref-desc, body.gt-glasslight .app-poker .ref-desc,
-  body.gt-glass .app-poker .row-label, body.gt-glasslight .app-poker .row-label,
-  body.gt-glass .app-poker .phase-label, body.gt-glasslight .app-poker .phase-label,
-  body.gt-glass .app-poker .feedback-detail, body.gt-glasslight .app-poker .feedback-detail {
-    color: var(--gl-dim) !important;
-  }
-  body.gt-glass .app-poker .title span, body.gt-glasslight .app-poker .title span { color: var(--gl-accent) !important; }
-  /* the trainer's own theme bar should not fight the glass look */
-  body.gt-glass .poker-themes button, body.gt-glasslight .poker-themes button {
-    background: var(--gl-panel2) !important; border: 1px solid var(--gl-edge) !important; color: var(--gl-text) !important;
-  }
-  body.gt-glass .poker-themes button.active, body.gt-glasslight .poker-themes button.active {
-    background: var(--gl-accent) !important; color: #fff !important;
-  }
-  /* playing cards stay solid paper */
-  body.gt-glass .app-poker .card, body.gt-glasslight .app-poker .card {
-    background: var(--card-white) !important; -webkit-backdrop-filter: none; backdrop-filter: none;
-  }
 
-  /* glass: keep the launcher calm — tile glow fights the blobs */
-  body.gt-glass .home-tile::after, body.gt-glasslight .home-tile::after { opacity: 0.3; }
-  body.gt-glass .home-tile, body.gt-glasslight .home-tile { background: var(--gl-panel) !important; }
-  body.gt-glasslight .home-tile { background: rgba(255,255,255,0.55) !important; }
+  /* ---- Spickzettel: Mini-Karten ---- */
+  .app-poker .ref-cards { display: flex; gap: 3px; margin-top: 6px; flex-wrap: wrap; }
+  .app-poker .ref-card {
+    width: 26px; height: 36px; border-radius: 4px;
+    background: var(--card-white); color: var(--black-suit);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    line-height: 1; box-shadow: 0 1px 4px rgba(0,0,0,0.35); flex-shrink: 0;
+    font-family: 'Outfit', sans-serif;
+  }
+  .app-poker .ref-card.red { color: var(--red-suit); }
+  .app-poker .ref-card.dim { opacity: 0.35; }
+  .app-poker .ref-card .rc-r { font-size: 11px; font-weight: 700; }
+  .app-poker .ref-card .rc-s { font-size: 12px; margin-top: 1px; }
+
+
+  /* ---- Anleitung ---- */
+  .app-poker .reference.guide { margin-top: 14px; }
+  .app-poker .gd-sec { margin-top: 18px; }
+  .app-poker .gd-sec:first-of-type { margin-top: 8px; }
+  .app-poker .gd-h {
+    font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 19px;
+    color: var(--gold); margin-bottom: 8px; padding-bottom: 5px;
+    border-bottom: 1px solid rgba(212,168,67,0.18);
+  }
+  .app-poker .gd-list { margin: 0; display: grid; grid-template-columns: max-content 1fr; gap: 6px 14px; align-items: baseline; }
+  .app-poker .gd-list dt { font-weight: 700; color: var(--cream); font-size: 13.5px; }
+  .app-poker .gd-list dd { margin: 0; color: var(--cream-dim); font-size: 13.5px; line-height: 1.5; }
+  @media (max-width: 560px) {
+    .app-poker .gd-list { grid-template-columns: 1fr; gap: 2px; }
+    .app-poker .gd-list dd { margin-bottom: 8px; }
+  }
+  .app-poker .gd-steps { margin: 0; padding-left: 20px; color: var(--cream-dim); font-size: 13.5px; line-height: 1.7; }
+  .app-poker .gd-steps b { color: var(--cream); }
+  .app-poker .gd-note {
+    margin-top: 10px; padding: 10px 13px; font-size: 12.5px; line-height: 1.5;
+    background: rgba(0,0,0,0.22); border-left: 3px solid var(--gold);
+    border-radius: 0 8px 8px 0; color: var(--cream-dim);
+  }
+  .app-poker .gd-gestures { display: flex; flex-direction: column; gap: 9px; }
+  .app-poker .gd-gest {
+    display: flex; gap: 11px; align-items: flex-start;
+    background: rgba(0,0,0,0.18); border: 1px solid rgba(212,168,67,0.12);
+    border-radius: 10px; padding: 10px 12px;
+  }
+  .app-poker .gd-ico { font-size: 21px; line-height: 1.2; flex-shrink: 0; }
+  .app-poker .gd-gest b { display: block; color: var(--cream); font-size: 13.5px; margin-bottom: 2px; }
+  .app-poker .gd-gest span:not(.gd-ico) { color: var(--cream-dim); font-size: 13px; line-height: 1.5; }
 
   /* ====================== SHARED GAME RULES ====================== */
   .gr-backdrop {
@@ -7521,7 +7548,7 @@
 <!-- Admin toggle (hidden by default, shown after 5x title clicks) -->
 <button class="admin-toggle" id="adminToggleBtn" onclick="openAdminPanel()" style="display:none" aria-label="Admin-Panel öffnen" title="Admin-Panel">🔧</button>
 
-<div class="app-version" id="appVersion">v2.1.3</div>
+<div class="app-version" id="appVersion">v2.4.0</div>
 
 <!-- Admin toast -->
 <div class="admin-toast" id="adminToast"></div>
@@ -8048,6 +8075,7 @@
     <button data-t="classic" onclick="pk_setTheme('classic')">Klassisch</button>
     <button data-t="modern" onclick="pk_setTheme('modern')">Modern</button>
     <button data-t="fancy" onclick="pk_setTheme('fancy')">Fancy</button>
+    <button data-t="glossy" onclick="pk_setTheme('glossy')">Glossy</button>
     <button data-t="custom" onclick="pk_setTheme('custom')">Eigenes</button>
     <button class="pk-theme-edit" onclick="pk_openThemeEditor()" title="Theme anpassen">🎨</button>
   </div>
@@ -8111,16 +8139,86 @@
   <details class="reference">
     <summary>Spickzettel — Pokerhände vom höchsten zum niedrigsten</summary>
     <div class="ref-list">
-      <div class="ref-item"><span class="ref-rank">1</span><div><div class="ref-name">Royal Flush</div><div class="ref-desc">A, K, Q, J, 10 — alle in derselben Farbe</div></div></div>
-      <div class="ref-item"><span class="ref-rank">2</span><div><div class="ref-name">Straight Flush</div><div class="ref-desc">Fünf aufeinanderfolgende Karten in derselben Farbe</div></div></div>
-      <div class="ref-item"><span class="ref-rank">3</span><div><div class="ref-name">Vierling (Four of a Kind)</div><div class="ref-desc">Vier Karten desselben Werts</div></div></div>
-      <div class="ref-item"><span class="ref-rank">4</span><div><div class="ref-name">Full House</div><div class="ref-desc">Drilling + Paar</div></div></div>
-      <div class="ref-item"><span class="ref-rank">5</span><div><div class="ref-name">Flush</div><div class="ref-desc">Fünf Karten derselben Farbe (nicht in Reihenfolge)</div></div></div>
-      <div class="ref-item"><span class="ref-rank">6</span><div><div class="ref-name">Straße (Straight)</div><div class="ref-desc">Fünf aufeinanderfolgende Karten (gemischte Farben). A kann hoch (10-J-Q-K-A) oder niedrig (A-2-3-4-5) sein</div></div></div>
-      <div class="ref-item"><span class="ref-rank">7</span><div><div class="ref-name">Drilling (Three of a Kind)</div><div class="ref-desc">Drei Karten desselben Werts</div></div></div>
-      <div class="ref-item"><span class="ref-rank">8</span><div><div class="ref-name">Zwei Paare</div><div class="ref-desc">Zwei verschiedene Paare</div></div></div>
-      <div class="ref-item"><span class="ref-rank">9</span><div><div class="ref-name">Paar</div><div class="ref-desc">Zwei Karten desselben Werts</div></div></div>
-      <div class="ref-item"><span class="ref-rank">10</span><div><div class="ref-name">Hohe Karte</div><div class="ref-desc">Keine der obigen Kombinationen — höchste Einzelkarte zählt</div></div></div>
+      <div class="ref-item"><span class="ref-rank">1</span><div><div class="ref-name">Royal Flush</div><div class="ref-desc">A, K, Q, J, 10 — alle in derselben Farbe</div><div class="ref-cards"><span class="ref-card "><span class="rc-r">A</span><span class="rc-s">♠</span></span><span class="ref-card "><span class="rc-r">K</span><span class="rc-s">♠</span></span><span class="ref-card "><span class="rc-r">Q</span><span class="rc-s">♠</span></span><span class="ref-card "><span class="rc-r">J</span><span class="rc-s">♠</span></span><span class="ref-card "><span class="rc-r">10</span><span class="rc-s">♠</span></span></div></div></div>
+      <div class="ref-item"><span class="ref-rank">2</span><div><div class="ref-name">Straight Flush</div><div class="ref-desc">Fünf aufeinanderfolgende Karten in derselben Farbe</div><div class="ref-cards"><span class="ref-card red"><span class="rc-r">9</span><span class="rc-s">♥</span></span><span class="ref-card red"><span class="rc-r">8</span><span class="rc-s">♥</span></span><span class="ref-card red"><span class="rc-r">7</span><span class="rc-s">♥</span></span><span class="ref-card red"><span class="rc-r">6</span><span class="rc-s">♥</span></span><span class="ref-card red"><span class="rc-r">5</span><span class="rc-s">♥</span></span></div></div></div>
+      <div class="ref-item"><span class="ref-rank">3</span><div><div class="ref-name">Vierling (Four of a Kind)</div><div class="ref-desc">Vier Karten desselben Werts</div><div class="ref-cards"><span class="ref-card "><span class="rc-r">K</span><span class="rc-s">♠</span></span><span class="ref-card red"><span class="rc-r">K</span><span class="rc-s">♥</span></span><span class="ref-card red"><span class="rc-r">K</span><span class="rc-s">♦</span></span><span class="ref-card "><span class="rc-r">K</span><span class="rc-s">♣</span></span><span class="ref-card  dim"><span class="rc-r">3</span><span class="rc-s">♠</span></span></div></div></div>
+      <div class="ref-item"><span class="ref-rank">4</span><div><div class="ref-name">Full House</div><div class="ref-desc">Drilling + Paar</div><div class="ref-cards"><span class="ref-card "><span class="rc-r">Q</span><span class="rc-s">♠</span></span><span class="ref-card red"><span class="rc-r">Q</span><span class="rc-s">♥</span></span><span class="ref-card red"><span class="rc-r">Q</span><span class="rc-s">♦</span></span><span class="ref-card "><span class="rc-r">8</span><span class="rc-s">♠</span></span><span class="ref-card red"><span class="rc-r">8</span><span class="rc-s">♥</span></span></div></div></div>
+      <div class="ref-item"><span class="ref-rank">5</span><div><div class="ref-name">Flush</div><div class="ref-desc">Fünf Karten derselben Farbe (nicht in Reihenfolge)</div><div class="ref-cards"><span class="ref-card red"><span class="rc-r">A</span><span class="rc-s">♦</span></span><span class="ref-card red"><span class="rc-r">J</span><span class="rc-s">♦</span></span><span class="ref-card red"><span class="rc-r">8</span><span class="rc-s">♦</span></span><span class="ref-card red"><span class="rc-r">5</span><span class="rc-s">♦</span></span><span class="ref-card red"><span class="rc-r">2</span><span class="rc-s">♦</span></span></div></div></div>
+      <div class="ref-item"><span class="ref-rank">6</span><div><div class="ref-name">Straße (Straight)</div><div class="ref-desc">Fünf aufeinanderfolgende Karten (gemischte Farben). A kann hoch (10-J-Q-K-A) oder niedrig (A-2-3-4-5) sein</div><div class="ref-cards"><span class="ref-card "><span class="rc-r">9</span><span class="rc-s">♠</span></span><span class="ref-card red"><span class="rc-r">8</span><span class="rc-s">♥</span></span><span class="ref-card red"><span class="rc-r">7</span><span class="rc-s">♦</span></span><span class="ref-card "><span class="rc-r">6</span><span class="rc-s">♣</span></span><span class="ref-card "><span class="rc-r">5</span><span class="rc-s">♠</span></span></div></div></div>
+      <div class="ref-item"><span class="ref-rank">7</span><div><div class="ref-name">Drilling (Three of a Kind)</div><div class="ref-desc">Drei Karten desselben Werts</div><div class="ref-cards"><span class="ref-card "><span class="rc-r">7</span><span class="rc-s">♠</span></span><span class="ref-card red"><span class="rc-r">7</span><span class="rc-s">♥</span></span><span class="ref-card red"><span class="rc-r">7</span><span class="rc-s">♦</span></span><span class="ref-card  dim"><span class="rc-r">K</span><span class="rc-s">♠</span></span><span class="ref-card  dim"><span class="rc-r">2</span><span class="rc-s">♣</span></span></div></div></div>
+      <div class="ref-item"><span class="ref-rank">8</span><div><div class="ref-name">Zwei Paare</div><div class="ref-desc">Zwei verschiedene Paare</div><div class="ref-cards"><span class="ref-card "><span class="rc-r">J</span><span class="rc-s">♠</span></span><span class="ref-card red"><span class="rc-r">J</span><span class="rc-s">♥</span></span><span class="ref-card red"><span class="rc-r">4</span><span class="rc-s">♦</span></span><span class="ref-card "><span class="rc-r">4</span><span class="rc-s">♣</span></span><span class="ref-card  dim"><span class="rc-r">9</span><span class="rc-s">♠</span></span></div></div></div>
+      <div class="ref-item"><span class="ref-rank">9</span><div><div class="ref-name">Paar</div><div class="ref-desc">Zwei Karten desselben Werts</div><div class="ref-cards"><span class="ref-card "><span class="rc-r">10</span><span class="rc-s">♠</span></span><span class="ref-card red"><span class="rc-r">10</span><span class="rc-s">♥</span></span><span class="ref-card red dim"><span class="rc-r">K</span><span class="rc-s">♦</span></span><span class="ref-card  dim"><span class="rc-r">6</span><span class="rc-s">♣</span></span><span class="ref-card  dim"><span class="rc-r">3</span><span class="rc-s">♠</span></span></div></div></div>
+      <div class="ref-item"><span class="ref-rank">10</span><div><div class="ref-name">Hohe Karte</div><div class="ref-desc">Keine der obigen Kombinationen — höchste Einzelkarte zählt</div><div class="ref-cards"><span class="ref-card "><span class="rc-r">A</span><span class="rc-s">♠</span></span><span class="ref-card red dim"><span class="rc-r">Q</span><span class="rc-s">♥</span></span><span class="ref-card red dim"><span class="rc-r">9</span><span class="rc-s">♦</span></span><span class="ref-card  dim"><span class="rc-r">5</span><span class="rc-s">♣</span></span><span class="ref-card  dim"><span class="rc-r">3</span><span class="rc-s">♠</span></span></div></div></div>
+    </div>
+  </details>
+
+  <details class="reference guide">
+    <summary>Anleitung — Begriffe, Ablauf &amp; Tischgesten</summary>
+
+    <div class="gd-sec">
+      <div class="gd-h">Die Karten</div>
+      <dl class="gd-list">
+        <dt>Hole Cards</dt><dd>Deine 2 verdeckten Karten, die nur du siehst.</dd>
+        <dt>Board / Community Cards</dt><dd>Die 5 offenen Karten in der Tischmitte — gehören allen.</dd>
+        <dt>Kicker</dt><dd>Die höchste Beikarte, die bei Gleichstand entscheidet. Beide ein Paar Damen? Dann gewinnt der höhere Kicker.</dd>
+        <dt>Nuts</dt><dd>Die bestmögliche Hand in dieser Situation — unschlagbar.</dd>
+        <dt>Suited / Offsuit</dt><dd>Deine zwei Karten haben dieselbe Farbe / verschiedene Farben.</dd>
+        <dt>Draw</dt><dd>Eine noch unfertige Hand. Flush Draw = 4 gleiche Farben, es fehlt eine. Straight Draw = 4 in Reihe.</dd>
+        <dt>Outs</dt><dd>Karten, die deine Hand komplettieren. Flush Draw = 9 Outs (13 einer Farbe minus 4).</dd>
+        <dt>Set / Trips</dt><dd>Drilling. Set = Paar auf der Hand + eine auf dem Board. Trips = eine Hand + Paar auf dem Board.</dd>
+      </dl>
+    </div>
+
+    <div class="gd-sec">
+      <div class="gd-h">Setzrunden &amp; Aktionen</div>
+      <dl class="gd-list">
+        <dt>Blinds</dt><dd>Zwangseinsätze vor dem Geben, damit immer etwas im Pot ist. Small Blind (SB) ist halb so groß wie Big Blind (BB).</dd>
+        <dt>Check</dt><dd>Nichts setzen, aber im Spiel bleiben. Geht nur, wenn vor dir niemand gesetzt hat.</dd>
+        <dt>Call</dt><dd>Den aktuellen Einsatz mitgehen.</dd>
+        <dt>Raise / Re-Raise</dt><dd>Erhöhen. Erhöht danach jemand nochmal, ist das ein Re-Raise (3-Bet).</dd>
+        <dt>Fold</dt><dd>Karten wegwerfen und aussteigen. Bereits gesetzte Chips sind weg.</dd>
+        <dt>All-In</dt><dd>Alle deine Chips setzen. Reicht dein Stack nicht, entsteht ein Side Pot für die anderen.</dd>
+        <dt>Limp</dt><dd>Preflop nur den Big Blind callen statt zu erhöhen — meist schwach.</dd>
+        <dt>Value Bet</dt><dd>Setzen, weil du glaubst vorn zu liegen und bezahlt werden willst.</dd>
+        <dt>Bluff</dt><dd>Setzen mit schwacher Hand, damit bessere Hände passen.</dd>
+        <dt>Pot Odds</dt><dd>Verhältnis von Einsatz zu Potgröße. 20 in einen Pot von 80 callen = 20:100, du brauchst ~20&nbsp;% Gewinnchance.</dd>
+      </dl>
+    </div>
+
+    <div class="gd-sec">
+      <div class="gd-h">Ablauf einer Hand</div>
+      <ol class="gd-steps">
+        <li><b>Blinds</b> — SB und BB legen ihre Zwangseinsätze.</li>
+        <li><b>Austeilen</b> — jeder bekommt 2 verdeckte Karten.</li>
+        <li><b>Preflop</b> — Setzrunde. Es beginnt links vom Big Blind (UTG).</li>
+        <li><b>Flop</b> — 3 Karten offen in die Mitte, dann Setzrunde.</li>
+        <li><b>Turn</b> — 4. Karte, Setzrunde.</li>
+        <li><b>River</b> — 5. Karte, letzte Setzrunde.</li>
+        <li><b>Showdown</b> — die verbliebenen Spieler decken auf. Beste 5 aus 7 Karten gewinnt.</li>
+      </ol>
+      <div class="gd-note">Ab dem Flop beginnt jede Setzrunde beim ersten aktiven Spieler links vom Dealer-Button. Der Button rückt nach jeder Hand einen Platz weiter.</div>
+    </div>
+
+    <div class="gd-sec">
+      <div class="gd-h">Positionen</div>
+      <dl class="gd-list">
+        <dt>Button (D)</dt><dd>Beste Position — du handelst nach dem Flop als Letzter und siehst alle anderen zuerst.</dd>
+        <dt>Small / Big Blind</dt><dd>Nach dem Flop die schlechtesten Positionen, weil du zuerst handeln musst.</dd>
+        <dt>UTG</dt><dd>„Under the Gun" — direkt links vom BB, preflop als Erster dran. Hier nur starke Hände spielen.</dd>
+      </dl>
+    </div>
+
+    <div class="gd-sec">
+      <div class="gd-h">Tischgesten am echten Tisch</div>
+      <div class="gd-gestures">
+        <div class="gd-gest"><span class="gd-ico">✊</span><div><b>Check</b><span>Zweimal mit den Knöcheln auf den Tisch klopfen. Gilt als verbindliche Aktion — ein Nicken reicht nicht.</span></div></div>
+        <div class="gd-gest"><span class="gd-ico">🃏</span><div><b>Fold</b><span>Karten verdeckt Richtung Dealer schieben. Nie hochhalten oder zeigen, solange die Hand läuft.</span></div></div>
+        <div class="gd-gest"><span class="gd-ico">🪙</span><div><b>Call / Bet</b><span>Chips in <b>einer</b> Bewegung nach vorn. Mehrfaches Nachlegen gilt als „String Bet" und wird nicht gewertet.</span></div></div>
+        <div class="gd-gest"><span class="gd-ico">🗣️</span><div><b>Raise</b><span>Vorher laut ansagen („Raise auf 50"). Gesagt ist gesagt — die Ansage zählt vor den Chips.</span></div></div>
+        <div class="gd-gest"><span class="gd-ico">🫸</span><div><b>All-In</b><span>Ansagen oder den ganzen Stack klar nach vorn schieben.</span></div></div>
+        <div class="gd-gest"><span class="gd-ico">♟️</span><div><b>Karten schützen</b><span>Chip oder Hand auf die Karten legen. Ungeschützte Karten kann der Dealer versehentlich einziehen.</span></div></div>
+      </div>
+      <div class="gd-note">Faustregel: Aktionen immer eindeutig und in einer Bewegung. Im Zweifel ansagen — gesprochene Aktionen sind bindend und lösen Streit.</div>
     </div>
   </details>
 
@@ -11139,6 +11237,7 @@
     el.style.setProperty('--pmc-good2', (map && map['pmc-good']) ? map['pmc-good'] : '');
   }
   function pmc_set(name) {
+    document.body.classList.toggle('pmc-on', name !== 'default');
     if (name === 'default') pmc_apply(null);
     else if (name === 'custom') pmc_apply(pmc_loadCustom());
     else pmc_apply(PMC_PRESETS[name]);
@@ -11362,7 +11461,7 @@
   }
   function pk_setTheme(name) {
     const el = document.getElementById('appPoker'); if (!el) return;
-    el.classList.remove('theme-classic', 'theme-modern', 'theme-fancy', 'theme-custom');
+    el.classList.remove('theme-classic', 'theme-modern', 'theme-fancy', 'theme-custom', 'theme-glossy');
     el.classList.add('theme-' + name);
     if (name === 'custom') pk_applyCustom(); else pk_clearCustomVars();
     document.querySelectorAll('#pokerThemes button[data-t]').forEach(function(b) { b.classList.toggle('active', b.dataset.t === name); });
