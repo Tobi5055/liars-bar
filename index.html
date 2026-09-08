@@ -5182,7 +5182,7 @@
     --red-suit:     #c0392b;
     --black-suit:   #1a1a1a;
     --correct:      #6abf69;
-    --wrong:        #d96452;
+    --wrong:        #e8776a;
   }
 
   /* --- Theme: Modern (flach, geometrisch, Slate/Blau) --- */
@@ -7010,10 +7010,18 @@
   body.gt-glasslight .gt-blob { opacity: 0.42; }
 
   /* app surfaces become transparent so the blobs show through */
-  body.gt-glass .app, body.gt-glasslight .app,
+  body.gt-glass .app:not(.app-poker), body.gt-glasslight .app:not(.app-poker),
   body.gt-glass:not(.pmc-on) .app-poker-multi, body.gt-glasslight:not(.pmc-on) .app-poker-multi,
   body.gt-glass .app-home, body.gt-glasslight .app-home {
     background: transparent !important; color: var(--gl-text) !important;
+  }
+  /* Der Poker Trainer bringt sein eigenes Theme mit und behält deshalb
+     immer seinen eigenen Hintergrund — sonst steht helle Schrift auf hellem Grund. */
+  body.gt-glass .app-poker, body.gt-glasslight .app-poker {
+    background:
+      radial-gradient(ellipse at top, var(--felt-light) 0%, var(--felt-mid) 35%, var(--felt-deep) 75%) !important;
+    background-attachment: fixed !important;
+    color: var(--cream) !important;
   }
 
   /* frosted panels */
@@ -7679,6 +7687,19 @@
     text-align: center; font-family: 'Outfit', sans-serif; font-size: 0.78rem;
     letter-spacing: 0.14em; text-transform: uppercase; color: var(--pmc-dim); margin-top: 0.1rem;
   }
+  /* --- Kontrast-Absicherung Poker Trainer --- */
+  .app-poker .reference { background: rgba(0,0,0,0.28); }
+  .app-poker .reference > summary { color: var(--gold); }
+  .app-poker .poker-themes button:not(.active) { color: var(--cream-dim); background: rgba(0,0,0,0.35); }
+  .app-poker .poker-themes button.active { background: var(--gold); color: #14100a; border-color: var(--gold); font-weight: 700; }
+  .app-poker .rules-link { background: rgba(0,0,0,0.3); border-color: var(--gold-soft); color: var(--cream); }
+  .app-poker .stat-value { color: var(--gold); }
+  .app-poker .stat-label { color: var(--cream-dim); }
+  /* Glossy ist selbst schon hell genug — dort etwas weniger Abdunklung */
+  .app-poker.theme-glossy .reference { background: rgba(255,255,255,0.06); }
+  .app-poker.theme-glossy .poker-themes button:not(.active) { background: rgba(255,255,255,0.10); }
+  .app-poker.theme-glossy .rules-link { background: rgba(255,255,255,0.10); }
+
   /* --- Chip-Stapel als reines CSS-Icon (rot) --- */
   .chip-ico {
     --chip-top:   #ef4b55;
@@ -7838,7 +7859,7 @@
 <!-- Admin toggle (hidden by default, shown after 5x title clicks) -->
 <button class="admin-toggle" id="adminToggleBtn" onclick="openAdminPanel()" style="display:none" aria-label="Admin-Panel öffnen" title="Admin-Panel">🔧</button>
 
-<div class="app-version" id="appVersion">v3.3.3</div>
+<div class="app-version" id="appVersion">v3.4.0</div>
 
 <!-- Admin toast -->
 <div class="admin-toast" id="adminToast"></div>
@@ -19741,6 +19762,11 @@ nextRound();
       }
 
       function act(action, amount) {
+        // Aktionen nur während einer Setzrunde — ein verspäteter Klick darf
+        // eine bereits beendete Hand nicht weiterlaufen lassen
+        if (['preflop', 'flop', 'turn', 'river'].indexOf(S.phase) === -1) {
+          return { ok: false, err: 'Hand ist bereits beendet' };
+        }
         const i = S.actorIdx;
         if (i < 0) return { ok: false, err: 'kein Spieler am Zug' };
         const p = S.players[i];
@@ -19810,9 +19836,11 @@ nextRound();
       }
 
       function advancePhase() {
-        collectBets();
         const order = ['preflop', 'flop', 'turn', 'river', 'showdown'];
-        let next = order[order.indexOf(S.phase) + 1];
+        const cur = order.indexOf(S.phase);
+        if (cur === -1) return;            // Hand läuft nicht mehr
+        collectBets();
+        let next = order[cur + 1];
 
         // if nobody can act any more, run the board out
         while (next !== 'showdown' && canAct().length < 2) {
@@ -19834,6 +19862,7 @@ nextRound();
       }
 
       function dealStreet(street) {
+        if (S.community.length >= 5) return;   // Board ist voll
         if (street === 'flop') { S.deck.pop(); S.community.push(S.deck.pop(), S.deck.pop(), S.deck.pop()); }
         else if (street === 'turn' || street === 'river') { S.deck.pop(); S.community.push(S.deck.pop()); }
       }
@@ -20074,6 +20103,7 @@ nextRound();
       newHand();
     }
     function ps_quit() {
+      stopTimers();
       E = null;
       document.getElementById('psGame').style.display = 'none';
       document.getElementById('psSetup').style.display = '';
@@ -20088,6 +20118,7 @@ nextRound();
     }
 
     function newHand() {
+      stopTimers();
       document.getElementById('psRaiseBox').style.display = 'none';
       const ok = E.startHand();
       if (!ok) { msg('Spiel vorbei.'); ps_renderAll(); return; }
@@ -20109,11 +20140,25 @@ nextRound();
     };
     function spd() { return SPEEDS[cfg.speed] || SPEEDS.normal; }
 
+    // Genau EINE laufende Timer-Kette. Jede neue Hand erhöht die Epoche,
+    // damit Timer aus einer alten Hand wirkungslos verfallen.
+    let botTimer = null, epoch = 0;
+    function schedule(fn, ms) {
+      if (botTimer) clearTimeout(botTimer);
+      const myEpoch = epoch;
+      botTimer = setTimeout(function() {
+        botTimer = null;
+        if (myEpoch !== epoch) return;   // veralteter Timer
+        fn();
+      }, ms);
+    }
+    function stopTimers() { if (botTimer) { clearTimeout(botTimer); botTimer = null; } epoch++; }
+
     function maybeBot() {
       if (!E) return;
       if (E.S.phase === 'handOver' || E.S.phase === 'gameOver') {
         // kurz warten, damit die letzte Aktion noch lesbar ist
-        setTimeout(() => { if (E && E.S.phase === 'handOver') endOfHand(); }, spd().hold);
+        schedule(function() { if (E && E.S.phase === 'handOver') endOfHand(); }, spd().hold);
         return;
       }
       const i = E.S.actorIdx;
@@ -20123,16 +20168,16 @@ nextRound();
       busy = true; ps_renderAll();
       const t = spd().think;
       const think = t[0] + Math.random() * t[1];
-      setTimeout(() => {
+      schedule(function() {
         if (!E) return;
+        if (E.S.actorIdx !== i) { maybeBot(); return; }   // Zustand hat sich geändert
         const before = E.S.phase;
         const d = E.botDecide(p, cfg.diff);
         E.act(d.action, d.amount);
         flashAction(p);
         ps_renderAll();
-        // Aktion stehen lassen; nach einem Straßenwechsel etwas länger
         const pause = (E.S.phase !== before) ? spd().street : spd().hold;
-        setTimeout(maybeBot, pause);
+        schedule(maybeBot, pause);
       }, think);
     }
 
@@ -20163,13 +20208,14 @@ nextRound();
 
     function doAct(action, amount) {
       if (!E || busy) return;
+      if (['preflop', 'flop', 'turn', 'river'].indexOf(E.S.phase) === -1) return;
       const me = E.S.players.find(x => x.id === ME);
       const before = E.S.phase;
       const r = E.act(action, amount);
       if (!r.ok) { msg(r.err); return; }
       flashAction(me);
       ps_renderAll();
-      setTimeout(maybeBot, (E.S.phase !== before) ? spd().street : Math.round(spd().hold * 0.6));
+      schedule(maybeBot, (E.S.phase !== before) ? spd().street : Math.round(spd().hold * 0.6));
     }
     function ps_fold() { doAct('fold'); }
     function ps_callCheck() {
@@ -20338,7 +20384,10 @@ nextRound();
 
     function renderCoach(me) {
       const box = document.getElementById('psCoach');
-      if (!cfg.coach || !me || me.folded || me.out || me.cards.length !== 2 || E.S.phase === 'gameOver') { box.style.display = 'none'; return; }
+      const commOk = E.S.community.length <= 5 && E.S.community.every(function(c) { return !!c; });
+      if (!cfg.coach || !me || me.folded || me.out || me.cards.length !== 2
+          || !me.cards.every(function(c) { return !!c; })
+          || !commOk || E.S.phase === 'gameOver') { box.style.display = 'none'; return; }
       box.style.display = '';
       const S = E.S;
       const opp = Math.max(1, E.inHand().length - 1);
