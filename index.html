@@ -7679,6 +7679,44 @@
     text-align: center; font-family: 'Outfit', sans-serif; font-size: 0.78rem;
     letter-spacing: 0.14em; text-transform: uppercase; color: var(--pmc-dim); margin-top: 0.1rem;
   }
+  /* --- Chip-Stapel als reines CSS-Icon (rot) --- */
+  .chip-ico {
+    --chip-top:   #ef4b55;
+    --chip-mid:   #d3242f;
+    --chip-dark:  #a8121d;
+    --chip-edge:  rgba(90,8,14,0.75);
+    position: relative;
+    display: inline-block;
+    width: 15px; height: 5px;
+    border-radius: 50%;
+    background: var(--chip-mid);
+    box-shadow:
+      0 0 0 1px var(--chip-edge),
+      0 -3.5px 0 0 var(--chip-dark), 0 -3.5px 0 1px var(--chip-edge),
+      0 -7px   0 0 var(--chip-mid),  0 -7px   0 1px var(--chip-edge);
+    margin: 0 7px 0 1px;
+    vertical-align: 1px;
+    top: 3px;
+    flex-shrink: 0;
+  }
+  /* oberster Chip mit hellerer Fläche und Ring */
+  .chip-ico::after {
+    content: '';
+    position: absolute; left: 0; top: -10.5px;
+    width: 15px; height: 5px; border-radius: 50%;
+    background: var(--chip-top);
+    box-shadow: 0 0 0 1px var(--chip-edge);
+  }
+  .chip-ico::before {
+    content: '';
+    position: absolute; left: 4.2px; top: -9.2px;
+    width: 6.6px; height: 2.4px; border-radius: 50%;
+    border: 1px solid rgba(255,225,225,0.8);
+    z-index: 1;
+  }
+  /* im Chip-Badge etwas Luft nach oben, da der Stapel nach oben wächst */
+  .ps-chip { padding-top: 0.3rem; line-height: 1.1; }
+
   .ps-win-banner { text-align: center; padding: 1rem; margin-top: 0.7rem; border-radius: 12px;
     background: rgba(255,215,0,0.12); border: 1px solid rgba(255,215,0,0.4);
     font-family: 'Outfit', sans-serif; color: var(--pmc-gold); font-weight: 700; }
@@ -7800,7 +7838,7 @@
 <!-- Admin toggle (hidden by default, shown after 5x title clicks) -->
 <button class="admin-toggle" id="adminToggleBtn" onclick="openAdminPanel()" style="display:none" aria-label="Admin-Panel öffnen" title="Admin-Panel">🔧</button>
 
-<div class="app-version" id="appVersion">v3.3.1</div>
+<div class="app-version" id="appVersion">v3.3.3</div>
 
 <!-- Admin toast -->
 <div class="admin-toast" id="adminToast"></div>
@@ -9877,7 +9915,7 @@
     <div class="ps-me">
       <div class="ps-me-top">
         <span class="ps-me-name" id="psMyName">Du</span>
-        <span class="ps-me-chips"><span class="ps-chip-ico">🪙</span><span id="psMyStack">1000</span></span>
+        <span class="ps-me-chips"><i class="chip-ico"></i><span id="psMyStack">1000</span></span>
       </div>
       <div class="ps-me-body">
         <div class="pm-my-cards ps-my-cards" id="psMyCards"></div>
@@ -20261,7 +20299,7 @@ nextRound();
       document.getElementById('psMyName').innerHTML =
         'Du' + (myBadges ? ' <span class="ps-badges inline">' + myBadges + '</span>' : '');
       document.getElementById('psMyStack').innerHTML =
-        '<span class="ps-chip">🪙 ' + me.stack.toLocaleString('de-DE') + '</span>';
+        '<span class="ps-chip"><i class="chip-ico"></i>' + me.stack.toLocaleString('de-DE') + '</span>';
       const betEl = document.getElementById('psMyBet');
       if (betEl) betEl.innerHTML = me.roundBet ? '<span class="ps-inpot">im Pot ' + me.roundBet + '</span>' : '';
       const myWrap = document.getElementById('psMyCards');
