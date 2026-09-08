@@ -7546,6 +7546,139 @@
     100% { transform: scale(1); opacity: 1; }
   }
   .ps-msg { font-weight: 600; color: var(--pmc-text); }
+  /* --- Karten im Trainer-Look --- */
+  .app-poker-solo .ps-card {
+    display: block; padding: 0; overflow: hidden;
+    background: linear-gradient(160deg, #ffffff 0%, #f4f5f2 100%);
+    border: 1px solid rgba(0,0,0,0.12);
+    box-shadow: 0 1px 2px rgba(0,0,0,0.25), 0 6px 16px rgba(0,0,0,0.28);
+  }
+  .app-poker-solo .ps-c-corner {
+    position: absolute; top: 5px; left: 6px; display: flex; flex-direction: column;
+    align-items: center; line-height: 1;
+  }
+  .app-poker-solo .ps-c-rank { font-size: 0.82rem; font-weight: 800; letter-spacing: -0.03em; }
+  .app-poker-solo .ps-c-suit { font-size: 0.62rem; margin-top: 1px; }
+  .app-poker-solo .ps-c-mid {
+    position: absolute; left: 50%; top: 56%; transform: translate(-50%,-50%);
+    font-size: 1.5rem; line-height: 1; opacity: 0.92;
+  }
+  .app-poker-solo .pm-my-cards .ps-card { width: 64px; max-width: 64px; }
+  .app-poker-solo .pm-my-cards .ps-c-rank { font-size: 0.98rem; }
+  .app-poker-solo .pm-my-cards .ps-c-mid { font-size: 1.85rem; }
+
+  /* --- Pot --- */
+  .app-poker-solo .ps-pot {
+    display: flex; align-items: center; justify-content: center; gap: 0.55rem;
+    margin: 0.5rem auto 0.6rem; padding: 0.42rem 1.15rem; width: fit-content;
+    background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.14);
+    border-radius: 22px; box-shadow: inset 0 1px 0 rgba(255,255,255,0.12);
+  }
+  .app-poker-solo .ps-pot-label {
+    font-family: 'Outfit', sans-serif; font-size: 0.62rem; letter-spacing: 0.22em;
+    color: var(--pmc-dim); font-weight: 600;
+  }
+  .app-poker-solo .ps-pot-val {
+    font-family: 'Outfit', sans-serif; font-size: 1.15rem; font-weight: 800;
+    color: var(--pmc-gold); font-variant-numeric: tabular-nums;
+  }
+
+  /* --- Eigener Bereich --- */
+  .app-poker-solo .ps-me {
+    background: rgba(255,255,255,0.045); border: 1px solid rgba(255,255,255,0.13);
+    border-radius: 14px; padding: 0.75rem 0.85rem; margin: 0.5rem 0;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.10);
+  }
+  .app-poker-solo .ps-me-top {
+    display: flex; align-items: center; justify-content: space-between;
+    padding-bottom: 0.55rem; margin-bottom: 0.6rem;
+    border-bottom: 1px solid rgba(255,255,255,0.09);
+  }
+  .app-poker-solo .ps-me-name {
+    font-family: 'Outfit', sans-serif; font-size: 0.95rem; font-weight: 700;
+    color: var(--pmc-text); display: inline-flex; align-items: center; gap: 6px;
+  }
+  .app-poker-solo .ps-me-chips {
+    display: inline-flex; align-items: center; gap: 0.35rem;
+    font-family: 'Outfit', sans-serif; font-size: 1.1rem; font-weight: 800;
+    color: var(--pmc-gold); font-variant-numeric: tabular-nums;
+  }
+  .app-poker-solo .ps-chip-ico { font-size: 0.9rem; opacity: 0.85; }
+  .app-poker-solo .ps-me-body {
+    display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+  }
+  .app-poker-solo .ps-my-cards { gap: 0.5rem; justify-content: center; }
+  .app-poker-solo .ps-me-side { width: 100%; min-width: 0; text-align: center; }
+  .app-poker-solo .ps-me-hand {
+    font-family: 'Outfit', sans-serif; font-size: 0.9rem; font-weight: 700; color: var(--pmc-text);
+  }
+  .app-poker-solo .ps-me-bet {
+    font-family: 'Outfit', sans-serif; font-size: 0.76rem; color: var(--pmc-dim); margin-top: 2px;
+  }
+
+  /* --- SB/BB als eigene Zeile --- */
+  .app-poker-solo .ps-badges {
+    position: absolute; top: -9px; left: 50%; transform: translateX(-50%);
+    display: flex; gap: 3px; z-index: 2;
+  }
+  .app-poker-solo .ps-badges.inline { position: static; transform: none; display: inline-flex; }
+  .app-poker-solo .pm-other-player { padding-top: 0.75rem; }
+
+  /* --- Pot als Chip-Pille --- */
+  .app-poker-solo .ps-pot {
+    display: flex; align-items: center; justify-content: center; gap: 0.6rem;
+    width: fit-content; margin: 0.7rem auto 0.6rem; padding: 0.42rem 1.15rem;
+    background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.14);
+    border-radius: 999px; box-shadow: inset 0 1px 0 rgba(255,255,255,0.12);
+  }
+  .app-poker-solo .ps-pot-label {
+    font-family: 'Outfit', sans-serif; font-size: 0.62rem; letter-spacing: 0.22em;
+    text-transform: uppercase; color: var(--pmc-dim);
+  }
+  .app-poker-solo .ps-pot-val {
+    font-family: 'Outfit', sans-serif; font-size: 1.25rem; font-weight: 800;
+    color: var(--pmc-gold); font-variant-numeric: tabular-nums; line-height: 1;
+  }
+
+  /* --- eigener Bereich --- */
+  .app-poker-solo .pm-my-area {
+    display: block; background: rgba(255,255,255,0.045);
+    border: 1px solid rgba(255,255,255,0.13); border-radius: 14px; padding: 0.85rem 0.9rem;
+  }
+  .app-poker-solo .pm-my-head {
+    display: flex; align-items: center; justify-content: space-between; gap: 0.6rem; margin-bottom: 0.6rem;
+  }
+  .app-poker-solo .pm-my-name {
+    display: flex; align-items: center; gap: 0.45rem;
+    font-family: 'Outfit', sans-serif; font-size: 0.95rem; font-weight: 700; color: var(--pmc-text);
+  }
+  .app-poker-solo .ps-badges.inline { position: static; display: inline-flex; gap: 3px; }
+  .app-poker-solo .pm-my-stack { display: flex; align-items: center; gap: 0.4rem; }
+  .app-poker-solo .ps-chip {
+    font-family: 'Outfit', sans-serif; font-size: 0.92rem; font-weight: 800;
+    font-variant-numeric: tabular-nums; color: var(--pmc-gold);
+    background: rgba(255,215,0,0.10); border: 1px solid rgba(255,215,0,0.28);
+    border-radius: 999px; padding: 0.2rem 0.7rem;
+  }
+  .app-poker-solo .ps-inpot {
+    font-family: 'Outfit', sans-serif; font-size: 0.7rem; color: var(--pmc-dim);
+    background: rgba(255,255,255,0.07); border-radius: 999px; padding: 0.18rem 0.55rem;
+  }
+  .app-poker-solo .pm-my-cards { justify-content: center; gap: 0.5rem; margin: 0.25rem 0 0.5rem; }
+  .app-poker-solo .pm-my-cards .pm-card { width: 76px; max-width: 76px; }
+  /* Board-Karten größer */
+  .app-poker-solo #psCommunity { gap: 0.45rem; }
+  .app-poker-solo #psCommunity .pm-card,
+  .app-poker-solo #psCommunity .pm-card-empty {
+    width: 19%; max-width: 74px; border-radius: 10px;
+  }
+  .app-poker-solo #psCommunity .ps-c-rank { font-size: 0.95rem; }
+  .app-poker-solo #psCommunity .ps-c-suit { font-size: 0.8rem; }
+  .app-poker-solo #psCommunity .ps-c-mid { font-size: 2rem; }
+  .app-poker-solo .pm-my-hand-strength {
+    text-align: center; font-family: 'Outfit', sans-serif; font-size: 0.78rem;
+    letter-spacing: 0.14em; text-transform: uppercase; color: var(--pmc-dim); margin-top: 0.1rem;
+  }
   .ps-win-banner { text-align: center; padding: 1rem; margin-top: 0.7rem; border-radius: 12px;
     background: rgba(255,215,0,0.12); border: 1px solid rgba(255,215,0,0.4);
     font-family: 'Outfit', sans-serif; color: var(--pmc-gold); font-weight: 700; }
@@ -7667,7 +7800,7 @@
 <!-- Admin toggle (hidden by default, shown after 5x title clicks) -->
 <button class="admin-toggle" id="adminToggleBtn" onclick="openAdminPanel()" style="display:none" aria-label="Admin-Panel öffnen" title="Admin-Panel">🔧</button>
 
-<div class="app-version" id="appVersion">v3.2.0</div>
+<div class="app-version" id="appVersion">v3.3.1</div>
 
 <!-- Admin toast -->
 <div class="admin-toast" id="adminToast"></div>
@@ -9737,17 +9870,22 @@
     <div class="pm-others-row" id="psBots"></div>
 
     <div class="pm-table-area">
-      <div class="pm-pot-display">POT <span id="psPot">0</span></div>
+      <div class="ps-pot"><span class="ps-pot-label">POT</span><span class="ps-pot-val" id="psPot">0</span></div>
       <div class="pm-community" id="psCommunity"></div>
     </div>
 
-    <div class="pm-my-area">
-      <div class="pm-my-head">
-        <span class="pm-my-name" id="psMyName">Du</span>
-        <span class="pm-my-stack" id="psMyStack">1000</span>
+    <div class="ps-me">
+      <div class="ps-me-top">
+        <span class="ps-me-name" id="psMyName">Du</span>
+        <span class="ps-me-chips"><span class="ps-chip-ico">🪙</span><span id="psMyStack">1000</span></span>
       </div>
-      <div class="pm-my-cards" id="psMyCards"></div>
-      <div class="pm-my-hand-strength" id="psMyHand"></div>
+      <div class="ps-me-body">
+        <div class="pm-my-cards ps-my-cards" id="psMyCards"></div>
+        <div class="ps-me-side">
+          <div class="ps-me-hand" id="psMyHand"></div>
+          <div class="ps-me-bet" id="psMyBet"></div>
+        </div>
+      </div>
     </div>
 
     <div class="pm-coach" id="psCoach" style="display:none">
@@ -19862,7 +20000,11 @@ nextRound();
     function cardHtml(card) {
       if (!card) return '<div class="pm-card pm-card-back"></div>';
       const r = card[0] === 'T' ? '10' : card[0];
-      return `<div class="pm-card ${SUIT_COL[card[1]]}"><div class="pm-card-content"><span class="pm-card-rank">${r}</span><span class="pm-card-suit">${SUIT_SYM[card[1]]}</span></div></div>`;
+      const su = SUIT_SYM[card[1]];
+      return `<div class="pm-card ps-card ${SUIT_COL[card[1]]}">
+        <span class="ps-c-corner"><span class="ps-c-rank">${r}</span><span class="ps-c-suit">${su}</span></span>
+        <span class="ps-c-mid">${su}</span>
+      </div>`;
     }
 
     function ps_adjBots(d) { cfg.bots = Math.max(1, Math.min(5, cfg.bots + d)); saveCfg(); ps_syncSetup(); }
@@ -19963,7 +20105,7 @@ nextRound();
       if (txt === 'CALL') txt = 'Call ' + p.roundBet;
       else if (txt === 'RAISE') txt = 'Raise ' + p.roundBet;
       else if (txt === 'CHECK') txt = 'Check';
-      else if (txt === 'FOLD') txt = 'Fold';
+      else if (txt === 'FOLD') txt = 'Gefoldet';
       else if (txt === 'ALL-IN') txt = 'All-In ' + p.roundBet;
       shownAction[p.id] = { txt: txt, kind: (p.lastAction || '').toLowerCase(), ts: Date.now() };
       const me = p.id === ME;
@@ -19971,7 +20113,7 @@ nextRound();
         'CALL':   ['geht mit',        'gehst mit'],
         'RAISE':  ['erhöht auf',      'erhöhst auf'],
         'CHECK':  ['checkt',          'checkst'],
-        'FOLD':   ['passt',           'passt'],
+        'FOLD':   ['foldet',          'foldest'],
         'ALL-IN': ['geht All-In mit', 'gehst All-In mit'],
       };
       const v = VERBS[p.lastAction];
@@ -20057,7 +20199,7 @@ nextRound();
       document.getElementById('psHandNo').textContent = 'Hand ' + S.handNo;
       const livePot = S.pot + S.players.reduce((a, p) => a + p.roundBet, 0);
       const shownPot = (S.phase === 'handOver' && S.showdown) ? S.showdown.pot : livePot;
-      document.getElementById('psPot').textContent = shownPot;
+      document.getElementById('psPot').textContent = shownPot.toLocaleString('de-DE');
 
       // community with flip on new cards
       const wrap = document.getElementById('psCommunity');
@@ -20098,11 +20240,12 @@ nextRound();
         const sa = shownAction[p.id];
         let status, sCls = '';
         if (busted) status = 'raus';
-        else if (p.folded) { status = 'Fold'; sCls = 'act-fold'; }
+        else if (p.folded) { status = 'Gefoldet'; sCls = 'act-fold'; }
         else if (sa) { status = sa.txt; sCls = 'act-' + (sa.kind === 'all-in' ? 'allin' : sa.kind); }
         else status = p.roundBet ? '→' + p.roundBet : '';
         return `<div class="${cls.join(' ')}">
-          <div class="pm-other-name"><span class="pm-other-nametxt">${esc(p.name)}</span>${badges}</div>
+          ${badges ? `<div class="ps-badges">${badges}</div>` : ''}
+          <div class="pm-other-name"><span class="pm-other-nametxt">${esc(p.name)}</span></div>
           <div class="ps-bot-tag">${esc(per.name || '')}</div>
           <div class="pm-other-stack">${p.stack}</div>
           <div class="pm-other-status ${sCls}">${status}</div>
@@ -20115,8 +20258,12 @@ nextRound();
       const myBadges = (me.id === dealerId ? '<span class="pm-badge dealer">D</span>' : '')
         + (me.id === sbId ? '<span class="pm-badge sb">SB</span>' : '')
         + (me.id === bbId ? '<span class="pm-badge bb">BB</span>' : '');
-      document.getElementById('psMyName').innerHTML = 'Du ' + myBadges;
-      document.getElementById('psMyStack').textContent = me.stack + (me.roundBet ? ' (→' + me.roundBet + ')' : '');
+      document.getElementById('psMyName').innerHTML =
+        'Du' + (myBadges ? ' <span class="ps-badges inline">' + myBadges + '</span>' : '');
+      document.getElementById('psMyStack').innerHTML =
+        '<span class="ps-chip">🪙 ' + me.stack.toLocaleString('de-DE') + '</span>';
+      const betEl = document.getElementById('psMyBet');
+      if (betEl) betEl.innerHTML = me.roundBet ? '<span class="ps-inpot">im Pot ' + me.roundBet + '</span>' : '';
       const myWrap = document.getElementById('psMyCards');
       const myKey = me.cards.join(',');
       if (myWrap.dataset.k !== myKey) {
