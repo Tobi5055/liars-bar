@@ -48,6 +48,13 @@
   }
 </script>
 <style>
+  :root {
+    /* Zentrale Schriften — an einer Stelle umstellbar */
+    --ui-font:      'Outfit', sans-serif;
+    --display-font: 'Cinzel', 'Bebas Neue', sans-serif;
+    --num-font:     'Bebas Neue', sans-serif;
+  }
+
   /* ====================== GLOBAL ====================== */
   * { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -80,14 +87,14 @@
     background-image:
       radial-gradient(ellipse at 50% 0%, rgba(184,134,42,0.08) 0%, transparent 60%),
       radial-gradient(ellipse at 80% 100%, rgba(139,0,0,0.1) 0%, transparent 50%);
-    font-family: 'Playfair Display', serif;
+    font-family: var(--display-font);
     color: var(--bone);
     padding: 1.5rem;
   }
 
   .app-poker {
     min-height: 100vh;
-    font-family: 'Outfit', sans-serif;
+    font-family: var(--ui-font);
     background: var(--felt-deep);
     color: var(--cream);
     background:
@@ -174,7 +181,7 @@
   .menu-header {
     padding: 0 24px 18px;
     border-bottom: 1px solid rgba(184,134,42,0.2);
-    font-family: 'Cinzel', serif;
+    font-family: var(--display-font);
     font-size: 0.7rem;
     letter-spacing: 0.3em;
     color: #b8862a;
@@ -193,7 +200,7 @@
     color: #e8dcc4;
     text-align: left;
     padding: 14px 24px;
-    font-family: 'Cinzel', serif;
+    font-family: var(--display-font);
     font-size: 0.95rem;
     letter-spacing: 0.1em;
     cursor: pointer;
@@ -261,7 +268,7 @@
     color: #d4ee5a;
     padding: 0.7rem 1.4rem;
     border-radius: 6px;
-    font-family: 'Cinzel', 'Outfit', sans-serif;
+    font-family: 'Cinzel', var(--ui-font);
     font-size: 0.85rem;
     letter-spacing: 0.18em;
     font-weight: 600;
@@ -295,7 +302,7 @@
   }
 
   .admin-title {
-    font-family: 'Cinzel', 'Bebas Neue', sans-serif;
+    font-family: var(--display-font);
     font-size: 1.1rem;
     letter-spacing: 0.3em;
     color: #d4ee5a;
@@ -304,7 +311,7 @@
   }
 
   .admin-context {
-    font-family: 'Special Elite', 'Outfit', sans-serif;
+    font-family: 'Special Elite', var(--ui-font);
     font-size: 0.78rem;
     color: rgba(212,238,90,0.65);
     letter-spacing: 0.15em;
@@ -317,7 +324,7 @@
   }
 
   .admin-section-title {
-    font-family: 'Cinzel', 'Bebas Neue', sans-serif;
+    font-family: var(--display-font);
     font-size: 0.72rem;
     letter-spacing: 0.25em;
     color: rgba(212,238,90,0.8);
@@ -333,7 +340,7 @@
     color: #d4ee5a;
     padding: 0.7rem 1rem;
     border-radius: 5px;
-    font-family: 'Cinzel', 'Outfit', sans-serif;
+    font-family: 'Cinzel', var(--ui-font);
     font-size: 0.85rem;
     letter-spacing: 0.15em;
     cursor: pointer;
@@ -378,7 +385,7 @@
     color: #cce078;
     padding: 0.45rem 0.8rem;
     border-radius: 18px;
-    font-family: 'Cinzel', sans-serif;
+    font-family: var(--display-font);
     font-size: 0.75rem;
     letter-spacing: 0.1em;
     cursor: pointer;
@@ -411,7 +418,7 @@
     justify-content: space-between;
     align-items: center;
     margin-bottom: 0.5rem;
-    font-family: 'Outfit', sans-serif;
+    font-family: var(--ui-font);
     font-size: 0.85rem;
     color: #e8f0c0;
   }
@@ -423,7 +430,7 @@
   .admin-player-head span {
     color: rgba(212,238,90,0.7);
     font-size: 0.72rem;
-    font-family: 'Special Elite', 'Outfit', sans-serif;
+    font-family: 'Special Elite', var(--ui-font);
     letter-spacing: 0.05em;
   }
   .admin-player-actions {
@@ -437,7 +444,7 @@
     color: #cce078;
     padding: 0.35rem 0.6rem;
     border-radius: 4px;
-    font-family: 'Outfit', sans-serif;
+    font-family: var(--ui-font);
     font-size: 0.7rem;
     letter-spacing: 0.05em;
     cursor: pointer;
@@ -457,7 +464,7 @@
     padding: 0.6rem 0.8rem;
     max-height: 180px;
     overflow-y: auto;
-    font-family: 'Special Elite', 'Outfit', sans-serif;
+    font-family: 'Special Elite', var(--ui-font);
     font-size: 0.75rem;
   }
   .admin-log-entry {
@@ -511,7 +518,7 @@
   }
 
   .menu-section-label {
-    font-family: 'Cinzel', 'Bebas Neue', sans-serif;
+    font-family: var(--display-font);
     font-size: 0.65rem;
     letter-spacing: 0.3em;
     color: rgba(184,134,42,0.55);
@@ -539,7 +546,7 @@
   }
 
   .multi-lobby-title {
-    font-family: 'Cinzel', 'Bebas Neue', sans-serif;
+    font-family: var(--display-font);
     font-size: 1.8rem;
     font-weight: 700;
     letter-spacing: 0.15em;
@@ -558,7 +565,7 @@
   .multi-tag {
     background: linear-gradient(135deg, #5fa9ff, #2563eb);
     color: white;
-    font-family: 'Bebas Neue', sans-serif;
+    font-family: var(--num-font);
     font-size: 0.7rem;
     padding: 0.2rem 0.55rem;
     border-radius: 6px;
@@ -568,7 +575,7 @@
 
   .multi-lobby-sub {
     text-align: center;
-    font-family: 'Outfit', sans-serif;
+    font-family: var(--ui-font);
     font-size: 0.85rem;
     color: rgba(216,224,240,0.55);
     letter-spacing: 0.05em;
@@ -584,7 +591,7 @@
 
   .multi-lobby-label {
     display: block;
-    font-family: 'Cinzel', 'Bebas Neue', sans-serif;
+    font-family: var(--display-font);
     font-size: 0.72rem;
     letter-spacing: 0.25em;
     color: rgba(95,169,255,0.85);
@@ -599,7 +606,7 @@
   }
 
   .multi-lobby-hint {
-    font-family: 'Outfit', sans-serif;
+    font-family: var(--ui-font);
     font-size: 0.72rem;
     color: rgba(216,224,240,0.45);
     margin-top: 0.5rem;
@@ -613,7 +620,7 @@
     color: white;
     padding: 0.7rem 0.9rem;
     border-radius: 6px;
-    font-family: 'Outfit', sans-serif;
+    font-family: var(--ui-font);
     font-size: 0.95rem;
     outline: none;
     box-sizing: border-box;
@@ -625,7 +632,7 @@
   }
 
   .multi-code-in {
-    font-family: 'Bebas Neue', sans-serif;
+    font-family: var(--num-font);
     font-size: 1.3rem;
     letter-spacing: 0.3em;
     text-align: center;
@@ -639,7 +646,7 @@
     border: none;
     padding: 0.7rem 1.2rem;
     border-radius: 6px;
-    font-family: 'Cinzel', 'Outfit', sans-serif;
+    font-family: 'Cinzel', var(--ui-font);
     font-size: 0.85rem;
     letter-spacing: 0.18em;
     cursor: pointer;
@@ -653,7 +660,7 @@
 
   .multi-lobby-error {
     color: #ff6b6b;
-    font-family: 'Outfit', sans-serif;
+    font-family: var(--ui-font);
     font-size: 0.85rem;
     text-align: center;
     min-height: 1.2em;
@@ -694,7 +701,7 @@
     position: fixed;
     bottom: calc(env(safe-area-inset-bottom) + 6px);
     right: calc(env(safe-area-inset-right) + 8px);
-    font-family: 'Outfit', sans-serif;
+    font-family: var(--ui-font);
     font-size: 0.65rem;
     color: rgba(216,224,240,0.25);
     letter-spacing: 0.05em;
@@ -756,14 +763,14 @@
     text-align: center;
   }
   .multi-topbar-code {
-    font-family: 'Bebas Neue', sans-serif;
+    font-family: var(--num-font);
     font-size: 1.3rem;
     letter-spacing: 0.25em;
     color: #5fa9ff;
     line-height: 1;
   }
   .multi-topbar-peers {
-    font-family: 'Outfit', sans-serif;
+    font-family: var(--ui-font);
     font-size: 0.7rem;
     letter-spacing: 0.1em;
     color: rgba(216,224,240,0.5);
@@ -781,7 +788,7 @@
   }
 
   .multi-card-label, .multi-section-label {
-    font-family: 'Cinzel', 'Bebas Neue', sans-serif;
+    font-family: var(--display-font);
     font-size: 0.65rem;
     letter-spacing: 0.3em;
     color: rgba(184,134,42,0.75);
@@ -798,7 +805,7 @@
   }
 
   .multi-section-count {
-    font-family: 'Outfit', sans-serif;
+    font-family: var(--ui-font);
     font-size: 0.7rem;
     color: rgba(216,224,240,0.5);
     letter-spacing: 0.1em;
@@ -818,7 +825,7 @@
   }
 
   .multi-card-name {
-    font-family: 'Cinzel', 'Bebas Neue', sans-serif;
+    font-family: var(--display-font);
     font-size: 1.6rem;
     letter-spacing: 0.1em;
     color: #f0e4c8;
@@ -835,7 +842,7 @@
     border: none;
     padding: 0.65rem 1.2rem;
     border-radius: 6px;
-    font-family: 'Cinzel', 'Bebas Neue', sans-serif;
+    font-family: var(--display-font);
     font-size: 0.85rem;
     letter-spacing: 0.18em;
     cursor: pointer;
@@ -847,7 +854,7 @@
   .multi-draw-btn:disabled { opacity: 0.3; cursor: not-allowed; }
 
   .multi-host-only-note {
-    font-family: 'Outfit', sans-serif;
+    font-family: var(--ui-font);
     font-size: 0.7rem;
     color: rgba(216,224,240,0.4);
     margin-top: 0.4rem;
@@ -878,7 +885,7 @@
     background: rgba(0,0,0,0.25);
     border: 1px solid rgba(95,169,255,0.15);
     border-radius: 6px;
-    font-family: 'Outfit', sans-serif;
+    font-family: var(--ui-font);
     font-size: 0.85rem;
     color: #d8e0f0;
     transition: all 0.2s;
@@ -1043,7 +1050,7 @@
     color: #f0e4c8;
     padding: 0.55rem 0.25rem 0.5rem;
     border-radius: 8px;
-    font-family: 'Cinzel', 'Bebas Neue', sans-serif;
+    font-family: var(--display-font);
     font-size: 0.66rem;
     letter-spacing: 0.12em;
     cursor: pointer;
@@ -1081,7 +1088,7 @@
     border-radius: 8px;
     padding: 1rem;
     text-align: center;
-    font-family: 'Outfit', sans-serif;
+    font-family: var(--ui-font);
     font-size: 0.9rem;
     color: #b8d0ed;
   }
@@ -1109,7 +1116,7 @@
   }
 
   .multi-suspense-actor {
-    font-family: 'Outfit', sans-serif;
+    font-family: var(--ui-font);
     font-size: 1rem;
     color: rgba(216,224,240,0.7);
     margin-bottom: 1rem;
@@ -1117,7 +1124,7 @@
   }
 
   .multi-suspense-text {
-    font-family: 'Cinzel', 'Bebas Neue', sans-serif;
+    font-family: var(--display-font);
     font-size: 2.5rem;
     letter-spacing: 0.2em;
     color: #f0e4c8;
@@ -1130,7 +1137,7 @@
   }
 
   .multi-suspense-result {
-    font-family: 'Cinzel', 'Bebas Neue', sans-serif;
+    font-family: var(--display-font);
     font-size: 4rem;
     letter-spacing: 0.15em;
     font-weight: 700;
@@ -1184,7 +1191,7 @@
   }
 
   .multi-modal-title {
-    font-family: 'Cinzel', 'Bebas Neue', sans-serif;
+    font-family: var(--display-font);
     font-size: 1.1rem;
     letter-spacing: 0.25em;
     color: #f0e4c8;
@@ -1206,7 +1213,7 @@
     color: #d8e0f0;
     padding: 0.9rem 1rem;
     border-radius: 8px;
-    font-family: 'Cinzel', 'Outfit', sans-serif;
+    font-family: 'Cinzel', var(--ui-font);
     font-size: 0.95rem;
     cursor: pointer;
     text-align: left;
@@ -1228,7 +1235,7 @@
     width: 100%;
     padding: 0.7rem;
     border-radius: 6px;
-    font-family: 'Outfit', sans-serif;
+    font-family: var(--ui-font);
     font-size: 0.85rem;
     letter-spacing: 0.15em;
     cursor: pointer;
@@ -1238,7 +1245,7 @@
   .multi-modal-close:hover { background: rgba(95,169,255,0.1); }
 
   .multi-settings-label {
-    font-family: 'Cinzel', 'Bebas Neue', sans-serif;
+    font-family: var(--display-font);
     font-size: 0.7rem;
     letter-spacing: 0.25em;
     color: rgba(95,169,255,0.75);
@@ -1260,7 +1267,7 @@
     color: rgba(216,224,240,0.45);
     padding: 0.5rem 0.3rem;
     border-radius: 6px;
-    font-family: 'Cinzel', 'Bebas Neue', sans-serif;
+    font-family: var(--display-font);
     font-size: 0.9rem;
     letter-spacing: 0.1em;
     cursor: pointer;
@@ -1280,7 +1287,7 @@
     width: 100%;
     padding: 0.7rem;
     border-radius: 6px;
-    font-family: 'Outfit', sans-serif;
+    font-family: var(--ui-font);
     font-size: 0.85rem;
     letter-spacing: 0.1em;
     cursor: pointer;
@@ -1307,7 +1314,7 @@
     color: rgba(216,224,240,0.6);
     padding: 0.5rem 0.3rem;
     border-radius: 6px;
-    font-family: 'Cinzel', 'Bebas Neue', sans-serif;
+    font-family: var(--display-font);
     font-size: 0.72rem;
     letter-spacing: 0.1em;
     cursor: pointer;
@@ -1315,7 +1322,7 @@
     transition: all 0.15s;
   }
   .multi-mode-opt span {
-    font-family: 'Outfit', sans-serif;
+    font-family: var(--ui-font);
     font-size: 0.7rem;
     color: rgba(216,224,240,0.5);
     letter-spacing: 0;
@@ -1352,7 +1359,7 @@
   }
 
   .multi-winner-label {
-    font-family: 'Cinzel', 'Bebas Neue', sans-serif;
+    font-family: var(--display-font);
     font-size: 0.9rem;
     letter-spacing: 0.3em;
     color: rgba(240,228,200,0.6);
@@ -1360,7 +1367,7 @@
     text-transform: uppercase;
   }
   .multi-winner-name {
-    font-family: 'Cinzel', 'Bebas Neue', sans-serif;
+    font-family: var(--display-font);
     font-size: 2.5rem;
     letter-spacing: 0.1em;
     color: #f0e4c8;
@@ -1374,7 +1381,7 @@
     border: none;
     padding: 0.9rem 1.8rem;
     border-radius: 8px;
-    font-family: 'Cinzel', 'Bebas Neue', sans-serif;
+    font-family: var(--display-font);
     font-size: 0.95rem;
     letter-spacing: 0.18em;
     cursor: pointer;
@@ -1386,7 +1393,7 @@
     cursor: not-allowed;
   }
   .multi-winner-hint {
-    font-family: 'Outfit', sans-serif;
+    font-family: var(--ui-font);
     font-size: 0.75rem;
     color: rgba(216,224,240,0.4);
     margin-top: 0.7rem;
@@ -1431,7 +1438,7 @@
   .alki-suspense .multi-suspense-result.shot { color: #f0d05a; text-shadow: 0 0 30px rgba(240,208,90,0.6); }
   .alki-suspense .multi-suspense-result.ex { color: #ff3333; text-shadow: 0 0 30px rgba(239,68,68,0.7); }
   .alki-mode-tag {
-    font-family: 'Outfit', sans-serif;
+    font-family: var(--ui-font);
     font-size: 0.7rem;
     color: rgba(168,85,247,0.7);
     letter-spacing: 0.1em;
@@ -1446,7 +1453,7 @@
     background: rgba(0,0,0,0.3);
     border-radius: 8px;
     text-align: left;
-    font-family: 'Outfit', sans-serif;
+    font-family: var(--ui-font);
     font-size: 0.85rem;
     color: rgba(216,224,240,0.8);
   }
@@ -1473,12 +1480,12 @@
   .home-header { text-align: center; margin-bottom: 1.6rem; }
   .home-logo { font-size: 3rem; line-height: 1; margin-bottom: 0.3rem; filter: drop-shadow(0 0 18px rgba(232,220,196,0.25)); }
   .home-title {
-    font-family: 'Cinzel', 'Bebas Neue', serif; font-size: 2.2rem; font-weight: 700;
+    font-family: var(--display-font); font-size: 2.2rem; font-weight: 700;
     letter-spacing: 0.08em; color: #fff; text-shadow: 0 2px 20px rgba(0,0,0,0.5);
   }
-  .home-sub { font-family: 'Outfit', sans-serif; font-size: 0.92rem; color: rgba(236,230,218,0.55); letter-spacing: 0.15em; text-transform: uppercase; margin-top: 0.2rem; }
+  .home-sub { font-family: var(--ui-font); font-size: 0.92rem; color: rgba(236,230,218,0.55); letter-spacing: 0.15em; text-transform: uppercase; margin-top: 0.2rem; }
   .home-section-label {
-    font-family: 'Outfit', sans-serif; font-size: 0.72rem; letter-spacing: 0.22em; text-transform: uppercase;
+    font-family: var(--ui-font); font-size: 0.72rem; letter-spacing: 0.22em; text-transform: uppercase;
     color: rgba(236,230,218,0.45); margin: 1.3rem 0.2rem 0.6rem; font-weight: 600;
   }
   .home-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.7rem; }
@@ -1500,15 +1507,15 @@
   .home-tile:hover { border-color: rgba(255,255,255,0.28); background: linear-gradient(155deg, rgba(255,255,255,0.1), rgba(255,255,255,0.04)); }
   .home-tile-emoji { font-size: 1.9rem; line-height: 1; margin-bottom: 0.35rem; position: relative; z-index: 1; }
   .home-tile-name {
-    font-family: 'Outfit', sans-serif; font-size: 0.98rem; font-weight: 600; color: #fff;
+    font-family: var(--ui-font); font-size: 0.98rem; font-weight: 600; color: #fff;
     line-height: 1.15; position: relative; z-index: 1;
   }
   .home-tile-desc {
-    font-family: 'Outfit', sans-serif; font-size: 0.72rem; color: rgba(236,230,218,0.5);
+    font-family: var(--ui-font); font-size: 0.72rem; color: rgba(236,230,218,0.5);
     line-height: 1.2; position: relative; z-index: 1;
   }
   .home-footer {
-    text-align: center; font-family: 'Outfit', sans-serif; font-size: 0.74rem;
+    text-align: center; font-family: var(--ui-font); font-size: 0.74rem;
     color: rgba(236,230,218,0.35); margin-top: 1.8rem; line-height: 1.5; padding: 0 1rem;
   }
   body.in-home .burger { display: none !important; }
@@ -1520,11 +1527,11 @@
     border-radius: 12px; padding: 1.4rem 1.2rem; text-align: center; margin-top: 0.8rem;
   }
   .g-waiting-label {
-    font-family: 'Cinzel','Bebas Neue',sans-serif; font-size: 0.72rem; letter-spacing: 0.3em;
+    font-family: var(--display-font); font-size: 0.72rem; letter-spacing: 0.3em;
     text-transform: uppercase; margin-bottom: 0.3rem; opacity: 0.7;
   }
   .g-waiting-code {
-    font-family: 'Bebas Neue',sans-serif; font-size: 3rem; letter-spacing: 0.35em;
+    font-family: var(--num-font); font-size: 3rem; letter-spacing: 0.35em;
     color: white; margin-bottom: 0.5rem; font-weight: 700;
   }
   .g-start-btn { box-shadow: 0 6px 22px rgba(0,0,0,0.4) !important; }
@@ -1534,26 +1541,26 @@
   }
   .g-config-row {
     display: flex; justify-content: space-between; align-items: center; padding: 0.45rem 0;
-    font-family: 'Outfit',sans-serif; font-size: 0.9rem;
+    font-family: var(--ui-font); font-size: 0.9rem;
   }
   .g-counter { display: flex; align-items: center; gap: 0.6rem; }
   .g-counter-btn {
     width: 30px; height: 30px; border-radius: 4px; border: 1px solid rgba(255,255,255,0.3);
     background: rgba(255,255,255,0.08); color: white; font-size: 1.1rem; cursor: pointer; font-weight: 600;
   }
-  .g-counter-val { font-family: 'Bebas Neue',sans-serif; font-size: 1.3rem; min-width: 36px; text-align: center; }
+  .g-counter-val { font-family: var(--num-font); font-size: 1.3rem; min-width: 36px; text-align: center; }
   .g-select {
     width: 100%; padding: 0.5rem 0.7rem; border-radius: 6px; border: 1px solid rgba(255,255,255,0.3);
-    background: rgba(0,0,0,0.4); color: white; font-family: 'Outfit',sans-serif; font-size: 0.9rem; cursor: pointer;
+    background: rgba(0,0,0,0.4); color: white; font-family: var(--ui-font); font-size: 0.9rem; cursor: pointer;
   }
   .g-toggle {
     display: flex; align-items: center; gap: 0.5rem; padding: 0.5rem 0; cursor: pointer;
-    font-family: 'Outfit',sans-serif; font-size: 0.88rem;
+    font-family: var(--ui-font); font-size: 0.88rem;
   }
   .g-toggle input { width: 18px; height: 18px; }
   .g-btn {
     color: white; border: none; padding: 0.9rem 1rem; border-radius: 8px;
-    font-family: 'Cinzel','Bebas Neue',sans-serif; font-size: 0.95rem; cursor: pointer;
+    font-family: var(--display-font); font-size: 0.95rem; cursor: pointer;
     font-weight: 700; letter-spacing: 0.15em; width: 100%; margin-top: 0.6rem; text-transform: uppercase;
   }
   .g-btn:disabled { opacity: 0.4; cursor: not-allowed; }
@@ -1563,20 +1570,20 @@
   .g-phase {
     text-align: center; padding: 0.7rem 0.5rem;
   }
-  .g-phase-name { font-family: 'Cinzel','Bebas Neue',sans-serif; font-size: 1.2rem; letter-spacing: 0.15em; text-transform: uppercase; }
-  .g-phase-desc { font-family: 'Outfit',sans-serif; font-size: 0.85rem; opacity: 0.75; margin-top: 0.3rem; font-style: italic; }
+  .g-phase-name { font-family: var(--display-font); font-size: 1.2rem; letter-spacing: 0.15em; text-transform: uppercase; }
+  .g-phase-desc { font-family: var(--ui-font); font-size: 0.85rem; opacity: 0.75; margin-top: 0.3rem; font-style: italic; }
   .g-wait-box {
     background: rgba(0,0,0,0.3); border: 1px dashed rgba(255,255,255,0.2); border-radius: 10px;
-    padding: 1.2rem; text-align: center; font-family: 'Outfit',sans-serif; opacity: 0.85; font-style: italic; margin: 0.5rem 0;
+    padding: 1.2rem; text-align: center; font-family: var(--ui-font); opacity: 0.85; font-style: italic; margin: 0.5rem 0;
   }
   .g-wait-icon { font-size: 2rem; margin-bottom: 0.4rem; animation: gPulse 2s infinite; }
   @keyframes gPulse { 0%,100% { opacity: 0.6; } 50% { opacity: 1; } }
   .g-card {
     background: rgba(0,0,0,0.35); border: 1px solid rgba(255,255,255,0.15); border-radius: 12px;
-    padding: 1.2rem; margin: 0.6rem 0; font-family: 'Outfit',sans-serif; line-height: 1.5;
+    padding: 1.2rem; margin: 0.6rem 0; font-family: var(--ui-font); line-height: 1.5;
   }
   .g-team-pick { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; margin: 0.5rem 0; }
-  .g-modal-title { font-family: 'Cinzel','Bebas Neue',sans-serif; }
+  .g-modal-title { font-family: var(--display-font); }
 
   /* ---- Black Stories theme ---- */
   .app-bs { background: linear-gradient(180deg,#0d0a12 0%,#060409 100%); color: #e0d8e8; min-height: 100vh; }
@@ -1589,16 +1596,16 @@
   .bs-riddle {
     background: linear-gradient(135deg,rgba(30,20,45,0.7),rgba(15,10,25,0.7));
     border: 2px solid #7c3aed; border-radius: 14px; padding: 1.4rem; margin: 0.7rem 0;
-    font-family: 'Outfit',sans-serif; font-size: 1.05rem; line-height: 1.6; color: #ede4f5;
+    font-family: var(--ui-font); font-size: 1.05rem; line-height: 1.6; color: #ede4f5;
     box-shadow: 0 0 25px rgba(124,58,237,0.25);
   }
-  .bs-riddle-title { font-family: 'Cinzel','Bebas Neue',sans-serif; font-size: 1.3rem; color: #c4b5fd; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.6rem; text-align: center; }
+  .bs-riddle-title { font-family: var(--display-font); font-size: 1.3rem; color: #c4b5fd; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.6rem; text-align: center; }
   .bs-solution {
     background: rgba(20,40,20,0.5); border: 2px solid #22c55e; border-radius: 14px; padding: 1.4rem; margin: 0.7rem 0;
-    font-family: 'Outfit',sans-serif; font-size: 1rem; line-height: 1.6; color: #d8f5d8;
+    font-family: var(--ui-font); font-size: 1rem; line-height: 1.6; color: #d8f5d8;
   }
-  .bs-solution-title { font-family: 'Cinzel','Bebas Neue',sans-serif; font-size: 1rem; color: #4ade80; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.5rem; }
-  .bs-master-badge { display:inline-block; background: rgba(124,58,237,0.25); border: 1px solid #7c3aed; border-radius: 20px; padding: 0.3rem 0.9rem; font-family: 'Outfit',sans-serif; font-size: 0.85rem; color: #c4b5fd; margin: 0.4rem 0; }
+  .bs-solution-title { font-family: var(--display-font); font-size: 1rem; color: #4ade80; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.5rem; }
+  .bs-master-badge { display:inline-block; background: rgba(124,58,237,0.25); border: 1px solid #7c3aed; border-radius: 20px; padding: 0.3rem 0.9rem; font-family: var(--ui-font); font-size: 0.85rem; color: #c4b5fd; margin: 0.4rem 0; }
   .bs-btn-g { background: linear-gradient(135deg,#3b0764,#7c3aed); }
 
   /* ---- Wer bin ich theme ---- */
@@ -1614,16 +1621,16 @@
     display: flex; align-items: center; gap: 0.7rem; padding: 0.8rem 1rem;
     background: rgba(15,30,50,0.6); border: 1px solid rgba(59,130,246,0.25); border-radius: 10px;
   }
-  .wb-other-name { font-family: 'Outfit',sans-serif; font-size: 0.85rem; color: rgba(216,232,245,0.7); min-width: 80px; }
-  .wb-other-term { font-family: 'Cinzel','Bebas Neue',sans-serif; font-size: 1.15rem; color: white; letter-spacing: 0.05em; flex: 1; }
+  .wb-other-name { font-family: var(--ui-font); font-size: 0.85rem; color: rgba(216,232,245,0.7); min-width: 80px; }
+  .wb-other-term { font-family: var(--display-font); font-size: 1.15rem; color: white; letter-spacing: 0.05em; flex: 1; }
   .wb-other-tile.guessed { opacity: 0.5; } .wb-other-tile.guessed .wb-other-term { text-decoration: line-through; }
   .wb-my-card {
     background: linear-gradient(135deg,rgba(30,58,138,0.4),rgba(15,30,60,0.4));
     border: 2px solid #3b82f6; border-radius: 14px; padding: 1.5rem; text-align: center; margin: 0.7rem 0;
   }
-  .wb-my-q { font-family: 'Cinzel','Bebas Neue',sans-serif; font-size: 2rem; color: white; margin-bottom: 0.3rem; }
-  .wb-my-hint { font-family: 'Outfit',sans-serif; font-size: 0.9rem; color: rgba(147,197,253,0.85); }
-  .wb-assign-input { width: 100%; padding: 0.8rem 1rem; border-radius: 8px; border: 1.5px solid rgba(59,130,246,0.4); background: rgba(0,0,0,0.4); color: white; font-family: 'Outfit',sans-serif; font-size: 1rem; margin: 0.5rem 0; }
+  .wb-my-q { font-family: var(--display-font); font-size: 2rem; color: white; margin-bottom: 0.3rem; }
+  .wb-my-hint { font-family: var(--ui-font); font-size: 0.9rem; color: rgba(147,197,253,0.85); }
+  .wb-assign-input { width: 100%; padding: 0.8rem 1rem; border-radius: 8px; border: 1.5px solid rgba(59,130,246,0.4); background: rgba(0,0,0,0.4); color: white; font-family: var(--ui-font); font-size: 1rem; margin: 0.5rem 0; }
 
   /* ---- Tabu theme ---- */
   .app-tb { background: linear-gradient(180deg,#1a0a12 0%,#0d0508 100%); color: #f5d8e4; min-height: 100vh; }
@@ -1637,27 +1644,27 @@
   .tb-team-col { background: rgba(0,0,0,0.3); border-radius: 10px; padding: 0.7rem; border: 1px solid rgba(236,72,153,0.2); }
   .tb-team-col.team-a { border-color: rgba(236,72,153,0.5); }
   .tb-team-col.team-b { border-color: rgba(59,130,246,0.5); }
-  .tb-team-name { font-family: 'Cinzel','Bebas Neue',sans-serif; font-size: 0.95rem; letter-spacing: 0.1em; text-transform: uppercase; text-align: center; margin-bottom: 0.5rem; }
+  .tb-team-name { font-family: var(--display-font); font-size: 0.95rem; letter-spacing: 0.1em; text-transform: uppercase; text-align: center; margin-bottom: 0.5rem; }
   .tb-team-col.team-a .tb-team-name { color: #f9a8d4; } .tb-team-col.team-b .tb-team-name { color: #93c5fd; }
-  .tb-team-member { font-family: 'Outfit',sans-serif; font-size: 0.85rem; padding: 0.3rem 0.4rem; border-radius: 4px; color: #f5e0ec; }
+  .tb-team-member { font-family: var(--ui-font); font-size: 0.85rem; padding: 0.3rem 0.4rem; border-radius: 4px; color: #f5e0ec; }
   .tb-team-member.me { background: rgba(255,255,255,0.1); font-weight: 600; }
-  .tb-join-btn { width: 100%; padding: 0.5rem; margin-top: 0.5rem; border-radius: 6px; border: 1px dashed rgba(255,255,255,0.3); background: transparent; color: rgba(255,255,255,0.7); font-family: 'Outfit',sans-serif; font-size: 0.8rem; cursor: pointer; }
+  .tb-join-btn { width: 100%; padding: 0.5rem; margin-top: 0.5rem; border-radius: 6px; border: 1px dashed rgba(255,255,255,0.3); background: transparent; color: rgba(255,255,255,0.7); font-family: var(--ui-font); font-size: 0.8rem; cursor: pointer; }
   .tb-scorebar { display: flex; justify-content: space-around; padding: 0.7rem; margin: 0.5rem 0; background: rgba(0,0,0,0.3); border-radius: 10px; }
   .tb-score-team { text-align: center; }
-  .tb-score-team .lbl { font-family: 'Outfit',sans-serif; font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; }
+  .tb-score-team .lbl { font-family: var(--ui-font); font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; }
   .tb-score-team.a .lbl { color: #f9a8d4; } .tb-score-team.b .lbl { color: #93c5fd; }
-  .tb-score-team .val { font-family: 'Bebas Neue',sans-serif; font-size: 2rem; color: white; }
+  .tb-score-team .val { font-family: var(--num-font); font-size: 2rem; color: white; }
   .tb-score-team.active { box-shadow: 0 0 0 2px rgba(255,255,255,0.4); border-radius: 8px; }
-  .tb-timer-big { font-family: 'Bebas Neue',sans-serif; font-size: 3.5rem; text-align: center; color: white; line-height: 1; }
+  .tb-timer-big { font-family: var(--num-font); font-size: 3.5rem; text-align: center; color: white; line-height: 1; }
   .tb-timer-big.urgent { color: #ff5050; animation: gPulse 0.6s infinite; }
   .tb-word-card {
     background: linear-gradient(135deg,rgba(60,15,40,0.8),rgba(30,8,20,0.8)); border: 2px solid #ec4899;
     border-radius: 14px; padding: 1.3rem; margin: 0.7rem 0; text-align: center; box-shadow: 0 0 25px rgba(236,72,153,0.3);
   }
-  .tb-word-main { font-family: 'Cinzel','Bebas Neue',sans-serif; font-size: 2.2rem; color: white; letter-spacing: 0.05em; margin-bottom: 0.8rem; }
+  .tb-word-main { font-family: var(--display-font); font-size: 2.2rem; color: white; letter-spacing: 0.05em; margin-bottom: 0.8rem; }
   .tb-taboo-list { border-top: 1px solid rgba(236,72,153,0.3); padding-top: 0.7rem; }
-  .tb-taboo-label { font-family: 'Outfit',sans-serif; font-size: 0.72rem; letter-spacing: 0.2em; color: #ff8080; text-transform: uppercase; margin-bottom: 0.4rem; }
-  .tb-taboo-word { font-family: 'Outfit',sans-serif; font-size: 1.05rem; color: #ffb3c9; padding: 0.15rem 0; font-weight: 600; }
+  .tb-taboo-label { font-family: var(--ui-font); font-size: 0.72rem; letter-spacing: 0.2em; color: #ff8080; text-transform: uppercase; margin-bottom: 0.4rem; }
+  .tb-taboo-word { font-family: var(--ui-font); font-size: 1.05rem; color: #ffb3c9; padding: 0.15rem 0; font-weight: 600; }
   .tb-action-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.4rem; margin-top: 0.6rem; }
 
   /* ---- Codenames theme ---- */
@@ -1671,24 +1678,24 @@
   .cn-teams { display: grid; grid-template-columns: 1fr 1fr; gap: 0.6rem; margin: 0.5rem 0; }
   .cn-team-col { background: rgba(0,0,0,0.3); border-radius: 10px; padding: 0.6rem; }
   .cn-team-col.red { border: 1px solid rgba(239,68,68,0.5); } .cn-team-col.blue { border: 1px solid rgba(59,130,246,0.5); }
-  .cn-team-name { font-family: 'Cinzel','Bebas Neue',sans-serif; font-size: 0.95rem; text-align: center; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.4rem; }
+  .cn-team-name { font-family: var(--display-font); font-size: 0.95rem; text-align: center; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.4rem; }
   .cn-team-col.red .cn-team-name { color: #fca5a5; } .cn-team-col.blue .cn-team-name { color: #93c5fd; }
-  .cn-role-slot { font-family: 'Outfit',sans-serif; font-size: 0.8rem; padding: 0.3rem; border-radius: 4px; margin-bottom: 0.25rem; }
+  .cn-role-slot { font-family: var(--ui-font); font-size: 0.8rem; padding: 0.3rem; border-radius: 4px; margin-bottom: 0.25rem; }
   .cn-role-slot .role-lbl { font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; opacity: 0.6; }
   .cn-role-slot.me { background: rgba(255,255,255,0.12); }
-  .cn-join-btn { width: 100%; padding: 0.4rem; margin-top: 0.3rem; border-radius: 5px; border: 1px dashed rgba(255,255,255,0.3); background: transparent; color: rgba(255,255,255,0.7); font-family: 'Outfit',sans-serif; font-size: 0.72rem; cursor: pointer; }
+  .cn-join-btn { width: 100%; padding: 0.4rem; margin-top: 0.3rem; border-radius: 5px; border: 1px dashed rgba(255,255,255,0.3); background: transparent; color: rgba(255,255,255,0.7); font-family: var(--ui-font); font-size: 0.72rem; cursor: pointer; }
   .cn-scorebar { display: flex; justify-content: space-around; align-items: center; padding: 0.5rem 0.7rem; margin: 0.4rem 0; background: rgba(0,0,0,0.3); border-radius: 10px; }
-  .cn-score { font-family: 'Bebas Neue',sans-serif; font-size: 1.8rem; }
+  .cn-score { font-family: var(--num-font); font-size: 1.8rem; }
   .cn-score.red { color: #fca5a5; } .cn-score.blue { color: #93c5fd; }
   .cn-score.active { text-shadow: 0 0 12px currentColor; }
-  .cn-turn-label { font-family: 'Outfit',sans-serif; font-size: 0.8rem; text-align: center; opacity: 0.8; }
+  .cn-turn-label { font-family: var(--ui-font); font-size: 0.8rem; text-align: center; opacity: 0.8; }
   .cn-clue-banner { text-align: center; padding: 0.7rem; margin: 0.4rem 0; background: rgba(255,255,255,0.06); border-radius: 10px; }
-  .cn-clue-word { font-family: 'Cinzel','Bebas Neue',sans-serif; font-size: 1.4rem; color: white; letter-spacing: 0.1em; }
-  .cn-clue-num { font-family: 'Bebas Neue',sans-serif; font-size: 1.1rem; color: #fbbf24; }
+  .cn-clue-word { font-family: var(--display-font); font-size: 1.4rem; color: white; letter-spacing: 0.1em; }
+  .cn-clue-num { font-family: var(--num-font); font-size: 1.1rem; color: #fbbf24; }
   .cn-grid { display: grid; grid-template-columns: repeat(5,1fr); gap: 4px; margin: 0.5rem 0; }
   .cn-card {
     aspect-ratio: 1.3; display: flex; align-items: center; justify-content: center; text-align: center;
-    border-radius: 6px; padding: 2px; font-family: 'Outfit',sans-serif; font-size: 0.62rem; font-weight: 600;
+    border-radius: 6px; padding: 2px; font-family: var(--ui-font); font-size: 0.62rem; font-weight: 600;
     background: #e8e0d0; color: #2a2a2a; cursor: pointer; line-height: 1.05; word-break: break-word;
     border: 2px solid transparent; transition: transform 0.1s; user-select: none;
   }
@@ -1702,13 +1709,13 @@
   .cn-card.revealed-neutral { background: #d6d3d1; color: #57534e; border-color: #d6d3d1; }
   .cn-card.revealed-assassin { background: #1c1917; color: #ef4444; border-color: #000; }
   .cn-card.revealed { cursor: default; opacity: 0.92; }
-  .cn-clue-input { width: 100%; padding: 0.7rem; border-radius: 8px; border: 1.5px solid rgba(148,163,184,0.4); background: rgba(0,0,0,0.4); color: white; font-family: 'Outfit',sans-serif; font-size: 1rem; margin: 0.4rem 0; }
+  .cn-clue-input { width: 100%; padding: 0.7rem; border-radius: 8px; border: 1.5px solid rgba(148,163,184,0.4); background: rgba(0,0,0,0.4); color: white; font-family: var(--ui-font); font-size: 1rem; margin: 0.4rem 0; }
   .cn-clue-row { display: grid; grid-template-columns: 2fr 1fr; gap: 0.4rem; }
   .cn-gameover {
     background: linear-gradient(180deg,rgba(40,40,50,0.95),rgba(20,20,28,0.95)); border: 2px solid #94a3b8;
     border-radius: 14px; padding: 1.5rem; text-align: center; margin: 0.6rem 0;
   }
-  .cn-gameover-title { font-family: 'Cinzel','Bebas Neue',sans-serif; font-size: 1.6rem; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 0.5rem; }
+  .cn-gameover-title { font-family: var(--display-font); font-size: 1.6rem; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 0.5rem; }
 
   /* ====================== IMPOSTOR SOLO ====================== */
   .app-imps {
@@ -1718,23 +1725,23 @@
   .imps-screen { max-width: 480px; margin: 0 auto; padding: 1rem; }
   .imps-head { text-align: center; padding: 1rem 0 0.5rem; }
   .imps-title {
-    font-family: 'Cinzel', 'Bebas Neue', sans-serif; font-size: 1.8rem; color: #ff8c5a;
+    font-family: var(--display-font); font-size: 1.8rem; color: #ff8c5a;
     letter-spacing: 0.08em; text-shadow: 0 0 22px rgba(255,107,53,0.4);
   }
-  .imps-sub { font-family: 'Outfit', sans-serif; font-size: 0.9rem; color: rgba(255,232,220,0.6); margin-top: 0.2rem; }
+  .imps-sub { font-family: var(--ui-font); font-size: 0.9rem; color: rgba(255,232,220,0.6); margin-top: 0.2rem; }
 
   .imps-box {
     background: rgba(40,18,12,0.5); border: 1px solid rgba(255,107,53,0.3);
     border-radius: 12px; padding: 1rem; margin: 0.8rem 0;
   }
   .imps-box-label {
-    font-family: 'Outfit', sans-serif; font-size: 0.72rem; letter-spacing: 0.25em;
+    font-family: var(--ui-font); font-size: 0.72rem; letter-spacing: 0.25em;
     color: rgba(255,140,90,0.8); text-transform: uppercase; margin-bottom: 0.6rem;
   }
   .imps-add-row { display: flex; gap: 0.5rem; }
   .imps-input {
     flex: 1; padding: 0.7rem 0.9rem; border-radius: 8px; border: 1.5px solid rgba(255,107,53,0.3);
-    background: rgba(0,0,0,0.4); color: white; font-family: 'Outfit', sans-serif; font-size: 1rem;
+    background: rgba(0,0,0,0.4); color: white; font-family: var(--ui-font); font-size: 1rem;
   }
   .imps-input:focus { outline: none; border-color: #ff6b35; }
   .imps-add-btn {
@@ -1745,36 +1752,36 @@
   .imps-player-chip {
     display: flex; align-items: center; gap: 0.4rem; padding: 0.4rem 0.7rem;
     background: rgba(255,107,53,0.15); border: 1px solid rgba(255,107,53,0.35);
-    border-radius: 20px; font-family: 'Outfit', sans-serif; font-size: 0.9rem; color: #ffe8dc;
+    border-radius: 20px; font-family: var(--ui-font); font-size: 0.9rem; color: #ffe8dc;
   }
   .imps-player-chip button {
     background: none; border: none; color: rgba(255,140,90,0.8); cursor: pointer;
     font-size: 1.1rem; line-height: 1; padding: 0; margin-left: 0.1rem;
   }
   .imps-player-chip button:hover { color: #ff5050; }
-  .imps-empty-hint { font-family: 'Outfit', sans-serif; font-size: 0.85rem; color: rgba(255,232,220,0.4); font-style: italic; }
+  .imps-empty-hint { font-family: var(--ui-font); font-size: 0.85rem; color: rgba(255,232,220,0.4); font-style: italic; }
 
   .imps-cat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.45rem; }
   .imps-cat-chip {
     padding: 0.6rem 0.5rem; border-radius: 8px; border: 1px solid rgba(255,107,53,0.25);
-    background: rgba(0,0,0,0.3); color: rgba(255,232,220,0.8); font-family: 'Outfit', sans-serif;
+    background: rgba(0,0,0,0.3); color: rgba(255,232,220,0.8); font-family: var(--ui-font);
     font-size: 0.88rem; cursor: pointer; text-align: center; transition: all 0.15s;
   }
   .imps-cat-chip.active { background: rgba(255,107,53,0.25); border-color: #ff6b35; color: white; }
 
   .imps-row {
     display: flex; justify-content: space-between; align-items: center;
-    font-family: 'Outfit', sans-serif; font-size: 0.95rem; color: #ffe8dc; padding: 0.2rem 0;
+    font-family: var(--ui-font); font-size: 0.95rem; color: #ffe8dc; padding: 0.2rem 0;
   }
   .imps-counter { display: flex; align-items: center; gap: 0.7rem; }
   .imps-counter-btn {
     width: 34px; height: 34px; border-radius: 6px; border: 1px solid rgba(255,140,90,0.4);
     background: rgba(255,107,53,0.15); color: #ff8c5a; font-size: 1.2rem; cursor: pointer; font-weight: 600;
   }
-  .imps-counter-val { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; min-width: 28px; text-align: center; color: #ff8c5a; }
+  .imps-counter-val { font-family: var(--num-font); font-size: 1.4rem; min-width: 28px; text-align: center; color: #ff8c5a; }
   .imps-toggle {
     display: flex; justify-content: space-between; align-items: center; cursor: pointer;
-    font-family: 'Outfit', sans-serif; font-size: 0.95rem; color: #ffe8dc; padding: 0.7rem 0 0.2rem; user-select: none;
+    font-family: var(--ui-font); font-size: 0.95rem; color: #ffe8dc; padding: 0.7rem 0 0.2rem; user-select: none;
   }
   .imps-switch {
     width: 46px; height: 26px; border-radius: 13px; background: rgba(0,0,0,0.5);
@@ -1790,7 +1797,7 @@
   .imps-btn {
     width: 100%; padding: 1rem; border-radius: 10px; border: none;
     background: linear-gradient(135deg,#a02828,#ff6b35); color: white;
-    font-family: 'Cinzel','Bebas Neue',sans-serif; font-size: 1.05rem; font-weight: 700;
+    font-family: var(--display-font); font-size: 1.05rem; font-weight: 700;
     letter-spacing: 0.1em; cursor: pointer; margin-top: 0.7rem; text-transform: uppercase;
     box-shadow: 0 6px 20px rgba(255,107,53,0.3);
   }
@@ -1800,14 +1807,14 @@
   }
   .imps-btn.ghost { background: none; border: 1px solid rgba(255,232,220,0.2); color: rgba(255,232,220,0.6); box-shadow: none; font-size: 0.9rem; }
   .imps-btn.imps-solve { background: linear-gradient(135deg,#16a34a,#4ade80); box-shadow: 0 6px 20px rgba(74,222,128,0.3); }
-  .imps-hint { text-align: center; font-family: 'Outfit',sans-serif; font-size: 0.82rem; color: rgba(255,232,220,0.5); margin-top: 0.6rem; }
+  .imps-hint { text-align: center; font-family: var(--ui-font); font-size: 0.82rem; color: rgba(255,232,220,0.5); margin-top: 0.6rem; }
 
   /* Pass screen */
   .imps-pass-inner { text-align: center; padding-top: 3rem; }
   .imps-pass-icon { font-size: 3rem; margin-bottom: 1rem; }
-  .imps-pass-label { font-family: 'Outfit',sans-serif; font-size: 1.1rem; color: rgba(255,232,220,0.7); }
+  .imps-pass-label { font-family: var(--ui-font); font-size: 1.1rem; color: rgba(255,232,220,0.7); }
   .imps-pass-name {
-    font-family: 'Cinzel','Bebas Neue',sans-serif; font-size: 2.6rem; color: #ff8c5a;
+    font-family: var(--display-font); font-size: 2.6rem; color: #ff8c5a;
     margin: 0.5rem 0 1.5rem; text-shadow: 0 0 25px rgba(255,107,53,0.4);
   }
   .imps-reveal-btn { max-width: 320px; margin: 0 auto; }
@@ -1818,23 +1825,23 @@
     border: 2px solid rgba(255,107,53,0.5); border-radius: 18px; padding: 2.2rem 1.5rem;
     text-align: center; margin-top: 2rem; box-shadow: 0 0 35px rgba(255,107,53,0.25);
   }
-  .imps-reveal-who { font-family: 'Outfit',sans-serif; font-size: 1rem; color: rgba(255,232,220,0.6); margin-bottom: 1rem; }
-  .imps-reveal-role { font-family: 'Cinzel','Bebas Neue',sans-serif; font-size: 1.6rem; letter-spacing: 0.08em; }
+  .imps-reveal-who { font-family: var(--ui-font); font-size: 1rem; color: rgba(255,232,220,0.6); margin-bottom: 1rem; }
+  .imps-reveal-role { font-family: var(--display-font); font-size: 1.6rem; letter-spacing: 0.08em; }
   .imps-reveal-role.crew { color: #4ade80; }
   .imps-reveal-role.impostor { color: #ff5050; text-shadow: 0 0 22px rgba(255,80,80,0.5); }
   .imps-reveal-word {
-    font-family: 'Bebas Neue',sans-serif; font-size: 3rem; color: white; margin-top: 0.8rem;
+    font-family: var(--num-font); font-size: 3rem; color: white; margin-top: 0.8rem;
     letter-spacing: 0.04em; text-shadow: 0 0 25px rgba(255,255,255,0.2);
   }
-  .imps-reveal-cat { font-family: 'Outfit',sans-serif; font-size: 1rem; color: rgba(255,180,140,0.85); margin-top: 0.5rem; }
+  .imps-reveal-cat { font-family: var(--ui-font); font-size: 1rem; color: rgba(255,180,140,0.85); margin-top: 0.5rem; }
   .imps-reveal-word.hint { color: #ff8c5a; text-shadow: 0 0 20px rgba(255,140,90,0.4); }
 
   /* Discussion */
   .imps-disc-inner { text-align: center; padding-top: 1.5rem; }
   .imps-disc-icon { font-size: 3rem; }
-  .imps-disc-title { font-family: 'Cinzel','Bebas Neue',sans-serif; font-size: 1.6rem; color: #ff8c5a; margin: 0.5rem 0; }
+  .imps-disc-title { font-family: var(--display-font); font-size: 1.6rem; color: #ff8c5a; margin: 0.5rem 0; }
   .imps-disc-text {
-    font-family: 'Outfit',sans-serif; font-size: 0.98rem; line-height: 1.5; color: rgba(255,232,220,0.8);
+    font-family: var(--ui-font); font-size: 0.98rem; line-height: 1.5; color: rgba(255,232,220,0.8);
     background: rgba(40,18,12,0.5); border: 1px solid rgba(255,107,53,0.25); border-radius: 12px;
     padding: 1rem; margin-bottom: 1rem;
   }
@@ -1847,13 +1854,13 @@
     text-align: center; margin-top: 2rem;
   }
   .imps-sol-label, .imps-sol-imp-label {
-    font-family: 'Outfit',sans-serif; font-size: 0.75rem; letter-spacing: 0.25em;
+    font-family: var(--ui-font); font-size: 0.75rem; letter-spacing: 0.25em;
     color: rgba(255,232,220,0.6); text-transform: uppercase;
   }
   .imps-sol-imp-label { margin-top: 1.4rem; color: rgba(255,120,120,0.8); }
-  .imps-sol-word { font-family: 'Bebas Neue',sans-serif; font-size: 3rem; color: white; margin: 0.3rem 0; }
-  .imps-sol-cat { font-family: 'Outfit',sans-serif; font-size: 0.95rem; color: rgba(255,180,140,0.8); }
-  .imps-sol-imps { font-family: 'Cinzel','Bebas Neue',sans-serif; font-size: 1.8rem; color: #ff5050; text-shadow: 0 0 20px rgba(255,80,80,0.4); margin-top: 0.2rem; }
+  .imps-sol-word { font-family: var(--num-font); font-size: 3rem; color: white; margin: 0.3rem 0; }
+  .imps-sol-cat { font-family: var(--ui-font); font-size: 0.95rem; color: rgba(255,180,140,0.8); }
+  .imps-sol-imps { font-family: var(--display-font); font-size: 1.8rem; color: #ff5050; text-shadow: 0 0 20px rgba(255,80,80,0.4); margin-top: 0.2rem; }
 
   /* ====================== STADT LAND FLUSS ====================== */
   .app-slf {
@@ -1874,12 +1881,12 @@
     margin-top: 0.8rem;
   }
   .slf-waiting-label {
-    font-family: 'Cinzel', 'Bebas Neue', sans-serif;
+    font-family: var(--display-font);
     font-size: 0.72rem; letter-spacing: 0.3em;
     color: rgba(94,234,212,0.7); text-transform: uppercase; margin-bottom: 0.3rem;
   }
   .slf-waiting-code {
-    font-family: 'Bebas Neue', sans-serif; font-size: 3rem; letter-spacing: 0.35em;
+    font-family: var(--num-font); font-size: 3rem; letter-spacing: 0.35em;
     color: white; text-shadow: 0 0 30px rgba(45,212,191,0.5); margin-bottom: 0.5rem; font-weight: 700;
   }
   .slf-start-btn {
@@ -1895,7 +1902,7 @@
   .slf-cat-chip {
     display: flex; align-items: center; gap: 0.4rem; padding: 0.5rem 0.6rem;
     background: rgba(0,0,0,0.3); border: 1px solid rgba(45,212,191,0.25);
-    border-radius: 6px; cursor: pointer; font-family: 'Outfit', sans-serif;
+    border-radius: 6px; cursor: pointer; font-family: var(--ui-font);
     font-size: 0.85rem; color: #d6f5e8; user-select: none; transition: all 0.15s;
   }
   .slf-cat-chip.active {
@@ -1904,7 +1911,7 @@
   .slf-cat-chip input { width: 16px; height: 16px; accent-color: #2dd4bf; pointer-events: none; }
   .slf-config-row {
     display: flex; justify-content: space-between; align-items: center;
-    padding: 0.45rem 0; font-family: 'Outfit', sans-serif; color: #d6f5e8; font-size: 0.9rem;
+    padding: 0.45rem 0; font-family: var(--ui-font); color: #d6f5e8; font-size: 0.9rem;
   }
   .slf-config-counter { display: flex; align-items: center; gap: 0.6rem; }
   .slf-counter-btn {
@@ -1913,12 +1920,12 @@
   }
   .slf-counter-btn:hover { background: rgba(45,212,191,0.3); }
   .slf-counter-val {
-    font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem; min-width: 36px; text-align: center; color: #5eead4;
+    font-family: var(--num-font); font-size: 1.3rem; min-width: 36px; text-align: center; color: #5eead4;
   }
   .slf-mode-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.4rem; }
   .slf-mode-btn {
     padding: 0.6rem; border-radius: 6px; border: 1px solid rgba(45,212,191,0.3);
-    background: rgba(0,0,0,0.3); color: rgba(214,245,232,0.75); font-family: 'Outfit', sans-serif;
+    background: rgba(0,0,0,0.3); color: rgba(214,245,232,0.75); font-family: var(--ui-font);
     font-size: 0.85rem; cursor: pointer; transition: all 0.15s;
   }
   .slf-mode-btn.active { background: rgba(45,212,191,0.2); border-color: #2dd4bf; color: white; }
@@ -1933,17 +1940,17 @@
     box-shadow: 0 0 25px rgba(45,212,191,0.3);
   }
   .slf-letter-label {
-    font-family: 'Outfit', sans-serif; font-size: 0.72rem; letter-spacing: 0.3em;
+    font-family: var(--ui-font); font-size: 0.72rem; letter-spacing: 0.3em;
     color: rgba(94,234,212,0.8); text-transform: uppercase;
   }
   .slf-letter-big {
-    font-family: 'Bebas Neue', sans-serif; font-size: 5rem; line-height: 1; color: white;
+    font-family: var(--num-font); font-size: 5rem; line-height: 1; color: white;
     text-shadow: 0 0 30px rgba(45,212,191,0.6); margin: 0.2rem 0;
   }
   .slf-letter-big.rolling { animation: slfRoll 0.08s steps(1) infinite; }
   @keyframes slfRoll { 0% { opacity: 0.5; } 50% { opacity: 1; } 100% { opacity: 0.5; } }
   .slf-timer {
-    font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; letter-spacing: 0.1em;
+    font-family: var(--num-font); font-size: 1.6rem; letter-spacing: 0.1em;
     color: #5eead4;
   }
   .slf-timer.urgent { color: #ff5050; animation: slfPulse 0.6s infinite; }
@@ -1951,11 +1958,11 @@
 
   .slf-phase-info { text-align: center; padding: 0.6rem 0.5rem; }
   .slf-phase-name {
-    font-family: 'Cinzel', 'Bebas Neue', sans-serif; font-size: 1.2rem; color: #5eead4;
+    font-family: var(--display-font); font-size: 1.2rem; color: #5eead4;
     letter-spacing: 0.15em; text-transform: uppercase;
   }
   .slf-phase-desc {
-    font-family: 'Outfit', sans-serif; font-size: 0.85rem; color: rgba(214,245,232,0.75);
+    font-family: var(--ui-font); font-size: 0.85rem; color: rgba(214,245,232,0.75);
     margin-top: 0.3rem; font-style: italic;
   }
 
@@ -1964,20 +1971,20 @@
   /* Input fields */
   .slf-input-row { margin-bottom: 0.6rem; }
   .slf-input-label {
-    font-family: 'Outfit', sans-serif; font-size: 0.78rem; letter-spacing: 0.05em;
+    font-family: var(--ui-font); font-size: 0.78rem; letter-spacing: 0.05em;
     color: rgba(94,234,212,0.85); margin-bottom: 0.2rem; font-weight: 600;
   }
   .slf-answer-input {
     width: 100%; padding: 0.75rem 0.9rem; border-radius: 8px;
     border: 1.5px solid rgba(45,212,191,0.3); background: rgba(0,0,0,0.35);
-    color: white; font-family: 'Outfit', sans-serif; font-size: 1rem;
+    color: white; font-family: var(--ui-font); font-size: 1rem;
   }
   .slf-answer-input:focus { outline: none; border-color: #2dd4bf; }
   .slf-answer-input:disabled { opacity: 0.6; }
 
   .slf-btn {
     background: linear-gradient(135deg, #0f766e, #2dd4bf); color: white; border: none;
-    padding: 0.9rem 1rem; border-radius: 8px; font-family: 'Cinzel', 'Bebas Neue', sans-serif;
+    padding: 0.9rem 1rem; border-radius: 8px; font-family: var(--display-font);
     font-size: 0.95rem; cursor: pointer; font-weight: 700; letter-spacing: 0.15em;
     width: 100%; margin-top: 0.6rem; text-transform: uppercase;
   }
@@ -1995,9 +2002,9 @@
   .slf-waiting-status {
     background: rgba(10,30,24,0.6); border: 1px dashed rgba(45,212,191,0.3);
     border-radius: 10px; padding: 1rem; text-align: center;
-    font-family: 'Outfit', sans-serif; color: rgba(214,245,232,0.8); margin: 0.5rem 0;
+    font-family: var(--ui-font); color: rgba(214,245,232,0.8); margin: 0.5rem 0;
   }
-  .slf-writers { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; color: #5eead4; }
+  .slf-writers { font-family: var(--num-font); font-size: 1.4rem; color: #5eead4; }
 
   /* Review */
   .slf-review-cat {
@@ -2005,13 +2012,13 @@
     border-radius: 10px; padding: 0.8rem; margin-bottom: 0.7rem;
   }
   .slf-review-cat-name {
-    font-family: 'Cinzel', 'Bebas Neue', sans-serif; font-size: 1rem; color: #5eead4;
+    font-family: var(--display-font); font-size: 1rem; color: #5eead4;
     letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.5rem;
     border-bottom: 1px solid rgba(45,212,191,0.2); padding-bottom: 0.3rem;
   }
   .slf-review-answer {
     display: flex; align-items: center; gap: 0.5rem; padding: 0.4rem 0;
-    font-family: 'Outfit', sans-serif; font-size: 0.9rem;
+    font-family: var(--ui-font); font-size: 0.9rem;
   }
   .slf-review-answer .name {
     color: rgba(214,245,232,0.7); font-size: 0.78rem; min-width: 70px;
@@ -2021,7 +2028,7 @@
   .slf-review-answer .ans.empty { color: rgba(214,245,232,0.3); font-style: italic; }
   .slf-review-answer .ans.invalid { text-decoration: line-through; color: rgba(255,80,80,0.6); }
   .slf-review-answer .pts {
-    font-family: 'Bebas Neue', sans-serif; font-size: 1rem; min-width: 34px; text-align: right;
+    font-family: var(--num-font); font-size: 1rem; min-width: 34px; text-align: right;
   }
   .slf-review-answer .pts.p20 { color: #fbbf24; }
   .slf-review-answer .pts.p10 { color: #4ade80; }
@@ -2039,17 +2046,17 @@
     background: rgba(0,0,0,0.4); border-radius: 8px; padding: 0.7rem; margin: 0.7rem 0;
   }
   .slf-scoreboard-title {
-    font-family: 'Outfit', sans-serif; font-size: 0.75rem; letter-spacing: 0.2em;
+    font-family: var(--ui-font); font-size: 0.75rem; letter-spacing: 0.2em;
     color: rgba(94,234,212,0.7); text-transform: uppercase; margin-bottom: 0.4rem; text-align: center;
   }
   .slf-scoreboard-row {
     display: flex; justify-content: space-between; align-items: center; padding: 0.35rem 0;
-    font-family: 'Outfit', sans-serif; font-size: 0.9rem; color: #d6f5e8;
+    font-family: var(--ui-font); font-size: 0.9rem; color: #d6f5e8;
     border-bottom: 1px solid rgba(45,212,191,0.15);
   }
   .slf-scoreboard-row .rank { color: rgba(94,234,212,0.7); min-width: 24px; }
   .slf-scoreboard-row .delta { color: rgba(74,222,128,0.8); font-size: 0.78rem; margin-left: auto; margin-right: 0.6rem; }
-  .slf-scoreboard-row .total { font-family: 'Bebas Neue', sans-serif; color: #fbbf24; font-size: 1.1rem; min-width: 40px; text-align: right; }
+  .slf-scoreboard-row .total { font-family: var(--num-font); color: #fbbf24; font-size: 1.1rem; min-width: 40px; text-align: right; }
   .slf-scoreboard-row.leader .total { color: #fbbf24; text-shadow: 0 0 10px rgba(251,191,36,0.4); }
 
   .slf-gameover {
@@ -2058,10 +2065,10 @@
     margin: 0.8rem 0; box-shadow: 0 0 30px rgba(45,212,191,0.4);
   }
   .slf-gameover-title {
-    font-family: 'Cinzel', 'Bebas Neue', sans-serif; font-size: 1.5rem; color: white;
+    font-family: var(--display-font); font-size: 1.5rem; color: white;
     letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 0.3rem;
   }
-  .slf-gameover-winner { font-family: 'Outfit', sans-serif; font-size: 1.1rem; color: #fbbf24; margin-bottom: 1rem; }
+  .slf-gameover-winner { font-family: var(--ui-font); font-size: 1.1rem; color: #fbbf24; margin-bottom: 1rem; }
 
   /* ====================== IMPOSTOR ====================== */
   .app-impostor {
@@ -2084,7 +2091,7 @@
     margin-top: 0.8rem;
   }
   .imp-waiting-label {
-    font-family: 'Cinzel', 'Bebas Neue', sans-serif;
+    font-family: var(--display-font);
     font-size: 0.72rem;
     letter-spacing: 0.3em;
     color: rgba(255,140,90,0.7);
@@ -2092,7 +2099,7 @@
     margin-bottom: 0.3rem;
   }
   .imp-waiting-code {
-    font-family: 'Bebas Neue', sans-serif;
+    font-family: var(--num-font);
     font-size: 3rem;
     letter-spacing: 0.35em;
     color: white;
@@ -2118,7 +2125,7 @@
     justify-content: space-between;
     align-items: center;
     padding: 0.45rem 0;
-    font-family: 'Outfit', sans-serif;
+    font-family: var(--ui-font);
     color: #f5e6d3;
     font-size: 0.9rem;
   }
@@ -2140,7 +2147,7 @@
   }
   .imp-counter-btn:hover { background: rgba(255,107,53,0.3); }
   .imp-counter-val {
-    font-family: 'Bebas Neue', sans-serif;
+    font-family: var(--num-font);
     font-size: 1.2rem;
     min-width: 20px;
     text-align: center;
@@ -2153,7 +2160,7 @@
     border: 1px solid rgba(255,140,90,0.4);
     background: rgba(0,0,0,0.4);
     color: #f5e6d3;
-    font-family: 'Outfit', sans-serif;
+    font-family: var(--ui-font);
     font-size: 0.9rem;
     cursor: pointer;
   }
@@ -2163,7 +2170,7 @@
     gap: 0.5rem;
     padding: 0.45rem 0;
     cursor: pointer;
-    font-family: 'Outfit', sans-serif;
+    font-family: var(--ui-font);
     color: #f5e6d3;
     font-size: 0.88rem;
   }
@@ -2215,14 +2222,14 @@
     filter: drop-shadow(0 4px 10px rgba(255,107,53,0.4));
   }
   .imp-word-card-back-text {
-    font-family: 'Outfit', sans-serif;
+    font-family: var(--ui-font);
     color: #ff8c5a;
     font-size: 0.92rem;
     letter-spacing: 0.1em;
     font-weight: 600;
   }
   .imp-word-card-back-hint {
-    font-family: 'Outfit', sans-serif;
+    font-family: var(--ui-font);
     color: rgba(245,230,211,0.55);
     font-size: 0.75rem;
     margin-top: 0.5rem;
@@ -2240,7 +2247,7 @@
   .imp-word-card.flipped .imp-word-card-back { transform: rotateY(180deg); }
   .imp-word-card.flipped .imp-word-card-front { transform: rotateY(360deg); }
   .imp-word-cat {
-    font-family: 'Outfit', sans-serif;
+    font-family: var(--ui-font);
     font-size: 0.78rem;
     letter-spacing: 0.2em;
     color: rgba(255,140,90,0.8);
@@ -2248,7 +2255,7 @@
     margin-bottom: 0.7rem;
   }
   .imp-word-main {
-    font-family: 'Cinzel', 'Bebas Neue', sans-serif;
+    font-family: var(--display-font);
     font-size: 2rem;
     color: white;
     letter-spacing: 0.05em;
@@ -2257,7 +2264,7 @@
     word-break: break-word;
   }
   .imp-word-team {
-    font-family: 'Outfit', sans-serif;
+    font-family: var(--ui-font);
     font-size: 0.78rem;
     letter-spacing: 0.15em;
     color: rgba(255,140,90,0.85);
@@ -2268,7 +2275,7 @@
     width: 100%;
   }
   .imp-word-status {
-    font-family: 'Outfit', sans-serif;
+    font-family: var(--ui-font);
     font-size: 0.85rem;
     color: rgba(255,140,90,0.7);
     margin-top: 0.5rem;
@@ -2326,14 +2333,14 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    font-family: 'Bebas Neue', sans-serif;
+    font-family: var(--num-font);
   }
   .imp-player-tile.revealed-impostor {
     border-color: #ff3030;
     background: rgba(255,48,48,0.2);
   }
   .imp-player-name {
-    font-family: 'Outfit', sans-serif;
+    font-family: var(--ui-font);
     font-size: 0.8rem;
     color: #f5e6d3;
     font-weight: 600;
@@ -2342,7 +2349,7 @@
     white-space: nowrap;
   }
   .imp-player-score {
-    font-family: 'Bebas Neue', sans-serif;
+    font-family: var(--num-font);
     font-size: 0.92rem;
     color: rgba(255,215,0,0.85);
     margin-top: 0.15rem;
@@ -2362,7 +2369,7 @@
     border-bottom: 1px solid rgba(255,107,53,0.15);
   }
   .imp-phase-name {
-    font-family: 'Cinzel', 'Bebas Neue', sans-serif;
+    font-family: var(--display-font);
     font-size: 1.3rem;
     color: #ff8c5a;
     letter-spacing: 0.2em;
@@ -2370,7 +2377,7 @@
     text-shadow: 0 0 15px rgba(255,107,53,0.4);
   }
   .imp-phase-desc {
-    font-family: 'Outfit', sans-serif;
+    font-family: var(--ui-font);
     font-size: 0.88rem;
     color: rgba(245,230,211,0.8);
     margin-top: 0.4rem;
@@ -2383,7 +2390,7 @@
   }
   .imp-action-prompt {
     text-align: center;
-    font-family: 'Outfit', sans-serif;
+    font-family: var(--ui-font);
     font-size: 0.95rem;
     color: #f5e6d3;
     margin-bottom: 0.7rem;
@@ -2394,7 +2401,7 @@
     border-radius: 10px;
     padding: 1.2rem;
     text-align: center;
-    font-family: 'Outfit', sans-serif;
+    font-family: var(--ui-font);
     color: rgba(245,230,211,0.7);
     font-style: italic;
   }
@@ -2417,14 +2424,14 @@
     box-shadow: 0 0 25px rgba(255,107,53,0.3);
   }
   .imp-current-speaker-name {
-    font-family: 'Cinzel', 'Bebas Neue', sans-serif;
+    font-family: var(--display-font);
     font-size: 1.4rem;
     color: white;
     letter-spacing: 0.1em;
     text-transform: uppercase;
   }
   .imp-current-speaker-label {
-    font-family: 'Outfit', sans-serif;
+    font-family: var(--ui-font);
     font-size: 0.85rem;
     color: rgba(255,140,90,0.85);
     margin-top: 0.3rem;
@@ -2435,7 +2442,7 @@
     border: none;
     padding: 0.85rem 1rem;
     border-radius: 8px;
-    font-family: 'Cinzel', 'Bebas Neue', sans-serif;
+    font-family: var(--display-font);
     font-size: 0.9rem;
     cursor: pointer;
     font-weight: 700;
@@ -2464,7 +2471,7 @@
     border: 1.5px solid rgba(255,140,90,0.5);
     background: rgba(0,0,0,0.4);
     color: white;
-    font-family: 'Outfit', sans-serif;
+    font-family: var(--ui-font);
     font-size: 1rem;
     margin: 0.5rem 0;
     text-align: center;
@@ -2478,7 +2485,7 @@
     padding: 1rem;
     margin: 0.6rem 0;
     text-align: center;
-    font-family: 'Outfit', sans-serif;
+    font-family: var(--ui-font);
     color: #f5e6d3;
   }
   .imp-reveal-box.impostor {
@@ -2500,7 +2507,7 @@
     box-shadow: 0 0 30px rgba(255,107,53,0.4);
   }
   .imp-gameover-title {
-    font-family: 'Cinzel', 'Bebas Neue', sans-serif;
+    font-family: var(--display-font);
     font-size: 1.5rem;
     color: white;
     letter-spacing: 0.2em;
@@ -2508,7 +2515,7 @@
     margin-bottom: 0.5rem;
   }
   .imp-gameover-word {
-    font-family: 'Outfit', sans-serif;
+    font-family: var(--ui-font);
     font-size: 1rem;
     color: #ff8c5a;
     margin-bottom: 0.8rem;
@@ -2519,7 +2526,7 @@
     letter-spacing: 0.05em;
   }
   .imp-gameover-impostors {
-    font-family: 'Outfit', sans-serif;
+    font-family: var(--ui-font);
     font-size: 0.85rem;
     color: rgba(245,230,211,0.85);
     margin-bottom: 1rem;
@@ -2532,7 +2539,7 @@
     text-align: left;
   }
   .imp-scoreboard-title {
-    font-family: 'Outfit', sans-serif;
+    font-family: var(--ui-font);
     font-size: 0.75rem;
     letter-spacing: 0.2em;
     color: rgba(255,140,90,0.7);
@@ -2544,13 +2551,13 @@
     display: flex;
     justify-content: space-between;
     padding: 0.3rem 0;
-    font-family: 'Outfit', sans-serif;
+    font-family: var(--ui-font);
     font-size: 0.88rem;
     color: #f5e6d3;
     border-bottom: 1px solid rgba(255,107,53,0.15);
   }
   .imp-scoreboard-row span:last-child {
-    font-family: 'Bebas Neue', sans-serif;
+    font-family: var(--num-font);
     color: #ffd700;
     font-size: 1.05rem;
   }
@@ -2576,7 +2583,7 @@
     margin-top: 0.8rem;
   }
   .ww-waiting-label {
-    font-family: 'Cinzel', 'Bebas Neue', sans-serif;
+    font-family: var(--display-font);
     font-size: 0.72rem;
     letter-spacing: 0.3em;
     color: rgba(184,157,255,0.7);
@@ -2584,7 +2591,7 @@
     margin-bottom: 0.3rem;
   }
   .ww-waiting-code {
-    font-family: 'Bebas Neue', sans-serif;
+    font-family: var(--num-font);
     font-size: 3rem;
     letter-spacing: 0.35em;
     color: white;
@@ -2610,7 +2617,7 @@
     justify-content: space-between;
     align-items: center;
     padding: 0.4rem 0;
-    font-family: 'Outfit', sans-serif;
+    font-family: var(--ui-font);
     color: #d8dceb;
     font-size: 0.9rem;
   }
@@ -2632,7 +2639,7 @@
   }
   .ww-counter-btn:hover { background: rgba(110,80,180,0.3); }
   .ww-counter-val {
-    font-family: 'Bebas Neue', sans-serif;
+    font-family: var(--num-font);
     font-size: 1.2rem;
     min-width: 20px;
     text-align: center;
@@ -2644,7 +2651,7 @@
     gap: 0.5rem;
     padding: 0.45rem 0;
     cursor: pointer;
-    font-family: 'Outfit', sans-serif;
+    font-family: var(--ui-font);
     color: #d8dceb;
     font-size: 0.9rem;
   }
@@ -2654,7 +2661,7 @@
     accent-color: #b89dff;
   }
   .ww-config-summary {
-    font-family: 'Outfit', sans-serif;
+    font-family: var(--ui-font);
     font-size: 0.78rem;
     color: rgba(184,157,255,0.7);
     font-style: italic;
@@ -2706,7 +2713,7 @@
     filter: drop-shadow(0 4px 10px rgba(184,157,255,0.4));
   }
   .ww-role-card-back-text {
-    font-family: 'Outfit', sans-serif;
+    font-family: var(--ui-font);
     color: #b89dff;
     font-size: 0.85rem;
     letter-spacing: 0.1em;
@@ -2723,7 +2730,7 @@
     margin-bottom: 0.5rem;
   }
   .ww-role-name {
-    font-family: 'Cinzel', 'Bebas Neue', sans-serif;
+    font-family: var(--display-font);
     font-size: 1.5rem;
     color: white;
     letter-spacing: 0.1em;
@@ -2731,13 +2738,13 @@
     margin-bottom: 0.6rem;
   }
   .ww-role-desc {
-    font-family: 'Outfit', sans-serif;
+    font-family: var(--ui-font);
     font-size: 0.82rem;
     color: rgba(216,220,235,0.9);
     line-height: 1.4;
   }
   .ww-role-team {
-    font-family: 'Outfit', sans-serif;
+    font-family: var(--ui-font);
     font-size: 0.72rem;
     letter-spacing: 0.2em;
     color: #b89dff;
@@ -2748,7 +2755,7 @@
     width: 100%;
   }
   .ww-role-status {
-    font-family: 'Outfit', sans-serif;
+    font-family: var(--ui-font);
     font-size: 0.85rem;
     color: rgba(184,157,255,0.7);
     margin-top: 0.5rem;
@@ -2813,10 +2820,10 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    font-family: 'Bebas Neue', sans-serif;
+    font-family: var(--num-font);
   }
   .ww-player-name {
-    font-family: 'Outfit', sans-serif;
+    font-family: var(--ui-font);
     font-size: 0.78rem;
     color: #d8dceb;
     font-weight: 600;
@@ -2825,7 +2832,7 @@
     white-space: nowrap;
   }
   .ww-player-role {
-    font-family: 'Outfit', sans-serif;
+    font-family: var(--ui-font);
     font-size: 0.65rem;
     color: rgba(216,220,235,0.55);
     margin-top: 0.15rem;
@@ -2844,7 +2851,7 @@
     border-bottom: 1px solid rgba(110,80,180,0.15);
   }
   .ww-phase-name {
-    font-family: 'Cinzel', 'Bebas Neue', sans-serif;
+    font-family: var(--display-font);
     font-size: 1.3rem;
     color: #b89dff;
     letter-spacing: 0.2em;
@@ -2852,7 +2859,7 @@
     text-shadow: 0 0 15px rgba(184,157,255,0.4);
   }
   .ww-phase-desc {
-    font-family: 'Outfit', sans-serif;
+    font-family: var(--ui-font);
     font-size: 0.88rem;
     color: rgba(216,220,235,0.8);
     margin-top: 0.4rem;
@@ -2865,7 +2872,7 @@
   }
   .ww-action-prompt {
     text-align: center;
-    font-family: 'Outfit', sans-serif;
+    font-family: var(--ui-font);
     font-size: 0.95rem;
     color: #d8dceb;
     margin-bottom: 0.7rem;
@@ -2876,7 +2883,7 @@
     border-radius: 10px;
     padding: 1.2rem;
     text-align: center;
-    font-family: 'Outfit', sans-serif;
+    font-family: var(--ui-font);
     color: rgba(216,220,235,0.7);
     font-style: italic;
   }
@@ -2895,7 +2902,7 @@
     border: none;
     padding: 0.85rem 1rem;
     border-radius: 8px;
-    font-family: 'Cinzel', 'Bebas Neue', sans-serif;
+    font-family: var(--display-font);
     font-size: 0.9rem;
     cursor: pointer;
     font-weight: 700;
@@ -2928,7 +2935,7 @@
     padding: 1rem;
     margin: 0.6rem 0;
     text-align: center;
-    font-family: 'Outfit', sans-serif;
+    font-family: var(--ui-font);
     color: #ff8888;
   }
   .ww-reveal-box.peace {
@@ -2953,14 +2960,14 @@
   }
   .ww-seer-result-icon { font-size: 2.5rem; margin-bottom: 0.3rem; }
   .ww-seer-result-name {
-    font-family: 'Cinzel', 'Bebas Neue', sans-serif;
+    font-family: var(--display-font);
     font-size: 1.1rem;
     color: white;
     letter-spacing: 0.1em;
     text-transform: uppercase;
   }
   .ww-seer-result-team {
-    font-family: 'Outfit', sans-serif;
+    font-family: var(--ui-font);
     font-size: 0.85rem;
     color: rgba(184,157,255,0.85);
     margin-top: 0.4rem;
@@ -2976,7 +2983,7 @@
     box-shadow: 0 0 30px rgba(184,157,255,0.4);
   }
   .ww-gameover-title {
-    font-family: 'Cinzel', 'Bebas Neue', sans-serif;
+    font-family: var(--display-font);
     font-size: 1.6rem;
     color: white;
     letter-spacing: 0.2em;
@@ -2984,13 +2991,13 @@
     margin-bottom: 0.5rem;
   }
   .ww-gameover-team {
-    font-family: 'Outfit', sans-serif;
+    font-family: var(--ui-font);
     font-size: 1rem;
     color: #b89dff;
     margin-bottom: 1rem;
   }
   .ww-gameover-roles {
-    font-family: 'Outfit', sans-serif;
+    font-family: var(--ui-font);
     font-size: 0.85rem;
     color: rgba(216,220,235,0.8);
     text-align: left;
@@ -3025,7 +3032,7 @@
     margin-top: 0.8rem;
   }
   .pm-waiting-label {
-    font-family: 'Cinzel', 'Bebas Neue', sans-serif;
+    font-family: var(--display-font);
     font-size: 0.72rem;
     letter-spacing: 0.3em;
     color: rgba(34,197,94,0.7);
@@ -3033,7 +3040,7 @@
     margin-bottom: 0.3rem;
   }
   .pm-waiting-code {
-    font-family: 'Bebas Neue', sans-serif;
+    font-family: var(--num-font);
     font-size: 3rem;
     letter-spacing: 0.35em;
     color: white;
@@ -3047,14 +3054,14 @@
     color: var(--pmc-good);
     padding: 0.35rem 0.9rem;
     border-radius: 4px;
-    font-family: 'Outfit', sans-serif;
+    font-family: var(--ui-font);
     font-size: 0.78rem;
     cursor: pointer;
     margin-bottom: 1rem;
   }
   .pm-mini-btn:hover { background: rgba(34,197,94,0.12); }
   .pm-waiting-section-label {
-    font-family: 'Cinzel', 'Bebas Neue', sans-serif;
+    font-family: var(--display-font);
     font-size: 0.72rem;
     letter-spacing: 0.25em;
     color: rgba(34,197,94,0.8);
@@ -3079,7 +3086,7 @@
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    font-family: 'Outfit', sans-serif;
+    font-family: var(--ui-font);
     color: var(--pmc-text);
     font-size: 0.9rem;
   }
@@ -3091,7 +3098,7 @@
     width: 100%;
     padding: 1rem;
     border-radius: 10px;
-    font-family: 'Cinzel', 'Bebas Neue', sans-serif;
+    font-family: var(--display-font);
     font-size: 1.05rem;
     letter-spacing: 0.25em;
     cursor: pointer;
@@ -3102,7 +3109,7 @@
   .pm-start-btn:hover:not(:disabled) { transform: translateY(-1px); }
   .pm-start-btn:disabled { opacity: 0.4; cursor: not-allowed; }
   .pm-waiting-hint {
-    font-family: 'Outfit', sans-serif;
+    font-family: var(--ui-font);
     font-size: 0.75rem;
     color: rgba(216,232,208,0.5);
     margin-top: 0.7rem;
@@ -3157,7 +3164,7 @@
   .pm-other-player.winner { border-color: var(--pmc-gold); box-shadow: inset 0 0 0 1px rgba(255,215,0,0.55); background: rgba(255,215,0,0.1); }
 
   .pm-other-name {
-    font-family: 'Outfit', sans-serif;
+    font-family: var(--ui-font);
     font-size: 0.78rem;
     color: var(--pmc-text);
     font-weight: 600;
@@ -3176,14 +3183,14 @@
   .pm-other-name .pm-badge.bb { flex: 0 0 auto; }
   .pm-my-name .pm-badge { margin-left: 2px; }
   .pm-other-stack {
-    font-family: 'Bebas Neue', sans-serif;
+    font-family: var(--num-font);
     font-size: 0.95rem;
     color: var(--pmc-good);
     letter-spacing: 0.05em;
     margin-top: 0.1rem;
   }
   .pm-other-bet {
-    font-family: 'Outfit', sans-serif;
+    font-family: var(--ui-font);
     font-size: 0.7rem;
     color: var(--pmc-gold);
     margin-top: 0.1rem;
@@ -3206,7 +3213,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    font-family: 'Bebas Neue', sans-serif;
+    font-family: var(--num-font);
     font-size: 0.62rem;
     font-weight: 700;
   }
@@ -3214,7 +3221,7 @@
   .pm-badge.sb { color: var(--pmc-accent); border-color: var(--pmc-accent); }
   .pm-badge.bb { color: var(--pmc-bad); border-color: var(--pmc-bad); }
   .pm-other-status {
-    font-family: 'Outfit', sans-serif;
+    font-family: var(--ui-font);
     font-size: 0.65rem;
     color: rgba(216,232,208,0.6);
     text-transform: uppercase;
@@ -3229,14 +3236,14 @@
     margin: 0.4rem 0 0.3rem;
   }
   .pm-pot-label {
-    font-family: 'Cinzel', 'Bebas Neue', sans-serif;
+    font-family: var(--display-font);
     font-size: 0.7rem;
     letter-spacing: 0.3em;
     color: rgba(240,228,200,0.6);
     text-transform: uppercase;
   }
   .pm-pot-value {
-    font-family: 'Bebas Neue', sans-serif;
+    font-family: var(--num-font);
     font-size: 1.8rem;
     color: var(--pmc-gold);
     letter-spacing: 0.1em;
@@ -3263,7 +3270,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    font-family: 'Outfit', sans-serif;
+    font-family: var(--ui-font);
     font-weight: 700;
     font-variant-numeric: tabular-nums;
     letter-spacing: -0.02em;
@@ -3311,7 +3318,7 @@
     min-height: 2.5rem;
   }
   .pm-status-phase {
-    font-family: 'Cinzel', 'Bebas Neue', sans-serif;
+    font-family: var(--display-font);
     font-size: 0.7rem;
     letter-spacing: 0.3em;
     color: rgba(34,197,94,0.65);
@@ -3319,7 +3326,7 @@
     font-weight: 600;
   }
   .pm-status-line {
-    font-family: 'Outfit', sans-serif;
+    font-family: var(--ui-font);
     font-size: 0.9rem;
     color: var(--pmc-text);
     margin-top: 0.15rem;
@@ -3350,7 +3357,7 @@
     gap: 0.15rem;
   }
   .pm-my-name {
-    font-family: 'Outfit', sans-serif;
+    font-family: var(--ui-font);
     font-size: 0.95rem;
     color: var(--pmc-good);
     font-weight: 700;
@@ -3358,14 +3365,14 @@
   .pm-my-stack-row {
     display: flex;
     justify-content: space-between;
-    font-family: 'Outfit', sans-serif;
+    font-family: var(--ui-font);
     font-size: 0.85rem;
   }
   .pm-stack-label { color: rgba(216,232,208,0.6); }
   .pm-stack-val { color: white; font-weight: 600; }
   .pm-bet-val { color: var(--pmc-gold); font-weight: 600; }
   .pm-my-hand-strength {
-    font-family: 'Cinzel', 'Outfit', sans-serif;
+    font-family: 'Cinzel', var(--ui-font);
     font-size: 0.72rem;
     color: rgba(240,228,200,0.75);
     letter-spacing: 0.1em;
@@ -3383,7 +3390,7 @@
     padding: 0.85rem 0.3rem;
     border: 1.5px solid;
     border-radius: 8px;
-    font-family: 'Cinzel', 'Bebas Neue', sans-serif;
+    font-family: var(--display-font);
     font-size: 0.78rem;
     letter-spacing: 0.13em;
     cursor: pointer;
@@ -3428,7 +3435,7 @@
     border-radius: 8px;
     padding: 0.9rem;
     text-align: center;
-    font-family: 'Outfit', sans-serif;
+    font-family: var(--ui-font);
     font-size: 0.88rem;
     color: var(--pmc-dim);
     margin-top: 0.2rem;
@@ -3443,7 +3450,7 @@
     box-shadow: 0 8px 30px rgba(0,0,0,0.5);
   }
   .pm-raise-label {
-    font-family: 'Cinzel', 'Bebas Neue', sans-serif;
+    font-family: var(--display-font);
     font-size: 0.72rem;
     letter-spacing: 0.3em;
     color: rgba(240,208,90,0.8);
@@ -3451,7 +3458,7 @@
     text-transform: uppercase;
   }
   .pm-raise-amount {
-    font-family: 'Bebas Neue', sans-serif;
+    font-family: var(--num-font);
     font-size: 2.5rem;
     color: var(--pmc-gold);
     text-align: center;
@@ -3476,7 +3483,7 @@
     color: rgba(240,208,90,0.9);
     padding: 0.5rem 0.2rem;
     border-radius: 5px;
-    font-family: 'Outfit', sans-serif;
+    font-family: var(--ui-font);
     font-size: 0.72rem;
     cursor: pointer;
     letter-spacing: 0.05em;
@@ -3494,7 +3501,7 @@
     color: rgba(216,224,240,0.7);
     padding: 0.7rem;
     border-radius: 6px;
-    font-family: 'Outfit', sans-serif;
+    font-family: var(--ui-font);
     font-size: 0.78rem;
     cursor: pointer;
     letter-spacing: 0.1em;
@@ -3505,7 +3512,7 @@
     color: #1a1a1a;
     padding: 0.7rem;
     border-radius: 6px;
-    font-family: 'Cinzel', 'Bebas Neue', sans-serif;
+    font-family: var(--display-font);
     font-size: 0.85rem;
     cursor: pointer;
     font-weight: 700;
@@ -3528,27 +3535,27 @@
     to { opacity: 1; transform: scale(1); }
   }
   .pm-showdown-title {
-    font-family: 'Cinzel', 'Bebas Neue', sans-serif;
+    font-family: var(--display-font);
     font-size: 0.85rem;
     letter-spacing: 0.4em;
     color: var(--pmc-gold);
     text-transform: uppercase;
   }
   .pm-showdown-winner {
-    font-family: 'Cinzel', 'Bebas Neue', sans-serif;
+    font-family: var(--display-font);
     font-size: 1.3rem;
     color: white;
     margin: 0.5rem 0 0.3rem;
     font-weight: 700;
   }
   .pm-showdown-hand {
-    font-family: 'Outfit', sans-serif;
+    font-family: var(--ui-font);
     font-size: 0.95rem;
     color: rgba(240,228,200,0.85);
     margin-bottom: 0.6rem;
   }
   .pm-showdown-hint {
-    font-family: 'Outfit', sans-serif;
+    font-family: var(--ui-font);
     font-size: 0.78rem;
     color: rgba(216,232,208,0.5);
     font-style: italic;
@@ -3591,7 +3598,7 @@
     gap: 0.6rem;
     padding: 0.6rem 0;
     cursor: pointer;
-    font-family: 'Outfit', sans-serif;
+    font-family: var(--ui-font);
     color: var(--pmc-text);
     font-size: 0.9rem;
   }
@@ -3615,7 +3622,7 @@
     border: 1px solid rgba(34,197,94,0.2);
     border-radius: 6px;
     padding: 0.55rem 0.7rem;
-    font-family: 'Outfit', sans-serif;
+    font-family: var(--ui-font);
     color: var(--pmc-text);
     font-size: 0.88rem;
   }
@@ -3629,7 +3636,7 @@
   .pm-admin-player-stack {
     font-size: 0.78rem;
     color: rgba(216,232,208,0.65);
-    font-family: 'Bebas Neue', sans-serif;
+    font-family: var(--num-font);
     letter-spacing: 0.05em;
   }
   .pm-admin-player-stack.out { color: var(--pmc-bad); }
@@ -3639,7 +3646,7 @@
     color: white;
     padding: 0.4rem 0.7rem;
     border-radius: 5px;
-    font-family: 'Outfit', sans-serif;
+    font-family: var(--ui-font);
     font-size: 0.78rem;
     font-weight: 600;
     cursor: pointer;
@@ -3653,13 +3660,13 @@
     color: var(--pmc-bad);
     padding: 0.4rem 0.55rem;
     border-radius: 5px;
-    font-family: 'Outfit', sans-serif;
+    font-family: var(--ui-font);
     font-size: 0.78rem;
     cursor: pointer;
   }
   .pm-admin-kick-btn:hover { background: rgba(239,68,68,0.25); }
   .pm-debug summary {
-    font-family: 'Outfit', sans-serif;
+    font-family: var(--ui-font);
     font-size: 0.7rem;
     color: rgba(216,224,240,0.5);
     cursor: pointer;
@@ -3682,7 +3689,7 @@
     right: 24px;
     background: #22c55e;
     color: #0d0604;
-    font-family: 'Bebas Neue', sans-serif;
+    font-family: var(--num-font);
     font-size: 0.7rem;
     padding: 0.15rem 0.5rem;
     border-radius: 10px;
@@ -3712,7 +3719,7 @@
     border-bottom: 1px solid rgba(95,169,255,0.25);
   }
   .mp-title {
-    font-family: 'Cinzel', 'Bebas Neue', sans-serif;
+    font-family: var(--display-font);
     font-size: 1.15rem;
     letter-spacing: 0.3em;
     color: #5fa9ff;
@@ -3720,7 +3727,7 @@
     font-weight: 700;
   }
   .mp-sub {
-    font-family: 'Special Elite', 'Outfit', sans-serif;
+    font-family: 'Special Elite', var(--ui-font);
     font-size: 0.78rem;
     color: rgba(95,169,255,0.7);
     letter-spacing: 0.15em;
@@ -3732,7 +3739,7 @@
 
   .mp-section { margin-bottom: 0.6rem; }
   .mp-section-title {
-    font-family: 'Cinzel', 'Bebas Neue', sans-serif;
+    font-family: var(--display-font);
     font-size: 0.72rem;
     letter-spacing: 0.25em;
     color: rgba(95,169,255,0.85);
@@ -3748,7 +3755,7 @@
     color: white;
     padding: 0.85rem 1rem;
     border-radius: 6px;
-    font-family: 'Cinzel', 'Outfit', sans-serif;
+    font-family: 'Cinzel', var(--ui-font);
     font-size: 0.9rem;
     letter-spacing: 0.18em;
     cursor: pointer;
@@ -3785,7 +3792,7 @@
     color: #5fa9ff;
     padding: 0.7rem 0.9rem;
     border-radius: 6px;
-    font-family: 'Bebas Neue', sans-serif;
+    font-family: var(--num-font);
     font-size: 1.6rem;
     letter-spacing: 0.4em;
     text-align: center;
@@ -3808,7 +3815,7 @@
     background: rgba(95,169,255,0.07);
     border-left: 3px solid #5fa9ff;
     border-radius: 4px;
-    font-family: 'Outfit', sans-serif;
+    font-family: var(--ui-font);
     font-size: 0.78rem;
     line-height: 1.5;
     color: #b8d0ed;
@@ -3822,7 +3829,7 @@
     text-align: center;
   }
   .mp-code-label {
-    font-family: 'Outfit', sans-serif;
+    font-family: var(--ui-font);
     font-size: 0.7rem;
     letter-spacing: 0.2em;
     color: #5fa9ff;
@@ -3830,7 +3837,7 @@
     margin-bottom: 0.3rem;
   }
   .mp-code-value {
-    font-family: 'Bebas Neue', sans-serif;
+    font-family: var(--num-font);
     font-size: 3rem;
     letter-spacing: 0.3em;
     color: white;
@@ -3844,7 +3851,7 @@
     color: #5fa9ff;
     padding: 0.35rem 0.8rem;
     border-radius: 4px;
-    font-family: 'Outfit', sans-serif;
+    font-family: var(--ui-font);
     font-size: 0.78rem;
     cursor: pointer;
     transition: all 0.2s;
@@ -3861,7 +3868,7 @@
     background: rgba(0,0,0,0.25);
     border: 1px solid rgba(95,169,255,0.2);
     border-radius: 5px;
-    font-family: 'Outfit', sans-serif;
+    font-family: var(--ui-font);
     font-size: 0.85rem;
     color: #b8d0ed;
     display: flex;
@@ -3886,7 +3893,7 @@
     background: rgba(0,0,0,0.3);
     border: 1px solid rgba(95,169,255,0.3);
     border-radius: 5px;
-    font-family: 'Outfit', sans-serif;
+    font-family: var(--ui-font);
     font-size: 0.95rem;
     color: #b8d0ed;
     text-align: center;
@@ -3912,7 +3919,7 @@
     border-radius: 6px;
     padding: 0.85rem 1rem;
     cursor: pointer;
-    font-family: 'Cinzel', 'Outfit', sans-serif;
+    font-family: 'Cinzel', var(--ui-font);
     font-size: 0.95rem;
     color: #b8d0ed;
     text-align: left;
@@ -3933,7 +3940,7 @@
   .mp-slot-option .mp-slot-tag {
     font-size: 0.72rem;
     color: rgba(184,200,237,0.6);
-    font-family: 'Special Elite', 'Outfit', sans-serif;
+    font-family: 'Special Elite', var(--ui-font);
     letter-spacing: 0.05em;
   }
 
@@ -3948,7 +3955,7 @@
     color: #b8d0ed;
     padding: 0.7rem 1.4rem;
     border-radius: 6px;
-    font-family: 'Outfit', sans-serif;
+    font-family: var(--ui-font);
     font-size: 0.85rem;
     letter-spacing: 0.05em;
     box-shadow: 0 0 25px rgba(95,169,255,0.3);
@@ -3975,7 +3982,7 @@
     color: #5fa9ff;
     padding: 0.4rem 1rem;
     border-radius: 16px;
-    font-family: 'Bebas Neue', sans-serif;
+    font-family: var(--num-font);
     font-size: 0.85rem;
     letter-spacing: 0.2em;
     backdrop-filter: blur(8px);
@@ -3997,7 +4004,7 @@
     transform: translateX(-50%);
     background: #22c55e;
     color: #0d0604;
-    font-family: 'Bebas Neue', sans-serif;
+    font-family: var(--num-font);
     font-size: 0.75rem;
     padding: 0.1rem 0.5rem;
     border-radius: 8px;
@@ -4037,7 +4044,7 @@
     color: white;
     padding: 0.7rem 0.9rem;
     border-radius: 6px;
-    font-family: 'Outfit', sans-serif;
+    font-family: var(--ui-font);
     font-size: 0.95rem;
     outline: none;
     box-sizing: border-box;
@@ -4080,7 +4087,7 @@
   .container { max-width: 1200px; margin: 0 auto; }
 
   h1 {
-    font-family: 'Cinzel', serif;
+    font-family: var(--display-font);
     font-size: clamp(1.6rem, 5vw, 2.8rem);
     letter-spacing: 0.25em;
     color: var(--brass-bright);
@@ -4111,7 +4118,7 @@
     background: transparent;
     border: 1px solid rgba(184,134,42,0.4);
     color: var(--brass);
-    font-family: 'Cinzel', serif;
+    font-family: var(--display-font);
     font-size: 0.75rem;
     letter-spacing: 0.2em;
     padding: 0.5rem 1rem;
@@ -4140,7 +4147,7 @@
     overflow-y: auto;
     margin: 0 -0.5rem 1.2rem;
     padding: 0 0.5rem;
-    font-family: 'Playfair Display', serif;
+    font-family: var(--display-font);
     color: var(--bone);
     font-size: 0.92rem;
     line-height: 1.55;
@@ -4148,7 +4155,7 @@
   }
 
   .rules-content h3 {
-    font-family: 'Cinzel', serif;
+    font-family: var(--display-font);
     font-size: 0.78rem;
     letter-spacing: 0.2em;
     color: var(--brass);
@@ -4192,7 +4199,7 @@
   }
 
   .panel-title {
-    font-family: 'Cinzel', serif;
+    font-family: var(--display-font);
     font-size: 0.8rem;
     letter-spacing: 0.2em;
     color: var(--brass);
@@ -4235,7 +4242,7 @@
     border: 1px solid var(--brass);
     background: transparent;
     color: var(--brass-bright);
-    font-family: 'Cinzel', serif;
+    font-family: var(--display-font);
     font-size: 1.3rem;
     cursor: pointer;
     border-radius: 4px;
@@ -4246,7 +4253,7 @@
   .count-btn:disabled { opacity: 0.3; cursor: not-allowed; }
 
   .count-val {
-    font-family: 'Cinzel', serif;
+    font-family: var(--display-font);
     font-size: 1.6rem;
     color: var(--brass-bright);
     min-width: 36px;
@@ -4277,7 +4284,7 @@
     display: flex;
     align-items: baseline;
     gap: 0.25rem;
-    font-family: 'Cinzel', serif;
+    font-family: var(--display-font);
     font-size: 1.1rem;
     letter-spacing: 0.05em;
     color: var(--brass-bright);
@@ -4336,7 +4343,7 @@
   }
 
   .modal-title {
-    font-family: 'Cinzel', serif;
+    font-family: var(--display-font);
     font-size: 0.85rem;
     letter-spacing: 0.25em;
     color: var(--brass);
@@ -4369,7 +4376,7 @@
     border-radius: 4px;
     cursor: pointer;
     transition: all 0.2s;
-    font-family: 'Cinzel', serif;
+    font-family: var(--display-font);
     font-size: 0.95rem;
     letter-spacing: 0.08em;
     user-select: none;
@@ -4419,7 +4426,7 @@
   }
 
   .table-label {
-    font-family: 'Cinzel', serif;
+    font-family: var(--display-font);
     font-size: 0.75rem;
     letter-spacing: 0.3em;
     color: var(--brass);
@@ -4500,7 +4507,7 @@
   .card-corner.bottom { transform: rotate(180deg); align-self: flex-end; }
 
   .corner-rank {
-    font-family: 'Playfair Display', serif;
+    font-family: var(--display-font);
     font-size: 1.3rem;
     font-weight: 700;
   }
@@ -4520,7 +4527,7 @@
   .black-card .corner-rank, .black-card .corner-suit, .black-card .card-center { color: #1a1a1a; }
 
   .table-name {
-    font-family: 'Cinzel', serif;
+    font-family: var(--display-font);
     font-size: 1.3rem;
     letter-spacing: 0.15em;
     color: var(--brass-bright);
@@ -4530,7 +4537,7 @@
 
   /* Buttons */
   button.action {
-    font-family: 'Cinzel', serif;
+    font-family: var(--display-font);
     font-size: 0.9rem;
     letter-spacing: 0.15em;
     color: var(--bg);
@@ -4565,7 +4572,7 @@
     border: 1px solid var(--brass);
     color: var(--brass);
     padding: 0.6rem 1.4rem;
-    font-family: 'Cinzel', serif;
+    font-family: var(--display-font);
     font-size: 0.78rem;
     letter-spacing: 0.15em;
     border-radius: 4px;
@@ -4634,7 +4641,7 @@
   }
 
   .player-name {
-    font-family: 'Cinzel', serif;
+    font-family: var(--display-font);
     font-size: 0.95rem;
     letter-spacing: 0.1em;
     color: var(--brass-bright);
@@ -4684,7 +4691,7 @@
     border: 1px solid var(--brass);
     border-radius: 4px;
     padding: 0.8rem 1rem;
-    font-family: 'Cinzel', serif;
+    font-family: var(--display-font);
     font-size: 1.05rem;
     letter-spacing: 0.08em;
     color: var(--brass-bright);
@@ -4807,7 +4814,7 @@
   }
 
   .winner-label {
-    font-family: 'Cinzel', serif;
+    font-family: var(--display-font);
     font-size: 0.8rem;
     letter-spacing: 0.4em;
     color: var(--brass);
@@ -4815,7 +4822,7 @@
   }
 
   .winner-name {
-    font-family: 'Cinzel', serif;
+    font-family: var(--display-font);
     font-size: 2.5rem;
     font-weight: 700;
     color: var(--brass-bright);
@@ -4880,7 +4887,7 @@
   }
 
   .suspense-name {
-    font-family: 'Cinzel', serif;
+    font-family: var(--display-font);
     font-size: 1.25rem;
     letter-spacing: 0.18em;
     color: var(--brass-bright);
@@ -4926,7 +4933,7 @@
   }
 
   .suspense-result {
-    font-family: 'Cinzel', serif;
+    font-family: var(--display-font);
     font-weight: 700;
     letter-spacing: 0.2em;
   }
@@ -4971,7 +4978,7 @@
     color: var(--brass);
     padding: 0.55rem 0.7rem;
     border-radius: 4px;
-    font-family: 'Cinzel', serif;
+    font-family: var(--display-font);
     font-size: 0.72rem;
     letter-spacing: 0.18em;
     cursor: pointer;
@@ -4998,7 +5005,7 @@
     border-radius: 6px;
     padding: 0.85rem 1rem;
     cursor: pointer;
-    font-family: 'Cinzel', serif;
+    font-family: var(--display-font);
     font-size: 1rem;
     letter-spacing: 0.1em;
     color: var(--bone);
@@ -5197,10 +5204,10 @@
     background-attachment: fixed;
   }
   .app-poker.theme-modern.visible::before { opacity: 0.28; }
-  .app-poker.theme-modern .title { font-family: 'Outfit', sans-serif; font-style: normal; font-weight: 800; letter-spacing: -0.5px; }
+  .app-poker.theme-modern .title { font-family: var(--ui-font); font-style: normal; font-weight: 800; letter-spacing: -0.5px; }
   .app-poker.theme-modern .subtitle { letter-spacing: 4px; }
-  .app-poker.theme-modern .phase-label { font-family: 'Outfit', sans-serif; font-style: normal; font-weight: 600; letter-spacing: 3px; font-size: 12px; }
-  .app-poker.theme-modern .card-rank { font-family: 'Outfit', sans-serif; font-weight: 700; }
+  .app-poker.theme-modern .phase-label { font-family: var(--ui-font); font-style: normal; font-weight: 600; letter-spacing: 3px; font-size: 12px; }
+  .app-poker.theme-modern .card-rank { font-family: var(--ui-font); font-weight: 700; }
   .app-poker.theme-modern { --pk-r-table: 10px; --pk-r-panel: 8px; }
   .app-poker.theme-modern .table { background: linear-gradient(180deg, var(--felt-mid), var(--felt-deep)); box-shadow: 0 8px 26px rgba(0,0,0,0.45); border-color: rgba(91,141,255,0.22); }
   .app-poker.theme-modern .card { border-radius: 4px; box-shadow: 0 2px 8px var(--card-shadow); }
@@ -5238,9 +5245,9 @@
   .app-poker.theme-custom.radius-round .card { border-radius: 14px; }
   .app-poker.theme-custom.radius-round .option { border-radius: 22px; }
   .app-poker.theme-custom.radius-round .next-btn { border-radius: 50px; }
-  .app-poker.theme-custom.font-sans .title { font-family: 'Outfit', sans-serif; font-style: normal; font-weight: 800; letter-spacing: -0.5px; }
-  .app-poker.theme-custom.font-sans .phase-label { font-family: 'Outfit', sans-serif; font-style: normal; font-weight: 600; }
-  .app-poker.theme-custom.font-sans .card-rank { font-family: 'Outfit', sans-serif; font-weight: 700; }
+  .app-poker.theme-custom.font-sans .title { font-family: var(--ui-font); font-style: normal; font-weight: 800; letter-spacing: -0.5px; }
+  .app-poker.theme-custom.font-sans .phase-label { font-family: var(--ui-font); font-style: normal; font-weight: 600; }
+  .app-poker.theme-custom.font-sans .card-rank { font-family: var(--ui-font); font-weight: 700; }
 
   /* --- Theme editor --- */
   .pk-theme-edit { padding: 0.45rem 0.7rem !important; }
@@ -5256,13 +5263,13 @@
     padding: 1.2rem 1.2rem calc(1.2rem + env(safe-area-inset-bottom)); box-shadow: 0 -12px 44px rgba(0,0,0,0.55);
   }
   @media (min-width: 600px) { .pk-ed { border-radius: 18px; } }
-  .pk-ed-title { font-family: 'Cinzel','Bebas Neue',sans-serif; font-size: 1.25rem; color: #fff; letter-spacing: 0.04em; }
-  .pk-ed-sub { font-family: 'Outfit',sans-serif; font-size: 0.78rem; color: rgba(255,255,255,0.45); margin: 0.2rem 0 0.8rem; }
-  .pk-ed-label { font-family: 'Outfit',sans-serif; font-size: 0.7rem; letter-spacing: 0.18em; color: rgba(255,255,255,0.5); text-transform: uppercase; margin: 1rem 0 0.4rem; }
+  .pk-ed-title { font-family: var(--display-font); font-size: 1.25rem; color: #fff; letter-spacing: 0.04em; }
+  .pk-ed-sub { font-family: var(--ui-font); font-size: 0.78rem; color: rgba(255,255,255,0.45); margin: 0.2rem 0 0.8rem; }
+  .pk-ed-label { font-family: var(--ui-font); font-size: 0.7rem; letter-spacing: 0.18em; color: rgba(255,255,255,0.5); text-transform: uppercase; margin: 1rem 0 0.4rem; }
   .pk-ed-presets, .pk-ed-seg { display: flex; gap: 0.4rem; }
   .pk-ed-presets button, .pk-ed-seg button {
     flex: 1; padding: 0.55rem 0.4rem; border-radius: 8px; border: 1px solid rgba(255,255,255,0.14);
-    background: rgba(255,255,255,0.05); color: rgba(255,255,255,0.8); font-family: 'Outfit',sans-serif; font-size: 0.84rem; cursor: pointer;
+    background: rgba(255,255,255,0.05); color: rgba(255,255,255,0.8); font-family: var(--ui-font); font-size: 0.84rem; cursor: pointer;
   }
   .pk-ed-seg button.active { background: rgba(94,200,160,0.22); border-color: #5ec8a0; color: #fff; }
   .pk-ed-colors { display: flex; flex-direction: column; gap: 0.35rem; }
@@ -5270,13 +5277,13 @@
     display: flex; align-items: center; gap: 0.7rem; padding: 0.45rem 0.6rem; border-radius: 8px;
     background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
   }
-  .pk-ed-row span { flex: 1; font-family: 'Outfit',sans-serif; font-size: 0.87rem; color: #eee; }
+  .pk-ed-row span { flex: 1; font-family: var(--ui-font); font-size: 0.87rem; color: #eee; }
   .pk-ed-row input[type=color] {
     width: 44px; height: 30px; border: 1px solid rgba(255,255,255,0.2); border-radius: 6px;
     background: none; cursor: pointer; padding: 0; flex-shrink: 0;
   }
-  .pk-ed-reset { width: 100%; margin-top: 1.1rem; padding: 0.7rem; border: 1px solid rgba(255,120,120,0.4); background: rgba(255,80,80,0.12); color: #ff9b9b; border-radius: 9px; font-family: 'Outfit',sans-serif; cursor: pointer; font-size: 0.86rem; }
-  .pk-ed-close { width: 100%; margin-top: 0.6rem; padding: 0.9rem; border: none; border-radius: 10px; background: rgba(255,255,255,0.12); color: #fff; font-family: 'Outfit',sans-serif; font-weight: 600; letter-spacing: 0.05em; cursor: pointer; }
+  .pk-ed-reset { width: 100%; margin-top: 1.1rem; padding: 0.7rem; border: 1px solid rgba(255,120,120,0.4); background: rgba(255,80,80,0.12); color: #ff9b9b; border-radius: 9px; font-family: var(--ui-font); cursor: pointer; font-size: 0.86rem; }
+  .pk-ed-close { width: 100%; margin-top: 0.6rem; padding: 0.9rem; border: none; border-radius: 10px; background: rgba(255,255,255,0.12); color: #fff; font-family: var(--ui-font); font-weight: 600; letter-spacing: 0.05em; cursor: pointer; }
 
   /* --- Theme: Glossy (Glas-Optik, lokal im Trainer) --- */
   .app-poker.theme-glossy {
@@ -5310,7 +5317,7 @@
   .poker-themes { display: flex; gap: 0.4rem; justify-content: center; margin: 0.1rem auto 1.2rem; position: relative; z-index: 1; }
   .poker-themes button {
     padding: 0.45rem 0.95rem; border-radius: 20px; border: 1px solid var(--gold-soft);
-    background: rgba(0,0,0,0.28); color: var(--cream-dim); font-family: 'Outfit', sans-serif;
+    background: rgba(0,0,0,0.28); color: var(--cream-dim); font-family: var(--ui-font);
     font-size: 0.8rem; cursor: pointer; transition: all 0.15s; -webkit-tap-highlight-color: transparent;
   }
   .poker-themes button.active { background: var(--gold); color: #14100a; border-color: var(--gold); font-weight: 700; }
@@ -5334,7 +5341,7 @@
     gap: 16px;
   }
   .app-poker .title { 
-    font-family: 'Cormorant Garamond', serif;
+    font-family: var(--display-font);
     font-weight: 500;
     font-style: italic;
     font-size: clamp(28px, 5vw, 42px);
@@ -5347,7 +5354,7 @@
     font-weight: 600;
   }
   .app-poker .subtitle { 
-    font-family: 'Outfit', sans-serif;
+    font-family: var(--ui-font);
     font-size: 12px;
     text-transform: uppercase;
     letter-spacing: 3px;
@@ -5372,7 +5379,7 @@
     color: var(--cream-dim);
   }
   .app-poker .stat-value { 
-    font-family: 'Cormorant Garamond', serif;
+    font-family: var(--display-font);
     font-size: 28px;
     font-weight: 600;
     color: var(--gold);
@@ -5402,7 +5409,7 @@
 
   .app-poker .phase-label { 
     text-align: center;
-    font-family: 'Cormorant Garamond', serif;
+    font-family: var(--display-font);
     font-style: italic;
     font-size: 14px;
     letter-spacing: 4px;
@@ -5471,7 +5478,7 @@
   .app-poker .card:nth-child(5) {  animation-delay: 0.45s; }
 
   .app-poker .card-rank { 
-    font-family: 'Cormorant Garamond', serif;
+    font-family: var(--display-font);
     font-weight: 700;
     font-size: clamp(14px, 2.5vw, 18px);
     line-height: 1;
@@ -5522,7 +5529,7 @@
     text-align: center;
   }
   .app-poker .question h2 { 
-    font-family: 'Cormorant Garamond', serif;
+    font-family: var(--display-font);
     font-weight: 500;
     font-size: clamp(22px, 4vw, 28px);
     color: var(--cream);
@@ -5543,7 +5550,7 @@
     border-radius: 12px;
     padding: 18px 16px;
     color: var(--cream);
-    font-family: 'Outfit', sans-serif;
+    font-family: var(--ui-font);
     font-size: clamp(15px, 2.5vw, 18px);
     font-weight: 500;
     letter-spacing: 0.3px;
@@ -5573,7 +5580,7 @@
   }
   .app-poker .option .key { 
     display: inline-block;
-    font-family: 'Cormorant Garamond', serif;
+    font-family: var(--display-font);
     font-weight: 700;
     font-size: 14px;
     color: var(--gold);
@@ -5595,7 +5602,7 @@
   }
   .app-poker .feedback.show {  opacity: 1; }
   .app-poker .feedback-headline { 
-    font-family: 'Cormorant Garamond', serif;
+    font-family: var(--display-font);
     font-weight: 600;
     font-style: italic;
     font-size: 22px;
@@ -5677,7 +5684,7 @@
     line-height: 1.55;
   }
   .app-poker .fb-strategy-headline { 
-    font-family: 'Cormorant Garamond', serif;
+    font-family: var(--display-font);
     font-style: italic;
     color: var(--gold);
     font-size: 15px;
@@ -5692,7 +5699,7 @@
     color: var(--felt-deep);
     border: none;
     padding: 14px 36px;
-    font-family: 'Outfit', sans-serif;
+    font-family: var(--ui-font);
     font-size: 14px;
     font-weight: 600;
     letter-spacing: 2px;
@@ -5719,7 +5726,7 @@
   }
   .app-poker .reference summary { 
     cursor: pointer;
-    font-family: 'Cormorant Garamond', serif;
+    font-family: var(--display-font);
     font-style: italic;
     font-size: 18px;
     color: var(--gold);
@@ -5749,7 +5756,7 @@
     font-size: 14px;
   }
   .app-poker .ref-rank { 
-    font-family: 'Cormorant Garamond', serif;
+    font-family: var(--display-font);
     font-weight: 700;
     color: var(--gold);
     font-size: 16px;
@@ -5802,14 +5809,14 @@
       radial-gradient(ellipse 50% 50% at 80% 100%, rgba(255,62,136,0.3) 0%, transparent 60%),
       radial-gradient(ellipse 70% 60% at 50% 50%, rgba(0,229,255,0.1) 0%, transparent 70%);
     background-attachment: fixed;
-    font-family: 'Outfit', sans-serif;
+    font-family: var(--ui-font);
     color: var(--p-cream);
     padding: 24px 16px 60px;
   }
 
   /* Title — rainbow gradient with neon glow */
   .app-alki h1 {
-    font-family: 'Bebas Neue', 'Outfit', sans-serif;
+    font-family: 'Bebas Neue', var(--ui-font);
     font-weight: 400;
     font-size: clamp(2rem, 7vw, 3.6rem);
     letter-spacing: 0.12em;
@@ -5824,7 +5831,7 @@
   }
 
   .app-alki .subtitle {
-    font-family: 'Outfit', sans-serif;
+    font-family: var(--ui-font);
     font-weight: 300;
     font-size: 0.95rem;
     color: var(--p-cream-dim);
@@ -5838,7 +5845,7 @@
     background: transparent;
     border: 1px solid var(--p-cyan);
     color: var(--p-cyan);
-    font-family: 'Bebas Neue', sans-serif;
+    font-family: var(--num-font);
     font-size: 0.95rem;
     letter-spacing: 0.2em;
     padding: 0.45rem 1.1rem;
@@ -5864,7 +5871,7 @@
   }
 
   .app-alki .panel-title {
-    font-family: 'Bebas Neue', sans-serif;
+    font-family: var(--num-font);
     font-size: 1rem;
     letter-spacing: 0.35em;
     color: var(--p-yellow);
@@ -5872,7 +5879,7 @@
   }
 
   .app-alki .prob-hint {
-    font-family: 'Outfit', sans-serif;
+    font-family: var(--ui-font);
     color: var(--p-cream-dim);
     font-size: 0.78rem;
     letter-spacing: 0.18em;
@@ -5884,7 +5891,7 @@
     border: 1px solid var(--p-cyan);
     color: var(--p-cyan);
     background: rgba(0,229,255,0.06);
-    font-family: 'Bebas Neue', sans-serif;
+    font-family: var(--num-font);
   }
   .app-alki .count-btn:hover:not(:disabled) {
     background: rgba(0,229,255,0.2);
@@ -5892,7 +5899,7 @@
   }
 
   .app-alki .count-val {
-    font-family: 'Bebas Neue', sans-serif;
+    font-family: var(--num-font);
     font-size: 1.9rem;
     color: var(--p-yellow);
     text-shadow: 0 0 12px rgba(255,214,10,0.5);
@@ -5906,7 +5913,7 @@
   }
 
   .app-alki .active-card {
-    font-family: 'Bebas Neue', sans-serif;
+    font-family: var(--num-font);
     color: var(--p-pink-br);
     font-size: 1.15rem;
   }
@@ -5915,14 +5922,14 @@
   .app-alki .active-card .suit:not(.suit-red) { color: var(--p-cyan); }
 
   .app-alki .alki-mode-label {
-    font-family: 'Bebas Neue', sans-serif;
+    font-family: var(--num-font);
     font-size: 1.1rem;
     letter-spacing: 0.18em;
     color: var(--p-yellow);
     text-shadow: 0 0 10px rgba(255,214,10,0.4);
   }
   .app-alki .alki-mode-detail {
-    font-family: 'Outfit', sans-serif;
+    font-family: var(--ui-font);
     font-size: 0.85rem;
     color: var(--p-cream-dim);
   }
@@ -5976,7 +5983,7 @@
       inset 0 0 15px rgba(255,214,10,0.08);
   }
   .app-alki .alki-mode-pill-name {
-    font-family: 'Bebas Neue', sans-serif;
+    font-family: var(--num-font);
     font-size: 1.15rem;
     letter-spacing: 0.18em;
     color: var(--p-yellow);
@@ -5984,13 +5991,13 @@
     text-shadow: 0 0 8px rgba(255,214,10,0.4);
   }
   .app-alki .alki-mode-pill-detail {
-    font-family: 'Outfit', sans-serif;
+    font-family: var(--ui-font);
     font-size: 0.85rem;
     color: var(--p-cream);
     margin-bottom: 0.2rem;
   }
   .app-alki .alki-mode-pill-hint {
-    font-family: 'Outfit', sans-serif;
+    font-family: var(--ui-font);
     font-size: 0.72rem;
     color: var(--p-cream-dim);
     font-style: italic;
@@ -6008,12 +6015,12 @@
   }
   .app-alki .alki-custom-area.visible { display: block; }
   .app-alki .alki-custom-label {
-    font-family: 'Outfit', sans-serif;
+    font-family: var(--ui-font);
     font-weight: 500;
     color: var(--p-cream);
   }
   .app-alki .alki-custom-total {
-    font-family: 'Outfit', sans-serif;
+    font-family: var(--ui-font);
     font-weight: 500;
     color: var(--p-cream-dim);
     letter-spacing: 0.1em;
@@ -6027,7 +6034,7 @@
     background: rgba(10,4,24,0.5);
     border: 1.5px solid rgba(181,88,255,0.3);
     color: var(--p-cream);
-    font-family: 'Outfit', sans-serif;
+    font-family: var(--ui-font);
   }
   .app-alki .card-toggle:hover { border-color: var(--p-pink); }
   .app-alki .card-toggle.active {
@@ -6039,7 +6046,7 @@
 
   /* Table card */
   .app-alki .table-label {
-    font-family: 'Bebas Neue', sans-serif;
+    font-family: var(--num-font);
     font-size: 0.95rem;
     letter-spacing: 0.4em;
     color: var(--p-cyan);
@@ -6052,7 +6059,7 @@
       0 0 30px rgba(181,88,255,0.3);
   }
   .app-alki .table-name {
-    font-family: 'Bebas Neue', sans-serif;
+    font-family: var(--num-font);
     font-size: 1.5rem;
     letter-spacing: 0.18em;
     color: var(--p-yellow);
@@ -6067,7 +6074,7 @@
     background: linear-gradient(135deg, var(--p-pink) 0%, var(--p-purple) 100%);
     color: white;
     border: none;
-    font-family: 'Bebas Neue', sans-serif;
+    font-family: var(--num-font);
     font-size: 1.05rem;
     letter-spacing: 0.18em;
     box-shadow:
@@ -6099,7 +6106,7 @@
   .app-alki button.ghost {
     border-color: rgba(0,229,255,0.5);
     color: var(--p-cyan);
-    font-family: 'Bebas Neue', sans-serif;
+    font-family: var(--num-font);
     letter-spacing: 0.2em;
     border-radius: 20px;
   }
@@ -6133,7 +6140,7 @@
     opacity: 0.9;
   }
   .app-alki .player-name {
-    font-family: 'Bebas Neue', sans-serif;
+    font-family: var(--num-font);
     font-size: 1.15rem;
     letter-spacing: 0.12em;
     color: var(--p-yellow);
@@ -6151,7 +6158,7 @@
   }
 
   .app-alki .player-status {
-    font-family: 'Outfit', sans-serif;
+    font-family: var(--ui-font);
     font-weight: 500;
     font-size: 0.85rem;
     letter-spacing: 0.1em;
@@ -6189,7 +6196,7 @@
   }
 
   .app-alki .alki-last-drunk {
-    font-family: 'Outfit', sans-serif;
+    font-family: var(--ui-font);
     font-weight: 600;
     font-size: 0.85rem;
     letter-spacing: 0.08em;
@@ -6216,7 +6223,7 @@
   /* Doppelt-Button */
   .app-alki .alki-double {
     margin-top: 0.5rem;
-    font-family: 'Bebas Neue', sans-serif;
+    font-family: var(--num-font);
     font-size: 0.78rem;
     letter-spacing: 0.18em;
     color: var(--p-yellow);
@@ -6245,7 +6252,7 @@
     color: var(--p-cyan);
     padding: 0.55rem 0.6rem;
     border-radius: 6px;
-    font-family: 'Bebas Neue', sans-serif;
+    font-family: var(--num-font);
     font-size: 0.78rem;
     letter-spacing: 0.18em;
     cursor: pointer;
@@ -6273,7 +6280,7 @@
     border-radius: 8px;
     padding: 0.9rem 1rem;
     cursor: pointer;
-    font-family: 'Bebas Neue', sans-serif;
+    font-family: var(--num-font);
     font-size: 1.1rem;
     letter-spacing: 0.15em;
     color: var(--p-cream);
@@ -6304,14 +6311,14 @@
       0 0 50px rgba(255,62,136,0.25);
   }
   .app-alki .modal-title {
-    font-family: 'Bebas Neue', sans-serif;
+    font-family: var(--num-font);
     font-size: 1.2rem;
     letter-spacing: 0.3em;
     color: var(--p-yellow);
     text-shadow: 0 0 12px rgba(255,214,10,0.4);
   }
   .app-alki .modal-sub {
-    font-family: 'Outfit', sans-serif;
+    font-family: var(--ui-font);
     font-style: italic;
     color: var(--p-cream-dim);
     letter-spacing: 0.08em;
@@ -6355,7 +6362,7 @@
     background: rgba(10,4,24,0.6);
     border: 1.5px solid var(--p-cyan);
     color: var(--p-yellow);
-    font-family: 'Bebas Neue', sans-serif;
+    font-family: var(--num-font);
     letter-spacing: 0.15em;
     font-size: 1.15rem;
   }
@@ -6374,13 +6381,13 @@
       0 0 60px rgba(255,62,136,0.25);
   }
   .app-alki .winner-label {
-    font-family: 'Bebas Neue', sans-serif;
+    font-family: var(--num-font);
     color: var(--p-cyan);
     letter-spacing: 0.45em;
     text-shadow: 0 0 12px rgba(0,229,255,0.4);
   }
   .app-alki .winner-name {
-    font-family: 'Bebas Neue', sans-serif;
+    font-family: var(--num-font);
     background: linear-gradient(90deg, var(--p-pink), var(--p-yellow), var(--p-cyan));
     -webkit-background-clip: text;
     background-clip: text;
@@ -6407,12 +6414,12 @@
     align-items: center;
     padding: 0.6rem 0.9rem;
     border-bottom: 1px solid rgba(181,88,255,0.15);
-    font-family: 'Outfit', sans-serif;
+    font-family: var(--ui-font);
     font-size: 0.95rem;
   }
   .app-alki .alki-stat-row:last-child { border-bottom: none; }
   .app-alki .alki-stat-row.alki-stat-header {
-    font-family: 'Bebas Neue', sans-serif;
+    font-family: var(--num-font);
     font-size: 0.85rem;
     letter-spacing: 0.18em;
     color: var(--p-yellow);
@@ -6420,7 +6427,7 @@
     border-bottom-color: var(--p-yellow);
   }
   .app-alki .alki-stat-rank {
-    font-family: 'Bebas Neue', sans-serif;
+    font-family: var(--num-font);
     font-size: 1.1rem;
     color: var(--p-pink-br);
   }
@@ -6436,7 +6443,7 @@
     font-weight: 700;
   }
   .app-alki .alki-stat-cell {
-    font-family: 'Bebas Neue', sans-serif;
+    font-family: var(--num-font);
     font-size: 1.15rem;
     color: var(--p-cream-dim);
     text-align: center;
@@ -6474,7 +6481,7 @@
   }
 
   .alki-popup-name {
-    font-family: 'Bebas Neue', sans-serif;
+    font-family: var(--num-font);
     font-size: 1.6rem;
     letter-spacing: 0.18em;
     background: linear-gradient(90deg, var(--p-pink), var(--p-yellow));
@@ -6515,7 +6522,7 @@
   }
 
   .alki-popup-sub {
-    font-family: 'Bebas Neue', sans-serif;
+    font-family: var(--num-font);
     font-size: 1rem;
     letter-spacing: 0.25em;
     color: var(--p-cream-dim);
@@ -6556,12 +6563,12 @@
     line-height: 1;
   }
   .alki-result-text {
-    font-family: 'Bebas Neue', sans-serif;
+    font-family: var(--num-font);
     font-size: 1.5rem;
     letter-spacing: 0.15em;
   }
   .alki-result-sub {
-    font-family: 'Outfit', sans-serif;
+    font-family: var(--ui-font);
     font-size: 0.78rem;
     color: var(--p-cream-dim);
     text-transform: uppercase;
@@ -6607,11 +6614,11 @@
 
   /* Rules content theming */
   .app-alki .rules-content {
-    font-family: 'Outfit', sans-serif;
+    font-family: var(--ui-font);
     color: var(--p-cream);
   }
   .app-alki .rules-content h3 {
-    font-family: 'Bebas Neue', sans-serif;
+    font-family: var(--num-font);
     font-size: 0.95rem;
     letter-spacing: 0.25em;
     color: var(--p-yellow);
@@ -6649,8 +6656,8 @@
     padding: 1.2rem 1.2rem calc(1.2rem + env(safe-area-inset-bottom)); box-shadow: 0 -12px 44px rgba(0,0,0,0.55);
   }
   @media (min-width: 600px) { .ga-modal { border-radius: 18px; } }
-  .ga-modal-title { font-family: 'Cinzel','Bebas Neue',sans-serif; font-size: 1.3rem; color: #fff; letter-spacing: 0.04em; }
-  .ga-modal-sub { font-family: 'Outfit',sans-serif; font-size: 0.8rem; color: rgba(120,200,160,0.9); margin: 0.3rem 0 0.9rem; }
+  .ga-modal-title { font-family: var(--display-font); font-size: 1.3rem; color: #fff; letter-spacing: 0.04em; }
+  .ga-modal-sub { font-family: var(--ui-font); font-size: 0.8rem; color: rgba(120,200,160,0.9); margin: 0.3rem 0 0.9rem; }
   .ga-list { display: flex; flex-direction: column; gap: 0.4rem; }
   .ga-row {
     display: flex; align-items: center; gap: 0.7rem; padding: 0.7rem 0.8rem; border-radius: 10px;
@@ -6658,14 +6665,14 @@
   }
   .ga-row:active { background: rgba(255,255,255,0.1); }
   .ga-emoji { font-size: 1.3rem; }
-  .ga-name { flex: 1; font-family: 'Outfit',sans-serif; font-weight: 600; color: #fff; font-size: 0.95rem; }
+  .ga-name { flex: 1; font-family: var(--ui-font); font-weight: 600; color: #fff; font-size: 0.95rem; }
   .ga-switch { width: 46px; height: 26px; border-radius: 13px; background: rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.18); position: relative; transition: all 0.2s; flex-shrink: 0; }
   .ga-switch::after { content: ''; position: absolute; width: 20px; height: 20px; border-radius: 50%; background: rgba(255,255,255,0.6); top: 2px; left: 2px; transition: all 0.2s; }
   .ga-switch.on { background: rgba(94,200,160,0.5); border-color: #5ec8a0; }
   .ga-switch.on::after { left: 22px; background: #fff; }
-  .ga-hint { font-family: 'Outfit',sans-serif; font-size: 0.78rem; color: rgba(255,255,255,0.45); margin: 0.9rem 0 0; text-align: center; }
+  .ga-hint { font-family: var(--ui-font); font-size: 0.78rem; color: rgba(255,255,255,0.45); margin: 0.9rem 0 0; text-align: center; }
   .ga-hint b { color: rgba(255,255,255,0.7); }
-  .ga-close { width: 100%; margin-top: 1rem; padding: 0.9rem; border: none; border-radius: 10px; background: rgba(255,255,255,0.12); color: #fff; font-family: 'Outfit',sans-serif; font-weight: 600; letter-spacing: 0.05em; cursor: pointer; }
+  .ga-close { width: 100%; margin-top: 1rem; padding: 0.9rem; border: none; border-radius: 10px; background: rgba(255,255,255,0.12); color: #fff; font-family: var(--ui-font); font-weight: 600; letter-spacing: 0.05em; cursor: pointer; }
 
   /* ====================== HIDDEN PIANO UNLOCK ====================== */
   .home-piano-unlock { margin-top: 1.1rem; display: flex; justify-content: center; animation: pianoReveal 0.4s ease; }
@@ -6674,7 +6681,7 @@
     display: inline-flex; align-items: center; gap: 0.6rem; padding: 0.85rem 1.6rem; border-radius: 14px;
     background: linear-gradient(135deg, rgba(40,40,52,0.9), rgba(20,20,28,0.9));
     border: 1px solid rgba(94,200,160,0.4); color: #eaf3ee; cursor: pointer;
-    font-family: 'Cinzel', 'Bebas Neue', sans-serif; font-size: 1.05rem; letter-spacing: 0.06em;
+    font-family: var(--display-font); font-size: 1.05rem; letter-spacing: 0.06em;
     box-shadow: 0 6px 22px rgba(0,0,0,0.4), inset 0 0 0 1px rgba(255,255,255,0.04); transition: all 0.15s;
   }
   .home-piano-btn:hover { border-color: rgba(94,200,160,0.7); transform: translateY(-2px); box-shadow: 0 10px 28px rgba(94,200,160,0.18); }
@@ -6689,10 +6696,10 @@
   .nt-wrap { max-width: 460px; margin: 0 auto; padding: 1.2rem 1rem 2rem; }
   .nt-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 0.5rem; }
   .nt-title {
-    font-family: 'Cinzel', 'Bebas Neue', sans-serif; font-size: 1.7rem; font-weight: 700;
+    font-family: var(--display-font); font-size: 1.7rem; font-weight: 700;
     color: #fff; letter-spacing: 0.04em; margin: 0;
   }
-  .nt-sub { font-family: 'Outfit', sans-serif; font-size: 0.85rem; color: rgba(232,237,242,0.55); margin-top: 0.1rem; }
+  .nt-sub { font-family: var(--ui-font); font-size: 0.85rem; color: rgba(232,237,242,0.55); margin-top: 0.1rem; }
   .nt-gear {
     background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.14); color: #cfe8dc;
     width: 42px; height: 42px; border-radius: 10px; font-size: 1.2rem; cursor: pointer; flex-shrink: 0;
@@ -6706,8 +6713,8 @@
     background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
     border-radius: 10px; padding: 0.55rem 0.3rem; text-align: center;
   }
-  .nt-stat-label { font-family: 'Outfit', sans-serif; font-size: 0.62rem; letter-spacing: 0.12em; color: rgba(232,237,242,0.5); text-transform: uppercase; }
-  .nt-stat-val { font-family: 'Bebas Neue', sans-serif; font-size: 1.45rem; color: #5ec8a0; line-height: 1.1; margin-top: 0.1rem; }
+  .nt-stat-label { font-family: var(--ui-font); font-size: 0.62rem; letter-spacing: 0.12em; color: rgba(232,237,242,0.5); text-transform: uppercase; }
+  .nt-stat-val { font-family: var(--num-font); font-size: 1.45rem; color: #5ec8a0; line-height: 1.1; margin-top: 0.1rem; }
 
   .nt-sheet {
     background: #fbfbf8; border-radius: 14px; padding: 0.5rem 0.7rem;
@@ -6725,12 +6732,12 @@
   .nt-listen {
     display: block; margin: 0 auto 0.5rem; padding: 0.5rem 1.2rem; border-radius: 22px;
     background: rgba(94,200,160,0.14); border: 1px solid rgba(94,200,160,0.35); color: #5ec8a0;
-    font-family: 'Outfit', sans-serif; font-size: 0.88rem; cursor: pointer; transition: all 0.12s;
+    font-family: var(--ui-font); font-size: 0.88rem; cursor: pointer; transition: all 0.12s;
   }
   .nt-listen:hover { background: rgba(94,200,160,0.24); }
   .nt-listen:active { transform: scale(0.95); }
   .nt-hint {
-    text-align: center; font-family: 'Outfit', sans-serif; font-size: 0.95rem;
+    text-align: center; font-family: var(--ui-font); font-size: 0.95rem;
     color: rgba(94,200,160,0.9); min-height: 1.3rem; margin-bottom: 0.7rem; font-weight: 600; letter-spacing: 0.02em;
   }
 
@@ -6738,7 +6745,7 @@
   .nt-ans {
     aspect-ratio: 1 / 1.05; border-radius: 9px; border: 1px solid rgba(255,255,255,0.14);
     background: linear-gradient(160deg, rgba(255,255,255,0.1), rgba(255,255,255,0.03));
-    color: #eef3f7; font-family: 'Outfit', sans-serif; font-size: 0.98rem; font-weight: 600;
+    color: #eef3f7; font-family: var(--ui-font); font-size: 0.98rem; font-weight: 600;
     cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.12s;
     -webkit-tap-highlight-color: transparent; user-select: none;
   }
@@ -6753,7 +6760,7 @@
   .nt-next {
     width: 100%; margin-top: 0.8rem; padding: 0.9rem; border: none; border-radius: 10px;
     background: linear-gradient(135deg,#0f766e,#2dd4bf); color: #fff;
-    font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 1rem; letter-spacing: 0.04em; cursor: pointer;
+    font-family: var(--ui-font); font-weight: 700; font-size: 1rem; letter-spacing: 0.04em; cursor: pointer;
   }
 
   /* Settings modal */
@@ -6769,18 +6776,18 @@
     padding: 1.2rem 1.2rem calc(1.2rem + env(safe-area-inset-bottom)); box-shadow: 0 -12px 44px rgba(0,0,0,0.55);
   }
   @media (min-width: 600px) { .nt-modal { border-radius: 18px; } }
-  .nt-modal-title { font-family: 'Cinzel','Bebas Neue',sans-serif; font-size: 1.3rem; color: #fff; margin-bottom: 0.8rem; letter-spacing: 0.04em; }
-  .nt-set-label { font-family: 'Outfit',sans-serif; font-size: 0.72rem; letter-spacing: 0.18em; color: rgba(232,237,242,0.55); text-transform: uppercase; margin: 0.9rem 0 0.35rem; }
+  .nt-modal-title { font-family: var(--display-font); font-size: 1.3rem; color: #fff; margin-bottom: 0.8rem; letter-spacing: 0.04em; }
+  .nt-set-label { font-family: var(--ui-font); font-size: 0.72rem; letter-spacing: 0.18em; color: rgba(232,237,242,0.55); text-transform: uppercase; margin: 0.9rem 0 0.35rem; }
   .nt-seg { display: flex; gap: 0.4rem; }
   .nt-seg button {
     flex: 1; padding: 0.6rem 0.4rem; border-radius: 8px; border: 1px solid rgba(255,255,255,0.14);
     background: rgba(255,255,255,0.05); color: rgba(232,237,242,0.75);
-    font-family: 'Outfit',sans-serif; font-size: 0.85rem; cursor: pointer; transition: all 0.12s;
+    font-family: var(--ui-font); font-size: 0.85rem; cursor: pointer; transition: all 0.12s;
   }
   .nt-seg button.active { background: rgba(94,200,160,0.22); border-color: #5ec8a0; color: #fff; }
   .nt-toggle {
     display: flex; align-items: center; justify-content: space-between; cursor: pointer;
-    font-family: 'Outfit',sans-serif; font-size: 0.95rem; color: #e8edf2; padding: 0.85rem 0 0.2rem; user-select: none;
+    font-family: var(--ui-font); font-size: 0.95rem; color: #e8edf2; padding: 0.85rem 0 0.2rem; user-select: none;
   }
   .nt-switch {
     width: 46px; height: 26px; border-radius: 13px; background: rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.18);
@@ -6791,11 +6798,11 @@
   .nt-switch.on::after { left: 22px; background: #fff; }
   .nt-reset {
     width: 100%; margin-top: 1.2rem; padding: 0.7rem; border: 1px solid rgba(255,120,120,0.4);
-    background: rgba(255,80,80,0.12); color: #ff9b9b; border-radius: 9px; font-family: 'Outfit',sans-serif; cursor: pointer; font-size: 0.88rem;
+    background: rgba(255,80,80,0.12); color: #ff9b9b; border-radius: 9px; font-family: var(--ui-font); cursor: pointer; font-size: 0.88rem;
   }
   .nt-modal-close {
     width: 100%; margin-top: 0.6rem; padding: 0.9rem; border: none; border-radius: 10px;
-    background: rgba(255,255,255,0.12); color: #fff; font-family: 'Outfit',sans-serif; font-weight: 600; letter-spacing: 0.05em; cursor: pointer;
+    background: rgba(255,255,255,0.12); color: #fff; font-family: var(--ui-font); font-weight: 600; letter-spacing: 0.05em; cursor: pointer;
   }
 
   /* ====================== LIAR'S BAR MULTI extras ====================== */
@@ -6804,7 +6811,7 @@
   .lbm-admin-force button, .lbm-admin-card {
     flex: 1; min-width: 64px; padding: 0.55rem 0.4rem; border-radius: 8px;
     border: 1px solid rgba(255,255,255,0.14); background: rgba(255,255,255,0.05); color: #eee;
-    font-family: 'Outfit', sans-serif; font-size: 0.85rem; cursor: pointer; transition: all 0.12s;
+    font-family: var(--ui-font); font-size: 0.85rem; cursor: pointer; transition: all 0.12s;
   }
   .lbm-admin-force button.active, .lbm-admin-card.active { background: rgba(255,165,50,0.22); border-color: #ffa532; color: #fff; }
   .lbm-admin-players { display: flex; flex-direction: column; gap: 0.4rem; }
@@ -6813,8 +6820,8 @@
     border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 0.5rem 0.6rem;
   }
   .lbm-admin-player-info { flex: 1; min-width: 0; }
-  .lbm-admin-player-name { font-family: 'Outfit', sans-serif; font-weight: 600; color: #fff; font-size: 0.9rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-  .lbm-admin-player-status { font-family: 'Outfit', sans-serif; font-size: 0.72rem; color: rgba(255,255,255,0.5); }
+  .lbm-admin-player-name { font-family: var(--ui-font); font-weight: 600; color: #fff; font-size: 0.9rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .lbm-admin-player-status { font-family: var(--ui-font); font-size: 0.72rem; color: rgba(255,255,255,0.5); }
   .lbm-admin-player-actions { display: flex; gap: 0.3rem; flex-shrink: 0; }
   .lbm-admin-player-actions button {
     width: 32px; height: 32px; border-radius: 7px; border: 1px solid rgba(255,255,255,0.14);
@@ -6825,7 +6832,7 @@
   .lbm-admin-spacer { width: 32px; height: 32px; display: inline-block; }
 
   .lbm-risk {
-    margin-left: auto; font-family: 'Outfit', sans-serif; font-size: 0.72rem; font-weight: 700;
+    margin-left: auto; font-family: var(--ui-font); font-size: 0.72rem; font-weight: 700;
     padding: 0.18rem 0.5rem; border-radius: 20px; letter-spacing: 0.02em; white-space: nowrap;
     border: 1px solid transparent;
   }
@@ -6852,7 +6859,7 @@
   .pmc-row button {
     flex:1; min-width:60px; padding:0.45rem 0.3rem; border-radius:7px; cursor:pointer;
     border:1px solid rgba(255,255,255,0.16); background:rgba(255,255,255,0.06);
-    color:rgba(255,255,255,0.8); font-family:'Outfit',sans-serif; font-size:0.75rem;
+    color:rgba(255,255,255,0.8); font-family:var(--ui-font); font-size:0.75rem;
   }
   .pmc-row button.active { background:rgba(255,255,255,0.22); border-color:rgba(255,255,255,0.5); color:#fff; font-weight:700; }
 
@@ -6861,14 +6868,14 @@
   .pm-adm-tools button {
     flex: 1; min-width: 44px; padding: 0.35rem 0.3rem; border-radius: 6px;
     border: 1px solid rgba(255,255,255,0.16); background: rgba(255,255,255,0.06); color: #e8f0e4;
-    font-family: 'Outfit', sans-serif; font-size: 0.74rem; cursor: pointer;
+    font-family: var(--ui-font); font-size: 0.74rem; cursor: pointer;
   }
   .pm-adm-tools button:hover { background: rgba(255,255,255,0.14); }
   .pm-adm-spacer { flex: 1; min-width: 44px; }
 
   /* ====================== POKER MULTI — POSITION BADGES ====================== */
   .pm-badge.sb, .pm-badge.bb {
-    font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 0.55rem; letter-spacing: 0.03em;
+    font-family: var(--ui-font); font-weight: 800; font-size: 0.55rem; letter-spacing: 0.03em;
     padding: 0 5px; min-width: 22px; height: 17px; display: inline-flex; align-items: center; justify-content: center;
     border-radius: 5px;
   }
@@ -6886,8 +6893,8 @@
   .pm-reveal-cards { display: flex; gap: 0.2rem; flex-shrink: 0; }
   .pm-reveal-cards .pm-card { width: 30px; height: 42px; font-size: 0.62rem; }
   .pm-reveal-info { min-width: 0; flex: 1; }
-  .pm-reveal-name { font-family: 'Outfit', sans-serif; font-size: 0.86rem; font-weight: 600; color: #fff; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-  .pm-reveal-hand { font-family: 'Outfit', sans-serif; font-size: 0.75rem; color: rgba(240,225,190,0.7); }
+  .pm-reveal-name { font-family: var(--ui-font); font-size: 0.86rem; font-weight: 600; color: #fff; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .pm-reveal-hand { font-family: var(--ui-font); font-size: 0.75rem; color: rgba(240,225,190,0.7); }
 
   /* ====================== POKER MULTI — BEGINNER COACH ====================== */
   .pm-coach {
@@ -6895,19 +6902,19 @@
     padding: 0.7rem 0.8rem; margin: 0.6rem 0 0.2rem;
   }
   .pm-coach-head { display: flex; align-items: center; margin-bottom: 0.4rem; }
-  .pm-coach-title { flex: 1; font-family: 'Outfit', sans-serif; font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(240,225,190,0.75); }
-  .pm-coach-off { background: none; border: none; color: rgba(240,225,190,0.45); font-family: 'Outfit', sans-serif; font-size: 0.7rem; cursor: pointer; text-decoration: underline; }
-  .pm-coach-hand { font-family: 'Outfit', sans-serif; font-size: 1.02rem; font-weight: 700; color: #fff; margin-bottom: 0.45rem; }
+  .pm-coach-title { flex: 1; font-family: var(--ui-font); font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(240,225,190,0.75); }
+  .pm-coach-off { background: none; border: none; color: rgba(240,225,190,0.45); font-family: var(--ui-font); font-size: 0.7rem; cursor: pointer; text-decoration: underline; }
+  .pm-coach-hand { font-family: var(--ui-font); font-size: 1.02rem; font-weight: 700; color: #fff; margin-bottom: 0.45rem; }
   .pm-coach-bar { height: 8px; border-radius: 5px; background: rgba(255,255,255,0.1); overflow: hidden; }
   .pm-coach-fill { height: 100%; width: 0%; border-radius: 5px; transition: width 0.35s ease, background 0.35s ease; background: #6abf69; }
   .pm-coach-row { display: flex; align-items: baseline; gap: 0.6rem; margin-top: 0.4rem; }
-  .pm-coach-eq { font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; color: #fff; line-height: 1; }
-  .pm-coach-rating { font-family: 'Outfit', sans-serif; font-size: 0.85rem; font-weight: 600; margin-left: auto; }
-  .pm-coach-tip { font-family: 'Outfit', sans-serif; font-size: 0.8rem; color: rgba(240,225,190,0.7); margin-top: 0.4rem; line-height: 1.35; }
+  .pm-coach-eq { font-family: var(--num-font); font-size: 1.5rem; color: #fff; line-height: 1; }
+  .pm-coach-rating { font-family: var(--ui-font); font-size: 0.85rem; font-weight: 600; margin-left: auto; }
+  .pm-coach-tip { font-family: var(--ui-font); font-size: 0.8rem; color: rgba(240,225,190,0.7); margin-top: 0.4rem; line-height: 1.35; }
   .pm-coach-on {
     display: block; width: 100%; margin: 0.6rem 0 0.2rem; padding: 0.6rem; border-radius: 10px;
     background: rgba(212,168,67,0.12); border: 1px solid rgba(212,168,67,0.3); color: #e8d3a0;
-    font-family: 'Outfit', sans-serif; font-size: 0.85rem; cursor: pointer;
+    font-family: var(--ui-font); font-size: 0.85rem; cursor: pointer;
   }
 
 
@@ -6977,14 +6984,56 @@
   }
   .home-theme .gt-picker-label { text-align: center; }
 
+  /* Kompakter Design-Button auf dem Startbildschirm */
+  .home-theme { margin-top: 1.6rem; padding: 0; background: none; border: none; display: flex; justify-content: center; }
+  .gt-open-btn {
+    display: inline-flex; align-items: center; gap: 0.55rem;
+    padding: 0.55rem 1rem 0.55rem 0.65rem; border-radius: 999px;
+    background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.14);
+    color: rgba(255,255,255,0.85); font-family: var(--ui-font); font-size: 0.85rem;
+    cursor: pointer; transition: all 0.15s;
+  }
+  .gt-open-btn:hover { background: rgba(255,255,255,0.12); border-color: rgba(255,255,255,0.3); }
+  .gt-open-btn { width: auto; max-width: max-content; flex: 0 0 auto; white-space: nowrap; }
+  .gt-current { color: rgba(255,255,255,0.5); font-size: 0.8rem; }
+  /* im Glas-Theme Farben aus dem Theme nehmen, damit die Schrift lesbar bleibt */
+  body.gt-glass .gt-open-btn, body.gt-glasslight .gt-open-btn {
+    background: var(--gl-panel2) !important; border: 1px solid var(--gl-edge) !important;
+    color: var(--gl-text) !important;
+    -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
+  }
+  body.gt-glass .gt-current, body.gt-glasslight .gt-current { color: var(--gl-dim) !important; }
+  .gt-swatch {
+    width: 18px; height: 18px; border-radius: 50%; flex-shrink: 0;
+    background: conic-gradient(#7b5cff, #ff9f43, #2bb7c4, #7b5cff);
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,0.25);
+  }
+
+  /* Auswahl-Raster im Dialog */
+  .gt-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5rem; }
+  .gt-grid button {
+    display: flex; flex-direction: column; align-items: center; gap: 0.4rem;
+    padding: 0.7rem 0.4rem; border-radius: 10px; cursor: pointer;
+    background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.14);
+    color: rgba(255,255,255,0.8); font-family: var(--ui-font); font-size: 0.76rem;
+  }
+  .gt-grid button.active { border-color: #6ee7a0; background: rgba(110,231,160,0.14); color: #fff; }
+  .gt-prev { width: 30px; height: 30px; border-radius: 8px; display: block; box-shadow: inset 0 0 0 1px rgba(255,255,255,0.18); }
+  .p-classic    { background: linear-gradient(140deg,#12121e,#0a2e22); }
+  .p-modern     { background: linear-gradient(140deg,#1c2534,#5b8dff); }
+  .p-fancy      { background: linear-gradient(140deg,#232128,#d9a679); }
+  .p-glass      { background: linear-gradient(140deg,#7b5cff,#2bb7c4); opacity: 0.8; }
+  .p-glasslight { background: linear-gradient(140deg,#ffffff,#c9d6ff); }
+  .p-custom     { background: conic-gradient(#7b5cff,#ff9f43,#2bb7c4,#7b5cff); }
+
   /* Theme picker inside the menu drawer */
   .gt-picker { padding: 0.6rem 0.9rem 0.2rem; }
-  .gt-picker-label { font-family:'Outfit',sans-serif; font-size:0.62rem; letter-spacing:0.2em; text-transform:uppercase; color:rgba(255,255,255,0.4); margin-bottom:0.4rem; }
+  .gt-picker-label { font-family:var(--ui-font); font-size:0.62rem; letter-spacing:0.2em; text-transform:uppercase; color:rgba(255,255,255,0.4); margin-bottom:0.4rem; }
   .gt-row { display:flex; gap:0.3rem; flex-wrap:wrap; }
   .gt-row button {
     flex:1; min-width:58px; padding:0.4rem 0.3rem; border-radius:7px; cursor:pointer;
     border:1px solid rgba(255,255,255,0.16); background:rgba(255,255,255,0.06);
-    color:rgba(255,255,255,0.8); font-family:'Outfit',sans-serif; font-size:0.72rem;
+    color:rgba(255,255,255,0.8); font-family:var(--ui-font); font-size:0.72rem;
   }
   .gt-row button.active { background:rgba(255,255,255,0.22); border-color:rgba(255,255,255,0.5); color:#fff; font-weight:700; }
 
@@ -7031,7 +7080,6 @@
   body.gt-glass:not(.pmc-on) .pm-waiting-player, body.gt-glasslight:not(.pmc-on) .pm-waiting-player,
   body.gt-glass .multi-card-display, body.gt-glasslight .multi-card-display,
   body.gt-glass .home-tile, body.gt-glasslight .home-tile,
-  body.gt-glass .home-theme, body.gt-glasslight .home-theme,
   body.gt-glass:not(.pmc-on) .pm-coach, body.gt-glasslight:not(.pmc-on) .pm-coach,
   body.gt-glass .imps-box, body.gt-glasslight .imps-box,
   body.gt-glass .nt-sheet, body.gt-glasslight .nt-sheet {
@@ -7411,7 +7459,7 @@
     background: var(--card-white); color: var(--black-suit);
     display: flex; flex-direction: column; align-items: center; justify-content: center;
     line-height: 1; box-shadow: 0 1px 4px rgba(0,0,0,0.35); flex-shrink: 0;
-    font-family: 'Outfit', sans-serif;
+    font-family: var(--ui-font);
   }
   .app-poker .ref-card.red { color: var(--red-suit); }
   .app-poker .ref-card.dim { opacity: 0.35; }
@@ -7424,7 +7472,7 @@
   .app-poker .gd-sec { margin-top: 18px; }
   .app-poker .gd-sec:first-of-type { margin-top: 8px; }
   .app-poker .gd-h {
-    font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 19px;
+    font-family: var(--display-font); font-style: italic; font-size: 19px;
     color: var(--gold); margin-bottom: 8px; padding-bottom: 5px;
     border-bottom: 1px solid rgba(212,168,67,0.18);
   }
@@ -7481,13 +7529,13 @@
   .app-poker-solo .ps-row { display: flex; align-items: center; gap: 0.8rem; justify-content: center; }
   .app-poker-solo .ps-cbtn { width: 40px; height: 40px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2);
     background: rgba(255,255,255,0.07); color: var(--pmc-text); font-size: 1.3rem; cursor: pointer; }
-  .app-poker-solo .ps-cval { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; min-width: 40px; text-align: center; color: var(--pmc-accent); }
+  .app-poker-solo .ps-cval { font-family: var(--num-font); font-size: 1.8rem; min-width: 40px; text-align: center; color: var(--pmc-accent); }
   .app-poker-solo .ps-seg { display: flex; gap: 0.4rem; }
   .app-poker-solo .ps-seg button { flex: 1; padding: 0.6rem 0.3rem; border-radius: 8px; border: 1px solid rgba(255,255,255,0.16);
-    background: rgba(255,255,255,0.06); color: rgba(255,255,255,0.8); font-family: 'Outfit', sans-serif; font-size: 0.82rem; cursor: pointer; }
+    background: rgba(255,255,255,0.06); color: rgba(255,255,255,0.8); font-family: var(--ui-font); font-size: 0.82rem; cursor: pointer; }
   .app-poker-solo .ps-seg button.active { background: var(--pmc-accent); color: #08131a; font-weight: 700; border-color: transparent; }
   .app-poker-solo .ps-toggle { display: flex; justify-content: space-between; align-items: center; cursor: pointer;
-    font-family: 'Outfit', sans-serif; color: var(--pmc-text); padding: 0.6rem 0; }
+    font-family: var(--ui-font); color: var(--pmc-text); padding: 0.6rem 0; }
   .app-poker-solo .ps-switch { width: 46px; height: 26px; border-radius: 13px; background: rgba(0,0,0,0.5);
     border: 1px solid rgba(255,255,255,0.2); position: relative; transition: all 0.2s; flex-shrink: 0; }
   .app-poker-solo .ps-switch::after { content: ''; position: absolute; width: 20px; height: 20px; border-radius: 50%;
@@ -7497,40 +7545,40 @@
 
   .ps-actions { display: flex; gap: 0.45rem; margin-top: 0.7rem; }
   .ps-btn { flex: 1; padding: 0.95rem 0.4rem; border-radius: 10px; border: 1px solid rgba(255,255,255,0.18);
-    background: rgba(255,255,255,0.09); color: #fff; font-family: 'Outfit', sans-serif; font-weight: 700;
+    background: rgba(255,255,255,0.09); color: #fff; font-family: var(--ui-font); font-weight: 700;
     font-size: 0.92rem; cursor: pointer; letter-spacing: 0.03em; }
   .ps-btn:disabled { opacity: 0.35; cursor: not-allowed; }
   .ps-btn.fold { background: rgba(239,68,68,0.18); border-color: rgba(239,68,68,0.45); color: #ff9c9c; }
   .ps-btn.call { background: rgba(94,169,255,0.2); border-color: rgba(94,169,255,0.5); }
   .ps-btn.raise { background: linear-gradient(135deg, var(--pmc-good2, #16a34a), var(--pmc-good, #4ade80)); color: #06210f; border-color: transparent; }
   .ps-btn.ghost { background: rgba(255,255,255,0.06); }
-  .ps-msg { text-align: center; font-family: 'Outfit', sans-serif; font-size: 0.86rem;
+  .ps-msg { text-align: center; font-family: var(--ui-font); font-size: 0.86rem;
     color: var(--pmc-dim); min-height: 1.3rem; margin-top: 0.5rem; }
   .ps-raise { background: rgba(0,0,0,0.35); border: 1px solid rgba(255,255,255,0.15);
     border-radius: 12px; padding: 0.9rem; margin-top: 0.7rem; }
-  .ps-raise-val { text-align: center; font-family: 'Bebas Neue', sans-serif; font-size: 2rem; color: var(--pmc-gold); }
+  .ps-raise-val { text-align: center; font-family: var(--num-font); font-size: 2rem; color: var(--pmc-gold); }
   .ps-slider { width: 100%; margin: 0.5rem 0; accent-color: var(--pmc-good); }
   .ps-raise-quick { display: flex; gap: 0.35rem; margin-bottom: 0.6rem; }
   .ps-raise-quick button { flex: 1; padding: 0.4rem 0.2rem; border-radius: 6px; border: 1px solid rgba(255,255,255,0.16);
-    background: rgba(255,255,255,0.06); color: #fff; font-family: 'Outfit', sans-serif; font-size: 0.76rem; cursor: pointer; }
+    background: rgba(255,255,255,0.06); color: #fff; font-family: var(--ui-font); font-size: 0.76rem; cursor: pointer; }
   .ps-raise-btns { display: flex; gap: 0.4rem; }
   .pm-other-player.ps-thinking { opacity: 0.75; }
-  .ps-bot-tag { font-family: 'Outfit', sans-serif; font-size: 0.6rem; color: var(--pmc-dim); letter-spacing: 0.04em; }
+  .ps-bot-tag { font-family: var(--ui-font); font-size: 0.6rem; color: var(--pmc-dim); letter-spacing: 0.04em; }
   .ps-owner-tag { font-size: 0.62rem; letter-spacing: 0.08em; color: rgba(255,200,120,0.75);
     border: 1px solid rgba(255,200,120,0.35); border-radius: 10px; padding: 0.05rem 0.4rem; margin-left: 0.4rem; }
   .ps-name-add { display: flex; gap: 0.4rem; }
   .ps-name-list { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-top: 0.55rem; }
   .ps-name-chip { display: inline-flex; align-items: center; gap: 0.3rem; padding: 0.3rem 0.6rem;
     background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.16); border-radius: 16px;
-    font-family: 'Outfit', sans-serif; font-size: 0.84rem; color: #fff; }
+    font-family: var(--ui-font); font-size: 0.84rem; color: #fff; }
   .ps-name-chip button { background: none; border: none; color: rgba(255,255,255,0.55); cursor: pointer;
     font-size: 1rem; line-height: 1; padding: 0; }
   .ps-name-chip button:hover { color: #ff8080; }
-  .ps-name-empty { font-family: 'Outfit', sans-serif; font-size: 0.82rem; color: rgba(255,255,255,0.4); font-style: italic; }
+  .ps-name-empty { font-family: var(--ui-font); font-size: 0.82rem; color: rgba(255,255,255,0.4); font-style: italic; }
   .ps-name-foot { display: flex; justify-content: space-between; align-items: center; margin-top: 0.5rem;
-    font-family: 'Outfit', sans-serif; font-size: 0.72rem; color: rgba(255,255,255,0.45); gap: 0.5rem; }
+    font-family: var(--ui-font); font-size: 0.72rem; color: rgba(255,255,255,0.45); gap: 0.5rem; }
   .ps-mini { background: none; border: none; color: rgba(255,255,255,0.6); text-decoration: underline;
-    cursor: pointer; font-family: 'Outfit', sans-serif; font-size: 0.72rem; padding: 0 0.2rem; }
+    cursor: pointer; font-family: var(--ui-font); font-size: 0.72rem; padding: 0 0.2rem; }
   .ps-mini:hover { color: #fff; }
   .app-poker-solo .pm-other-player { padding: 0.55rem 0.5rem 0.5rem; min-width: 92px; }
   .app-poker-solo .pm-other-name { margin-bottom: 3px; }
@@ -7539,7 +7587,7 @@
   .app-poker-solo .pm-other-status { min-height: 1em; }
   /* Aktionsanzeige auf den Bot-Kacheln */
   .app-poker-solo .pm-other-status {
-    font-family: 'Outfit', sans-serif; font-size: 0.68rem; font-weight: 700;
+    font-family: var(--ui-font); font-size: 0.68rem; font-weight: 700;
     letter-spacing: 0.02em; border-radius: 6px; padding: 1px 5px; display: inline-block;
     min-height: 1.15em; transition: all 0.2s ease;
   }
@@ -7583,11 +7631,11 @@
     border-radius: 22px; box-shadow: inset 0 1px 0 rgba(255,255,255,0.12);
   }
   .app-poker-solo .ps-pot-label {
-    font-family: 'Outfit', sans-serif; font-size: 0.62rem; letter-spacing: 0.22em;
+    font-family: var(--ui-font); font-size: 0.62rem; letter-spacing: 0.22em;
     color: var(--pmc-dim); font-weight: 600;
   }
   .app-poker-solo .ps-pot-val {
-    font-family: 'Outfit', sans-serif; font-size: 1.15rem; font-weight: 800;
+    font-family: var(--ui-font); font-size: 1.15rem; font-weight: 800;
     color: var(--pmc-gold); font-variant-numeric: tabular-nums;
   }
 
@@ -7603,12 +7651,12 @@
     border-bottom: 1px solid rgba(255,255,255,0.09);
   }
   .app-poker-solo .ps-me-name {
-    font-family: 'Outfit', sans-serif; font-size: 0.95rem; font-weight: 700;
+    font-family: var(--ui-font); font-size: 0.95rem; font-weight: 700;
     color: var(--pmc-text); display: inline-flex; align-items: center; gap: 6px;
   }
   .app-poker-solo .ps-me-chips {
     display: inline-flex; align-items: center; gap: 0.35rem;
-    font-family: 'Outfit', sans-serif; font-size: 1.1rem; font-weight: 800;
+    font-family: var(--ui-font); font-size: 1.1rem; font-weight: 800;
     color: var(--pmc-gold); font-variant-numeric: tabular-nums;
   }
   .app-poker-solo .ps-chip-ico { font-size: 0.9rem; opacity: 0.85; }
@@ -7618,10 +7666,10 @@
   .app-poker-solo .ps-my-cards { gap: 0.5rem; justify-content: center; }
   .app-poker-solo .ps-me-side { width: 100%; min-width: 0; text-align: center; }
   .app-poker-solo .ps-me-hand {
-    font-family: 'Outfit', sans-serif; font-size: 0.9rem; font-weight: 700; color: var(--pmc-text);
+    font-family: var(--ui-font); font-size: 0.9rem; font-weight: 700; color: var(--pmc-text);
   }
   .app-poker-solo .ps-me-bet {
-    font-family: 'Outfit', sans-serif; font-size: 0.76rem; color: var(--pmc-dim); margin-top: 2px;
+    font-family: var(--ui-font); font-size: 0.76rem; color: var(--pmc-dim); margin-top: 2px;
   }
 
   /* --- SB/BB als eigene Zeile --- */
@@ -7640,11 +7688,11 @@
     border-radius: 999px; box-shadow: inset 0 1px 0 rgba(255,255,255,0.12);
   }
   .app-poker-solo .ps-pot-label {
-    font-family: 'Outfit', sans-serif; font-size: 0.62rem; letter-spacing: 0.22em;
+    font-family: var(--ui-font); font-size: 0.62rem; letter-spacing: 0.22em;
     text-transform: uppercase; color: var(--pmc-dim);
   }
   .app-poker-solo .ps-pot-val {
-    font-family: 'Outfit', sans-serif; font-size: 1.25rem; font-weight: 800;
+    font-family: var(--ui-font); font-size: 1.25rem; font-weight: 800;
     color: var(--pmc-gold); font-variant-numeric: tabular-nums; line-height: 1;
   }
 
@@ -7658,18 +7706,18 @@
   }
   .app-poker-solo .pm-my-name {
     display: flex; align-items: center; gap: 0.45rem;
-    font-family: 'Outfit', sans-serif; font-size: 0.95rem; font-weight: 700; color: var(--pmc-text);
+    font-family: var(--ui-font); font-size: 0.95rem; font-weight: 700; color: var(--pmc-text);
   }
   .app-poker-solo .ps-badges.inline { position: static; display: inline-flex; gap: 3px; }
   .app-poker-solo .pm-my-stack { display: flex; align-items: center; gap: 0.4rem; }
   .app-poker-solo .ps-chip {
-    font-family: 'Outfit', sans-serif; font-size: 0.92rem; font-weight: 800;
+    font-family: var(--ui-font); font-size: 0.92rem; font-weight: 800;
     font-variant-numeric: tabular-nums; color: var(--pmc-gold);
     background: rgba(255,215,0,0.10); border: 1px solid rgba(255,215,0,0.28);
     border-radius: 999px; padding: 0.2rem 0.7rem;
   }
   .app-poker-solo .ps-inpot {
-    font-family: 'Outfit', sans-serif; font-size: 0.7rem; color: var(--pmc-dim);
+    font-family: var(--ui-font); font-size: 0.7rem; color: var(--pmc-dim);
     background: rgba(255,255,255,0.07); border-radius: 999px; padding: 0.18rem 0.55rem;
   }
   .app-poker-solo .pm-my-cards { justify-content: center; gap: 0.5rem; margin: 0.25rem 0 0.5rem; }
@@ -7684,7 +7732,7 @@
   .app-poker-solo #psCommunity .ps-c-suit { font-size: 0.8rem; }
   .app-poker-solo #psCommunity .ps-c-mid { font-size: 2rem; }
   .app-poker-solo .pm-my-hand-strength {
-    text-align: center; font-family: 'Outfit', sans-serif; font-size: 0.78rem;
+    text-align: center; font-family: var(--ui-font); font-size: 0.78rem;
     letter-spacing: 0.14em; text-transform: uppercase; color: var(--pmc-dim); margin-top: 0.1rem;
   }
   /* --- Kontrast-Absicherung Poker Trainer --- */
@@ -7740,7 +7788,7 @@
 
   .ps-win-banner { text-align: center; padding: 1rem; margin-top: 0.7rem; border-radius: 12px;
     background: rgba(255,215,0,0.12); border: 1px solid rgba(255,215,0,0.4);
-    font-family: 'Outfit', sans-serif; color: var(--pmc-gold); font-weight: 700; }
+    font-family: var(--ui-font); color: var(--pmc-gold); font-weight: 700; }
 
   /* ====================== SHARED GAME RULES ====================== */
   .gr-backdrop {
@@ -7764,7 +7812,7 @@
   @keyframes grPop { from { transform: scale(0.96); opacity: 0; } to { transform: scale(1); opacity: 1; } }
   .gr-modal-head { display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.7rem; flex-shrink: 0; }
   .gr-modal-title {
-    font-family: 'Cinzel', 'Bebas Neue', sans-serif; font-size: 1.3rem; color: #fff;
+    font-family: var(--display-font); font-size: 1.3rem; color: #fff;
     letter-spacing: 0.04em; flex: 1;
   }
   .gr-close-x {
@@ -7774,7 +7822,7 @@
   .gr-close-x:hover { background: rgba(255,255,255,0.16); color: #fff; }
   .gr-body {
     overflow-y: auto; -webkit-overflow-scrolling: touch;
-    font-family: 'Outfit', sans-serif; color: rgba(236,230,218,0.85);
+    font-family: var(--ui-font); color: rgba(236,230,218,0.85);
     font-size: 0.95rem; line-height: 1.5; padding-right: 0.2rem;
   }
   .gr-goal {
@@ -7792,7 +7840,7 @@
   .gr-body b { color: #fff; }
   .gr-done {
     margin-top: 1rem; padding: 0.9rem; border: none; border-radius: 10px;
-    background: rgba(255,255,255,0.12); color: #fff; font-family: 'Outfit', sans-serif;
+    background: rgba(255,255,255,0.12); color: #fff; font-family: var(--ui-font);
     font-weight: 600; letter-spacing: 0.05em; cursor: pointer; flex-shrink: 0;
   }
   .gr-done:hover { background: rgba(255,255,255,0.18); }
@@ -7803,7 +7851,7 @@
     margin: 0.2rem auto 0; padding: 0.5rem 1.05rem;
     background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.16);
     border-radius: 20px; color: rgba(255,255,255,0.85);
-    font-family: 'Outfit', sans-serif; font-size: 0.82rem; cursor: pointer; transition: all 0.15s;
+    font-family: var(--ui-font); font-size: 0.82rem; cursor: pointer; transition: all 0.15s;
   }
   .rules-link:hover { background: rgba(255,255,255,0.14); border-color: rgba(255,255,255,0.32); color: #fff; }
 
@@ -7859,7 +7907,7 @@
 <!-- Admin toggle (hidden by default, shown after 5x title clicks) -->
 <button class="admin-toggle" id="adminToggleBtn" onclick="openAdminPanel()" style="display:none" aria-label="Admin-Panel öffnen" title="Admin-Panel">🔧</button>
 
-<div class="app-version" id="appVersion">v3.4.0</div>
+<div class="app-version" id="appVersion">v3.6.3</div>
 
 <!-- Admin toast -->
 <div class="admin-toast" id="adminToast"></div>
@@ -7964,6 +8012,24 @@
     </div>
     <div class="ga-list" id="pmcColors"></div>
     <button class="ga-close" onclick="pmc_closeEditor()">FERTIG</button>
+  </div>
+</div>
+
+<!-- ============ GLOBAL THEME PICKER ============ -->
+<div class="ga-backdrop" id="gtPicker" onclick="if(event.target===this) gt_closePicker()">
+  <div class="ga-modal">
+    <div class="ga-modal-title">🎨 Design</div>
+    <div class="ga-modal-sub">Gilt für alle Spiele</div>
+    <div class="gt-grid gt-row-js" id="gtGrid">
+      <button data-g="classic"    onclick="gt_pick('classic')"><i class="gt-prev p-classic"></i><span>Klassisch</span></button>
+      <button data-g="modern"     onclick="gt_pick('modern')"><i class="gt-prev p-modern"></i><span>Modern</span></button>
+      <button data-g="fancy"      onclick="gt_pick('fancy')"><i class="gt-prev p-fancy"></i><span>Fancy</span></button>
+      <button data-g="glass"      onclick="gt_pick('glass')"><i class="gt-prev p-glass"></i><span>Glas</span></button>
+      <button data-g="glasslight" onclick="gt_pick('glasslight')"><i class="gt-prev p-glasslight"></i><span>Glas Hell</span></button>
+      <button data-g="custom"     onclick="gt_pick('custom')"><i class="gt-prev p-custom"></i><span>Eigenes</span></button>
+    </div>
+    <button class="ga-close" style="margin-top:0.8rem" onclick="gt_closePicker(); gt_openEditor()">🎨 Farben anpassen</button>
+    <button class="ga-close" onclick="gt_closePicker()">FERTIG</button>
   </div>
 </div>
 
@@ -8136,16 +8202,11 @@
       </button>
     </div>
     <div class="home-theme">
-      <div class="gt-picker-label">Design</div>
-      <div class="gt-row gt-row-js">
-        <button data-g="classic" onclick="gt_set('classic')">Klassisch</button>
-        <button data-g="modern" onclick="gt_set('modern')">Modern</button>
-        <button data-g="fancy" onclick="gt_set('fancy')">Fancy</button>
-        <button data-g="glass" onclick="gt_set('glass')">Glas</button>
-        <button data-g="glasslight" onclick="gt_set('glasslight')">Glas Hell</button>
-        <button data-g="custom" onclick="gt_set('custom')">Eigenes</button>
-        <button onclick="gt_openEditor()" style="flex:0 0 auto;min-width:38px" title="Farben anpassen">🎨</button>
-      </div>
+      <button class="gt-open-btn" onclick="gt_openPicker()">
+        <span class="gt-swatch" aria-hidden="true"></span>
+        <span>Design</span>
+        <span class="gt-current" id="gtCurrentName">Klassisch</span>
+      </button>
     </div>
     <div class="home-footer">Single-Device direkt losspielen · Multiplayer per Code auf mehreren Handys</div>
   </div>
@@ -11767,6 +11828,8 @@
     else if (name === 'fancy') b.classList.add('gt-on','gt-fancy');
     else if (name === 'custom') { b.classList.add('gt-on','gt-custom'); gt_applyCustomVars(); }
     document.querySelectorAll('.gt-row-js button[data-g]').forEach(function(x) { x.classList.toggle('active', x.dataset.g === name); });
+    const cur = document.getElementById('gtCurrentName');
+    if (cur) cur.textContent = (typeof GT_NAMES !== 'undefined' && GT_NAMES[name]) || name;
     try { localStorage.setItem('global-theme', name); } catch (e) {}
   }
   function gt_renderEditor() {
@@ -11777,6 +11840,12 @@
         '<input type="color" value="' + c[f[0]] + '" oninput="gt_setColor(\'' + f[0] + '\', this.value)" style="width:44px;height:30px;border:1px solid rgba(255,255,255,0.2);border-radius:6px;background:none;cursor:pointer;padding:0"></label>';
     }).join('');
   }
+  const GT_NAMES = { classic:'Klassisch', modern:'Modern', fancy:'Fancy', glass:'Glas', glasslight:'Glas Hell', custom:'Eigenes' };
+  function gt_openPicker() { document.getElementById('gtPicker').classList.add('active'); }
+  function gt_closePicker() { document.getElementById('gtPicker').classList.remove('active'); }
+  function gt_pick(name) { gt_set(name); }
+  window.gt_openPicker = gt_openPicker; window.gt_closePicker = gt_closePicker; window.gt_pick = gt_pick;
+
   function gt_openEditor() { gt_loadCustom(); gt_set('custom'); gt_renderEditor(); document.getElementById('gtEditor').classList.add('active'); }
   function gt_closeEditor() { document.getElementById('gtEditor').classList.remove('active'); }
   function gt_setColor(k, v) { gt_loadCustom(); gtCustom[k] = v; try { localStorage.setItem('global-theme-custom', JSON.stringify(gtCustom)); } catch (e) {} gt_applyCustomVars(); }
@@ -13323,7 +13392,7 @@ nextRound();
           <line x1="${x+2.5}" y1="${y+4}" x2="${x+w-2.5}" y2="${y+4}"
                 stroke="#ff6bb5" stroke-width="0.8" opacity="0.6"/>
           <text x="${cx}" y="${cy + 5}" font-size="13" fill="#00e5ff"
-                text-anchor="middle" font-weight="900" font-family="'Bebas Neue', sans-serif"
+                text-anchor="middle" font-weight="900" font-family="var(--num-font)"
                 style="filter: drop-shadow(0 0 4px rgba(0,229,255,0.7));">?</text>
         </g>`;
       }
@@ -13342,7 +13411,7 @@ nextRound();
                 fill="rgba(255,214,10,0.35)" stroke="#ffd60a" stroke-width="1.6"
                 style="filter: drop-shadow(0 0 6px rgba(255,214,10,0.5));"/>
           <text x="${cx}" y="${cy + 5}" font-size="13" fill="#ffd60a"
-                text-anchor="middle" font-weight="900" font-family="'Bebas Neue', sans-serif">★</text>
+                text-anchor="middle" font-weight="900" font-family="var(--num-font)">★</text>
         </g>`;
       }
       // EX — dramatic red with skull X
@@ -16616,7 +16685,7 @@ nextRound();
           </div>
         </div>`;
       }).join('');
-      wrap.innerHTML = html || '<div style="color:rgba(216,232,208,0.5);font-family:Outfit,sans-serif;font-size:0.85rem">— keine Spieler —</div>';
+      wrap.innerHTML = html || '<div style="color:rgba(216,232,208,0.5);font-family:var(--ui-font);font-size:0.85rem">— keine Spieler —</div>';
     }
     function pm_adminPatch(mutator, msg) {
       if (!amHost) { showToast('Nur der Host kann das'); return; }
@@ -18204,7 +18273,7 @@ nextRound();
         const p = state.players[id];
         const v = wolfVotes[id];
         const vp = v ? state.players[v] : null;
-        return `<div style="font-family:Outfit,sans-serif;font-size:0.82rem;color:rgba(216,220,235,0.85);padding:0.2rem 0">${escapeHtml(p.name)}: ${vp ? '→ ' + escapeHtml(vp.name) : '—'}</div>`;
+        return `<div style="font-family:var(--ui-font);font-size:0.82rem;color:rgba(216,220,235,0.85);padding:0.2rem 0">${escapeHtml(p.name)}: ${vp ? '→ ' + escapeHtml(vp.name) : '—'}</div>`;
       }).join('');
       const targets = (state.seatOrder || []).filter(id => state.players[id] && state.players[id].alive && state.players[id].role !== 'wolf');
       const list = targets.map(id => {
@@ -18236,7 +18305,7 @@ nextRound();
         : '';
       return `${victimInfo}
         ${healBtn}
-        ${used.poison ? '' : '<div style="margin-top:0.8rem;font-family:Outfit,sans-serif;font-size:0.82rem;color:rgba(216,220,235,0.7);text-align:center">Oder einen anderen Spieler vergiften:</div>' + poisonBtnList}
+        ${used.poison ? '' : '<div style="margin-top:0.8rem;font-family:var(--ui-font);font-size:0.82rem;color:rgba(216,220,235,0.7);text-align:center">Oder einen anderen Spieler vergiften:</div>' + poisonBtnList}
         <button class="ww-action-btn secondary" onclick="ww_witchSkip()" style="margin-top:0.8rem">NICHTS TUN</button>`;
     }
 
@@ -18330,7 +18399,7 @@ nextRound();
       }).join('');
       const restartBtn = (mySelfId === state.host)
         ? `<button class="ww-action-btn" onclick="ww_resetGame()">NEUE RUNDE</button>`
-        : `<div style="font-family:Outfit,sans-serif;font-size:0.85rem;color:rgba(216,220,235,0.65);margin-top:0.6rem">Warte auf den Host für eine neue Runde...</div>`;
+        : `<div style="font-family:var(--ui-font);font-size:0.85rem;color:rgba(216,220,235,0.65);margin-top:0.6rem">Warte auf den Host für eine neue Runde...</div>`;
       return `<div class="ww-gameover">
         <div class="ww-gameover-title">${winText}</div>
         <div class="ww-gameover-team">Team ${TEAM_NAMES[winner] || ''} hat gewonnen</div>
@@ -19268,7 +19337,7 @@ nextRound();
         .join('');
       const restartBtn = (mySelfId === state.host)
         ? `<button class="imp-action-btn" onclick="imp_nextRound()">NÄCHSTE RUNDE</button>`
-        : `<div style="font-family:Outfit,sans-serif;font-size:0.85rem;color:rgba(245,230,211,0.65);margin-top:0.6rem">Warte auf den Host für die nächste Runde...</div>`;
+        : `<div style="font-family:var(--ui-font);font-size:0.85rem;color:rgba(245,230,211,0.65);margin-top:0.6rem">Warte auf den Host für die nächste Runde...</div>`;
       return `<div class="imp-gameover">
         <div class="imp-gameover-title">${titleText}</div>
         <div class="imp-gameover-word">Wort war: <b>${escapeHtml(state.word || '—')}</b> · ${cat ? cat.name : ''}</div>
@@ -21071,7 +21140,7 @@ nextRound();
       }).join('');
       const restart = (mySelfId === state.host)
         ? `<button class="slf-btn" onclick="slf_resetGame()">NEUES SPIEL</button>`
-        : `<div style="font-family:Outfit,sans-serif;font-size:0.85rem;color:rgba(214,245,232,0.65);margin-top:0.6rem">Warte auf den Host...</div>`;
+        : `<div style="font-family:var(--ui-font);font-size:0.85rem;color:rgba(214,245,232,0.65);margin-top:0.6rem">Warte auf den Host...</div>`;
       return `<div class="slf-gameover">
         <div class="slf-gameover-title">🏆 ${winner ? escapeHtml(winner.name) : '—'} gewinnt!</div>
         <div class="slf-gameover-winner">${winner ? (winner.score || 0) + ' Punkte' : ''}</div>
@@ -21684,7 +21753,7 @@ nextRound();
       // scorebar
       document.getElementById('tbScorebar').innerHTML=`
         <div class="tb-score-team a ${state.currentTeam==='a'?'active':''}"><div class="lbl">🌸 Pink</div><div class="val">${state.scoreA||0}</div></div>
-        <div style="align-self:center;opacity:0.5;font-family:Outfit,sans-serif;font-size:0.8rem">Ziel ${cfg.goal}</div>
+        <div style="align-self:center;opacity:0.5;font-family:var(--ui-font);font-size:0.8rem">Ziel ${cfg.goal}</div>
         <div class="tb-score-team b ${state.currentTeam==='b'?'active':''}"><div class="lbl">🔷 Blau</div><div class="val">${state.scoreB||0}</div></div>`;
       const wrap=document.getElementById('tbContent');
       if(state.phase==='gameOver'){stopTimers();wrap.innerHTML=renderOver();return;}
@@ -21709,14 +21778,14 @@ nextRound();
         aw.innerHTML=`<div class="tb-word-card"><div class="tb-word-main">${esc(card.w)}</div><div class="tb-taboo-list"><div class="tb-taboo-label">🚫 Tabu</div>${card.t.map(t=>`<div class="tb-taboo-word">${esc(t)}</div>`).join('')}</div></div>
           <div class="tb-action-row"><button class="g-btn success" style="margin:0" onclick="tb_result('correct')">✓ Richtig</button><button class="g-btn secondary" style="margin:0" onclick="tb_result('skip')">⏭ Skip</button><button class="g-btn danger" style="margin:0" onclick="tb_result('taboo')">🚫 Tabu</button></div>
           <button class="g-btn secondary" onclick="tb_endTurn()">Zug beenden</button>
-          <div style="text-align:center;font-family:Outfit,sans-serif;font-size:0.85rem;opacity:0.7;margin-top:0.4rem">Diese Runde: ${state.turnScore>=0?'+':''}${state.turnScore||0}</div>`;
+          <div style="text-align:center;font-family:var(--ui-font);font-size:0.85rem;opacity:0.7;margin-top:0.4rem">Diese Runde: ${state.turnScore>=0?'+':''}${state.turnScore||0}</div>`;
         startTimerDisplay();
       } else {
         const myTeam=state.players[mySelfId]&&state.players[mySelfId].team;
         const guessing=myTeam===state.currentTeam;
         wrap.innerHTML=`<div class="tb-timer-big" id="tbTimer">--</div>
           <div class="g-wait-box" style="font-style:normal"><div class="g-wait-icon">${guessing?'🗣️':'👀'}</div>${guessing?'<b>Rate mit!</b> '+esc(exP?exP.name:'')+' erklärt — ruf die Begriffe!':'Team '+teamName(state.currentTeam)+' ist dran. Hört zu, ob ein Tabu-Wort fällt!'}</div>
-          <div style="text-align:center;font-family:Outfit,sans-serif;font-size:0.85rem;opacity:0.7">Punkte diese Runde: ${state.turnScore>=0?'+':''}${state.turnScore||0}</div>`;
+          <div style="text-align:center;font-family:var(--ui-font);font-size:0.85rem;opacity:0.7">Punkte diese Runde: ${state.turnScore>=0?'+':''}${state.turnScore||0}</div>`;
         startTimerDisplay();
       }
     }
@@ -21946,13 +22015,13 @@ nextRound();
       if(!reveal){
         if(state.turnPhase==='clue'){
           if(isSpymaster&&me.team===state.currentTeam){
-            top=`<div class="cn-clue-banner"><div style="font-family:Outfit,sans-serif;font-size:0.85rem;opacity:0.8;margin-bottom:0.4rem">Gib deinem Team einen Hinweis (1 Wort + Zahl)</div><div class="cn-clue-row"><input type="text" class="cn-clue-input" id="cnClueWord" maxlength="30" placeholder="Hinweis-Wort" autocomplete="off"><input type="number" class="cn-clue-input" id="cnClueNum" min="1" max="9" value="1"></div><button class="g-btn cn-btn" onclick="cn_submitClue()">HINWEIS GEBEN</button></div>`;
+            top=`<div class="cn-clue-banner"><div style="font-family:var(--ui-font);font-size:0.85rem;opacity:0.8;margin-bottom:0.4rem">Gib deinem Team einen Hinweis (1 Wort + Zahl)</div><div class="cn-clue-row"><input type="text" class="cn-clue-input" id="cnClueWord" maxlength="30" placeholder="Hinweis-Wort" autocomplete="off"><input type="number" class="cn-clue-input" id="cnClueNum" min="1" max="9" value="1"></div><button class="g-btn cn-btn" onclick="cn_submitClue()">HINWEIS GEBEN</button></div>`;
           } else {
             const sm=Object.keys(state.players).find(id=>state.players[id].team===state.currentTeam&&state.players[id].role==='spymaster');
-            top=`<div class="cn-clue-banner"><div class="g-wait-icon" style="font-size:1.5rem">⏳</div><div style="font-family:Outfit,sans-serif;font-size:0.9rem">Spymaster ${esc(sm?state.players[sm].name:'')} überlegt einen Hinweis...</div></div>`;
+            top=`<div class="cn-clue-banner"><div class="g-wait-icon" style="font-size:1.5rem">⏳</div><div style="font-family:var(--ui-font);font-size:0.9rem">Spymaster ${esc(sm?state.players[sm].name:'')} überlegt einen Hinweis...</div></div>`;
           }
         } else if(state.clue){
-          top=`<div class="cn-clue-banner"><span class="cn-clue-word">${esc(state.clue.word)}</span> <span class="cn-clue-num">${state.clue.num}</span><div style="font-family:Outfit,sans-serif;font-size:0.8rem;opacity:0.7;margin-top:0.2rem">noch ${Math.max(0,state.guessesLeft)} Versuche</div></div>`;
+          top=`<div class="cn-clue-banner"><span class="cn-clue-word">${esc(state.clue.word)}</span> <span class="cn-clue-num">${state.clue.num}</span><div style="font-family:var(--ui-font);font-size:0.8rem;opacity:0.7;margin-top:0.2rem">noch ${Math.max(0,state.guessesLeft)} Versuche</div></div>`;
         }
         if(state.lastEvent){
           const le=state.lastEvent;let msg='';
@@ -21960,7 +22029,7 @@ nextRound();
           else if(le.type==='neutral')msg=`⬜ "${esc(le.word)}" war neutral — Zug vorbei`;
           else if(le.type==='enemy')msg=`✗ "${esc(le.word)}" war gegnerisch — Zug vorbei`;
           else if(le.type==='pass')msg=`⏭ Zug beendet`;
-          if(msg)top+=`<div style="text-align:center;font-family:Outfit,sans-serif;font-size:0.82rem;opacity:0.8;margin:0.3rem 0">${msg}</div>`;
+          if(msg)top+=`<div style="text-align:center;font-family:var(--ui-font);font-size:0.82rem;opacity:0.8;margin:0.3rem 0">${msg}</div>`;
         }
       }
       const cells=state.grid.map((c,i)=>{
