@@ -6870,6 +6870,12 @@
   }
   .pmc-row button.active { background:rgba(255,255,255,0.22); border-color:rgba(255,255,255,0.5); color:#fff; font-weight:700; }
 
+  .pm-action-btn.is-allin {
+    background: linear-gradient(135deg, #b8860b, var(--pmc-gold, #ffd700)) !important;
+    color: #1a1206 !important; border-color: transparent !important;
+    box-shadow: 0 4px 16px rgba(255,215,0,0.25) !important;
+  }
+
   /* --- Wieder einsteigen (Selbstbedienung) --- */
   .pm-rebuy-bar { margin: 0.6rem 0 0.2rem; }
   .pm-rebuy-btn {
@@ -8035,7 +8041,7 @@
 <!-- Admin toggle (hidden by default, shown after 5x title clicks) -->
 <button class="admin-toggle" id="adminToggleBtn" onclick="openAdminPanel()" style="display:none" aria-label="Admin-Panel öffnen" title="Admin-Panel">🔧</button>
 
-<div class="app-version" id="appVersion">v3.8.0</div>
+<div class="app-version" id="appVersion">v3.8.1</div>
 
 <!-- Admin toast -->
 <div class="admin-toast" id="adminToast"></div>
@@ -17396,9 +17402,14 @@ nextRound();
       const callBtn = document.getElementById('pmCallBtn');
       if (owed <= 0) {
         callBtn.innerHTML = 'CHECK';
+        callBtn.classList.remove('is-allin');
       } else {
         const payable = Math.min(owed, me.stack);
-        callBtn.innerHTML = 'CALL<span class="pm-btn-amount">' + payable + '</span>';
+        // Wenn der Call den kompletten Stack kostet, ist es ein All-In —
+        // das muss auch draufstehen, sonst sucht man den All-In-Knopf vergeblich.
+        const isAllIn = payable >= me.stack;
+        callBtn.innerHTML = (isAllIn ? 'ALL-IN' : 'CALL') + '<span class="pm-btn-amount">' + payable + '</span>';
+        callBtn.classList.toggle('is-allin', isAllIn);
       }
       // Raise button
       const raiseBtn = document.getElementById('pmRaiseBtn');
@@ -17408,7 +17419,7 @@ nextRound();
       const maxRaiseTo = me.roundBet + me.stack;
       if (maxRaiseTo <= state.currentBet) {
         raiseBtn.disabled = true;
-        raiseBtn.innerHTML = 'RAISE';
+        raiseBtn.innerHTML = 'RAISE<span class="pm-btn-amount">nicht möglich</span>';
       } else if (maxRaiseTo < minRaiseTo) {
         // Can only all-in
         raiseBtn.innerHTML = 'ALL-IN<span class="pm-btn-amount">' + maxRaiseTo + '</span>';
