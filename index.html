@@ -3122,11 +3122,13 @@
 
   .pm-others-row {
     display: flex;
-    gap: 0.4rem;
-    overflow-x: auto;
-    padding: 0.5rem 0 0.3rem;
-    scrollbar-width: thin;
-    -webkit-overflow-scrolling: touch;
+    flex-wrap: wrap;              /* umbrechen statt scrollen … */
+    justify-content: center;
+    align-items: flex-start;
+    gap: 0.5rem;
+    overflow: visible;            /* … sonst schneidet der Scroll-Container
+                                     Badges oben und Einsätze unten ab */
+    padding: 0.7rem 0 0.4rem;
   }
   .pm-others-row::-webkit-scrollbar { height: 4px; }
   .pm-others-row::-webkit-scrollbar-thumb { background: rgba(34,197,94,0.3); border-radius: 2px; }
@@ -7585,7 +7587,7 @@
   .ps-mini { background: none; border: none; color: rgba(255,255,255,0.6); text-decoration: underline;
     cursor: pointer; font-family: var(--ui-font); font-size: 0.72rem; padding: 0 0.2rem; }
   .ps-mini:hover { color: #fff; }
-  .app-poker-solo .pm-other-player { padding: 0.55rem 0.5rem 0.5rem; min-width: 92px; }
+  .app-poker-solo .pm-other-player { padding: 0.55rem 0.55rem 0.5rem; min-width: 96px; flex: 0 0 auto; }
   .app-poker-solo .pm-other-name { margin-bottom: 3px; }
   .app-poker-solo .ps-bot-tag { margin: 0 0 5px; opacity: 0.75; }
   .app-poker-solo .pm-other-stack { margin-bottom: 2px; }
@@ -7958,7 +7960,7 @@
 <!-- Admin toggle (hidden by default, shown after 5x title clicks) -->
 <button class="admin-toggle" id="adminToggleBtn" onclick="openAdminPanel()" style="display:none" aria-label="Admin-Panel öffnen" title="Admin-Panel">🔧</button>
 
-<div class="app-version" id="appVersion">v3.7.1</div>
+<div class="app-version" id="appVersion">v3.7.2</div>
 
 <!-- Admin toast -->
 <div class="admin-toast" id="adminToast"></div>
