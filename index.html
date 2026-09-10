@@ -6876,6 +6876,25 @@
     box-shadow: 0 4px 16px rgba(255,215,0,0.25) !important;
   }
 
+  .pm-rebuy-cancel {
+    background: none; border: none; color: var(--pmc-dim); text-decoration: underline;
+    font-family: var(--ui-font); font-size: 0.78rem; cursor: pointer; margin-left: 0.5rem;
+  }
+  .pm-rebuy-req {
+    display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap;
+    margin-top: 0.5rem; padding: 0.7rem 0.85rem; border-radius: 12px;
+    background: rgba(255,215,0,0.10); border: 1px solid rgba(255,215,0,0.35);
+    font-family: var(--ui-font); font-size: 0.88rem; color: var(--pmc-text);
+  }
+  .pm-rebuy-req b { color: var(--pmc-gold); }
+  .pm-rebuy-actions { display: flex; gap: 0.4rem; margin-left: auto; }
+  .pm-rebuy-actions button {
+    padding: 0.4rem 0.8rem; border-radius: 8px; cursor: pointer;
+    font-family: var(--ui-font); font-size: 0.8rem; font-weight: 700; border: 1px solid transparent;
+  }
+  .pm-rebuy-actions .ok { background: var(--pmc-good, #4ade80); color: #06210f; }
+  .pm-rebuy-actions .no { background: rgba(255,255,255,0.08); color: var(--pmc-dim); border-color: rgba(255,255,255,0.2); }
+
   /* --- Wieder einsteigen (Selbstbedienung) --- */
   .pm-rebuy-bar { margin: 0.6rem 0 0.2rem; }
   .pm-rebuy-btn {
@@ -8041,7 +8060,7 @@
 <!-- Admin toggle (hidden by default, shown after 5x title clicks) -->
 <button class="admin-toggle" id="adminToggleBtn" onclick="openAdminPanel()" style="display:none" aria-label="Admin-Panel öffnen" title="Admin-Panel">🔧</button>
 
-<div class="app-version" id="appVersion">v3.8.3</div>
+<div class="app-version" id="appVersion">v3.9.0</div>
 
 <!-- Admin toast -->
 <div class="admin-toast" id="adminToast"></div>
@@ -16064,11 +16083,6 @@ nextRound();
 
         // If I'm host, process pending action
         // (Dedup happens inside processPendingAction via stale-check, not via ts)
-        // Rebuy-Wünsche der Spieler zuerst abarbeiten (unabhängig vom Spielstand)
-        if (amHost && state.rebuyRequest) {
-          processRebuyRequest(state.rebuyRequest);
-          return;
-        }
         if (amHost && state.pendingAction && state.started) {
           processPendingAction(state.pendingAction);
           return;  // processPendingAction broadcasts; listener will refire
@@ -16354,25 +16368,39 @@ nextRound();
       broadcast(newState);
     }
 
-    // Ein Spieler ohne Chips kauft sich selbst wieder ein.
-    function processRebuyRequest(req) {
-      if (!amHost || !req || !req.by) return;
+    // Spieler stellt eine Anfrage — der Host entscheidet.
+    function pm_rebuyMe() {
+      const me = state.players[mySelfId];
+      if (!me || me.stack > 0) return;
+      const { set, ref, db } = window.FB;
+      set(ref(db, `sessions/${myCode}/state/rebuyRequests/${mySelfId}`), Date.now());
+      showToast('Anfrage an den Host geschickt');
+    }
+    function pm_cancelRebuy() {
+      const { remove, ref, db } = window.FB;
+      remove(ref(db, `sessions/${myCode}/state/rebuyRequests/${mySelfId}`));
+    }
+    function pm_approveRebuy(id) {
+      if (!amHost) return;
       const np = JSON.parse(JSON.stringify(state.players));
-      const p = np[req.by];
+      const p = np[id];
       if (p) {
         p.stack = (p.stack || 0) + STARTING_STACK;
         p.sittingOut = false;
         p.pendingJoin = true;   // steigt zur nächsten Hand ein
         p.folded = true;        // laufende Hand nicht stören
       }
-      broadcast(Object.assign({}, state, { players: np, rebuyRequest: null }));
+      const reqs = Object.assign({}, state.rebuyRequests || {});
+      delete reqs[id];
+      broadcast(Object.assign({}, state, { players: np, rebuyRequests: reqs }));
+      showToast((p ? p.name : 'Spieler') + ' darf wieder einsteigen');
     }
-    function pm_rebuyMe() {
-      const me = state.players[mySelfId];
-      if (!me || me.stack > 0) return;
-      const { set, ref, db } = window.FB;
-      set(ref(db, `sessions/${myCode}/state/rebuyRequest`), { by: mySelfId, ts: Date.now() });
-      showToast('Du steigst zur nächsten Hand wieder ein');
+    function pm_denyRebuy(id) {
+      if (!amHost) return;
+      const reqs = Object.assign({}, state.rebuyRequests || {});
+      delete reqs[id];
+      broadcast(Object.assign({}, state, { rebuyRequests: reqs }));
+      showToast('Anfrage abgelehnt');
     }
 
     function processPendingAction(action) {
@@ -17215,15 +17243,36 @@ nextRound();
         // Ein All-In-Spieler hat zwar 0 Chips, spielt aber noch mit!
         const stillInHand = state.started && !me.folded && (me.allIn || (me.cards && me.cards.length > 0 && !me.sittingOut));
         const broke = (me.stack || 0) <= 0 && !me.allIn && !stillInHand;
+        const reqs = state.rebuyRequests || {};
+        const myReq = !!reqs[mySelfId];
+        let html = '';
+
         if (me.pendingJoin) {
-          rb.style.display = '';
-          rb.innerHTML = '<div class="pm-rebuy-wait">Du bist ab der nächsten Hand wieder dabei.</div>';
+          html = '<div class="pm-rebuy-wait">Du bist ab der nächsten Hand wieder dabei.</div>';
+        } else if (myReq) {
+          html = '<div class="pm-rebuy-wait">Anfrage läuft — der Host muss zustimmen.' +
+                 '<button class="pm-rebuy-cancel" onclick="pm_cancelRebuy()">zurückziehen</button></div>';
         } else if (broke) {
-          rb.style.display = '';
-          rb.innerHTML = '<button class="pm-rebuy-btn" onclick="pm_rebuyMe()">Wieder einsteigen · ' + STARTING_STACK + ' Chips</button>';
-        } else {
-          rb.style.display = 'none';
+          html = '<button class="pm-rebuy-btn" onclick="pm_rebuyMe()">Rebuy anfragen · ' + STARTING_STACK + ' Chips</button>';
         }
+
+        // Host sieht offene Anfragen der anderen
+        if (amHost) {
+          const open = Object.keys(reqs).filter(function(id) { return id !== mySelfId && state.players[id]; });
+          if (open.length) {
+            html += open.map(function(id) {
+              const nm = escapeHtml(state.players[id].name || '?');
+              return '<div class="pm-rebuy-req">' +
+                '<span><b>' + nm + '</b> möchte wieder einsteigen</span>' +
+                '<span class="pm-rebuy-actions">' +
+                  '<button class="ok" onclick="pm_approveRebuy(\'' + id + '\')">Erlauben</button>' +
+                  '<button class="no" onclick="pm_denyRebuy(\'' + id + '\')">Ablehnen</button>' +
+                '</span></div>';
+            }).join('');
+          }
+        }
+        rb.innerHTML = html;
+        rb.style.display = html ? '' : 'none';
       }
       const myCardKey = (me.cards || []).join(',');
       const cardsChanged = myCardKey !== renderMyArea._lastCards;
@@ -17543,6 +17592,9 @@ nextRound();
     window.pm_setRebuyAllowed = pm_setRebuyAllowed;
     window.pm_rebuyPlayer = pm_rebuyPlayer;
     window.pm_rebuyMe = pm_rebuyMe;
+    window.pm_cancelRebuy = pm_cancelRebuy;
+    window.pm_approveRebuy = pm_approveRebuy;
+    window.pm_denyRebuy = pm_denyRebuy;
     window.pm_giveChips = pm_giveChips;
     window.pm_setStack = pm_setStack;
     window.pm_toggleSitOut = pm_toggleSitOut;
