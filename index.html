@@ -3232,23 +3232,28 @@
   .pm-other-status.allin { color: #f0e4c8; }
 
   .pm-pot-display {
-    text-align: center;
-    margin: 0.4rem 0 0.3rem;
+    display: flex; align-items: baseline; justify-content: center; gap: 0.6rem;
+    width: fit-content; margin: 0.5rem auto 0.4rem;
+    padding: 0.4rem 1.15rem;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.14);
+    border-radius: 999px;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.12);
   }
   .pm-pot-label {
-    font-family: var(--display-font);
-    font-size: 0.7rem;
-    letter-spacing: 0.3em;
-    color: rgba(240,228,200,0.6);
+    font-family: var(--ui-font);
+    font-size: 0.62rem;
+    letter-spacing: 0.22em;
+    color: var(--pmc-dim);
     text-transform: uppercase;
   }
   .pm-pot-value {
     font-family: var(--num-font);
-    font-size: 1.8rem;
+    font-size: 1.5rem;
     color: var(--pmc-gold);
-    letter-spacing: 0.1em;
-    text-shadow: 0 0 18px rgba(255,215,0,0.4);
+    letter-spacing: 0.04em;
     line-height: 1;
+    font-variant-numeric: tabular-nums;
   }
 
   .pm-community {
@@ -7748,6 +7753,52 @@
   .app-poker.theme-glossy .poker-themes button:not(.active) { background: rgba(255,255,255,0.10); }
   .app-poker.theme-glossy .rules-link { background: rgba(255,255,255,0.10); }
 
+  /* --- Poker vs Bots: Lesbarkeit in den Glas-Themes --- */
+  body.gt-glass .app-poker-solo, body.gt-glasslight .app-poker-solo {
+    --pmc-text: var(--gl-text);
+    --pmc-dim:  var(--gl-dim);
+  }
+  body.gt-glass .app-poker-solo .ps-me-name, body.gt-glasslight .app-poker-solo .ps-me-name,
+  body.gt-glass .app-poker-solo .pm-other-name, body.gt-glasslight .app-poker-solo .pm-other-name,
+  body.gt-glass .app-poker-solo .pm-coach-hand, body.gt-glasslight .app-poker-solo .pm-coach-hand,
+  body.gt-glass .app-poker-solo .pm-coach-eq, body.gt-glasslight .app-poker-solo .pm-coach-eq,
+  body.gt-glass .app-poker-solo .ps-me-hand, body.gt-glasslight .app-poker-solo .ps-me-hand,
+  body.gt-glass .app-poker-solo .multi-topbar-code, body.gt-glasslight .app-poker-solo .multi-topbar-code {
+    color: var(--gl-text) !important;
+  }
+  body.gt-glass .app-poker-solo .multi-topbar-peers, body.gt-glasslight .app-poker-solo .multi-topbar-peers,
+  body.gt-glass .app-poker-solo .ps-bot-tag, body.gt-glasslight .app-poker-solo .ps-bot-tag,
+  body.gt-glass .app-poker-solo .pm-coach-tip, body.gt-glasslight .app-poker-solo .pm-coach-tip,
+  body.gt-glass .app-poker-solo .pm-coach-title, body.gt-glasslight .app-poker-solo .pm-coach-title,
+  body.gt-glass .app-poker-solo .pm-pot-label, body.gt-glasslight .app-poker-solo .pm-pot-label,
+  body.gt-glass .app-poker-solo .ps-pot-label, body.gt-glasslight .app-poker-solo .ps-pot-label,
+  body.gt-glass .app-poker-solo .ps-msg, body.gt-glasslight .app-poker-solo .ps-msg {
+    color: var(--gl-dim) !important;
+  }
+  /* Aktionsknöpfe brauchen im Hellen kräftigere Farben */
+  body.gt-glasslight .app-poker-solo .ps-btn { color: #16202c !important; font-weight: 700; }
+  body.gt-glasslight .app-poker-solo .ps-btn.fold {
+    background: rgba(214,48,49,0.16) !important; border-color: rgba(214,48,49,0.5) !important; color: #a3161c !important;
+  }
+  body.gt-glasslight .app-poker-solo .ps-btn.call {
+    background: rgba(37,99,235,0.14) !important; border-color: rgba(37,99,235,0.45) !important; color: #14428f !important;
+  }
+  body.gt-glasslight .app-poker-solo .ps-btn.raise {
+    background: linear-gradient(135deg,#15803d,#22c55e) !important; color: #fff !important; border-color: transparent !important;
+  }
+  /* leere Kartenplätze nicht als graue Klötze */
+  body.gt-glass .app-poker-solo .pm-card-empty, body.gt-glasslight .app-poker-solo .pm-card-empty {
+    background: rgba(255,255,255,0.10) !important;
+    border: 1.5px dashed var(--gl-edge) !important;
+    box-shadow: none !important;
+    -webkit-backdrop-filter: none; backdrop-filter: none;
+  }
+  body.gt-glasslight .app-poker-solo .pm-card-empty {
+    background: rgba(0,0,0,0.04) !important; border-color: rgba(0,0,0,0.18) !important;
+  }
+  /* Stack-Zahl bleibt Gold, aber im Hellen dunkler damit sie trägt */
+  body.gt-glasslight .app-poker-solo .ps-me-chips { color: #8a6a10 !important; }
+
   /* --- Chip-Stapel als reines CSS-Icon (rot) --- */
   .chip-ico {
     --chip-top:   #ef4b55;
@@ -7907,7 +7958,7 @@
 <!-- Admin toggle (hidden by default, shown after 5x title clicks) -->
 <button class="admin-toggle" id="adminToggleBtn" onclick="openAdminPanel()" style="display:none" aria-label="Admin-Panel öffnen" title="Admin-Panel">🔧</button>
 
-<div class="app-version" id="appVersion">v3.6.3</div>
+<div class="app-version" id="appVersion">v3.7.1</div>
 
 <!-- Admin toast -->
 <div class="admin-toast" id="adminToast"></div>
@@ -10571,7 +10622,11 @@
     if (!btn) return;
     const app = getCurrentAdminApp();
     const hasPanel = app && (window.adminAPI[app] || app === 'pokerMulti' || app === 'liarsbarMulti');
-    btn.style.display = (ADMIN.active && hasPanel) ? 'flex' : 'none';
+    // Hat die sichtbare App bereits einen Admin-Knopf in der Topbar,
+    // wird der schwebende nicht gebraucht (er überlagert sonst Inhalte).
+    const visibleApp = document.querySelector('.app.visible');
+    const inTopbar = !!(visibleApp && visibleApp.querySelector('.multi-admin-btn'));
+    btn.style.display = (ADMIN.active && hasPanel && !inTopbar) ? 'flex' : 'none';
   }
 
   function showAdminToast(msg) {
@@ -20413,8 +20468,7 @@ nextRound();
         + (me.id === bbId ? '<span class="pm-badge bb">BB</span>' : '');
       document.getElementById('psMyName').innerHTML =
         'Du' + (myBadges ? ' <span class="ps-badges inline">' + myBadges + '</span>' : '');
-      document.getElementById('psMyStack').innerHTML =
-        '<span class="ps-chip"><i class="chip-ico"></i>' + me.stack.toLocaleString('de-DE') + '</span>';
+      document.getElementById('psMyStack').textContent = me.stack.toLocaleString('de-DE');
       const betEl = document.getElementById('psMyBet');
       if (betEl) betEl.innerHTML = me.roundBet ? '<span class="ps-inpot">im Pot ' + me.roundBet + '</span>' : '';
       const myWrap = document.getElementById('psMyCards');
