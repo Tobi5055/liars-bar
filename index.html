@@ -8041,7 +8041,7 @@
 <!-- Admin toggle (hidden by default, shown after 5x title clicks) -->
 <button class="admin-toggle" id="adminToggleBtn" onclick="openAdminPanel()" style="display:none" aria-label="Admin-Panel öffnen" title="Admin-Panel">🔧</button>
 
-<div class="app-version" id="appVersion">v3.8.2</div>
+<div class="app-version" id="appVersion">v3.8.3</div>
 
 <!-- Admin toast -->
 <div class="admin-toast" id="adminToast"></div>
@@ -16522,72 +16522,80 @@ nextRound();
     }
 
     function advancePhase(newPlayers, newPot, lastActionData, actionLabel) {
+      // WICHTIG: Phase und Board werden lokal fortgeschrieben.
+      // Früher rief sich diese Funktion selbst auf und las die Phase erneut aus
+      // dem (noch unveränderten) state — dadurch endlose Rekursion und ein
+      // immer weiter wachsendes Board, sobald alle All-In waren.
       let phase = state.phase;
       let community = state.communityCards.slice();
 
-      if (phase === 'preflop') {
-        community.push(hostDeck.pop(), hostDeck.pop(), hostDeck.pop());
-        phase = 'flop';
-      } else if (phase === 'flop') {
-        community.push(hostDeck.pop());
-        phase = 'turn';
-      } else if (phase === 'turn') {
-        community.push(hostDeck.pop());
-        phase = 'river';
-      } else if (phase === 'river') {
-        // Showdown
-        return doShowdown(newPlayers, newPot, community, lastActionData, actionLabel);
-      }
-
-      // Reset roundBets
-      for (const id of state.seatOrder) {
-        if (newPlayers[id]) newPlayers[id].roundBet = 0;
-      }
-
-      // Find first to act post-flop: first non-folded, non-all-in player after dealer
-      let firstActIdx = -1;
-      for (let i = 1; i <= state.seatOrder.length; i++) {
-        const idx = (state.dealerIdx + i) % state.seatOrder.length;
-        const id = state.seatOrder[idx];
-        const p = newPlayers[id];
-        if (p && !p.folded && !p.allIn) { firstActIdx = idx; break; }
-      }
-
-      let queue = [];
-      if (firstActIdx >= 0) {
-        for (let i = 0; i < state.seatOrder.length; i++) {
-          const idx = (firstActIdx + i) % state.seatOrder.length;
-          const id = state.seatOrder[idx];
-          const p = newPlayers[id];
-          if (p && !p.folded && !p.allIn) queue.push(id);
+      for (let guard = 0; guard < 6; guard++) {
+        if (phase === 'preflop') {
+          community.push(hostDeck.pop(), hostDeck.pop(), hostDeck.pop());
+          phase = 'flop';
+        } else if (phase === 'flop') {
+          community.push(hostDeck.pop());
+          phase = 'turn';
+        } else if (phase === 'turn') {
+          community.push(hostDeck.pop());
+          phase = 'river';
+        } else {
+          return doShowdown(newPlayers, newPot, community, lastActionData, actionLabel);
         }
-      }
 
-      // If no queue (everyone all-in or folded except some), skip to next phase
-      if (queue.length === 0) {
-        // All remaining players are all-in or folded. Deal remaining community cards and showdown.
-        return advancePhase(newPlayers, newPot,
-          { by: lastActionData ? lastActionData.by : null, type: 'auto', amount: 0 },
-          actionLabel);
-      }
+        // Einsätze der Runde zurücksetzen
+        for (const id of state.seatOrder) {
+          if (newPlayers[id]) newPlayers[id].roundBet = 0;
+        }
 
-      return Object.assign({}, state, {
-        phase,
-        communityCards: community,
-        players: newPlayers,
-        pot: newPot,
-        currentBet: 0,
-        minRaise: BIG_BLIND,
-        currentPlayer: queue[0],
-        playersToAct: queue,
-        lastAction: {
-          by: (lastActionData && lastActionData.by) || null,
-          type: (lastActionData && lastActionData.type) || 'auto',
-          amount: (lastActionData && lastActionData.amount) || 0,
-          label: actionLabel || '',
-        },
-        pendingAction: null,
-      });
+        // Wer kann auf dieser Straße noch handeln?
+        let firstActIdx = -1;
+        for (let i = 1; i <= state.seatOrder.length; i++) {
+          const idx = (state.dealerIdx + i) % state.seatOrder.length;
+          const pl = newPlayers[state.seatOrder[idx]];
+          if (pl && !pl.folded && !pl.allIn) { firstActIdx = idx; break; }
+        }
+        let queue = [];
+        if (firstActIdx >= 0) {
+          for (let i = 0; i < state.seatOrder.length; i++) {
+            const idx = (firstActIdx + i) % state.seatOrder.length;
+            const id = state.seatOrder[idx];
+            const pl = newPlayers[id];
+            if (pl && !pl.folded && !pl.allIn) queue.push(id);
+          }
+        }
+
+        // Niemand kann mehr setzen → nächste Straße aufdecken (Schleife läuft weiter)
+        if (queue.length < 2) {
+          if (queue.length === 0) continue;
+          // genau einer könnte noch handeln, hat aber niemanden gegen sich
+          const others = state.seatOrder.filter(function(id) {
+            const pl = newPlayers[id];
+            return pl && !pl.folded && id !== queue[0];
+          });
+          if (others.every(function(id) { return newPlayers[id].allIn; })) continue;
+        }
+
+        return Object.assign({}, state, {
+          phase,
+          communityCards: community,
+          players: newPlayers,
+          pot: newPot,
+          currentBet: 0,
+          minRaise: BIG_BLIND,
+          currentPlayer: queue[0],
+          playersToAct: queue,
+          lastAction: {
+            by: (lastActionData && lastActionData.by) || null,
+            type: (lastActionData && lastActionData.type) || 'auto',
+            amount: (lastActionData && lastActionData.amount) || 0,
+            label: actionLabel || '',
+          },
+          pendingAction: null,
+        });
+      }
+      // Sicherheitsnetz: Board voll → auflösen
+      return doShowdown(newPlayers, newPot, community, lastActionData, actionLabel);
     }
 
     function doShowdown(newPlayers, newPot, community, lastActionData, actionLabel) {
