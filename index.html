@@ -8060,7 +8060,7 @@
 <!-- Admin toggle (hidden by default, shown after 5x title clicks) -->
 <button class="admin-toggle" id="adminToggleBtn" onclick="openAdminPanel()" style="display:none" aria-label="Admin-Panel öffnen" title="Admin-Panel">🔧</button>
 
-<div class="app-version" id="appVersion">v3.9.0</div>
+<div class="app-version" id="appVersion">v3.9.1</div>
 
 <!-- Admin toast -->
 <div class="admin-toast" id="adminToast"></div>
@@ -16252,11 +16252,16 @@ nextRound();
         return p && p.stack > 0 && !p.sittingOut;
       });
       if (playable.length < 2) {
-        // Game over
+        // Zu wenige Spieler mit Chips: NICHT sofort beenden, sondern pausieren —
+        // wer pleite ist, kann so noch einen Rebuy anfragen.
         const winnerId = playable[0] || state.seatOrder.find(id => state.players[id].stack > 0);
+        const brokeExists = state.seatOrder.some(function(id) {
+          const p = state.players[id];
+          return p && (p.stack || 0) <= 0;
+        });
         broadcast(Object.assign({}, state, {
-          phase: 'gameover',
-          showdown: winnerId ? { winners: [winnerId], gameOverWinner: winnerId } : null,
+          phase: brokeExists ? 'paused' : 'gameover',
+          showdown: (!brokeExists && winnerId) ? { winners: [winnerId], gameOverWinner: winnerId } : null,
           currentPlayer: null,
           playersToAct: [],
         }));
@@ -17211,6 +17216,7 @@ nextRound();
         river: 'RIVER',
         showdown: 'SHOWDOWN',
         gameover: 'GAME OVER',
+        paused: 'PAUSE',
         waiting: '—',
       }[state.phase] || '—';
       document.getElementById('pmPhase').textContent = phaseLabel;
@@ -17241,7 +17247,10 @@ nextRound();
       if (rb) {
         // Nur wer wirklich raus ist: keine Chips UND nicht mehr in der laufenden Hand.
         // Ein All-In-Spieler hat zwar 0 Chips, spielt aber noch mit!
-        const stillInHand = state.started && !me.folded && (me.allIn || (me.cards && me.cards.length > 0 && !me.sittingOut));
+        const handRunning = state.started && state.phase !== 'showdown'
+          && state.phase !== 'gameover' && state.phase !== 'paused';
+        const stillInHand = handRunning && !me.folded
+          && (me.allIn || (me.cards && me.cards.length > 0 && !me.sittingOut));
         const broke = (me.stack || 0) <= 0 && !me.allIn && !stillInHand;
         const reqs = state.rebuyRequests || {};
         const myReq = !!reqs[mySelfId];
@@ -17420,6 +17429,15 @@ nextRound();
       if (!state.started) {
         actions.style.display = 'none';
         waitingMsg.style.display = 'none';
+        return;
+      }
+      if (state.phase === 'paused') {
+        actions.style.display = 'none';
+        raisePanel.style.display = 'none';
+        waitingMsg.style.display = '';
+        waitingMsg.textContent = amHost
+          ? 'Pause — warte auf Rebuy, dann „Nächste Hand" im Menü'
+          : 'Pause — zu wenige Spieler mit Chips';
         return;
       }
       if (state.phase === 'showdown' || state.phase === 'gameover') {
