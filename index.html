@@ -6870,6 +6870,21 @@
   }
   .pmc-row button.active { background:rgba(255,255,255,0.22); border-color:rgba(255,255,255,0.5); color:#fff; font-weight:700; }
 
+  /* --- Wieder einsteigen (Selbstbedienung) --- */
+  .pm-rebuy-bar { margin: 0.6rem 0 0.2rem; }
+  .pm-rebuy-btn {
+    width: 100%; padding: 0.95rem; border-radius: 12px; border: none;
+    background: linear-gradient(135deg, var(--pmc-good2, #16a34a), var(--pmc-good, #4ade80));
+    color: #06210f; font-family: var(--ui-font); font-weight: 800; font-size: 1rem;
+    letter-spacing: 0.02em; cursor: pointer; box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+  }
+  .pm-rebuy-btn:active { transform: scale(0.98); }
+  .pm-rebuy-wait {
+    text-align: center; padding: 0.75rem; border-radius: 12px;
+    background: rgba(255,255,255,0.06); border: 1px dashed rgba(255,255,255,0.2);
+    font-family: var(--ui-font); font-size: 0.88rem; color: var(--pmc-dim);
+  }
+
   /* ====================== POKER MULTI — ADMIN TOOLS ====================== */
   .pm-adm-tools { grid-column: 1 / -1; display: flex; gap: 0.3rem; margin-top: 0.4rem; flex-wrap: wrap; }
   .pm-adm-tools button {
@@ -7755,51 +7770,111 @@
   .app-poker.theme-glossy .poker-themes button:not(.active) { background: rgba(255,255,255,0.10); }
   .app-poker.theme-glossy .rules-link { background: rgba(255,255,255,0.10); }
 
+  /* --- Poker vs Bots: eigene Themes (wie im Trainer) --- */
+  .app-poker-solo.pst-classic {
+    --pmc-bg1:#0a2e22; --pmc-bg2:#04140e; --pmc-accent:#d4a843;
+    --pmc-text:#f4ecd8; --pmc-dim:#c9bf9f; --pmc-gold:#d4a843;
+    --pmc-good:#6abf69; --pmc-good2:#3f8f4e; --pmc-bad:#e8776a;
+  }
+  .app-poker-solo.pst-modern {
+    --pmc-bg1:#141a26; --pmc-bg2:#05070b; --pmc-accent:#5b8dff;
+    --pmc-text:#e9eef7; --pmc-dim:#9aa6ba; --pmc-gold:#e8c15a;
+    --pmc-good:#3fb950; --pmc-good2:#1f7a34; --pmc-bad:#f0533f;
+  }
+  .app-poker-solo.pst-fancy {
+    --pmc-bg1:#232128; --pmc-bg2:#0b0b0d; --pmc-accent:#d9a679;
+    --pmc-text:#f0e9e2; --pmc-dim:#b3a89d; --pmc-gold:#e3bc7a;
+    --pmc-good:#7bbf8a; --pmc-good2:#4a8a5c; --pmc-bad:#cf8272;
+  }
+  .app-poker-solo.pst-glossy {
+    --pmc-bg1:#1b1f2a; --pmc-bg2:#0a0c12; --pmc-accent:#9dc0ff;
+    --pmc-text:#f6f8fc; --pmc-dim:rgba(246,248,252,0.66); --pmc-gold:#e8c15a;
+    --pmc-good:#4ade80; --pmc-good2:#16a34a; --pmc-bad:#f0533f;
+  }
+  .app-poker-solo.pst-light {
+    --pmc-bg1:#f7f8fc; --pmc-bg2:#e8ecf5; --pmc-accent:#2f5fd0;
+    --pmc-text:#141821; --pmc-dim:#5a5f6b; --pmc-gold:#8a6a10;
+    --pmc-good:#15803d; --pmc-good2:#0f5f2c; --pmc-bad:#b3261e;
+  }
+  /* eigener Hintergrund + Flächen, sobald ein eigenes Theme gewählt ist */
+  .app-poker-solo[class*="pst-"] {
+    background: linear-gradient(180deg, var(--pmc-bg1) 0%, var(--pmc-bg2) 100%) !important;
+    color: var(--pmc-text);
+  }
+  .app-poker-solo.pst-light .pm-other-player,
+  .app-poker-solo.pst-light .ps-me,
+  .app-poker-solo.pst-light .pm-coach,
+  .app-poker-solo.pst-light .multi-topbar,
+  .app-poker-solo.pst-light .ps-pot {
+    background: rgba(255,255,255,0.72) !important;
+    border-color: rgba(0,0,0,0.12) !important;
+    box-shadow: 0 2px 10px rgba(20,30,60,0.07) !important;
+  }
+  .app-poker-solo.pst-light .pm-card-empty {
+    background: rgba(0,0,0,0.04) !important; border: 1.5px dashed rgba(0,0,0,0.18) !important;
+  }
+  .app-poker-solo.pst-light .ps-btn { color: #16202c; }
+  .app-poker-solo.pst-light .ps-btn.fold { background: rgba(214,48,49,0.14); border-color: rgba(214,48,49,0.45); color: #a3161c; }
+  .app-poker-solo.pst-light .ps-btn.call { background: rgba(37,99,235,0.12); border-color: rgba(37,99,235,0.4); color: #14428f; }
+  .app-poker-solo.pst-light .ps-btn.raise { background: linear-gradient(135deg,#15803d,#22c55e); color:#fff; }
+  /* Eigenes Theme im Spiel schlägt das globale Design */
+  body.gt-glass .app-poker-solo[class*="pst-"],
+  body.gt-glasslight .app-poker-solo[class*="pst-"] {
+    background: linear-gradient(180deg, var(--pmc-bg1) 0%, var(--pmc-bg2) 100%) !important;
+  }
+  body.pso-own .app-poker-solo .pm-other-player,
+  body.pso-own .app-poker-solo .ps-me,
+  body.pso-own .app-poker-solo .pm-coach,
+  body.pso-own .app-poker-solo .multi-topbar,
+  body.pso-own .app-poker-solo .multi-modal {
+    -webkit-backdrop-filter: none !important; backdrop-filter: none !important;
+  }
+
   /* --- Poker vs Bots: Lesbarkeit in den Glas-Themes --- */
-  body.gt-glass .app-poker-solo, body.gt-glasslight .app-poker-solo {
+  body.gt-glass:not(.pso-own) .app-poker-solo, body.gt-glasslight:not(.pso-own) .app-poker-solo {
     --pmc-text: var(--gl-text);
     --pmc-dim:  var(--gl-dim);
   }
-  body.gt-glass .app-poker-solo .ps-me-name, body.gt-glasslight .app-poker-solo .ps-me-name,
-  body.gt-glass .app-poker-solo .pm-other-name, body.gt-glasslight .app-poker-solo .pm-other-name,
-  body.gt-glass .app-poker-solo .pm-coach-hand, body.gt-glasslight .app-poker-solo .pm-coach-hand,
-  body.gt-glass .app-poker-solo .pm-coach-eq, body.gt-glasslight .app-poker-solo .pm-coach-eq,
-  body.gt-glass .app-poker-solo .ps-me-hand, body.gt-glasslight .app-poker-solo .ps-me-hand,
-  body.gt-glass .app-poker-solo .multi-topbar-code, body.gt-glasslight .app-poker-solo .multi-topbar-code {
+  body.gt-glass:not(.pso-own) .app-poker-solo .ps-me-name, body.gt-glasslight:not(.pso-own) .app-poker-solo .ps-me-name,
+  body.gt-glass:not(.pso-own) .app-poker-solo .pm-other-name, body.gt-glasslight:not(.pso-own) .app-poker-solo .pm-other-name,
+  body.gt-glass:not(.pso-own) .app-poker-solo .pm-coach-hand, body.gt-glasslight:not(.pso-own) .app-poker-solo .pm-coach-hand,
+  body.gt-glass:not(.pso-own) .app-poker-solo .pm-coach-eq, body.gt-glasslight:not(.pso-own) .app-poker-solo .pm-coach-eq,
+  body.gt-glass:not(.pso-own) .app-poker-solo .ps-me-hand, body.gt-glasslight:not(.pso-own) .app-poker-solo .ps-me-hand,
+  body.gt-glass:not(.pso-own) .app-poker-solo .multi-topbar-code, body.gt-glasslight:not(.pso-own) .app-poker-solo .multi-topbar-code {
     color: var(--gl-text) !important;
   }
-  body.gt-glass .app-poker-solo .multi-topbar-peers, body.gt-glasslight .app-poker-solo .multi-topbar-peers,
-  body.gt-glass .app-poker-solo .ps-bot-tag, body.gt-glasslight .app-poker-solo .ps-bot-tag,
-  body.gt-glass .app-poker-solo .pm-coach-tip, body.gt-glasslight .app-poker-solo .pm-coach-tip,
-  body.gt-glass .app-poker-solo .pm-coach-title, body.gt-glasslight .app-poker-solo .pm-coach-title,
-  body.gt-glass .app-poker-solo .pm-pot-label, body.gt-glasslight .app-poker-solo .pm-pot-label,
-  body.gt-glass .app-poker-solo .ps-pot-label, body.gt-glasslight .app-poker-solo .ps-pot-label,
-  body.gt-glass .app-poker-solo .ps-msg, body.gt-glasslight .app-poker-solo .ps-msg {
+  body.gt-glass:not(.pso-own) .app-poker-solo .multi-topbar-peers, body.gt-glasslight:not(.pso-own) .app-poker-solo .multi-topbar-peers,
+  body.gt-glass:not(.pso-own) .app-poker-solo .ps-bot-tag, body.gt-glasslight:not(.pso-own) .app-poker-solo .ps-bot-tag,
+  body.gt-glass:not(.pso-own) .app-poker-solo .pm-coach-tip, body.gt-glasslight:not(.pso-own) .app-poker-solo .pm-coach-tip,
+  body.gt-glass:not(.pso-own) .app-poker-solo .pm-coach-title, body.gt-glasslight:not(.pso-own) .app-poker-solo .pm-coach-title,
+  body.gt-glass:not(.pso-own) .app-poker-solo .pm-pot-label, body.gt-glasslight:not(.pso-own) .app-poker-solo .pm-pot-label,
+  body.gt-glass:not(.pso-own) .app-poker-solo .ps-pot-label, body.gt-glasslight:not(.pso-own) .app-poker-solo .ps-pot-label,
+  body.gt-glass:not(.pso-own) .app-poker-solo .ps-msg, body.gt-glasslight:not(.pso-own) .app-poker-solo .ps-msg {
     color: var(--gl-dim) !important;
   }
   /* Aktionsknöpfe brauchen im Hellen kräftigere Farben */
-  body.gt-glasslight .app-poker-solo .ps-btn { color: #16202c !important; font-weight: 700; }
-  body.gt-glasslight .app-poker-solo .ps-btn.fold {
+  body.gt-glasslight:not(.pso-own) .app-poker-solo .ps-btn { color: #16202c !important; font-weight: 700; }
+  body.gt-glasslight:not(.pso-own) .app-poker-solo .ps-btn.fold {
     background: rgba(214,48,49,0.16) !important; border-color: rgba(214,48,49,0.5) !important; color: #a3161c !important;
   }
-  body.gt-glasslight .app-poker-solo .ps-btn.call {
+  body.gt-glasslight:not(.pso-own) .app-poker-solo .ps-btn.call {
     background: rgba(37,99,235,0.14) !important; border-color: rgba(37,99,235,0.45) !important; color: #14428f !important;
   }
-  body.gt-glasslight .app-poker-solo .ps-btn.raise {
+  body.gt-glasslight:not(.pso-own) .app-poker-solo .ps-btn.raise {
     background: linear-gradient(135deg,#15803d,#22c55e) !important; color: #fff !important; border-color: transparent !important;
   }
   /* leere Kartenplätze nicht als graue Klötze */
-  body.gt-glass .app-poker-solo .pm-card-empty, body.gt-glasslight .app-poker-solo .pm-card-empty {
+  body.gt-glass:not(.pso-own) .app-poker-solo .pm-card-empty, body.gt-glasslight:not(.pso-own) .app-poker-solo .pm-card-empty {
     background: rgba(255,255,255,0.10) !important;
     border: 1.5px dashed var(--gl-edge) !important;
     box-shadow: none !important;
     -webkit-backdrop-filter: none; backdrop-filter: none;
   }
-  body.gt-glasslight .app-poker-solo .pm-card-empty {
+  body.gt-glasslight:not(.pso-own) .app-poker-solo .pm-card-empty {
     background: rgba(0,0,0,0.04) !important; border-color: rgba(0,0,0,0.18) !important;
   }
   /* Stack-Zahl bleibt Gold, aber im Hellen dunkler damit sie trägt */
-  body.gt-glasslight .app-poker-solo .ps-me-chips { color: #8a6a10 !important; }
+  body.gt-glasslight:not(.pso-own) .app-poker-solo .ps-me-chips { color: #8a6a10 !important; }
 
   /* --- Chip-Stapel als reines CSS-Icon (rot) --- */
   .chip-ico {
@@ -7960,7 +8035,7 @@
 <!-- Admin toggle (hidden by default, shown after 5x title clicks) -->
 <button class="admin-toggle" id="adminToggleBtn" onclick="openAdminPanel()" style="display:none" aria-label="Admin-Panel öffnen" title="Admin-Panel">🔧</button>
 
-<div class="app-version" id="appVersion">v3.7.2</div>
+<div class="app-version" id="appVersion">v3.8.0</div>
 
 <!-- Admin toast -->
 <div class="admin-toast" id="adminToast"></div>
@@ -9407,6 +9482,7 @@
     <button class="pm-coach-on" id="pmCoachOn" onclick="pm_toggleCoach()" style="display:none">🎓 Anfänger-Hilfe einblenden</button>
 
     <!-- Action buttons -->
+    <div class="pm-rebuy-bar" id="pmRebuyBar" style="display:none"></div>
     <div class="pm-actions" id="pmActions">
       <button class="pm-action-btn pm-action-fold" id="pmFoldBtn" onclick="pm_fold()">FOLD</button>
       <button class="pm-action-btn pm-action-call" id="pmCallBtn" onclick="pm_callOrCheck()">CALL</button>
@@ -10085,7 +10161,19 @@
     <div class="multi-modal-bd" id="psMenu" onclick="if(event.target===this) ps_closeMenu()">
       <div class="multi-modal">
         <div class="multi-modal-title">EINSTELLUNGEN</div>
-        <div class="multi-settings-label">TEMPO</div>
+        <div class="multi-settings-label">DESIGN</div>
+        <div class="ps-seg ps-theme-seg" id="psThemeSeg">
+          <button data-v="auto"    onclick="ps_setTheme('auto')">Global</button>
+          <button data-v="classic" onclick="ps_setTheme('classic')">Klassisch</button>
+          <button data-v="modern"  onclick="ps_setTheme('modern')">Modern</button>
+        </div>
+        <div class="ps-seg ps-theme-seg" style="margin-top:0.35rem">
+          <button data-v="fancy"  onclick="ps_setTheme('fancy')">Fancy</button>
+          <button data-v="glossy" onclick="ps_setTheme('glossy')">Glossy</button>
+          <button data-v="light"  onclick="ps_setTheme('light')">Hell</button>
+        </div>
+
+        <div class="multi-settings-label" style="margin-top:0.8rem">TEMPO</div>
         <div class="ps-seg" id="psSpeed">
           <button data-v="schnell" onclick="ps_setSpeed('schnell')">Schnell</button>
           <button data-v="normal" onclick="ps_setSpeed('normal')">Normal</button>
@@ -15970,6 +16058,11 @@ nextRound();
 
         // If I'm host, process pending action
         // (Dedup happens inside processPendingAction via stale-check, not via ts)
+        // Rebuy-Wünsche der Spieler zuerst abarbeiten (unabhängig vom Spielstand)
+        if (amHost && state.rebuyRequest) {
+          processRebuyRequest(state.rebuyRequest);
+          return;
+        }
         if (amHost && state.pendingAction && state.started) {
           processPendingAction(state.pendingAction);
           return;  // processPendingAction broadcasts; listener will refire
@@ -16253,6 +16346,27 @@ nextRound();
       });
       state = newState;
       broadcast(newState);
+    }
+
+    // Ein Spieler ohne Chips kauft sich selbst wieder ein.
+    function processRebuyRequest(req) {
+      if (!amHost || !req || !req.by) return;
+      const np = JSON.parse(JSON.stringify(state.players));
+      const p = np[req.by];
+      if (p) {
+        p.stack = (p.stack || 0) + STARTING_STACK;
+        p.sittingOut = false;
+        p.pendingJoin = true;   // steigt zur nächsten Hand ein
+        p.folded = true;        // laufende Hand nicht stören
+      }
+      broadcast(Object.assign({}, state, { players: np, rebuyRequest: null }));
+    }
+    function pm_rebuyMe() {
+      const me = state.players[mySelfId];
+      if (!me || me.stack > 0) return;
+      const { set, ref, db } = window.FB;
+      set(ref(db, `sessions/${myCode}/state/rebuyRequest`), { by: mySelfId, ts: Date.now() });
+      showToast('Du steigst zur nächsten Hand wieder ein');
     }
 
     function processPendingAction(action) {
@@ -17080,6 +17194,18 @@ nextRound();
     function renderMyArea() {
       const me = state.players[mySelfId];
       if (!me) return;
+      // Ohne Chips: gut sichtbarer Wieder-einsteigen-Knopf, ohne Admin/Host
+      const rb = document.getElementById('pmRebuyBar');
+      if (rb) {
+        const broke = (me.stack || 0) <= 0 && !me.pendingJoin;
+        rb.style.display = broke ? '' : 'none';
+        if (me.pendingJoin) {
+          rb.style.display = '';
+          rb.innerHTML = '<div class="pm-rebuy-wait">Du bist ab der nächsten Hand wieder dabei.</div>';
+        } else if (broke) {
+          rb.innerHTML = '<button class="pm-rebuy-btn" onclick="pm_rebuyMe()">Wieder einsteigen · ' + STARTING_STACK + ' Chips</button>';
+        }
+      }
       const myCardKey = (me.cards || []).join(',');
       const cardsChanged = myCardKey !== renderMyArea._lastCards;
       renderMyArea._lastCards = myCardKey;
@@ -17392,6 +17518,7 @@ nextRound();
     window.pm_setLateJoin = pm_setLateJoin;
     window.pm_setRebuyAllowed = pm_setRebuyAllowed;
     window.pm_rebuyPlayer = pm_rebuyPlayer;
+    window.pm_rebuyMe = pm_rebuyMe;
     window.pm_giveChips = pm_giveChips;
     window.pm_setStack = pm_setStack;
     window.pm_toggleSitOut = pm_toggleSitOut;
@@ -20150,7 +20277,7 @@ nextRound();
 
     // ===================== UI =====================
     const CFG_KEY = 'ps-cfg-v1';
-    let cfg = { bots: 3, diff: 'normal', start: 1000, coach: true, speed: 'normal' };
+    let cfg = { bots: 3, diff: 'normal', start: 1000, coach: true, speed: 'normal', theme: 'auto' };
     try { const sv = JSON.parse(localStorage.getItem(CFG_KEY)); if (sv) cfg = Object.assign(cfg, sv); } catch (e) {}
     function saveCfg() { try { localStorage.setItem(CFG_KEY, JSON.stringify(cfg)); } catch (e) {} }
 
@@ -20538,17 +20665,31 @@ nextRound();
         `Gegen ${opp} Gegner (fair: ${Math.round(fair * 100)}%).` + (call > 0 ? ` Pot Odds: ${odds}% — ${pct >= odds ? 'Call lohnt sich' : 'Call ist teuer'}.` : ' ' + tip);
     }
 
+    // eigene Themes — 'auto' folgt dem globalen Design
+    function ps_setTheme(v) {
+      cfg.theme = v; saveCfg();
+      const el = document.getElementById('appPokerSolo');
+      if (el) {
+        el.classList.remove('pst-classic','pst-modern','pst-fancy','pst-glossy','pst-light');
+        if (v !== 'auto') el.classList.add('pst-' + v);
+        document.body.classList.toggle('pso-own', v !== 'auto');
+      }
+      document.querySelectorAll('.ps-theme-seg button').forEach(function(b) {
+        b.classList.toggle('active', b.dataset.v === v);
+      });
+    }
     function ps_setSpeed(v) {
       cfg.speed = v; saveCfg();
       document.querySelectorAll('#psSpeed button').forEach(b => b.classList.toggle('active', b.dataset.v === v));
     }
     function ps_openMenu() {
       document.querySelectorAll('#psSpeed button').forEach(b => b.classList.toggle('active', b.dataset.v === cfg.speed));
+      document.querySelectorAll('.ps-theme-seg button').forEach(b => b.classList.toggle('active', b.dataset.v === (cfg.theme || 'auto')));
       document.getElementById('psMenu').classList.add('active');
     }
     function ps_closeMenu() { document.getElementById('psMenu').classList.remove('active'); }
 
-    function ps_init() { ps_syncSetup(); if (!E) { document.getElementById('psSetup').style.display = ''; document.getElementById('psGame').style.display = 'none'; } }
+    function ps_init() { ps_setTheme(cfg.theme || 'auto'); ps_syncSetup(); if (!E) { document.getElementById('psSetup').style.display = ''; document.getElementById('psGame').style.display = 'none'; } }
     const origSwitch = window.switchApp;
     window.switchApp = function(n) { const r = origSwitch(n); if (n === 'pokerSolo') ps_init(); return r; };
 
@@ -20559,7 +20700,7 @@ nextRound();
     window.ps_cancelRaise = ps_cancelRaise; window.ps_confirmRaise = ps_confirmRaise;
     window.ps_next = ps_next; window.ps_openMenu = ps_openMenu; window.ps_closeMenu = ps_closeMenu;
     window.ps_rebuy = ps_rebuy; window.ps_renderAll = ps_renderAll;
-    window.ps_syncSetup = ps_syncSetup; window.ps_setSpeed = ps_setSpeed;
+    window.ps_syncSetup = ps_syncSetup; window.ps_setSpeed = ps_setSpeed; window.ps_setTheme = ps_setTheme;
     window.ps_addName = ps_addName; window.ps_delName = ps_delName;
     window.ps_resetNames = ps_resetNames; window.ps_shuffleNames = ps_shuffleNames;
   })();
