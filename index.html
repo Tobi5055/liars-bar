@@ -8041,7 +8041,7 @@
 <!-- Admin toggle (hidden by default, shown after 5x title clicks) -->
 <button class="admin-toggle" id="adminToggleBtn" onclick="openAdminPanel()" style="display:none" aria-label="Admin-Panel öffnen" title="Admin-Panel">🔧</button>
 
-<div class="app-version" id="appVersion">v3.8.1</div>
+<div class="app-version" id="appVersion">v3.8.2</div>
 
 <!-- Admin toast -->
 <div class="admin-toast" id="adminToast"></div>
@@ -17203,13 +17203,18 @@ nextRound();
       // Ohne Chips: gut sichtbarer Wieder-einsteigen-Knopf, ohne Admin/Host
       const rb = document.getElementById('pmRebuyBar');
       if (rb) {
-        const broke = (me.stack || 0) <= 0 && !me.pendingJoin;
-        rb.style.display = broke ? '' : 'none';
+        // Nur wer wirklich raus ist: keine Chips UND nicht mehr in der laufenden Hand.
+        // Ein All-In-Spieler hat zwar 0 Chips, spielt aber noch mit!
+        const stillInHand = state.started && !me.folded && (me.allIn || (me.cards && me.cards.length > 0 && !me.sittingOut));
+        const broke = (me.stack || 0) <= 0 && !me.allIn && !stillInHand;
         if (me.pendingJoin) {
           rb.style.display = '';
           rb.innerHTML = '<div class="pm-rebuy-wait">Du bist ab der nächsten Hand wieder dabei.</div>';
         } else if (broke) {
+          rb.style.display = '';
           rb.innerHTML = '<button class="pm-rebuy-btn" onclick="pm_rebuyMe()">Wieder einsteigen · ' + STARTING_STACK + ' Chips</button>';
+        } else {
+          rb.style.display = 'none';
         }
       }
       const myCardKey = (me.cards || []).join(',');
