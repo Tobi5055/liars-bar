@@ -8240,7 +8240,7 @@
 <!-- Admin toggle (hidden by default, shown after 5x title clicks) -->
 <button class="admin-toggle" id="adminToggleBtn" onclick="openAdminPanel()" style="display:none" aria-label="Admin-Panel öffnen" title="Admin-Panel">🔧</button>
 
-<div class="app-version" id="appVersion">v3.12.0</div>
+<div class="app-version" id="appVersion">v3.12.1</div>
 
 <!-- Admin toast -->
 <div class="admin-toast" id="adminToast"></div>
@@ -22042,7 +22042,7 @@ nextRound();
     function clone(o){return JSON.parse(JSON.stringify(o));}
 
     let state={app:'duell',phase:'lobby',players:{},seatOrder:[]};
-    let mySelfId=getSelfId(),myCode=null,amHost=false,inSession=false,inWaiting=true;
+    let mySelfId=getSelfId(),gmId='gm_'+getSelfId(),isGMDevice=false,myCode=null,amHost=false,inSession=false,inWaiting=true;
     let unsubSession=null,sessionRef=null,peerRef=null;
 
     function showError(m){const e=document.getElementById('dgError');if(!e)return;e.textContent=m;clearTimeout(showError._t);showError._t=setTimeout(()=>e.textContent='',5000);}
@@ -22058,8 +22058,8 @@ nextRound();
       if(ci&&!code){showError('Code: 3–6 Zeichen');return;}
       const{db,ref,get,set}=window.FB;
       try{const ex=await get(ref(db,'sessions/'+code));if(ex.exists()){const v=ex.val();if(Object.keys(v.peers||{}).length===0)await window.FB.remove(ref(db,'sessions/'+code));else{showError(`Code ${code} ist aktiv`);return;}}}catch(e){showError('Fehler');return;}
-      const initial={app:'duell',host:mySelfId,phase:'lobby',players:{},seatOrder:[],qOrder:shuffle(Q.map((_,i)=>i)),qPos:-1,dealerIdx:-1,stage:0,handNo:0,createdAt:Date.now()};
-      try{await set(ref(db,'sessions/'+code),{state:initial,writerId:mySelfId});myCode=code;amHost=true;await joinListeners(code,name);switchToWaiting();}catch(e){showError('Fehlgeschlagen: '+(e.message||e));}
+      const initial={app:'duell',host:gmId,phase:'lobby',players:{},seatOrder:[],qOrder:shuffle(Q.map((_,i)=>i)),qPos:-1,dealerIdx:-1,stage:0,handNo:0,createdAt:Date.now()};
+      try{await set(ref(db,'sessions/'+code),{state:initial,writerId:mySelfId});myCode=code;amHost=true;isGMDevice=true;await joinListeners(code,name);switchToWaiting();}catch(e){showError('Fehlgeschlagen: '+(e.message||e));}
     }
     async function dg_join(){
       if(!window.FB){showError('Firebase noch nicht geladen');return;}
@@ -22070,23 +22070,24 @@ nextRound();
         const data=snap.val();if(Object.keys(data.peers||{}).length===0&&!isSessionResumable(data)){await window.FB.remove(ref(db,'sessions/'+code));showError('War abgelaufen');return;}
         if(data.state&&data.state.app!=='duell'){showError('Andere App');return;}
         const players=(data.state&&data.state.players)||{};
-        const isGM=data.state&&data.state.host===mySelfId; // Spielleiter-Gerät kommt zurück (z.B. nach Reload)
+        // Spielleiter-Gerät kommt zurück (z.B. nach Reload). Läuft es noch, ist das hier das Handy derselben Person → normaler Spieler
+        const isGM=!!(data.state&&data.state.host===gmId&&!(data.peers||{})[gmId]);
         if(isGM){}
         else if(!players[mySelfId]){if(Object.keys(players).length>=MAX_PLAYERS){showError('Voll');return;}await update(ref(db,`sessions/${code}/state/players/${mySelfId}`),newPlayer(name));}
         else await update(ref(db,`sessions/${code}/state/players/${mySelfId}`),{name,left:null});
-        myCode=code;amHost=isGM;await joinListeners(code,isGM?'Spielleiter':name);
+        myCode=code;amHost=isGM;isGMDevice=isGM;await joinListeners(code,isGM?'Spielleiter':name);
         if(data.state.phase&&data.state.phase!=='lobby')switchToGame();else switchToWaiting();
       }catch(e){showError('Fehlgeschlagen: '+(e.message||e));}
     }
     async function joinListeners(code,name){
       try { window.saveActiveSession && saveActiveSession('duell', code); } catch (e) {}
       const{db,ref,onValue,set,onDisconnect}=window.FB;
-      sessionRef=ref(db,'sessions/'+code);peerRef=ref(db,`sessions/${code}/peers/${mySelfId}`);
+      sessionRef=ref(db,'sessions/'+code);peerRef=ref(db,`sessions/${code}/peers/${isGMDevice?gmId:mySelfId}`);
       await set(peerRef,{name,lastSeen:Date.now()});onDisconnect(peerRef).remove();
       unsubSession=onValue(sessionRef,(snap)=>{
         if(!snap.exists()){showError('Session beendet');dg_leave();return;}
         const ns=snap.val().state||{};ns.seatOrder=toArray(ns.seatOrder);ns.qOrder=toArray(ns.qOrder);ns.players=ns.players||{};
-        state=ns;amHost=(state.host===mySelfId);document.body.classList.toggle('mp-host',amHost);
+        state=ns;amHost=isGMDevice&&state.host===gmId;document.body.classList.toggle('mp-host',amHost);
         if(state.phase!=='lobby'&&inWaiting)switchToGame();
         if(state.phase==='lobby'&&!inWaiting&&inSession)switchToWaiting();
         if(amHost&&hostTick())return;
@@ -22102,7 +22103,7 @@ nextRound();
       if(sessionRef&&window.FB){try{const snap=await get(sessionRef);if(snap.exists()){const d=snap.val();const rp=Object.keys(d.peers||{});
         if(amHost||rp.length===0)await remove(sessionRef); // ohne Spielleiter-Gerät endet die Runde
         else if(d.state&&d.state.phase&&d.state.phase!=='lobby')await update(pRef(mySelfId),{left:true,folded:true});else await remove(pRef(mySelfId));}}catch(e){}}
-      sessionRef=null;peerRef=null;unsubSession=null;inSession=false;myCode=null;amHost=false;switchToLobby();
+      sessionRef=null;peerRef=null;unsubSession=null;inSession=false;myCode=null;amHost=false;isGMDevice=false;switchToLobby();
     }
     function switchToLobby(){document.getElementById('dgLobby').style.display='';document.getElementById('dgWaiting').style.display='none';document.getElementById('dgGame').style.display='none';document.getElementById('dgName').value=getStoredName();inWaiting=false;document.body.classList.add('in-multi-lobby');}
     function switchToWaiting(){document.getElementById('dgLobby').style.display='none';document.getElementById('dgWaiting').style.display='';document.getElementById('dgGame').style.display='none';inWaiting=true;document.body.classList.remove('in-multi-lobby');renderWaiting();}
