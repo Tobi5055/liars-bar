@@ -1846,6 +1846,57 @@
   .dg-rebuy-req button { padding: 0.3rem 0.6rem; border: none; border-radius: 6px; font-family: var(--ui-font); font-size: 0.72rem; font-weight: 700; cursor: pointer; }
   .dg-rebuy-ok { background: #15803d; color: #fff; } .dg-rebuy-no { background: #991b1b; color: #fff; }
 
+  /* Duell: Spieler-Status (Handy) */
+  .dg-status { border-radius: 16px; padding: 1.1rem 0.9rem; text-align: center; margin: 0.4rem 0 0.6rem; border: 2px solid transparent; }
+  .dg-status-big { font-family: var(--ui-font); font-weight: 800; font-size: 1.9rem; letter-spacing: 0.04em; line-height: 1.1; }
+  .dg-status-sub { font-family: var(--ui-font); font-size: 0.88rem; margin-top: 0.35rem; opacity: 0.92; line-height: 1.5; }
+  .dg-status-sub .dg-role { display: inline-block; vertical-align: middle; }
+  .dg-status.in { background: linear-gradient(145deg,#0f6b3f,#12a35c); border-color: #4ade80; color: #fff; box-shadow: 0 0 26px rgba(34,197,94,0.35); }
+  .dg-status.out { background: linear-gradient(145deg,#3a1414,#5c1a1a); border-color: #b91c1c; color: #fecaca; }
+  .dg-status.tip { background: rgba(232,182,76,0.12); border-color: rgba(232,182,76,0.6); color: #ffe9a8; }
+  .dg-status.wait { background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.2); color: #cbd5e1; }
+  .dg-status.win { background: linear-gradient(145deg,#8a6414,#e8c45c); border-color: #ffe9a8; color: #1a1205; box-shadow: 0 0 30px rgba(232,182,76,0.5); }
+  .dg-mytip { display: flex; align-items: baseline; justify-content: space-between; background: rgba(0,0,0,0.35); border: 1px solid rgba(232,182,76,0.3); border-radius: 12px; padding: 0.6rem 0.9rem; margin: 0.4rem 0; }
+  .dg-mytip span { font-family: var(--ui-font); font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; color: #9fb8a8; }
+  .dg-mytip b { font-family: var(--num-font); font-size: 1.9rem; color: #e8c45c; letter-spacing: 0.03em; }
+  .dg-foldbtn { width: 100%; margin: 0.4rem 0 0.6rem; padding: 1rem 0.3rem; font-size: 0.95rem; }
+
+  /* Duell: Spielleiter-Gerät (Tablet) */
+  .multi-game.dg-gm { max-width: 1100px; }
+  .dg-gm-players { display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center; margin: 0.3rem 0 0.8rem; }
+  .dg-gm-player { min-width: 104px; flex: 0 1 auto; background: rgba(0,0,0,0.35); border: 2px solid rgba(74,222,128,0.45); border-radius: 12px; padding: 0.5rem 0.8rem; text-align: center; cursor: pointer; transition: opacity 0.2s, border-color 0.2s; }
+  .dg-gm-player.ready { border-color: #4ade80; background: rgba(34,197,94,0.14); }
+  .dg-gm-player.acting { border-color: #e8c45c; box-shadow: 0 0 18px rgba(232,182,76,0.45); }
+  .dg-gm-player.out { opacity: 0.4; border-color: rgba(185,28,28,0.7); }
+  .dg-gm-player.out .dg-gm-pname { text-decoration: line-through; }
+  .dg-gm-pname { font-family: var(--ui-font); font-weight: 700; font-size: clamp(0.95rem,1.9vw,1.35rem); color: #f0f8f2; white-space: nowrap; }
+  .dg-gm-ptag { font-family: var(--ui-font); font-size: clamp(0.66rem,1.2vw,0.85rem); letter-spacing: 0.08em; text-transform: uppercase; color: #9fb8a8; min-height: 1em; }
+  .dg-gm-player.out .dg-gm-ptag { color: #fca5a5; font-weight: 700; }
+  .dg-gm-q { background: linear-gradient(145deg,rgba(14,38,26,0.9),rgba(6,18,12,0.9)); border: 2px solid rgba(232,182,76,0.4); border-radius: 20px; padding: clamp(1rem,3vw,2.2rem); text-align: center; }
+  .dg-gm-qtext { font-family: var(--ui-font); font-weight: 700; font-size: clamp(1.6rem,4.6vw,3.4rem); line-height: 1.2; color: #fff; margin-top: 0.4rem; }
+  .dg-gm-unit { font-family: var(--ui-font); font-size: clamp(0.95rem,2vw,1.4rem); color: #9fb8a8; margin-top: 0.6rem; }
+  .dg-gm-unit b { color: #e8c45c; }
+  .dg-gm-hints { display: grid; grid-template-columns: 1fr 1fr; gap: 0.7rem; margin: 0.8rem 0; }
+  @media (max-width: 640px) { .dg-gm-hints { grid-template-columns: 1fr; } }
+  .dg-gm-hint { border-radius: 16px; padding: clamp(0.8rem,2.2vw,1.5rem); text-align: left; min-height: clamp(6rem,14vw,9.5rem); font: inherit; color: inherit; display: flex; flex-direction: column; justify-content: center; }
+  .dg-gm-hint.open { background: rgba(232,182,76,0.1); border: 2px solid rgba(232,182,76,0.6); animation: dgFlip 0.45s ease; }
+  .dg-gm-hint.closed { background: rgba(255,255,255,0.04); border: 2px dashed rgba(232,182,76,0.55); cursor: pointer; text-align: center; align-items: center; }
+  .dg-gm-hint.closed:disabled { border-color: rgba(255,255,255,0.15); cursor: default; opacity: 0.55; }
+  .dg-gm-hint.closed:not(:disabled):active { background: rgba(232,182,76,0.16); }
+  .dg-gm-hint.closed:not(:disabled) .dg-gm-hinttext { color: #e8c45c; font-weight: 700; }
+  .dg-gm-hinttext { font-family: var(--ui-font); font-size: clamp(1.1rem,2.7vw,2rem); line-height: 1.3; color: #eef6f0; margin-top: 0.3rem; }
+  .dg-gm-status { text-align: center; font-family: var(--ui-font); font-size: clamp(1.1rem,2.6vw,1.8rem); color: #d8e8de; margin: 0.6rem 0; }
+  .dg-gm-status b { color: #e8c45c; }
+  .dg-gm-sub { font-family: var(--ui-font); font-size: clamp(0.85rem,1.7vw,1.15rem); color: #9fb8a8; font-weight: 400; }
+  .dg-gm-reveal { display: block; width: 100%; max-width: 640px; margin: 0.8rem auto; padding: clamp(1rem,2.4vw,1.5rem); border: none; border-radius: 16px; cursor: pointer; background: linear-gradient(135deg,#9a7020,#e8c45c); color: #1a1205; font-family: var(--ui-font); font-weight: 800; letter-spacing: 0.1em; font-size: clamp(1.1rem,2.6vw,1.7rem); }
+  .dg-gm-reveal:active { transform: scale(0.98); }
+  .dg-gm-answer { background: linear-gradient(145deg,rgba(60,45,8,0.95),rgba(30,22,4,0.95)); border: 3px solid #e8c45c; border-radius: 20px; padding: clamp(0.9rem,2.4vw,1.8rem); text-align: center; box-shadow: 0 0 40px rgba(232,182,76,0.3); animation: dgFlip 0.45s ease; }
+  .dg-gm-answerval { font-family: var(--display-font); font-size: clamp(2.3rem,7vw,5.2rem); color: #ffe9a8; line-height: 1.15; }
+  .dg-gm-winner { text-align: center; font-family: var(--ui-font); font-weight: 800; font-size: clamp(1.6rem,4.2vw,3rem); color: #e8c45c; margin: 0.9rem 0 0.5rem; }
+  .dg-gm-results { max-width: 760px; margin: 0 auto; }
+  .dg-gm .dg-result-name { font-size: clamp(0.95rem,2vw,1.35rem); } .dg-gm .dg-result-guess { font-size: clamp(1.3rem,2.8vw,2rem); } .dg-gm .dg-result-dev { font-size: clamp(0.75rem,1.5vw,1rem); min-width: 9em; }
+  .dg-gm-foot { text-align: center; font-family: var(--ui-font); font-size: 0.78rem; color: #64748b; margin-top: 0.8rem; }
+
   /* ====================== IMPOSTOR SOLO ====================== */
   .app-imps {
     background: radial-gradient(circle at 50% 0%, #2a1208 0%, #1a0a0a 55%, #0a0505 100%);
@@ -8189,7 +8240,7 @@
 <!-- Admin toggle (hidden by default, shown after 5x title clicks) -->
 <button class="admin-toggle" id="adminToggleBtn" onclick="openAdminPanel()" style="display:none" aria-label="Admin-Panel öffnen" title="Admin-Panel">🔧</button>
 
-<div class="app-version" id="appVersion">v3.11.0</div>
+<div class="app-version" id="appVersion">v3.12.0</div>
 
 <!-- Admin toast -->
 <div class="admin-toast" id="adminToast"></div>
@@ -10566,25 +10617,23 @@
     <div class="multi-lobby-title" onclick="handleAdminTitleClick()" style="cursor:pointer">
       <span class="multi-lobby-emoji">💰</span><span>Duell um die Geld</span><span class="multi-tag">MULTI</span>
     </div>
-    <div class="multi-lobby-sub">Schätzen, setzen, bluffen · 2–8 Spieler</div>
+    <div class="multi-lobby-sub">Schätzen, setzen, bluffen · echte Chips · 2–8 Spieler</div>
     <button class="rules-link" onclick="showGameRules('duell')">📖 So wird gespielt</button>
     <div class="multi-lobby-section">
-      <label class="multi-lobby-label">DEIN NAME</label>
-      <input type="text" class="multi-input" id="dgName" maxlength="14" placeholder="z.B. Tobi" autocomplete="off">
-    </div>
-    <div class="multi-lobby-section">
-      <label class="multi-lobby-label">💰 NEUE RUNDE</label>
-      <div class="multi-lobby-row">
-        <input type="text" class="multi-input multi-code-in" id="dgCreateCode" maxlength="6" placeholder="(zufällig)" autocomplete="off" autocapitalize="characters">
-        <button class="multi-action-btn" onclick="dg_create()">ERSTELLEN</button>
-      </div>
-    </div>
-    <div class="multi-lobby-section">
-      <label class="multi-lobby-label">BEITRETEN</label>
+      <label class="multi-lobby-label">📱 MITSPIELEN (HANDY)</label>
+      <input type="text" class="multi-input" id="dgName" maxlength="14" placeholder="Dein Name" autocomplete="off" style="margin-bottom:0.5rem">
       <div class="multi-lobby-row">
         <input type="text" class="multi-input multi-code-in" id="dgJoinCode" maxlength="6" placeholder="CODE" autocomplete="off" autocapitalize="characters">
         <button class="multi-action-btn" onclick="dg_join()">BEITRETEN</button>
       </div>
+    </div>
+    <div class="multi-lobby-section">
+      <label class="multi-lobby-label">🖥 SPIELLEITER-GERÄT (TABLET)</label>
+      <div class="multi-lobby-row">
+        <input type="text" class="multi-input multi-code-in" id="dgCreateCode" maxlength="6" placeholder="(zufällig)" autocomplete="off" autocapitalize="characters">
+        <button class="multi-action-btn" onclick="dg_create()">ERSTELLEN</button>
+      </div>
+      <div class="pm-waiting-hint" style="margin-top:0.4rem">Liegt für alle sichtbar auf dem Tisch, zeigt Fragen und Hinweise groß und spielt selbst nicht mit.</div>
     </div>
     <div class="multi-lobby-error" id="dgError"></div>
   </div>
@@ -10600,9 +10649,9 @@
       <button class="pm-mini-btn" onclick="dg_copyCode()">📋 Kopieren</button>
       <div class="pm-waiting-section-label">SPIELER <span id="dgWaitCount">0/8</span></div>
       <div class="pm-waiting-players" id="dgWaitPlayers"></div>
-      <div class="pm-waiting-hint" style="margin-top:0.8rem">Gesetzt wird mit echten Chips am Tisch. Das Handy ist nur für den geheimen Tipp, die Hinweise und die Auflösung.</div>
+      <div class="pm-waiting-hint" style="margin-top:0.8rem">Gesetzt wird mit echten Chips am Tisch. Fragen und Hinweise laufen groß auf dem Spielleiter-Gerät, am Handy gibt jeder nur seinen Tipp ein.</div>
       <button class="pm-start-btn g-start-btn dg-btn" id="dgStartBtn" onclick="dg_startGame()">SPIEL STARTEN</button>
-      <div class="pm-waiting-hint" id="dgWaitHint">Mindestens 2 Spieler · nur Host kann starten</div>
+      <div class="pm-waiting-hint" id="dgWaitHint">Mindestens 2 Spieler</div>
     </div>
     <div class="multi-modal-bd" id="dgSettingsWaitModal" onclick="if(event.target===this) dg_closeSettingsWait()">
       <div class="multi-modal g-modal dg-modal"><div class="multi-modal-title">EINSTELLUNGEN</div>
@@ -10621,7 +10670,7 @@
     <div class="dg-content" id="dgContent"></div>
     <div class="multi-modal-bd" id="dgSettingsModal" onclick="if(event.target===this) dg_closeSettings()">
       <div class="multi-modal g-modal dg-modal"><div class="multi-modal-title">EINSTELLUNGEN</div>
-        <div class="multi-settings-label" id="dgHostOnlyLabel">HOST</div>
+        <div class="multi-settings-label" id="dgHostOnlyLabel">SPIELLEITER</div>
         <button class="multi-settings-btn-full" id="dgSkipBtn" onclick="dg_skipQuestion()">⏭ Frage überspringen</button>
         <button class="multi-settings-btn-full multi-danger" id="dgResetBtn" onclick="dg_resetGame()" style="display:none">Zurück zur Lobby</button>
         <div class="multi-settings-label" style="margin-top:1rem">SESSION</div>
@@ -12106,17 +12155,17 @@
       <p>Wer zuerst alle eigenen Wörter aufgedeckt hat, gewinnt.</p>` },
     duell: { title: 'Duell um die Geld', body: `
       <div class="gr-goal"><b>Ziel:</b> Am besten schätzen — oder so setzen, dass alle anderen aussteigen.</div>
-      <p>Gesetzt wird mit <b>echten Chips am Tisch</b>. Das Handy ist nur für den geheimen Tipp, die Hinweise und die Auflösung.</p>
+      <p>Ein <b>Tablet als Spielleiter</b> liegt auf dem Tisch und zeigt Fragen und Hinweise groß. Jeder Spieler gibt am <b>eigenen Handy</b> nur seinen geheimen Tipp ein. Gesetzt wird mit <b>echten Chips</b>.</p>
       <div class="gr-h">Ablauf einer Frage</div>
       <ul>
-        <li>Die App zeigt <b>Dealer (D)</b>, <b>Small Blind (SB)</b> und <b>Big Blind (BB)</b> — Blinds setzen</li>
+        <li>Das Tablet zeigt <b>Dealer (D)</b>, <b>Small Blind (SB)</b> und <b>Big Blind (BB)</b> — Blinds setzen</li>
         <li><b>Schätzfrage</b> erscheint → jeder loggt geheim seinen Tipp ein (nicht mehr änderbar)</li>
-        <li><b>1. Setzrunde</b> am Tisch, dann deckt der Host den <b>1. Hinweis</b> auf</li>
+        <li><b>1. Setzrunde</b>, dann am Tablet den <b>1. Hinweis</b> antippen</li>
         <li><b>2. Setzrunde</b>, dann <b>2. Hinweis</b></li>
-        <li><b>3. Setzrunde</b>, dann <b>Auflösung</b> → wer von den Verbliebenen am nächsten dran ist, kassiert den Pot</li>
+        <li><b>3. Setzrunde</b>, dann <b>Auflösen</b> → wer von den Verbliebenen am nächsten dran ist, kassiert den Pot</li>
       </ul>
       <div class="gr-h">Setzen</div>
-      <p>Wie beim Poker: Checken, Setzen, Erhöhen, Mitgehen oder Passen. Die App zeigt, wer die Setzrunde eröffnet. Wer passt, tippt auf <b>„Ich passe"</b>, damit er bei der Auflösung nicht mitzählt.</p>
+      <p>Wie beim Poker: Checken, Setzen, Erhöhen, Mitgehen oder Passen. Wer passt, tippt am Handy auf <b>„Ich passe"</b> — das Handy zeigt dann groß <b>DU BIST RAUS</b>, sonst <b>DU BIST DABEI</b>. Am Tablet kann man Spieler auch antippen, um sie rauszunehmen.</p>
       <p>Passen alle bis auf einen, gewinnt der sofort — und muss seinen Tipp nicht zeigen. Gleich nah dran? Pot teilen. Die Blinds wandern jede Frage einen Platz weiter.</p>` },
   };
   function showGameRules(key) {
@@ -21995,7 +22044,6 @@ nextRound();
     let state={app:'duell',phase:'lobby',players:{},seatOrder:[]};
     let mySelfId=getSelfId(),myCode=null,amHost=false,inSession=false,inWaiting=true;
     let unsubSession=null,sessionRef=null,peerRef=null;
-    let foldArmed=0;
 
     function showError(m){const e=document.getElementById('dgError');if(!e)return;e.textContent=m;clearTimeout(showError._t);showError._t=setTimeout(()=>e.textContent='',5000);}
     function showToast(m){let t=document.getElementById('mpToast');if(!t){t=document.createElement('div');t.id='mpToast';t.className='mp-toast';document.body.appendChild(t);}t.textContent=m;t.classList.add('show');clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('show'),2500);}
@@ -22005,12 +22053,12 @@ nextRound();
 
     async function dg_create(){
       if(!window.FB){showError('Firebase noch nicht geladen');return;}
-      const name=(document.getElementById('dgName').value.trim())||('Spieler '+mySelfId.slice(2,6));setStoredName(name);
+      const name='Spielleiter';
       const ci=document.getElementById('dgCreateCode').value.trim();let code=ci?validateCode(ci):genCode();
       if(ci&&!code){showError('Code: 3–6 Zeichen');return;}
       const{db,ref,get,set}=window.FB;
       try{const ex=await get(ref(db,'sessions/'+code));if(ex.exists()){const v=ex.val();if(Object.keys(v.peers||{}).length===0)await window.FB.remove(ref(db,'sessions/'+code));else{showError(`Code ${code} ist aktiv`);return;}}}catch(e){showError('Fehler');return;}
-      const initial={app:'duell',host:mySelfId,phase:'lobby',players:{[mySelfId]:newPlayer(name)},seatOrder:[],qOrder:shuffle(Q.map((_,i)=>i)),qPos:-1,dealerIdx:-1,stage:0,handNo:0,createdAt:Date.now()};
+      const initial={app:'duell',host:mySelfId,phase:'lobby',players:{},seatOrder:[],qOrder:shuffle(Q.map((_,i)=>i)),qPos:-1,dealerIdx:-1,stage:0,handNo:0,createdAt:Date.now()};
       try{await set(ref(db,'sessions/'+code),{state:initial,writerId:mySelfId});myCode=code;amHost=true;await joinListeners(code,name);switchToWaiting();}catch(e){showError('Fehlgeschlagen: '+(e.message||e));}
     }
     async function dg_join(){
@@ -22022,9 +22070,11 @@ nextRound();
         const data=snap.val();if(Object.keys(data.peers||{}).length===0&&!isSessionResumable(data)){await window.FB.remove(ref(db,'sessions/'+code));showError('War abgelaufen');return;}
         if(data.state&&data.state.app!=='duell'){showError('Andere App');return;}
         const players=(data.state&&data.state.players)||{};
-        if(!players[mySelfId]){if(Object.keys(players).length>=MAX_PLAYERS){showError('Voll');return;}await update(ref(db,`sessions/${code}/state/players/${mySelfId}`),newPlayer(name));}
+        const isGM=data.state&&data.state.host===mySelfId; // Spielleiter-Gerät kommt zurück (z.B. nach Reload)
+        if(isGM){}
+        else if(!players[mySelfId]){if(Object.keys(players).length>=MAX_PLAYERS){showError('Voll');return;}await update(ref(db,`sessions/${code}/state/players/${mySelfId}`),newPlayer(name));}
         else await update(ref(db,`sessions/${code}/state/players/${mySelfId}`),{name,left:null});
-        myCode=code;amHost=(data.state.host===mySelfId);await joinListeners(code,name);
+        myCode=code;amHost=isGM;await joinListeners(code,isGM?'Spielleiter':name);
         if(data.state.phase&&data.state.phase!=='lobby')switchToGame();else switchToWaiting();
       }catch(e){showError('Fehlgeschlagen: '+(e.message||e));}
     }
@@ -22049,14 +22099,14 @@ nextRound();
       const{remove,update,get}=window.FB||{};
       try{if(unsubSession)unsubSession();}catch(e){}
       try{if(peerRef&&remove)await remove(peerRef);}catch(e){}
-      if(sessionRef&&window.FB){try{const snap=await get(sessionRef);if(snap.exists()){const d=snap.val();const rp=Object.keys(d.peers||{});if(rp.length===0)await remove(sessionRef);else{
-        if(d.state&&d.state.phase&&d.state.phase!=='lobby')await update(pRef(mySelfId),{left:true,folded:true});else await remove(pRef(mySelfId));
-        if(amHost)await update(sRef(),{host:rp[0]});}}}catch(e){}}
+      if(sessionRef&&window.FB){try{const snap=await get(sessionRef);if(snap.exists()){const d=snap.val();const rp=Object.keys(d.peers||{});
+        if(amHost||rp.length===0)await remove(sessionRef); // ohne Spielleiter-Gerät endet die Runde
+        else if(d.state&&d.state.phase&&d.state.phase!=='lobby')await update(pRef(mySelfId),{left:true,folded:true});else await remove(pRef(mySelfId));}}catch(e){}}
       sessionRef=null;peerRef=null;unsubSession=null;inSession=false;myCode=null;amHost=false;switchToLobby();
     }
     function switchToLobby(){document.getElementById('dgLobby').style.display='';document.getElementById('dgWaiting').style.display='none';document.getElementById('dgGame').style.display='none';document.getElementById('dgName').value=getStoredName();inWaiting=false;document.body.classList.add('in-multi-lobby');}
     function switchToWaiting(){document.getElementById('dgLobby').style.display='none';document.getElementById('dgWaiting').style.display='';document.getElementById('dgGame').style.display='none';inWaiting=true;document.body.classList.remove('in-multi-lobby');renderWaiting();}
-    function switchToGame(){document.getElementById('dgLobby').style.display='none';document.getElementById('dgWaiting').style.display='none';document.getElementById('dgGame').style.display='';inWaiting=false;document.body.classList.remove('in-multi-lobby');renderAll();}
+    function switchToGame(){document.getElementById('dgLobby').style.display='none';document.getElementById('dgWaiting').style.display='none';document.getElementById('dgGame').style.display='';document.getElementById('dgGame').classList.toggle('dg-gm',amHost);inWaiting=false;document.body.classList.remove('in-multi-lobby');renderAll();}
     function dg_copyCode(){if(!myCode)return;try{navigator.clipboard.writeText(myCode);showToast('Code kopiert');}catch(e){}}
 
     // Sitzreihenfolge in der Lobby = Reihenfolge am Tisch (im Uhrzeigersinn)
@@ -22070,11 +22120,11 @@ nextRound();
       document.getElementById('dgWaitCode').textContent=myCode||'—';document.getElementById('dgWaitCodeBig').textContent=myCode||'—';
       const p=state.players||{};const ids=lobbyOrder();
       document.getElementById('dgWaitCount').textContent=`${ids.length}/${MAX_PLAYERS}`;
-      document.getElementById('dgWaitPlayers').innerHTML=ids.map((id,i)=>{const me=id===mySelfId,h=id===state.host;
-        const mv=amHost?`<span style="margin-left:auto;display:flex;gap:0.25rem;align-items:center;align-self:center">${h?'👑':''}<button class="pm-mini-btn" style="padding:0.1rem 0.5rem" onclick="dg_moveSeat('${id}',-1)"${i===0?' disabled':''}>▲</button><button class="pm-mini-btn" style="padding:0.1rem 0.5rem" onclick="dg_moveSeat('${id}',1)"${i===ids.length-1?' disabled':''}>▼</button></span>`:(h?'<span style="margin-left:auto">👑</span>':'');
+      document.getElementById('dgWaitPlayers').innerHTML=ids.map((id,i)=>{const me=id===mySelfId;
+        const mv=amHost?`<span style="margin-left:auto;display:flex;gap:0.25rem;align-items:center;align-self:center"><button class="pm-mini-btn" style="padding:0.1rem 0.5rem" onclick="dg_moveSeat('${id}',-1)"${i===0?' disabled':''}>▲</button><button class="pm-mini-btn" style="padding:0.1rem 0.5rem" onclick="dg_moveSeat('${id}',1)"${i===ids.length-1?' disabled':''}>▼</button></span>`:'';
         return `<div class="pm-waiting-player ${me?'me':''}"><span>${i+1}. ${esc(p[id].name)}${me?' (du)':''}</span>${mv}</div>`;}).join('');
       const sb=document.getElementById('dgStartBtn'),hint=document.getElementById('dgWaitHint');
-      if(amHost){sb.style.display='';sb.disabled=ids.length<MIN_PLAYERS;hint.textContent=ids.length<MIN_PLAYERS?`Min. ${MIN_PLAYERS} Spieler`:'Reihenfolge mit ▲▼ wie am Tisch sortieren (im Uhrzeigersinn)';}else{sb.style.display='none';hint.textContent='Warte auf den Host...';}
+      if(amHost){sb.style.display='';sb.disabled=ids.length<MIN_PLAYERS;hint.textContent=ids.length<MIN_PLAYERS?`Min. ${MIN_PLAYERS} Spieler`:'Reihenfolge mit ▲▼ wie am Tisch sortieren (im Uhrzeigersinn)';}else{sb.style.display='none';hint.textContent='Warte auf den Spielleiter…';}
     }
 
     // ---------------- Logik ----------------
@@ -22109,10 +22159,9 @@ nextRound();
     }
     // Host: läuft bei jedem Update. true = es wurde geschrieben.
     function hostTick(){
-      if(state.phase!=='guess'&&state.phase!=='play')return false;
+      if(state.phase!=='guess')return false;
       const act=activeIds(state);
-      if(act.length<=1){window.FB.update(sRef(),{phase:'showdown',stage:3,showdown:{single:true},lastUpdate:Date.now()});return true;}
-      if(state.phase==='guess'&&act.every(id=>state.players[id].guessLocked)){window.FB.update(sRef(),{phase:'play',stage:0,lastUpdate:Date.now()});return true;}
+      if(act.length>=1&&act.every(id=>state.players[id].guessLocked)){window.FB.update(sRef(),{phase:'play',stage:0,lastUpdate:Date.now()});return true;}
       return false;
     }
     async function broadcast(ns){if(!sessionRef||!window.FB)return;ns.lastUpdate=Date.now();state=ns;try{await window.FB.set(sRef(),deepClean(ns));}catch(e){console.error('[DG]',e);}}
@@ -22134,17 +22183,21 @@ nextRound();
     function dg_preview(){const el=document.getElementById('dgGuessIn'),o=document.getElementById('dgGuessPrev');if(!el||!o)return;const v=parseNum(el.value,curQ());o.innerHTML=isNaN(v)?'':'zählt als <b>'+fmtGuess(v,curQ())+'</b>';}
     function dg_fold(){
       const me=state.players[mySelfId];if(!me||!me.inHand||me.folded||state.phase!=='play')return;
-      if(Date.now()-foldArmed>4000){foldArmed=Date.now();renderAll();setTimeout(()=>{if(Date.now()-foldArmed>=3900)renderAll();},4100);return;}
-      foldArmed=0;window.FB.update(pRef(mySelfId),{folded:true});
+      window.FB.update(pRef(mySelfId),{folded:true});
+    }
+    function dg_unfold(){
+      const me=state.players[mySelfId];if(!me||!me.inHand||!me.folded||state.phase!=='play')return;
+      window.FB.update(pRef(mySelfId),{folded:false});
     }
     function dg_toggleFold(id){
       if(!amHost)return;const p=state.players[id];if(!p||!p.inHand||p.left)return;
-      if(state.phase==='play'||(state.phase==='guess'&&!p.guessLocked))window.FB.update(pRef(id),{folded:!p.folded});
+      if(state.phase==='play'||state.phase==='guess')window.FB.update(pRef(id),{folded:!p.folded});
     }
     function dg_advance(){
       if(!amHost||state.phase!=='play')return;
-      if((state.stage||0)<2)window.FB.update(sRef(),{stage:(state.stage||0)+1,lastUpdate:Date.now()});
-      else window.FB.update(sRef(),{phase:'showdown',stage:3,showdown:{single:false},lastUpdate:Date.now()});
+      const single=activeIds(state).length<=1;
+      if(!single&&(state.stage||0)<2)window.FB.update(sRef(),{stage:(state.stage||0)+1,lastUpdate:Date.now()});
+      else window.FB.update(sRef(),{phase:'showdown',stage:3,showdown:{single},lastUpdate:Date.now()});
     }
     function dg_skipQuestion(){if(!amHost)return;dg_closeSettings();if(state.phase==='lobby')return;broadcast(startHand(clone(state)));showToast('Neue Frage');}
 
@@ -22153,95 +22206,123 @@ nextRound();
     function unitOf(q){let u=String(q.a).replace(/\(.*\)/g,'').replace(/ca\.|[\d.,]/g,'').trim();if(/^Mio/.test(u)&&q.v>=1e6)u=u.replace(/^Mio\.?\s*/,'');return u;}
     function nameOf(id){const p=state.players[id];return p?p.name:'?';}
     function badge(t){return `<span class="dg-role dg-role-${t.toLowerCase()}">${t}</span>`;}
-
-    function renderBank(r){
-      const order=state.seatOrder.slice();Object.keys(state.players).forEach(id=>{if(!order.includes(id))order.push(id);});
-      const live=state.phase==='guess'||state.phase==='play';
-      return `<div class="dg-bankrow">`+order.map(id=>{
-        const p=state.players[id];if(!p)return '';
-        let tag='',cls='';
-        if(p.left){tag='weg';cls='folded';}
-        else if(!p.inHand){tag='ab nächster Frage';cls='waiting';}
-        else if(p.folded){tag='gepasst';cls='folded';}
-        else if(state.phase==='guess'){tag=p.guessLocked?'✓ Tipp':'tippt…';cls=p.guessLocked?'locked':'waiting';}
-        else if(state.phase==='play'){tag=id===r.first?'eröffnet':'dabei';cls=id===r.first?'bet':'locked';}
-        const b=(id===r.d?badge('D'):'')+(id===r.sb?badge('SB'):'')+(id===r.bb?badge('BB'):'');
-        const out=p.left||!p.inHand||p.folded;
-        const tap=(amHost&&live&&p.inHand&&!p.left)?` onclick="dg_toggleFold('${id}')" style="cursor:pointer"`:'';
-        return `<div class="dg-bank ${id===mySelfId?'me':''} ${state.phase==='play'&&id===r.first?'acting':''} ${out?'out':''}"${tap}><div class="dg-bank-name">${esc(p.name)}${id===state.host?' 👑':''}</div><div class="dg-bank-roles">${b||'&nbsp;'}</div><div class="dg-bank-tag ${cls}">${tag}</div></div>`;
-      }).join('')+`</div>`;
+    function results(){
+      const q=curQ();
+      const rows=state.seatOrder.filter(id=>state.players[id]&&state.players[id].inHand).map(id=>{const p=state.players[id];const g=dec(p.guess);return {id,p,g,out:!!(p.folded||p.left),dev:isNaN(g)?Infinity:Math.abs(g-q.v)};});
+      const live=rows.filter(x=>!x.out);
+      const best=live.length?Math.min(...live.map(x=>x.dev)):Infinity;
+      const winners=live.filter(x=>live.length===1||x.dev===best);
+      rows.sort((a,b)=>(a.out-b.out)||(a.dev===b.dev?0:(a.dev<b.dev?-1:1)));
+      return {rows,winners,q};
     }
-    function renderQuestion(){
-      const q=curQ();const st=state.stage||0;
-      let h=`<div class="dg-qcard"><span class="dg-qcat">${esc(q.c)}</span><div class="dg-qtext">${esc(q.q)}</div>${unitOf(q)&&st<3?`<div class="dg-pot-sub" style="margin-top:0.3rem">Antwort in: <b>${esc(unitOf(q))}</b></div>`:''}`;
-      h+=`<div class="dg-stages">${[0,1,2,3].map(i=>`<div class="dg-stagedot ${i<st?'done':i===st?'now':''}"></div>`).join('')}</div></div>`;
-      if(st>=1)h+=`<div class="dg-hint"><div class="dg-hint-label">1. Hinweis</div><div class="dg-hint-text">${esc(q.h1)}</div></div>`;
-      if(st>=2)h+=`<div class="dg-hint"><div class="dg-hint-label">2. Hinweis</div><div class="dg-hint-text">${esc(q.h2)}</div></div>`;
-      if(st>=3)h+=`<div class="dg-answer"><div class="dg-answer-label">Auflösung</div><div class="dg-answer-val">${esc(q.a)}</div></div>`;
+    function resultRows(R,single){
+      return R.rows.map(x=>{
+        const hide=single&&!x.out&&x.id!==mySelfId; // wer alle rausblufft, muss nicht zeigen
+        const win=R.winners.includes(x);
+        return `<div class="dg-result-row ${win?'win':''} ${x.out?'folded':''}"><div class="dg-result-name">${win?'🏆 ':''}${esc(x.p.name)}${x.id===mySelfId?' (du)':''}${x.out?' · raus':''}</div><div class="dg-result-guess">${hide?'?':fmtGuess(x.g,R.q)}</div><div class="dg-result-dev">${hide?'':(isFinite(x.dev)?'Δ '+nf.format(Math.round(x.dev*100)/100):'kein Tipp')}</div></div>`;
+      }).join('');
+    }
+
+    // ===== Spielleiter-Gerät (Tablet): alles groß, keine Eingabe =====
+    function renderGM(r){
+      const q=curQ(),ph=state.phase,st=state.stage||0,sd=state.showdown||{};
+      const act=activeIds(state);const missing=act.filter(id=>!state.players[id].guessLocked);
+      const order=state.seatOrder.slice();Object.keys(state.players).forEach(id=>{if(!order.includes(id))order.push(id);});
+      let h=`<div class="dg-gm-players">`+order.map(id=>{
+        const p=state.players[id];if(!p)return '';
+        const out=p.left||!p.inHand||p.folded;
+        let tag=p.left?'weg':!p.inHand?'nächste Frage':p.folded?'RAUS':ph==='guess'?(p.guessLocked?'✓ Tipp drin':'tippt…'):ph==='play'?(id===r.first?'eröffnet':'dabei'):'';
+        const b=(id===r.d?badge('D'):'')+(id===r.sb?badge('SB'):'')+(id===r.bb?badge('BB'):'');
+        const tap=(ph!=='showdown'&&p.inHand&&!p.left)?` onclick="dg_toggleFold('${id}')"`:'';
+        return `<div class="dg-gm-player ${out?'out':''} ${ph==='play'&&id===r.first?'acting':''} ${ph==='guess'&&p.guessLocked&&!out?'ready':''}"${tap}><div class="dg-gm-pname">${esc(p.name)}</div><div class="dg-bank-roles">${b||'&nbsp;'}</div><div class="dg-gm-ptag">${tag}</div></div>`;
+      }).join('')+`</div>`;
+      h+=`<div class="dg-gm-q"><span class="dg-qcat">${esc(q.c)}</span><div class="dg-gm-qtext">${esc(q.q)}</div>${unitOf(q)&&st<3?`<div class="dg-gm-unit">Antwort in <b>${esc(unitOf(q))}</b></div>`:''}</div>`;
+      const single=act.length<=1&&ph==='play';
+      const hint=(n,txt)=>{
+        if(st>=n)return `<div class="dg-gm-hint open"><div class="dg-hint-label">${n}. Hinweis</div><div class="dg-gm-hinttext">${esc(txt)}</div></div>`;
+        const can=ph==='play'&&st===n-1&&!single;
+        return `<button class="dg-gm-hint closed" ${can?'onclick="dg_advance()"':'disabled'}><div class="dg-hint-label">${n}. Hinweis</div><div class="dg-gm-hinttext">${can?'👆 Tippen zum Aufdecken':'🔒'}</div></button>`;
+      };
+      h+=`<div class="dg-gm-hints">${hint(1,q.h1)}${hint(2,q.h2)}</div>`;
+      if(ph==='guess'){
+        h+=`<div class="dg-gm-status">Alle tippen geheim am Handy · <b>${act.length-missing.length}/${act.length}</b> drin${missing.length?`<br><span class="dg-gm-sub">Fehlt noch: ${missing.map(id=>esc(nameOf(id))).join(', ')}</span>`:''}</div>`;
+        if(r.sb&&r.bb)h+=`<div class="dg-gm-sub" style="text-align:center">Blinds: <b>${esc(nameOf(r.sb))}</b> Small · <b>${esc(nameOf(r.bb))}</b> Big</div>`;
+      } else if(ph==='play'){
+        if(single)h+=`<div class="dg-gm-status">Nur noch <b>${act.length?esc(nameOf(act[0])):'niemand'}</b> dabei</div><button class="dg-gm-reveal" onclick="dg_advance()">${act.length?esc(nameOf(act[0]))+' GEWINNT · AUFLÖSEN':'AUFLÖSEN'}</button>`;
+        else{
+          h+=`<div class="dg-gm-status">Setzrunde ${st+1}${r.first?` · <b>${esc(nameOf(r.first))}</b> eröffnet`:''}</div>`;
+          if(st>=2)h+=`<button class="dg-gm-reveal" onclick="dg_advance()">AUFLÖSEN</button>`;
+        }
+      } else if(ph==='showdown'){
+        const R=results();
+        h+=`<div class="dg-gm-answer"><div class="dg-answer-label">Auflösung</div><div class="dg-gm-answerval">${esc(q.a)}</div></div>`;
+        if(R.winners.length)h+=`<div class="dg-gm-winner">🏆 ${R.winners.map(x=>esc(x.p.name)).join(' & ')}<div class="dg-gm-sub">${sd.single?'Alle anderen sind raus – Pot kassieren':(R.winners.length>1?'Gleich nah dran – Pot teilen':'Am nächsten dran – Pot kassieren')}</div></div>`;
+        h+=`<div class="dg-gm-results">${resultRows(R,sd.single)}</div>`;
+        h+=`<button class="dg-gm-reveal" onclick="dg_next()">NÄCHSTE FRAGE</button>`;
+      }
+      if(ph!=='showdown')h+=`<div class="dg-gm-foot">Spieler antippen = rausnehmen / zurückholen</div>`;
       return h;
     }
-    function renderGuessPhase(me,r){
+
+    // ===== Spieler-Handy: Tipp eingeben + klarer Status =====
+    function renderPlayer(me,r){
+      const q=curQ(),ph=state.phase,st=state.stage||0,sd=state.showdown||{};
+      if(!me)return `<div class="g-wait-box">Du bist nicht in dieser Runde.</div>`;
+      const myRole=mySelfId===r.sb&&mySelfId===r.d?'Dealer + Small Blind':mySelfId===r.sb?'Small Blind':mySelfId===r.bb?'Big Blind':mySelfId===r.d?'Dealer':'';
+      const roleBadges=(mySelfId===r.d?badge('D'):'')+(mySelfId===r.sb?badge('SB'):'')+(mySelfId===r.bb?badge('BB'):'');
+      const qbox=`<div class="dg-qcard"><span class="dg-qcat">${esc(q.c)}</span><div class="dg-qtext">${esc(q.q)}</div>${unitOf(q)&&st<3?`<div class="dg-pot-sub" style="margin-top:0.3rem">Antwort in: <b>${esc(unitOf(q))}</b></div>`:''}</div>`;
       let h='';
-      const act=activeIds(state);const missing=act.filter(id=>!state.players[id].guessLocked);
-      if(r.sb&&r.bb)h+=`<div class="dg-lastact">Blinds setzen: <b>${esc(nameOf(r.sb))}</b> Small · <b>${esc(nameOf(r.bb))}</b> Big</div>`;
-      if(me&&me.inHand&&!me.folded){
+      if(!me.inHand)return `<div class="dg-status wait"><div class="dg-status-big">GLEICH DABEI</div><div class="dg-status-sub">Du steigst bei der nächsten Frage ein</div></div>`+qbox;
+      if(ph==='guess'){
+        if(me.folded)return `<div class="dg-status out"><div class="dg-status-big">DU BIST RAUS</div><div class="dg-status-sub">Diese Frage setzt du aus</div></div>`+qbox;
         if(!me.guessLocked){
-          h+=`<div class="dg-turn">Dein geheimer Tipp</div><input class="dg-guess-in" id="dgGuessIn" inputmode="decimal" autocomplete="off" placeholder="Zahl" oninput="dg_preview()" onkeydown="if(event.key==='Enter')dg_lockGuess()"><div class="dg-guess-mine" id="dgGuessPrev" style="min-height:1.5em"></div>`;
+          h+=`<div class="dg-status tip"><div class="dg-status-big">DEIN TIPP</div><div class="dg-status-sub">${myRole?`${roleBadges} Du bist ${myRole}${/Blind/.test(myRole)?' – Blind setzen':''}`:'Geheim eingeben, niemand sieht ihn'}</div></div>`+qbox;
+          h+=`<input class="dg-guess-in" id="dgGuessIn" inputmode="decimal" autocomplete="off" placeholder="Zahl" oninput="dg_preview()" onkeydown="if(event.key==='Enter')dg_lockGuess()"><div class="dg-guess-mine" id="dgGuessPrev" style="min-height:1.5em"></div>`;
           h+=`<button class="g-btn dg-btn" onclick="dg_lockGuess()">TIPP EINLOGGEN</button>`;
           h+=`<div class="pm-waiting-hint">Nur die Zahl, ohne Einheit. „Mio“ und „Tsd“ werden verstanden. Danach nicht mehr änderbar.</div>`;
         } else {
-          h+=`<div class="dg-guess-mine">Dein Tipp: <b>${fmtGuess(dec(me.guess),curQ())}</b></div>`;
-          h+=`<div class="g-wait-box">Warte auf ${missing.map(id=>esc(nameOf(id))).join(', ')||'…'}</div>`;
+          h+=`<div class="dg-status in"><div class="dg-status-big">✓ TIPP IST DRIN</div><div class="dg-status-sub">Warte auf die anderen${myRole?` · ${roleBadges} ${myRole}`:''}</div></div>`;
+          h+=`<div class="dg-mytip"><span>Dein Tipp</span><b>${fmtGuess(dec(me.guess),q)}</b></div>`+qbox;
         }
-      } else h+=`<div class="g-wait-box">Die anderen tippen gerade…</div>`;
-      if(amHost&&missing.some(id=>id!==mySelfId))h+=`<div class="pm-waiting-hint">Host: Spieler oben antippen, um ihn für diese Frage rauszunehmen.</div>`;
-      return h;
-    }
-    function renderPlayPhase(me,r){
-      const st=state.stage||0;let h='';
-      h+=`<div class="g-phase"><div class="g-phase-name" style="color:#e8c45c">Setzrunde ${st+1}</div><div class="g-phase-desc">Jetzt am Tisch setzen${r.first?` · <b>${esc(nameOf(r.first))}</b> eröffnet`:''}</div></div>`;
-      if(me&&me.inHand){
-        h+=`<div class="dg-guess-mine">Dein Tipp: <b>${fmtGuess(dec(me.guess),curQ())}</b></div>`;
-        if(me.folded)h+=`<div class="g-wait-box">Du hast gepasst.</div>`;
-        else{const armed=Date.now()-foldArmed<4000;h+=`<button class="dg-act-btn fold" style="width:100%;margin-top:0.3rem" onclick="dg_fold()">${armed?'WIRKLICH PASSEN? NOCHMAL TIPPEN':'ICH PASSE'}</button>`;}
+        return h;
       }
-      if(amHost){
-        h+=`<button class="g-btn dg-btn" style="margin-top:0.7rem" onclick="dg_advance()">${st===0?'1. HINWEIS ZEIGEN':st===1?'2. HINWEIS ZEIGEN':'AUFLÖSEN'}</button>`;
-        h+=`<div class="pm-waiting-hint">Erst weiter, wenn die Setzrunde am Tisch durch ist. Spieler oben antippen = passen lassen / zurückholen.</div>`;
-      } else h+=`<div class="pm-waiting-hint">Der Host deckt nach der Setzrunde den nächsten Schritt auf.</div>`;
+      if(ph==='play'){
+        if(me.folded){
+          h+=`<div class="dg-status out"><div class="dg-status-big">DU BIST RAUS</div><div class="dg-status-sub">Gepasst – du zählst bei der Auflösung nicht mit</div></div>`;
+          h+=`<div class="dg-mytip"><span>Dein Tipp war</span><b>${fmtGuess(dec(me.guess),q)}</b></div>`;
+          h+=`<button class="pm-mini-btn" style="display:block;margin:0.6rem auto" onclick="dg_unfold()">Vertippt? Wieder einsteigen</button>`;
+        } else {
+          h+=`<div class="dg-status in"><div class="dg-status-big">DU BIST DABEI</div><div class="dg-status-sub">Setzrunde ${st+1}${mySelfId===r.first?' · <b>Du eröffnest</b>':r.first?` · ${esc(nameOf(r.first))} eröffnet`:''}${myRole?`<br>${roleBadges} ${myRole}`:''}</div></div>`;
+          h+=`<div class="dg-mytip"><span>Dein Tipp</span><b>${fmtGuess(dec(me.guess),q)}</b></div>`;
+          h+=`<button class="dg-act-btn fold dg-foldbtn" onclick="dg_fold()">ICH PASSE (BIN RAUS)</button>`;
+        }
+        h+=qbox;
+        if(st>=1)h+=`<div class="dg-hint"><div class="dg-hint-label">1. Hinweis</div><div class="dg-hint-text">${esc(q.h1)}</div></div>`;
+        if(st>=2)h+=`<div class="dg-hint"><div class="dg-hint-label">2. Hinweis</div><div class="dg-hint-text">${esc(q.h2)}</div></div>`;
+        return h;
+      }
+      // Auflösung
+      const R=results();const iWon=R.winners.some(x=>x.id===mySelfId);
+      const mine=R.rows.find(x=>x.id===mySelfId);
+      if(iWon)h+=`<div class="dg-status win"><div class="dg-status-big">🏆 GEWONNEN</div><div class="dg-status-sub">${sd.single?'Alle anderen sind raus':R.winners.length>1?'Gleich nah dran – Pot teilen':'Du warst am nächsten dran'} · Pot kassieren</div></div>`;
+      else h+=`<div class="dg-status out"><div class="dg-status-big">${me.folded?'DU WARST RAUS':'NICHT GEWONNEN'}</div><div class="dg-status-sub">${R.winners.length?esc(R.winners.map(x=>x.p.name).join(' & '))+' kassiert den Pot':''}</div></div>`;
+      h+=`<div class="dg-answer"><div class="dg-answer-label">Auflösung</div><div class="dg-answer-val">${esc(q.a)}</div></div>`;
+      if(mine)h+=`<div class="dg-mytip"><span>Dein Tipp</span><b>${fmtGuess(mine.g,q)}</b></div>`;
+      h+=resultRows(R,sd.single);
+      h+=`<div class="pm-waiting-hint">Der Spielleiter startet die nächste Frage.</div>`;
       return h;
     }
-    function renderShowdown(){
-      const q=curQ();const sd=state.showdown||{};
-      const rows=inHandIds(state).concat(state.seatOrder.filter(id=>state.players[id]&&state.players[id].inHand&&state.players[id].left)).map(id=>{const p=state.players[id];const g=dec(p.guess);return {id,p,g,dev:isNaN(g)?Infinity:Math.abs(g-q.v)};});
-      const live=rows.filter(x=>!x.p.folded);
-      const best=live.length?Math.min(...live.map(x=>x.dev)):Infinity;
-      const winners=live.filter(x=>live.length===1||x.dev===best);
-      rows.sort((a,b)=>(a.p.folded-b.p.folded)||(a.dev===b.dev?0:(a.dev<b.dev?-1:1)));
-      let h='';
-      if(winners.length)h+=`<div class="g-phase"><div class="g-phase-name" style="color:#e8c45c">🏆 ${winners.map(x=>esc(x.p.name)).join(' & ')}</div><div class="g-phase-desc">${sd.single?'Alle anderen haben gepasst – Pot kassieren':(winners.length>1?'Gleich nah dran – Pot teilen':'Am nächsten dran – Pot kassieren')}</div></div>`;
-      h+=rows.map(x=>{
-        const hide=sd.single&&!x.p.folded&&x.id!==mySelfId; // wer alle rausblufft, muss nicht zeigen
-        const win=winners.includes(x);
-        return `<div class="dg-result-row ${win?'win':''} ${x.p.folded?'folded':''}"><div class="dg-result-name">${win?'🏆 ':''}${esc(x.p.name)}${x.id===mySelfId?' (du)':''}${x.p.folded?' · gepasst':''}</div><div class="dg-result-guess">${hide?'?':fmtGuess(x.g,q)}</div><div class="dg-result-dev">${hide?'':(isFinite(x.dev)?'Δ '+nf.format(Math.round(x.dev*100)/100):'kein Tipp')}</div></div>`;
-      }).join('');
-      h+=amHost?`<button class="g-btn dg-btn" onclick="dg_next()">NÄCHSTE FRAGE</button>`:`<div class="g-wait-box">Warte auf den Host…</div>`;
-      return h;
-    }
+
     function renderAll(){
       if(inWaiting){renderWaiting();return;}if(!inSession)return;
+      document.getElementById('dgGame').classList.toggle('dg-gm',amHost);
       document.getElementById('dgTopCode').textContent=myCode||'—';
       const ph=state.phase;
       document.getElementById('dgTopPhase').textContent=`Frage ${state.handNo||1} · ${ph==='guess'?'Tipps':['Setzrunde 1','Setzrunde 2','Setzrunde 3','Auflösung'][state.stage||0]}`;
       const wrap=document.getElementById('dgContent');
-      const me=state.players[mySelfId];
       const gi=document.getElementById('dgGuessIn');const keep=gi?{v:gi.value,f:document.activeElement===gi,s:gi.selectionStart}:null;
       const r=roles(state);
-      let h=renderBank(r)+renderQuestion();
-      if(ph==='guess')h+=renderGuessPhase(me,r);
-      else if(ph==='play')h+=renderPlayPhase(me,r);
-      else if(ph==='showdown')h+=renderShowdown();
-      wrap.innerHTML=h;
+      wrap.innerHTML=amHost?renderGM(r):renderPlayer(state.players[mySelfId],r);
       if(keep){const n=document.getElementById('dgGuessIn');if(n){n.value=keep.v;dg_preview();if(keep.f){n.focus();try{n.setSelectionRange(keep.s,keep.s);}catch(e){}}}}
     }
 
@@ -22263,7 +22344,7 @@ nextRound();
     document.addEventListener('DOMContentLoaded',()=>{const e=document.getElementById('appDuell');if(e&&e.classList.contains('visible'))dg_init();});
 
     window.dg_create=dg_create;window.dg_join=dg_join;window.dg_leave=dg_leave;window.dg_startGame=dg_startGame;window.dg_copyCode=dg_copyCode;window.dg_moveSeat=dg_moveSeat;
-    window.dg_next=dg_next;window.dg_preview=dg_preview;window.dg_lockGuess=dg_lockGuess;window.dg_fold=dg_fold;window.dg_toggleFold=dg_toggleFold;window.dg_advance=dg_advance;window.dg_skipQuestion=dg_skipQuestion;
+    window.dg_next=dg_next;window.dg_preview=dg_preview;window.dg_lockGuess=dg_lockGuess;window.dg_fold=dg_fold;window.dg_unfold=dg_unfold;window.dg_toggleFold=dg_toggleFold;window.dg_advance=dg_advance;window.dg_skipQuestion=dg_skipQuestion;
     window.dg_openSettings=dg_openSettings;window.dg_closeSettings=dg_closeSettings;window.dg_openSettingsWait=dg_openSettingsWait;window.dg_closeSettingsWait=dg_closeSettingsWait;window.dg_resetGame=dg_resetGame;
   })();
 
