@@ -1717,6 +1717,135 @@
   }
   .cn-gameover-title { font-family: var(--display-font); font-size: 1.6rem; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 0.5rem; }
 
+
+  /* ---- Duell um die Geld theme ---- */
+  .app-dg { background: linear-gradient(180deg,#0b1711 0%,#050b08 100%); color: #e4f0e8; min-height: 100vh; }
+  .dg-lobby .multi-tag { background: linear-gradient(135deg,#b4862c,#e8c45c); color: #1a1205; }
+  .app-dg .multi-topbar { border-color: rgba(232,182,76,0.3); } .app-dg .multi-topbar-code { color: #e8c45c; }
+  .dg-tint { border-color: rgba(232,182,76,0.3); }
+  .dg-btn { background: linear-gradient(135deg,#9a7020,#d4a73c) !important; color: #1a1205 !important; }
+  .dg-modal { border-color: rgba(232,182,76,0.5); }
+  .dg-content { padding: 0.3rem 0; }
+
+  .dg-bankrow { display: flex; gap: 0.4rem; overflow-x: auto; padding: 0.15rem 0 0.35rem; scrollbar-width: none; }
+  .dg-bankrow::-webkit-scrollbar { display: none; }
+  .dg-bank {
+    flex: 0 0 auto; min-width: 72px; background: rgba(0,0,0,0.32); border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 9px; padding: 0.34rem 0.5rem; text-align: center; transition: border-color 0.2s, opacity 0.2s;
+  }
+  .dg-bank.me { border-color: rgba(232,182,76,0.65); background: rgba(232,182,76,0.1); }
+  .dg-bank.acting { border-color: #e8c45c; box-shadow: 0 0 14px rgba(232,182,76,0.35); }
+  .dg-bank.out { opacity: 0.38; }
+  .dg-bank-name { font-family: var(--ui-font); font-size: 0.8rem; font-weight: 600; color: #cfe3d6; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .dg-bank-chips { font-family: var(--num-font); font-size: 1.16rem; color: #e8c45c; line-height: 1.1; }
+  .dg-bank-tag { font-family: var(--ui-font); font-size: 0.6rem; letter-spacing: 0.08em; text-transform: uppercase; min-height: 0.85em; }
+  .dg-bank-roles { min-height: 1.25rem; display: flex; gap: 3px; justify-content: center; margin: 0.15rem 0; }
+  .dg-role { font-family: var(--ui-font); font-size: 0.62rem; font-weight: 800; min-width: 1.25rem; height: 1.25rem; line-height: 1.25rem; padding: 0 0.3rem; border-radius: 0.65rem; }
+  .dg-role-d { background: #f5f0e8; color: #1a1205; } .dg-role-sb { background: #3b82f6; color: #fff; } .dg-role-bb { background: #e8c45c; color: #1a1205; }
+  .dg-bank-tag.folded { color: #94a3b8; } .dg-bank-tag.bet { color: #7dd3a0; } .dg-bank-tag.allin { color: #fca5a5; }
+  .dg-bank-tag.locked { color: #7dd3a0; } .dg-bank-tag.waiting { color: #94a3b8; }
+
+  .dg-pot { text-align: center; margin: 0.45rem 0 0.35rem; }
+  .dg-pot-label { font-family: var(--ui-font); font-size: 0.66rem; letter-spacing: 0.22em; color: rgba(232,182,76,0.75); text-transform: uppercase; }
+  .dg-pot-val { font-family: var(--num-font); font-size: 2.5rem; color: #e8c45c; line-height: 1; text-shadow: 0 0 22px rgba(232,182,76,0.35); }
+  .dg-pot-sub { font-family: var(--ui-font); font-size: 0.74rem; color: #9fb8a8; }
+
+  .dg-qcard {
+    background: linear-gradient(145deg,rgba(14,38,26,0.9),rgba(6,18,12,0.9)); border: 1.5px solid rgba(232,182,76,0.35);
+    border-radius: 14px; padding: 0.9rem 0.95rem; margin: 0.45rem 0;
+  }
+  .dg-qcat {
+    display: inline-block; font-family: var(--ui-font); font-size: 0.62rem; letter-spacing: 0.16em; text-transform: uppercase;
+    color: #1a1205; background: linear-gradient(135deg,#b4862c,#e8c45c); border-radius: 20px; padding: 0.16rem 0.6rem; margin-bottom: 0.45rem;
+  }
+  .dg-qtext { font-family: var(--ui-font); font-size: 1.1rem; font-weight: 600; line-height: 1.35; color: #f0f8f2; }
+
+  .dg-stages { display: flex; gap: 5px; margin: 0.45rem 0 0.1rem; }
+  .dg-stagedot { flex: 1; height: 4px; border-radius: 3px; background: rgba(255,255,255,0.12); transition: background 0.3s; }
+  .dg-stagedot.done { background: rgba(232,182,76,0.55); }
+  .dg-stagedot.now { background: #e8c45c; box-shadow: 0 0 10px rgba(232,182,76,0.6); }
+
+  .dg-hint {
+    background: rgba(255,255,255,0.05); border-left: 3px solid rgba(232,182,76,0.6); border-radius: 0 9px 9px 0;
+    padding: 0.55rem 0.7rem; margin: 0.35rem 0; animation: dgFlip 0.45s ease;
+  }
+  .dg-hint-label { font-family: var(--ui-font); font-size: 0.62rem; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(232,182,76,0.8); margin-bottom: 0.15rem; }
+  .dg-hint-text { font-family: var(--ui-font); font-size: 0.92rem; color: #d8e8de; line-height: 1.4; }
+  @keyframes dgFlip { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: none; } }
+
+  .dg-answer {
+    background: linear-gradient(145deg,rgba(60,45,8,0.95),rgba(30,22,4,0.95)); border: 2px solid #e8c45c;
+    border-radius: 14px; padding: 0.9rem; margin: 0.5rem 0; text-align: center; box-shadow: 0 0 28px rgba(232,182,76,0.25);
+    animation: dgFlip 0.45s ease;
+  }
+  .dg-answer-label { font-family: var(--ui-font); font-size: 0.64rem; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(232,182,76,0.85); }
+  .dg-answer-val { font-family: var(--display-font); font-size: 1.85rem; color: #ffe9a8; letter-spacing: 0.03em; line-height: 1.2; }
+
+  .dg-guess-in {
+    width: 100%; padding: 0.85rem; border-radius: 10px; border: 1.5px solid rgba(232,182,76,0.4);
+    background: rgba(0,0,0,0.42); color: #fff; font-family: var(--num-font); font-size: 1.7rem; text-align: center;
+    letter-spacing: 0.04em; margin: 0.4rem 0;
+  }
+  .dg-guess-in:focus { outline: none; border-color: #e8c45c; }
+  .dg-guess-mine {
+    text-align: center; font-family: var(--ui-font); font-size: 0.82rem; color: #9fb8a8; margin: 0.3rem 0;
+  }
+  .dg-guess-mine b { font-family: var(--num-font); font-size: 1.35rem; color: #e8c45c; letter-spacing: 0.03em; }
+
+  .dg-result-row {
+    display: flex; align-items: center; gap: 0.5rem; padding: 0.46rem 0.6rem; margin: 0.22rem 0;
+    background: rgba(0,0,0,0.3); border-radius: 9px; border: 1px solid transparent;
+  }
+  .dg-result-row.win { border-color: #e8c45c; background: rgba(232,182,76,0.14); }
+  .dg-result-row.folded { opacity: 0.45; }
+  .dg-result-name { font-family: var(--ui-font); font-size: 0.88rem; font-weight: 600; flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .dg-result-guess { font-family: var(--num-font); font-size: 1.2rem; color: #d8e8de; }
+  .dg-result-dev { font-family: var(--ui-font); font-size: 0.7rem; color: #94a3b8; min-width: 72px; text-align: right; }
+  .dg-result-gain { font-family: var(--num-font); font-size: 1.15rem; color: #7dd3a0; min-width: 56px; text-align: right; }
+  .dg-result-gain.zero { color: #64748b; }
+
+  .dg-act-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.4rem; margin-top: 0.5rem; }
+  .dg-act-row.three { grid-template-columns: 1fr 1fr 1fr; }
+  .dg-act-btn {
+    padding: 0.8rem 0.3rem; border: none; border-radius: 10px; font-family: var(--ui-font); font-size: 0.86rem;
+    font-weight: 700; letter-spacing: 0.04em; cursor: pointer; color: #fff; background: rgba(255,255,255,0.11);
+    transition: transform 0.1s, filter 0.15s;
+  }
+  .dg-act-btn:active { transform: scale(0.96); }
+  .dg-act-btn.fold { background: linear-gradient(135deg,#7f1d1d,#b91c1c); }
+  .dg-act-btn.check { background: linear-gradient(135deg,#1e5141,#2a7a5f); }
+  .dg-act-btn.call { background: linear-gradient(135deg,#1d4ed8,#3b82f6); }
+  .dg-act-btn.raise { background: linear-gradient(135deg,#9a7020,#d4a73c); color: #1a1205; }
+  .dg-act-btn.allin { background: linear-gradient(135deg,#86198f,#c026d3); }
+  .dg-act-btn:disabled { opacity: 0.35; cursor: not-allowed; }
+
+  .dg-raise-box { background: rgba(0,0,0,0.3); border-radius: 10px; padding: 0.55rem 0.6rem; margin-top: 0.45rem; }
+  .dg-raise-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.35rem; }
+  .dg-raise-label { font-family: var(--ui-font); font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; color: #9fb8a8; }
+  .dg-raise-val { font-family: var(--num-font); font-size: 1.5rem; color: #e8c45c; }
+  .dg-raise-slider { width: 100%; accent-color: #d4a73c; }
+  .dg-quick-row { display: flex; gap: 0.3rem; margin-top: 0.35rem; }
+  .dg-quick {
+    flex: 1; padding: 0.4rem 0.2rem; border: 1px solid rgba(232,182,76,0.35); border-radius: 7px;
+    background: transparent; color: #e8c45c; font-family: var(--ui-font); font-size: 0.72rem; cursor: pointer;
+  }
+  .dg-quick:active { background: rgba(232,182,76,0.15); }
+
+  .dg-lastact {
+    text-align: center; font-family: var(--ui-font); font-size: 0.82rem; color: #9fb8a8; min-height: 1.2em; margin: 0.25rem 0;
+  }
+  .dg-lastact b { color: #e8c45c; }
+  .dg-turn {
+    text-align: center; font-family: var(--ui-font); font-size: 0.9rem; font-weight: 600; color: #7dd3a0; margin: 0.3rem 0;
+  }
+  .dg-rebuy-req {
+    display: flex; align-items: center; gap: 0.4rem; padding: 0.45rem 0.6rem; margin: 0.25rem 0;
+    background: rgba(232,182,76,0.12); border: 1px solid rgba(232,182,76,0.4); border-radius: 9px;
+    font-family: var(--ui-font); font-size: 0.82rem;
+  }
+  .dg-rebuy-req button { padding: 0.3rem 0.6rem; border: none; border-radius: 6px; font-family: var(--ui-font); font-size: 0.72rem; font-weight: 700; cursor: pointer; }
+  .dg-rebuy-ok { background: #15803d; color: #fff; } .dg-rebuy-no { background: #991b1b; color: #fff; }
+
   /* ====================== IMPOSTOR SOLO ====================== */
   .app-imps {
     background: radial-gradient(circle at 50% 0%, #2a1208 0%, #1a0a0a 55%, #0a0505 100%);
@@ -8060,7 +8189,7 @@
 <!-- Admin toggle (hidden by default, shown after 5x title clicks) -->
 <button class="admin-toggle" id="adminToggleBtn" onclick="openAdminPanel()" style="display:none" aria-label="Admin-Panel öffnen" title="Admin-Panel">🔧</button>
 
-<div class="app-version" id="appVersion">v3.9.1</div>
+<div class="app-version" id="appVersion">v3.11.0</div>
 
 <!-- Admin toast -->
 <div class="admin-toast" id="adminToast"></div>
@@ -8289,6 +8418,10 @@
     <button class="menu-item" data-app="codenames" onclick="switchApp('codenames')">
       <span class="icon">🕶️</span>
       <span>Codenames</span>
+    </button>
+    <button class="menu-item" data-app="duell" onclick="switchApp('duell')">
+      <span class="icon">💰</span>
+      <span>Duell um die Geld</span>
     </button>
   </div>
 </nav>
@@ -10427,6 +10560,78 @@
   </div>
 </div>
 
+<!-- ============ DUELL UM DIE GELD ============ -->
+<div class="app app-multi app-dg" id="appDuell">
+  <div class="multi-lobby dg-lobby" id="dgLobby">
+    <div class="multi-lobby-title" onclick="handleAdminTitleClick()" style="cursor:pointer">
+      <span class="multi-lobby-emoji">💰</span><span>Duell um die Geld</span><span class="multi-tag">MULTI</span>
+    </div>
+    <div class="multi-lobby-sub">Schätzen, setzen, bluffen · 2–8 Spieler</div>
+    <button class="rules-link" onclick="showGameRules('duell')">📖 So wird gespielt</button>
+    <div class="multi-lobby-section">
+      <label class="multi-lobby-label">DEIN NAME</label>
+      <input type="text" class="multi-input" id="dgName" maxlength="14" placeholder="z.B. Tobi" autocomplete="off">
+    </div>
+    <div class="multi-lobby-section">
+      <label class="multi-lobby-label">💰 NEUE RUNDE</label>
+      <div class="multi-lobby-row">
+        <input type="text" class="multi-input multi-code-in" id="dgCreateCode" maxlength="6" placeholder="(zufällig)" autocomplete="off" autocapitalize="characters">
+        <button class="multi-action-btn" onclick="dg_create()">ERSTELLEN</button>
+      </div>
+    </div>
+    <div class="multi-lobby-section">
+      <label class="multi-lobby-label">BEITRETEN</label>
+      <div class="multi-lobby-row">
+        <input type="text" class="multi-input multi-code-in" id="dgJoinCode" maxlength="6" placeholder="CODE" autocomplete="off" autocapitalize="characters">
+        <button class="multi-action-btn" onclick="dg_join()">BEITRETEN</button>
+      </div>
+    </div>
+    <div class="multi-lobby-error" id="dgError"></div>
+  </div>
+  <div class="multi-game dg-waiting" id="dgWaiting" style="display:none">
+    <div class="multi-topbar">
+      <button class="multi-topbar-btn multi-burger-btn" onclick="toggleMenu()"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
+      <div class="multi-topbar-mid"><div class="multi-topbar-code" id="dgWaitCode" onclick="handleAdminTitleClick()" style="cursor:pointer">—</div><div class="multi-topbar-peers">LOBBY</div></div>
+      <button class="multi-topbar-btn multi-settings-btn" onclick="dg_openSettingsWait()">⚙</button>
+    </div>
+    <div class="g-waiting-content dg-tint">
+      <div class="g-waiting-label">CODE</div>
+      <div class="g-waiting-code" id="dgWaitCodeBig">—</div>
+      <button class="pm-mini-btn" onclick="dg_copyCode()">📋 Kopieren</button>
+      <div class="pm-waiting-section-label">SPIELER <span id="dgWaitCount">0/8</span></div>
+      <div class="pm-waiting-players" id="dgWaitPlayers"></div>
+      <div class="pm-waiting-hint" style="margin-top:0.8rem">Gesetzt wird mit echten Chips am Tisch. Das Handy ist nur für den geheimen Tipp, die Hinweise und die Auflösung.</div>
+      <button class="pm-start-btn g-start-btn dg-btn" id="dgStartBtn" onclick="dg_startGame()">SPIEL STARTEN</button>
+      <div class="pm-waiting-hint" id="dgWaitHint">Mindestens 2 Spieler · nur Host kann starten</div>
+    </div>
+    <div class="multi-modal-bd" id="dgSettingsWaitModal" onclick="if(event.target===this) dg_closeSettingsWait()">
+      <div class="multi-modal g-modal dg-modal"><div class="multi-modal-title">EINSTELLUNGEN</div>
+        <div class="multi-settings-label">SESSION</div>
+        <button class="multi-settings-btn-full multi-leave-action" onclick="dg_closeSettingsWait(); dg_leave()">🚪 Session verlassen</button>
+        <button class="multi-modal-close" onclick="dg_closeSettingsWait()">FERTIG</button>
+      </div>
+    </div>
+  </div>
+  <div class="multi-game dg-game" id="dgGame" style="display:none">
+    <div class="multi-topbar">
+      <button class="multi-topbar-btn multi-burger-btn" onclick="toggleMenu()"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
+      <div class="multi-topbar-mid"><div class="multi-topbar-code" id="dgTopCode" onclick="handleAdminTitleClick()" style="cursor:pointer">—</div><div class="multi-topbar-peers" id="dgTopPhase">Frage 1</div></div>
+      <button class="multi-topbar-btn multi-settings-btn" onclick="dg_openSettings()">⚙</button>
+    </div>
+    <div class="dg-content" id="dgContent"></div>
+    <div class="multi-modal-bd" id="dgSettingsModal" onclick="if(event.target===this) dg_closeSettings()">
+      <div class="multi-modal g-modal dg-modal"><div class="multi-modal-title">EINSTELLUNGEN</div>
+        <div class="multi-settings-label" id="dgHostOnlyLabel">HOST</div>
+        <button class="multi-settings-btn-full" id="dgSkipBtn" onclick="dg_skipQuestion()">⏭ Frage überspringen</button>
+        <button class="multi-settings-btn-full multi-danger" id="dgResetBtn" onclick="dg_resetGame()" style="display:none">Zurück zur Lobby</button>
+        <div class="multi-settings-label" style="margin-top:1rem">SESSION</div>
+        <button class="multi-settings-btn-full multi-leave-action" onclick="dg_closeSettings(); dg_leave()">🚪 Session verlassen</button>
+        <button class="multi-modal-close" onclick="dg_closeSettings()">FERTIG</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- ============ WER BIN ICH ============ -->
 <div class="app app-multi app-wb" id="appWerbinich">
   <div class="multi-lobby wb-lobby" id="wbLobby">
@@ -11370,6 +11575,7 @@
     werbinich:     { title: 'Wer bin ich',       emoji: '🤔', theme: '#0a1420' },
     tabu:          { title: 'Tabu',              emoji: '🚫', theme: '#1a0a12' },
     codenames:     { title: 'Codenames',         emoji: '🕶️', theme: '#0f1419' },
+    duell:         { title: 'Duell um die Geld', emoji: '💰', theme: '#0b1711' },
   };
 
   // Launcher / home screen config
@@ -11379,7 +11585,7 @@
     liarsbarMulti: 'Bluff online', alkiMulti: 'Trinken online', pokerMulti: 'Texas Hold\u2019em',
     werwolf: 'Dorf vs. Wölfe', impostor: 'Wer kennt das Wort nicht?', slf: 'Live gegeneinander',
     blackstories: 'Düstere Rätsel', werbinich: 'Errate dich selbst', tabu: 'Erklären ohne Tabu',
-    codenames: 'Rot vs. Blau',
+    codenames: 'Rot vs. Blau', duell: 'Schätzen & bluffen',
   };
   const TILE_GLOW = {
     liarsbar: 'rgba(212,160,90,0.30)', poker: 'rgba(80,150,255,0.28)', alki: 'rgba(255,80,80,0.28)',
@@ -11387,11 +11593,11 @@
     liarsbarMulti: 'rgba(212,160,90,0.30)', alkiMulti: 'rgba(255,80,80,0.28)', pokerMulti: 'rgba(60,200,140,0.28)',
     werwolf: 'rgba(150,110,255,0.30)', impostor: 'rgba(255,110,60,0.30)', slf: 'rgba(45,212,191,0.30)',
     blackstories: 'rgba(150,90,255,0.30)', werbinich: 'rgba(80,150,255,0.30)', tabu: 'rgba(236,72,153,0.30)',
-    codenames: 'rgba(150,170,200,0.30)',
+    codenames: 'rgba(150,170,200,0.30)', duell: 'rgba(232,182,76,0.30)',
   };
   const HOME_APPS = [
     { group: 'SOLO · 1 GERÄT', items: ['liarsbar', 'poker', 'alki', 'pokerSolo', 'impostorSolo'] },
-    { group: 'MULTIPLAYER · MEHRERE HANDYS', items: ['liarsbarMulti', 'alkiMulti', 'pokerMulti', 'werwolf', 'impostor', 'slf', 'blackstories', 'werbinich', 'tabu', 'codenames'] },
+    { group: 'MULTIPLAYER · MEHRERE HANDYS', items: ['liarsbarMulti', 'alkiMulti', 'pokerMulti', 'werwolf', 'impostor', 'slf', 'blackstories', 'werbinich', 'tabu', 'codenames', 'duell'] },
   ];
   let GLOBAL_VIS = {};
   function renderHomeGrid() {
@@ -11453,6 +11659,7 @@
       werbinich: 'appWerbinich',
       tabu: 'appTabu',
       codenames: 'appCodenames',
+      duell: 'appDuell',
     };
     const id = idMap[name] || 'appLiarsbar';
     const el = document.getElementById(id);
@@ -11461,7 +11668,7 @@
     try { localStorage.setItem(APP_KEY, name); } catch (e) {}
 
     // Set body class for multi-apps so we can hide the fixed burger
-    const isMulti = ['liarsbarMulti','alkiMulti','pokerMulti','werwolf','impostor','slf','blackstories','werbinich','tabu','codenames'].includes(name);
+    const isMulti = ['liarsbarMulti','alkiMulti','pokerMulti','werwolf','impostor','slf','blackstories','werbinich','tabu','codenames','duell'].includes(name);
     document.body.classList.toggle('in-multi-app', isMulti);
     try { updateAdminButtonVisibility(); } catch (e) {}
     document.body.classList.toggle('in-home', name === 'home');
@@ -11897,6 +12104,20 @@
         <li><b>Attentäter</b> → sofort verloren!</li>
       </ul>
       <p>Wer zuerst alle eigenen Wörter aufgedeckt hat, gewinnt.</p>` },
+    duell: { title: 'Duell um die Geld', body: `
+      <div class="gr-goal"><b>Ziel:</b> Am besten schätzen — oder so setzen, dass alle anderen aussteigen.</div>
+      <p>Gesetzt wird mit <b>echten Chips am Tisch</b>. Das Handy ist nur für den geheimen Tipp, die Hinweise und die Auflösung.</p>
+      <div class="gr-h">Ablauf einer Frage</div>
+      <ul>
+        <li>Die App zeigt <b>Dealer (D)</b>, <b>Small Blind (SB)</b> und <b>Big Blind (BB)</b> — Blinds setzen</li>
+        <li><b>Schätzfrage</b> erscheint → jeder loggt geheim seinen Tipp ein (nicht mehr änderbar)</li>
+        <li><b>1. Setzrunde</b> am Tisch, dann deckt der Host den <b>1. Hinweis</b> auf</li>
+        <li><b>2. Setzrunde</b>, dann <b>2. Hinweis</b></li>
+        <li><b>3. Setzrunde</b>, dann <b>Auflösung</b> → wer von den Verbliebenen am nächsten dran ist, kassiert den Pot</li>
+      </ul>
+      <div class="gr-h">Setzen</div>
+      <p>Wie beim Poker: Checken, Setzen, Erhöhen, Mitgehen oder Passen. Die App zeigt, wer die Setzrunde eröffnet. Wer passt, tippt auf <b>„Ich passe"</b>, damit er bei der Auflösung nicht mitzählt.</p>
+      <p>Passen alle bis auf einen, gewinnt der sofort — und muss seinen Tipp nicht zeigen. Gleich nah dran? Pot teilen. Die Blinds wandern jede Frage einen Platz weiter.</p>` },
   };
   function showGameRules(key) {
     const r = GAME_RULES[key]; if (!r) return;
@@ -12237,6 +12458,7 @@
     impostor:  ['impJoinCode', 'imp_join'],     slf:       ['slfJoinCode', 'slf_join'],
     blackstories: ['bsJoinCode', 'bs_join'],    werbinich: ['wbJoinCode', 'wb_join'],
     tabu:      ['tbJoinCode', 'tb_join'],       codenames: ['cnJoinCode', 'cn_join'],
+    duell:     ['dgJoinCode', 'dg_join'],
   };
   function tryReconnect(attempt) {
     const sess = getActiveSession();
@@ -21675,6 +21897,374 @@ nextRound();
     document.addEventListener('DOMContentLoaded',()=>{const e=document.getElementById('appBlackstories');if(e&&e.classList.contains('visible'))bs_init();});
 
     window.bs_create=bs_create;window.bs_join=bs_join;window.bs_leave=bs_leave;window.bs_startGame=bs_startGame;window.bs_copyCode=bs_copyCode;window.bs_reveal=bs_reveal;window.bs_next=bs_next;window.bs_openSettings=bs_openSettings;window.bs_closeSettings=bs_closeSettings;window.bs_openSettingsWait=bs_openSettingsWait;window.bs_closeSettingsWait=bs_closeSettingsWait;window.bs_resetGame=bs_resetGame;
+  })();
+
+  // ============================================================
+  // ============ DUELL UM DIE GELD =============================
+  // ============================================================
+  (function() {
+    const MIN_PLAYERS = 2, MAX_PLAYERS = 8;
+    const Q = [
+      {c:"Bauwerke",q:"Wie lang ist die Golden Gate Bridge insgesamt?",h1:"Zwischen den beiden Türmen liegen 1.280 m.",h2:"Zu Fuß braucht man für die ganze Brücke gut eine halbe Stunde.",a:"2.737 m",v:2737},
+      {c:"Franken",q:"Wie viele Einwohner hat Nürnberg?",h1:"Erlangen hat rund 117.000 Einwohner.",h2:"München hat knapp dreimal so viele.",a:"ca. 530.000",v:530000},
+      {c:"Essen",q:"Wie viele Kalorien hat ein Big Mac?",h1:"Ein normaler Cheeseburger hat rund 300 kcal.",h2:"Ein Erwachsener braucht etwa 2.400 kcal am Tag, der Big Mac deckt gut ein Fünftel davon.",a:"ca. 500 kcal",v:503},
+      {c:"Wintersport",q:"Wie viele Höhenmeter überwindet die Streif in Kitzbühel?",h1:"Die Strecke ist gut 3,3 km lang.",h2:"Der Start liegt auf 1.665 m Höhe.",a:"860 m",v:860},
+      {c:"Bauwerke",q:"Wie viele Millionen Euro hat die Elbphilharmonie am Ende gekostet?",h1:"Ursprünglich waren für die Stadt rund 77 Mio. € geplant.",h2:"Am Ende war es gut das Zehnfache der ersten Planung.",a:"866 Mio. €",v:866},
+      {c:"Geografie",q:"Wie tief ist der Bodensee an seiner tiefsten Stelle?",h1:"Der Gardasee ist maximal 346 m tief.",h2:"Der Starnberger See ist maximal 128 m tief, der Bodensee knapp doppelt so tief.",a:"251 m",v:251},
+      {c:"Luftfahrt",q:"Wie viele Passagiere darf ein Airbus A380 maximal befördern?",h1:"Lufthansa hatte ihn mit 509 Sitzen bestuhlt.",h2:"Ein A320 ist für knapp 200 Passagiere zugelassen, der A380 für gut viermal so viele.",a:"853 Passagiere",v:853},
+      {c:"Motorsport",q:"Wie viele Kilo musste ein Formel-1-Auto 2025 mindestens wiegen (mit Fahrer, ohne Sprit)?",h1:"Ein VW Golf wiegt rund 1.300 kg.",h2:"2008 lag das Mindestgewicht noch bei rund 600 kg.",a:"800 kg",v:800},
+      {c:"Bauwerke",q:"Wie hoch ist der Münchner Olympiaturm?",h1:"Der Berliner Fernsehturm ist 368 m hoch.",h2:"Die Aussichtsplattform liegt auf 190 m.",a:"291 m",v:291},
+      {c:"Geografie",q:"Wie lang ist die Elbe?",h1:"Die Weser ist 452 km lang.",h2:"Der Rhein (1.230 km) ist nur etwas länger.",a:"1.094 km",v:1094},
+      {c:"Geografie",q:"Wie viele Inseln hat Kroatien (inklusive kleiner Eilande)?",h1:"Nur rund 50 davon sind bewohnt.",h2:"Allein der Kornaten-Archipel umfasst rund 140 Inseln.",a:"ca. 1.240",v:1240},
+      {c:"Fußball",q:"Wie viele Spiele hat eine Bundesliga-Saison insgesamt?",h1:"Ein Spieltag hat 9 Spiele.",h2:"Die Premier League kommt mit 20 Teams auf 380 Spiele.",a:"306 Spiele",v:306},
+      {c:"Bauwerke",q:"Wie hoch ist der Turm des Ulmer Münsters, der höchste Kirchturm der Welt?",h1:"Der Kölner Dom ist 157 m hoch.",h2:"Bis zur obersten Plattform sind es 768 Stufen und 143 m.",a:"161,5 m",v:161.5},
+      {c:"Geografie",q:"Wie viele Einwohner hat Australien?",h1:"Australien ist gut 21-mal so groß wie Deutschland.",h2:"Sydney und Melbourne haben zusammen rund 10,5 Mio. Einwohner, knapp 40 % des Landes.",a:"ca. 27 Mio.",v:27000000},
+      {c:"Geografie",q:"Wie hoch ist der Großglockner?",h1:"Die Zugspitze ist 2.962 m hoch.",h2:"Der Mont Blanc ist rund 1.000 m höher.",a:"3.798 m",v:3798},
+      {c:"Radsport",q:"Wie viel muss ein Rennrad im Profi-Radsport laut UCI mindestens wiegen?",h1:"Ein gutes Alu-Rennrad wiegt rund 9 kg.",h2:"Die Regel gilt seit dem Jahr 2000, obwohl Hersteller längst Räder unter 5 kg bauen können.",a:"6,8 kg",v:6.8},
+      {c:"Sprache",q:"Wie viele Stichwörter hat der aktuelle Rechtschreib-Duden?",h1:"Die erste Auflage von 1880 hatte rund 27.000.",h2:"Mit jeder Auflage kommen rund 3.000 bis 5.000 neue Wörter dazu, aktuell ist die 29.",a:"ca. 151.000",v:151000},
+      {c:"Sprache",q:"Wie viele Buchstaben hat das längste Wort im Duden?",h1:"„Donaudampfschifffahrt“ hat 21 Buchstaben.",h2:"Es ist ein Begriff aus dem Versicherungswesen rund ums Auto.",a:"36 (Kraftfahrzeug-Haftpflichtversicherung)",v:36},
+      {c:"Verkehr",q:"Wie viele Sitzplätze hat ein ICE 4 in der langen Version?",h1:"Ein ICE 3 hat rund 440 Sitzplätze.",h2:"Der Zug ist 374 m lang.",a:"918 Plätze",v:918},
+      {c:"Essen",q:"Wie viel Gramm Zucker stecken in einem Liter Cola?",h1:"Die WHO empfiehlt höchstens 50 g Zucker am Tag.",h2:"In einem Liter Orangensaft sind rund 90 g.",a:"ca. 106 g",v:106},
+      {c:"Geschichte",q:"Wie hoch war die Cheops-Pyramide ursprünglich?",h1:"Die Freiheitsstatue mit Sockel ist 93 m hoch.",h2:"Erst die Kathedrale von Lincoln (160 m) war im Mittelalter höher.",a:"146,6 m",v:146.6},
+      {c:"Geschichte",q:"Aus wie vielen Steinblöcken besteht die Cheops-Pyramide?",h1:"Ein Block wiegt im Schnitt 2,5 Tonnen.",h2:"Bei 20 Jahren Bauzeit und 10 Stunden am Tag musste etwa alle 3 Minuten ein Block gesetzt werden.",a:"ca. 2,3 Mio.",v:2300000},
+      {c:"Alltag",q:"Wie viele Liter Wasser verbraucht ein Deutscher im Schnitt pro Tag?",h1:"Eine Toilettenspülung braucht 6 bis 9 Liter.",h2:"In den USA sind es rund 300 Liter.",a:"ca. 125 Liter",v:125},
+      {c:"Essen",q:"Wie viele Kilo Fleisch isst ein Deutscher im Schnitt pro Jahr?",h1:"In den USA sind es rund 100 kg.",h2:"Gut die Hälfte davon ist Schweinefleisch, rund 28 kg.",a:"ca. 53 kg",v:53},
+      {c:"Luftfahrt",q:"In wie vielen Metern Höhe fliegt ein Passagierjet typischerweise?",h1:"Der Mount Everest ist 8.849 m hoch.",h2:"Piloten sagen rund 36.000 Fuß, ein Fuß sind 30,5 cm.",a:"ca. 11.000 m",v:11000},
+      {c:"Luftfahrt",q:"Wie schnell flog die Concorde im Reiseflug (km/h)?",h1:"Schallgeschwindigkeit in Bodennähe sind rund 1.230 km/h.",h2:"Für Paris–New York (5.850 km) brauchte sie rund 3,5 Stunden, inklusive Start und Steigflug.",a:"ca. 2.180 km/h",v:2180},
+      {c:"Franken",q:"Wie viele Studierende hat die FAU Erlangen-Nürnberg?",h1:"Die LMU München hat rund 52.000.",h2:"Die FAU ist die zweitgrößte Uni in Bayern.",a:"ca. 39.000",v:39000},
+      {c:"Fußball",q:"Wie viele Vereine gibt es im DFB?",h1:"Der DFB hat rund 7,7 Millionen Mitglieder.",h2:"Im Schnitt hat ein Verein gut 300 Mitglieder.",a:"ca. 24.000",v:24000},
+      {c:"Fußball",q:"Wie viele Pflichtspiele hat Thomas Müller für den FC Bayern gemacht?",h1:"Er hat den alten Vereinsrekord von Sepp Maier (über 700 Spiele) geknackt.",h2:"Er spielte 17 Profisaisons für Bayern, im Schnitt rund 45 Spiele pro Saison.",a:"756 Spiele",v:756},
+      {c:"Geografie",q:"Wie hoch ist der höchste Berg Australiens, der Mount Kosciuszko?",h1:"Die Zugspitze ist 2.962 m hoch.",h2:"Der Feldberg im Schwarzwald hat 1.493 m.",a:"2.228 m",v:2228},
+      {c:"Verkehr",q:"Wie lang ist das Streckennetz der Londoner U-Bahn?",h1:"Die Münchner U-Bahn hat rund 100 km.",h2:"Sie hat 272 Stationen.",a:"ca. 400 km",v:402},
+      {c:"Geschichte",q:"In welchem Jahr fuhr die erste U-Bahn in London?",h1:"Die erste deutsche U-Bahn fuhr 1902 in Berlin.",h2:"Im selben Jahrzehnt endete der Amerikanische Bürgerkrieg.",a:"1863",v:1863},
+      {c:"Fußball",q:"In welchem Jahr wurde der FC Bayern München gegründet?",h1:"Borussia Dortmund wurde 1909 gegründet.",h2:"Im selben Jahr wurde in Leipzig der DFB gegründet.",a:"1900",v:1900},
+      {c:"Essen",q:"In welchem Jahr wurde Coca-Cola erfunden?",h1:"Die erste Fanta gab es 1940.",h2:"Im selben Jahr wurde die Freiheitsstatue eingeweiht.",a:"1886",v:1886},
+      {c:"TV",q:"In welchem Jahr lief die erste „Sendung mit der Maus“?",h1:"Die Sesamstraße startete 1969 in den USA.",h2:"Im selben Jahr kam Intels erster Mikroprozessor auf den Markt.",a:"1971",v:1971},
+      {c:"Geschichte",q:"Wie viele Zuschauer passten ins Kolosseum in Rom?",h1:"Die Allianz Arena fasst rund 75.000.",h2:"Es war rund zwei Drittel so groß wie die Allianz Arena.",a:"ca. 50.000",v:50000},
+      {c:"Essen",q:"Wie viele Liter fasst ein klassisches Barrique-Weinfass?",h1:"Ein Bierfass im Biergarten fasst meist 50 Liter.",h2:"Aus einem Fass füllt man rund 300 Weinflaschen.",a:"225 Liter",v:225},
+      {c:"Bauwerke",q:"Wie viele Tonnen wiegt die größte Glocke des Kölner Doms, der „Dicke Pitter“?",h1:"Ein ausgewachsener Elefant wiegt rund 6 Tonnen.",h2:"Die Zarenglocke in Moskau wiegt rund 200 Tonnen, der Dicke Pitter nur gut ein Zehntel davon.",a:"ca. 24 Tonnen",v:24},
+      {c:"Sport",q:"Wie viele Kilometer legt man bei einem Ironman insgesamt zurück?",h1:"Die Radstrecke ist 180 km lang.",h2:"Die Laufstrecke ist ein kompletter Marathon.",a:"226 km",v:226},
+      {c:"Weltall",q:"Wie viele Sekunden braucht das Sonnenlicht bis zur Erde?",h1:"Vom Mond braucht Licht gut eine Sekunde.",h2:"Die Sonne ist rund 390-mal so weit weg wie der Mond.",a:"ca. 500 Sekunden (8 Min. 20 s)",v:499},
+      {c:"Verkehr",q:"Wie lang ist die Transsibirische Eisenbahn von Moskau nach Wladiwostok?",h1:"Lissabon–Moskau sind Luftlinie rund 3.900 km.",h2:"Die Fahrt dauert rund 7 Tage bei einem Schnitt von etwa 55 km/h.",a:"9.288 km",v:9288},
+      {c:"Verkehr",q:"Wie lang ist der Panamakanal?",h1:"Der Nord-Ostsee-Kanal ist 98 km lang.",h2:"Der Suezkanal ist 193 km lang, der Panamakanal nicht mal halb so lang.",a:"82 km",v:82},
+      {c:"Bauwerke",q:"Wie hoch schießt die Wasserfontäne im Genfer See?",h1:"Der Kölner Dom ist 157 m hoch.",h2:"Das Wasser verlässt die Düse mit rund 200 km/h.",a:"140 m",v:140},
+      {c:"Bayern",q:"Wie viele Besucher hat das Oktoberfest pro Jahr?",h1:"Der Cannstatter Wasen in Stuttgart hat rund 4 Mio.",h2:"Ausgeschenkt werden rund 7 Mio. Maß, gut eine pro Besucher.",a:"ca. 6,5 Mio.",v:6500000},
+      {c:"Bauwerke",q:"Wie viele Brücken hat Hamburg?",h1:"Venedig hat rund 400 Brücken.",h2:"Amsterdam hat rund 1.500.",a:"ca. 2.500",v:2500},
+      {c:"Essen",q:"Wie viele Kilo Schokolade isst ein Deutscher im Schnitt pro Jahr?",h1:"In der Schweiz sind es rund 11 kg.",h2:"Das sind knapp zwei 100-g-Tafeln pro Woche.",a:"ca. 9 kg",v:9},
+      {c:"Geografie",q:"Wie lang ist der Amazonas?",h1:"Die Donau ist 2.850 km lang.",h2:"Der Nil ist rund 6.650 km lang und nur knapp länger.",a:"ca. 6.400 km",v:6400},
+      {c:"Luftfahrt",q:"Wie viele Liter Kerosin passen in eine Boeing 747?",h1:"Ein Autotank fasst rund 50 Liter.",h2:"Ein Tanklaster fasst rund 35.000 Liter, man bräuchte gut sechs davon.",a:"ca. 216.000 Liter",v:216000},
+      {c:"TV",q:"Wie viele Menschen sahen das WM-Finale 2014 in Deutschland im TV (ARD)?",h1:"Ein normaler Sonntags-Tatort hat rund 9 Mio. Zuschauer.",h2:"Das waren gut 40 % der Bevölkerung.",a:"34,65 Mio.",v:34650000},
+      {c:"Geografie",q:"Wie lang ist die deutsche Landgrenze insgesamt?",h1:"Die Grenze zu Österreich ist mit gut 800 km die längste.",h2:"Bei 9 Nachbarländern sind das im Schnitt gut 400 km pro Nachbar.",a:"3.876 km",v:3876},
+      {c:"Geografie",q:"Wie groß ist Deutschland in km²?",h1:"Bayern hat 70.550 km², rund ein Fünftel davon.",h2:"Frankreich (ohne Überseegebiete) hat rund 544.000 km².",a:"ca. 357.600 km²",v:357600},
+      {c:"Autos",q:"Wie viele PS hatte der erste Serien-VW-Käfer?",h1:"Ein heutiger Basis-Golf hat 115 PS.",h2:"Der 1200er ab 1954 hatte 30 PS.",a:"25 PS",v:25},
+      {c:"Autos",q:"Wie viele VW Käfer wurden insgesamt gebaut?",h1:"Gebaut wurde er von 1938 bis 2003, zuletzt in Mexiko.",h2:"Das Ford Model T kam auf rund 15 Mio., der Käfer überholte es 1972.",a:"ca. 21,5 Mio.",v:21500000},
+      {c:"Geografie",q:"Wie hoch ragt der Uluru (Ayers Rock) über die Ebene?",h1:"Der Eiffelturm mit Antenne ist 330 m hoch.",h2:"Der Berliner Fernsehturm ist etwa 20 m höher.",a:"348 m",v:348},
+      {c:"Natur",q:"Wie lang ist das Great Barrier Reef?",h1:"Es besteht aus rund 2.900 Einzelriffen.",h2:"Es ist etwa so lang wie die Strecke Hamburg–Lissabon Luftlinie.",a:"ca. 2.300 km",v:2300},
+      {c:"Bauwerke",q:"Wie viele Plätze hat der Große Saal der Elbphilharmonie?",h1:"Die Berliner Philharmonie hat rund 2.400.",h2:"Der Kleine Saal hat 550 Plätze, der Große knapp viermal so viele.",a:"2.100 Plätze",v:2100},
+      {c:"Tiere",q:"Wie viele Eier legt ein Legehuhn im Jahr?",h1:"Ein Wildhuhn legt nur rund 20 bis 30.",h2:"Fast jeden Tag eins, mit ein paar Pausentagen im Monat.",a:"ca. 300",v:300},
+      {c:"Essen",q:"Wie viele Eier isst ein Deutscher im Schnitt pro Jahr?",h1:"Rund die Hälfte davon steckt verarbeitet in Nudeln, Kuchen und Co.",h2:"Das sind gut 4 Eier pro Woche.",a:"ca. 240",v:240}
+    ];
+
+    function getSelfId(){let id=localStorage.getItem('mp-self-id');if(!id){id='d_'+Math.random().toString(36).slice(2,10)+Math.random().toString(36).slice(2,6);localStorage.setItem('mp-self-id',id);}return id;}
+    function getStoredName(){return localStorage.getItem('mp-display-name')||'';}
+    function setStoredName(n){try{localStorage.setItem('mp-display-name',n);}catch(e){}}
+    function genCode(){const c='ABCDEFGHJKMNPQRSTUVWXYZ23456789';let s='';for(let i=0;i<4;i++)s+=c[Math.floor(Math.random()*c.length)];return s;}
+    function validateCode(code){if(!code)return null;const x=code.toUpperCase().replace(/[^A-Z0-9]/g,'');return(x.length<3||x.length>6)?null:x;}
+    function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+    function toArray(v){if(v==null)return[];if(Array.isArray(v))return v;if(typeof v==='object'){const k=Object.keys(v).map(Number).filter(n=>!isNaN(n)).sort((a,b)=>a-b);return k.map(i=>v[i]);}return[];}
+    function deepClean(o){if(o==null)return null;if(typeof o!=='object')return o;if(Array.isArray(o))return o.map(deepClean);const r={};for(const k in o)if(o[k]!==undefined)r[k]=deepClean(o[k]);return r;}
+    function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+    const nf = new Intl.NumberFormat('de-DE', { maximumFractionDigits: 2 });
+    function parseNum(raw,q){
+      raw=String(raw);
+      let mult=1;
+      if(!(q&&/Wie viele Millionen/.test(q.q))){
+        if(/mrd|milliard/i.test(raw))mult=1e9;else if(/mio|million/i.test(raw))mult=1e6;else if(/tsd|tausend/i.test(raw))mult=1e3;
+      }
+      let s=raw.trim().replace(/\s/g,'').replace(/[^0-9,.\-]/g,'').replace(/^[.,]+|[.,]+$/g,'');
+      if(!s)return NaN;
+      if(s.includes(',')){s=s.replace(/\./g,'').replace(',','.');}
+      else if(/^\d{1,3}(\.\d{3})+$/.test(s)){s=s.replace(/\./g,'');}
+      return parseFloat(s)*mult;
+    }
+    // Tipps liegen nicht im Klartext im State (kein echter Schutz, nur gegen Mitlesen)
+    function enc(v){try{return btoa(String(v)).split('').reverse().join('');}catch(e){return '';}}
+    function dec(s){if(!s)return NaN;try{return parseFloat(atob(String(s).split('').reverse().join('')));}catch(e){return NaN;}}
+    function clone(o){return JSON.parse(JSON.stringify(o));}
+
+    let state={app:'duell',phase:'lobby',players:{},seatOrder:[]};
+    let mySelfId=getSelfId(),myCode=null,amHost=false,inSession=false,inWaiting=true;
+    let unsubSession=null,sessionRef=null,peerRef=null;
+    let foldArmed=0;
+
+    function showError(m){const e=document.getElementById('dgError');if(!e)return;e.textContent=m;clearTimeout(showError._t);showError._t=setTimeout(()=>e.textContent='',5000);}
+    function showToast(m){let t=document.getElementById('mpToast');if(!t){t=document.createElement('div');t.id='mpToast';t.className='mp-toast';document.body.appendChild(t);}t.textContent=m;t.classList.add('show');clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('show'),2500);}
+    function newPlayer(name){return {name,joinedAt:Date.now(),folded:false,inHand:false,guess:'',guessLocked:false};}
+    function pRef(id){return window.FB.ref(window.FB.db,`sessions/${myCode}/state/players/${id}`);}
+    function sRef(){return window.FB.ref(window.FB.db,`sessions/${myCode}/state`);}
+
+    async function dg_create(){
+      if(!window.FB){showError('Firebase noch nicht geladen');return;}
+      const name=(document.getElementById('dgName').value.trim())||('Spieler '+mySelfId.slice(2,6));setStoredName(name);
+      const ci=document.getElementById('dgCreateCode').value.trim();let code=ci?validateCode(ci):genCode();
+      if(ci&&!code){showError('Code: 3–6 Zeichen');return;}
+      const{db,ref,get,set}=window.FB;
+      try{const ex=await get(ref(db,'sessions/'+code));if(ex.exists()){const v=ex.val();if(Object.keys(v.peers||{}).length===0)await window.FB.remove(ref(db,'sessions/'+code));else{showError(`Code ${code} ist aktiv`);return;}}}catch(e){showError('Fehler');return;}
+      const initial={app:'duell',host:mySelfId,phase:'lobby',players:{[mySelfId]:newPlayer(name)},seatOrder:[],qOrder:shuffle(Q.map((_,i)=>i)),qPos:-1,dealerIdx:-1,stage:0,handNo:0,createdAt:Date.now()};
+      try{await set(ref(db,'sessions/'+code),{state:initial,writerId:mySelfId});myCode=code;amHost=true;await joinListeners(code,name);switchToWaiting();}catch(e){showError('Fehlgeschlagen: '+(e.message||e));}
+    }
+    async function dg_join(){
+      if(!window.FB){showError('Firebase noch nicht geladen');return;}
+      const name=(document.getElementById('dgName').value.trim())||('Spieler '+mySelfId.slice(2,6));setStoredName(name);
+      const code=validateCode(document.getElementById('dgJoinCode').value);if(!code){showError('Code: 3–6 Zeichen');return;}
+      const{db,ref,get,update}=window.FB;
+      try{const snap=await get(ref(db,'sessions/'+code));if(!snap.exists()){showError(`Session ${code} nicht gefunden`);return;}
+        const data=snap.val();if(Object.keys(data.peers||{}).length===0&&!isSessionResumable(data)){await window.FB.remove(ref(db,'sessions/'+code));showError('War abgelaufen');return;}
+        if(data.state&&data.state.app!=='duell'){showError('Andere App');return;}
+        const players=(data.state&&data.state.players)||{};
+        if(!players[mySelfId]){if(Object.keys(players).length>=MAX_PLAYERS){showError('Voll');return;}await update(ref(db,`sessions/${code}/state/players/${mySelfId}`),newPlayer(name));}
+        else await update(ref(db,`sessions/${code}/state/players/${mySelfId}`),{name,left:null});
+        myCode=code;amHost=(data.state.host===mySelfId);await joinListeners(code,name);
+        if(data.state.phase&&data.state.phase!=='lobby')switchToGame();else switchToWaiting();
+      }catch(e){showError('Fehlgeschlagen: '+(e.message||e));}
+    }
+    async function joinListeners(code,name){
+      try { window.saveActiveSession && saveActiveSession('duell', code); } catch (e) {}
+      const{db,ref,onValue,set,onDisconnect}=window.FB;
+      sessionRef=ref(db,'sessions/'+code);peerRef=ref(db,`sessions/${code}/peers/${mySelfId}`);
+      await set(peerRef,{name,lastSeen:Date.now()});onDisconnect(peerRef).remove();
+      unsubSession=onValue(sessionRef,(snap)=>{
+        if(!snap.exists()){showError('Session beendet');dg_leave();return;}
+        const ns=snap.val().state||{};ns.seatOrder=toArray(ns.seatOrder);ns.qOrder=toArray(ns.qOrder);ns.players=ns.players||{};
+        state=ns;amHost=(state.host===mySelfId);document.body.classList.toggle('mp-host',amHost);
+        if(state.phase!=='lobby'&&inWaiting)switchToGame();
+        if(state.phase==='lobby'&&!inWaiting&&inSession)switchToWaiting();
+        if(amHost&&hostTick())return;
+        renderAll();
+      });
+      inSession=true;
+    }
+    async function dg_leave(){
+      try { window.clearActiveSession && clearActiveSession(); } catch (e) {}
+      const{remove,update,get}=window.FB||{};
+      try{if(unsubSession)unsubSession();}catch(e){}
+      try{if(peerRef&&remove)await remove(peerRef);}catch(e){}
+      if(sessionRef&&window.FB){try{const snap=await get(sessionRef);if(snap.exists()){const d=snap.val();const rp=Object.keys(d.peers||{});if(rp.length===0)await remove(sessionRef);else{
+        if(d.state&&d.state.phase&&d.state.phase!=='lobby')await update(pRef(mySelfId),{left:true,folded:true});else await remove(pRef(mySelfId));
+        if(amHost)await update(sRef(),{host:rp[0]});}}}catch(e){}}
+      sessionRef=null;peerRef=null;unsubSession=null;inSession=false;myCode=null;amHost=false;switchToLobby();
+    }
+    function switchToLobby(){document.getElementById('dgLobby').style.display='';document.getElementById('dgWaiting').style.display='none';document.getElementById('dgGame').style.display='none';document.getElementById('dgName').value=getStoredName();inWaiting=false;document.body.classList.add('in-multi-lobby');}
+    function switchToWaiting(){document.getElementById('dgLobby').style.display='none';document.getElementById('dgWaiting').style.display='';document.getElementById('dgGame').style.display='none';inWaiting=true;document.body.classList.remove('in-multi-lobby');renderWaiting();}
+    function switchToGame(){document.getElementById('dgLobby').style.display='none';document.getElementById('dgWaiting').style.display='none';document.getElementById('dgGame').style.display='';inWaiting=false;document.body.classList.remove('in-multi-lobby');renderAll();}
+    function dg_copyCode(){if(!myCode)return;try{navigator.clipboard.writeText(myCode);showToast('Code kopiert');}catch(e){}}
+
+    // Sitzreihenfolge in der Lobby = Reihenfolge am Tisch (im Uhrzeigersinn)
+    function lobbyOrder(){const p=state.players||{};return Object.keys(p).sort((a,b)=>{const sa=p[a].seat,sb=p[b].seat;if(sa!=null&&sb!=null)return sa-sb;if(sa!=null)return -1;if(sb!=null)return 1;return (p[a].joinedAt||0)-(p[b].joinedAt||0);});}
+    function dg_moveSeat(id,dir){
+      if(!amHost)return;const o=lobbyOrder();const i=o.indexOf(id),j=i+dir;if(i<0||j<0||j>=o.length)return;
+      [o[i],o[j]]=[o[j],o[i]];const upd={};o.forEach((pid,k)=>{upd[`players/${pid}/seat`]=k;});
+      window.FB.update(sRef(),upd);
+    }
+    function renderWaiting(){
+      document.getElementById('dgWaitCode').textContent=myCode||'—';document.getElementById('dgWaitCodeBig').textContent=myCode||'—';
+      const p=state.players||{};const ids=lobbyOrder();
+      document.getElementById('dgWaitCount').textContent=`${ids.length}/${MAX_PLAYERS}`;
+      document.getElementById('dgWaitPlayers').innerHTML=ids.map((id,i)=>{const me=id===mySelfId,h=id===state.host;
+        const mv=amHost?`<span style="margin-left:auto;display:flex;gap:0.25rem;align-items:center;align-self:center">${h?'👑':''}<button class="pm-mini-btn" style="padding:0.1rem 0.5rem" onclick="dg_moveSeat('${id}',-1)"${i===0?' disabled':''}>▲</button><button class="pm-mini-btn" style="padding:0.1rem 0.5rem" onclick="dg_moveSeat('${id}',1)"${i===ids.length-1?' disabled':''}>▼</button></span>`:(h?'<span style="margin-left:auto">👑</span>':'');
+        return `<div class="pm-waiting-player ${me?'me':''}"><span>${i+1}. ${esc(p[id].name)}${me?' (du)':''}</span>${mv}</div>`;}).join('');
+      const sb=document.getElementById('dgStartBtn'),hint=document.getElementById('dgWaitHint');
+      if(amHost){sb.style.display='';sb.disabled=ids.length<MIN_PLAYERS;hint.textContent=ids.length<MIN_PLAYERS?`Min. ${MIN_PLAYERS} Spieler`:'Reihenfolge mit ▲▼ wie am Tisch sortieren (im Uhrzeigersinn)';}else{sb.style.display='none';hint.textContent='Warte auf den Host...';}
+    }
+
+    // ---------------- Logik ----------------
+    function inHandIds(S){return S.seatOrder.filter(id=>{const p=S.players[id];return p&&p.inHand&&!p.left;});}
+    function activeIds(S){return inHandIds(S).filter(id=>!S.players[id].folded);}
+    function curQ(S){S=S||state;const o=S.qOrder||[];if(!o.length)return Q[0];return Q[o[((S.qPos||0)%o.length+o.length)%o.length]]||Q[0];}
+    // Dealer / Small Blind / Big Blind und wer die Setzrunde eröffnet
+    function roles(S){
+      const n=S.seatOrder.length;const ring=[];
+      for(let i=0;i<n;i++){const id=S.seatOrder[((S.dealerIdx||0)+i)%n];const p=S.players[id];if(p&&p.inHand)ring.push(id);}
+      if(ring.length<2)return {ring,d:ring[0],sb:null,bb:null,first:null};
+      const hu=ring.length===2;
+      const d=ring[0],sb=hu?ring[0]:ring[1],bb=hu?ring[1]:ring[2];
+      const startIdx=(S.stage||0)===0?(hu?0:3):1; // vor dem 1. Hinweis links vom Big Blind, danach links vom Dealer
+      let first=null;
+      for(let i=0;i<ring.length;i++){const id=ring[(startIdx+i)%ring.length];const p=S.players[id];if(p&&!p.folded&&!p.left){first=id;break;}}
+      return {ring,d,sb,bb,first};
+    }
+    function startHand(S){
+      Object.keys(S.players).forEach(id=>{if(S.players[id].left)delete S.players[id];});
+      S.seatOrder=S.seatOrder.filter(id=>S.players[id]);
+      Object.keys(S.players).sort((a,b)=>(S.players[a].joinedAt||0)-(S.players[b].joinedAt||0)).forEach(id=>{if(!S.seatOrder.includes(id))S.seatOrder.push(id);});
+      S.seatOrder.forEach(id=>{Object.assign(S.players[id],{folded:false,inHand:true,guess:'',guessLocked:false});});
+      S.stage=0;S.showdown=null;
+      if(S.seatOrder.length<2){S.phase='lobby';return S;}
+      S.handNo=(S.handNo||0)+1;
+      S.qPos=(S.qPos==null?-1:S.qPos)+1;
+      if(S.qPos>=S.qOrder.length){S.qOrder=shuffle(Q.map((_,i)=>i));S.qPos=0;}
+      S.dealerIdx=((S.dealerIdx==null?-1:S.dealerIdx)+1)%S.seatOrder.length;
+      S.phase='guess';
+      return S;
+    }
+    // Host: läuft bei jedem Update. true = es wurde geschrieben.
+    function hostTick(){
+      if(state.phase!=='guess'&&state.phase!=='play')return false;
+      const act=activeIds(state);
+      if(act.length<=1){window.FB.update(sRef(),{phase:'showdown',stage:3,showdown:{single:true},lastUpdate:Date.now()});return true;}
+      if(state.phase==='guess'&&act.every(id=>state.players[id].guessLocked)){window.FB.update(sRef(),{phase:'play',stage:0,lastUpdate:Date.now()});return true;}
+      return false;
+    }
+    async function broadcast(ns){if(!sessionRef||!window.FB)return;ns.lastUpdate=Date.now();state=ns;try{await window.FB.set(sRef(),deepClean(ns));}catch(e){console.error('[DG]',e);}}
+
+    // ---------------- Aktionen ----------------
+    function dg_startGame(){
+      if(!amHost)return;const ids=lobbyOrder();if(ids.length<MIN_PLAYERS){showError(`Min. ${MIN_PLAYERS}`);return;}
+      const S=clone(state);S.seatOrder=ids;S.qOrder=shuffle(Q.map((_,i)=>i));S.qPos=-1;S.dealerIdx=-1;S.handNo=0;
+      broadcast(startHand(S));
+    }
+    function dg_next(){if(!amHost)return;broadcast(startHand(clone(state)));}
+    function dg_lockGuess(){
+      const el=document.getElementById('dgGuessIn');if(!el)return;
+      const v=parseNum(el.value,curQ());
+      if(isNaN(v)){showToast('Bitte eine Zahl eingeben');return;}
+      const me=state.players[mySelfId];if(!me||!me.inHand||me.guessLocked||state.phase!=='guess')return;
+      window.FB.update(pRef(mySelfId),{guess:enc(v),guessLocked:true});
+    }
+    function dg_preview(){const el=document.getElementById('dgGuessIn'),o=document.getElementById('dgGuessPrev');if(!el||!o)return;const v=parseNum(el.value,curQ());o.innerHTML=isNaN(v)?'':'zählt als <b>'+fmtGuess(v,curQ())+'</b>';}
+    function dg_fold(){
+      const me=state.players[mySelfId];if(!me||!me.inHand||me.folded||state.phase!=='play')return;
+      if(Date.now()-foldArmed>4000){foldArmed=Date.now();renderAll();setTimeout(()=>{if(Date.now()-foldArmed>=3900)renderAll();},4100);return;}
+      foldArmed=0;window.FB.update(pRef(mySelfId),{folded:true});
+    }
+    function dg_toggleFold(id){
+      if(!amHost)return;const p=state.players[id];if(!p||!p.inHand||p.left)return;
+      if(state.phase==='play'||(state.phase==='guess'&&!p.guessLocked))window.FB.update(pRef(id),{folded:!p.folded});
+    }
+    function dg_advance(){
+      if(!amHost||state.phase!=='play')return;
+      if((state.stage||0)<2)window.FB.update(sRef(),{stage:(state.stage||0)+1,lastUpdate:Date.now()});
+      else window.FB.update(sRef(),{phase:'showdown',stage:3,showdown:{single:false},lastUpdate:Date.now()});
+    }
+    function dg_skipQuestion(){if(!amHost)return;dg_closeSettings();if(state.phase==='lobby')return;broadcast(startHand(clone(state)));showToast('Neue Frage');}
+
+    // ---------------- Anzeige ----------------
+    function fmtGuess(v,q){if(isNaN(v))return '—';if(q&&/Jahr/.test(q.q)&&v>=1000&&v<=2100&&Number.isInteger(v))return String(v);return nf.format(v);}
+    function unitOf(q){let u=String(q.a).replace(/\(.*\)/g,'').replace(/ca\.|[\d.,]/g,'').trim();if(/^Mio/.test(u)&&q.v>=1e6)u=u.replace(/^Mio\.?\s*/,'');return u;}
+    function nameOf(id){const p=state.players[id];return p?p.name:'?';}
+    function badge(t){return `<span class="dg-role dg-role-${t.toLowerCase()}">${t}</span>`;}
+
+    function renderBank(r){
+      const order=state.seatOrder.slice();Object.keys(state.players).forEach(id=>{if(!order.includes(id))order.push(id);});
+      const live=state.phase==='guess'||state.phase==='play';
+      return `<div class="dg-bankrow">`+order.map(id=>{
+        const p=state.players[id];if(!p)return '';
+        let tag='',cls='';
+        if(p.left){tag='weg';cls='folded';}
+        else if(!p.inHand){tag='ab nächster Frage';cls='waiting';}
+        else if(p.folded){tag='gepasst';cls='folded';}
+        else if(state.phase==='guess'){tag=p.guessLocked?'✓ Tipp':'tippt…';cls=p.guessLocked?'locked':'waiting';}
+        else if(state.phase==='play'){tag=id===r.first?'eröffnet':'dabei';cls=id===r.first?'bet':'locked';}
+        const b=(id===r.d?badge('D'):'')+(id===r.sb?badge('SB'):'')+(id===r.bb?badge('BB'):'');
+        const out=p.left||!p.inHand||p.folded;
+        const tap=(amHost&&live&&p.inHand&&!p.left)?` onclick="dg_toggleFold('${id}')" style="cursor:pointer"`:'';
+        return `<div class="dg-bank ${id===mySelfId?'me':''} ${state.phase==='play'&&id===r.first?'acting':''} ${out?'out':''}"${tap}><div class="dg-bank-name">${esc(p.name)}${id===state.host?' 👑':''}</div><div class="dg-bank-roles">${b||'&nbsp;'}</div><div class="dg-bank-tag ${cls}">${tag}</div></div>`;
+      }).join('')+`</div>`;
+    }
+    function renderQuestion(){
+      const q=curQ();const st=state.stage||0;
+      let h=`<div class="dg-qcard"><span class="dg-qcat">${esc(q.c)}</span><div class="dg-qtext">${esc(q.q)}</div>${unitOf(q)&&st<3?`<div class="dg-pot-sub" style="margin-top:0.3rem">Antwort in: <b>${esc(unitOf(q))}</b></div>`:''}`;
+      h+=`<div class="dg-stages">${[0,1,2,3].map(i=>`<div class="dg-stagedot ${i<st?'done':i===st?'now':''}"></div>`).join('')}</div></div>`;
+      if(st>=1)h+=`<div class="dg-hint"><div class="dg-hint-label">1. Hinweis</div><div class="dg-hint-text">${esc(q.h1)}</div></div>`;
+      if(st>=2)h+=`<div class="dg-hint"><div class="dg-hint-label">2. Hinweis</div><div class="dg-hint-text">${esc(q.h2)}</div></div>`;
+      if(st>=3)h+=`<div class="dg-answer"><div class="dg-answer-label">Auflösung</div><div class="dg-answer-val">${esc(q.a)}</div></div>`;
+      return h;
+    }
+    function renderGuessPhase(me,r){
+      let h='';
+      const act=activeIds(state);const missing=act.filter(id=>!state.players[id].guessLocked);
+      if(r.sb&&r.bb)h+=`<div class="dg-lastact">Blinds setzen: <b>${esc(nameOf(r.sb))}</b> Small · <b>${esc(nameOf(r.bb))}</b> Big</div>`;
+      if(me&&me.inHand&&!me.folded){
+        if(!me.guessLocked){
+          h+=`<div class="dg-turn">Dein geheimer Tipp</div><input class="dg-guess-in" id="dgGuessIn" inputmode="decimal" autocomplete="off" placeholder="Zahl" oninput="dg_preview()" onkeydown="if(event.key==='Enter')dg_lockGuess()"><div class="dg-guess-mine" id="dgGuessPrev" style="min-height:1.5em"></div>`;
+          h+=`<button class="g-btn dg-btn" onclick="dg_lockGuess()">TIPP EINLOGGEN</button>`;
+          h+=`<div class="pm-waiting-hint">Nur die Zahl, ohne Einheit. „Mio“ und „Tsd“ werden verstanden. Danach nicht mehr änderbar.</div>`;
+        } else {
+          h+=`<div class="dg-guess-mine">Dein Tipp: <b>${fmtGuess(dec(me.guess),curQ())}</b></div>`;
+          h+=`<div class="g-wait-box">Warte auf ${missing.map(id=>esc(nameOf(id))).join(', ')||'…'}</div>`;
+        }
+      } else h+=`<div class="g-wait-box">Die anderen tippen gerade…</div>`;
+      if(amHost&&missing.some(id=>id!==mySelfId))h+=`<div class="pm-waiting-hint">Host: Spieler oben antippen, um ihn für diese Frage rauszunehmen.</div>`;
+      return h;
+    }
+    function renderPlayPhase(me,r){
+      const st=state.stage||0;let h='';
+      h+=`<div class="g-phase"><div class="g-phase-name" style="color:#e8c45c">Setzrunde ${st+1}</div><div class="g-phase-desc">Jetzt am Tisch setzen${r.first?` · <b>${esc(nameOf(r.first))}</b> eröffnet`:''}</div></div>`;
+      if(me&&me.inHand){
+        h+=`<div class="dg-guess-mine">Dein Tipp: <b>${fmtGuess(dec(me.guess),curQ())}</b></div>`;
+        if(me.folded)h+=`<div class="g-wait-box">Du hast gepasst.</div>`;
+        else{const armed=Date.now()-foldArmed<4000;h+=`<button class="dg-act-btn fold" style="width:100%;margin-top:0.3rem" onclick="dg_fold()">${armed?'WIRKLICH PASSEN? NOCHMAL TIPPEN':'ICH PASSE'}</button>`;}
+      }
+      if(amHost){
+        h+=`<button class="g-btn dg-btn" style="margin-top:0.7rem" onclick="dg_advance()">${st===0?'1. HINWEIS ZEIGEN':st===1?'2. HINWEIS ZEIGEN':'AUFLÖSEN'}</button>`;
+        h+=`<div class="pm-waiting-hint">Erst weiter, wenn die Setzrunde am Tisch durch ist. Spieler oben antippen = passen lassen / zurückholen.</div>`;
+      } else h+=`<div class="pm-waiting-hint">Der Host deckt nach der Setzrunde den nächsten Schritt auf.</div>`;
+      return h;
+    }
+    function renderShowdown(){
+      const q=curQ();const sd=state.showdown||{};
+      const rows=inHandIds(state).concat(state.seatOrder.filter(id=>state.players[id]&&state.players[id].inHand&&state.players[id].left)).map(id=>{const p=state.players[id];const g=dec(p.guess);return {id,p,g,dev:isNaN(g)?Infinity:Math.abs(g-q.v)};});
+      const live=rows.filter(x=>!x.p.folded);
+      const best=live.length?Math.min(...live.map(x=>x.dev)):Infinity;
+      const winners=live.filter(x=>live.length===1||x.dev===best);
+      rows.sort((a,b)=>(a.p.folded-b.p.folded)||(a.dev===b.dev?0:(a.dev<b.dev?-1:1)));
+      let h='';
+      if(winners.length)h+=`<div class="g-phase"><div class="g-phase-name" style="color:#e8c45c">🏆 ${winners.map(x=>esc(x.p.name)).join(' & ')}</div><div class="g-phase-desc">${sd.single?'Alle anderen haben gepasst – Pot kassieren':(winners.length>1?'Gleich nah dran – Pot teilen':'Am nächsten dran – Pot kassieren')}</div></div>`;
+      h+=rows.map(x=>{
+        const hide=sd.single&&!x.p.folded&&x.id!==mySelfId; // wer alle rausblufft, muss nicht zeigen
+        const win=winners.includes(x);
+        return `<div class="dg-result-row ${win?'win':''} ${x.p.folded?'folded':''}"><div class="dg-result-name">${win?'🏆 ':''}${esc(x.p.name)}${x.id===mySelfId?' (du)':''}${x.p.folded?' · gepasst':''}</div><div class="dg-result-guess">${hide?'?':fmtGuess(x.g,q)}</div><div class="dg-result-dev">${hide?'':(isFinite(x.dev)?'Δ '+nf.format(Math.round(x.dev*100)/100):'kein Tipp')}</div></div>`;
+      }).join('');
+      h+=amHost?`<button class="g-btn dg-btn" onclick="dg_next()">NÄCHSTE FRAGE</button>`:`<div class="g-wait-box">Warte auf den Host…</div>`;
+      return h;
+    }
+    function renderAll(){
+      if(inWaiting){renderWaiting();return;}if(!inSession)return;
+      document.getElementById('dgTopCode').textContent=myCode||'—';
+      const ph=state.phase;
+      document.getElementById('dgTopPhase').textContent=`Frage ${state.handNo||1} · ${ph==='guess'?'Tipps':['Setzrunde 1','Setzrunde 2','Setzrunde 3','Auflösung'][state.stage||0]}`;
+      const wrap=document.getElementById('dgContent');
+      const me=state.players[mySelfId];
+      const gi=document.getElementById('dgGuessIn');const keep=gi?{v:gi.value,f:document.activeElement===gi,s:gi.selectionStart}:null;
+      const r=roles(state);
+      let h=renderBank(r)+renderQuestion();
+      if(ph==='guess')h+=renderGuessPhase(me,r);
+      else if(ph==='play')h+=renderPlayPhase(me,r);
+      else if(ph==='showdown')h+=renderShowdown();
+      wrap.innerHTML=h;
+      if(keep){const n=document.getElementById('dgGuessIn');if(n){n.value=keep.v;dg_preview();if(keep.f){n.focus();try{n.setSelectionRange(keep.s,keep.s);}catch(e){}}}}
+    }
+
+    function dg_openSettings(){document.getElementById('dgResetBtn').style.display=amHost?'':'none';document.getElementById('dgSkipBtn').style.display=amHost?'':'none';document.getElementById('dgHostOnlyLabel').style.display=amHost?'':'none';document.getElementById('dgSettingsModal').classList.add('active');}
+    function dg_closeSettings(){document.getElementById('dgSettingsModal').classList.remove('active');}
+    function dg_openSettingsWait(){document.getElementById('dgSettingsWaitModal').classList.add('active');}
+    function dg_closeSettingsWait(){document.getElementById('dgSettingsWaitModal').classList.remove('active');}
+    function dg_resetGame(){
+      if(!amHost)return;const S=clone(state);
+      Object.keys(S.players).forEach(id=>{if(S.players[id].left)delete S.players[id];});
+      S.seatOrder.filter(id=>S.players[id]).forEach((id,k)=>{S.players[id].seat=k;});
+      Object.keys(S.players).forEach(id=>{Object.assign(S.players[id],{folded:false,inHand:false,guess:'',guessLocked:false});});
+      Object.assign(S,{phase:'lobby',seatOrder:[],stage:0,showdown:null,handNo:0,qPos:-1,dealerIdx:-1});
+      broadcast(S);dg_closeSettings();
+    }
+
+    function dg_init(){document.getElementById('dgName').value=getStoredName();if(!inSession)switchToLobby();}
+    const origSwitch=window.switchApp;window.switchApp=function(n){const r=origSwitch(n);if(n==='duell')dg_init();return r;};
+    document.addEventListener('DOMContentLoaded',()=>{const e=document.getElementById('appDuell');if(e&&e.classList.contains('visible'))dg_init();});
+
+    window.dg_create=dg_create;window.dg_join=dg_join;window.dg_leave=dg_leave;window.dg_startGame=dg_startGame;window.dg_copyCode=dg_copyCode;window.dg_moveSeat=dg_moveSeat;
+    window.dg_next=dg_next;window.dg_preview=dg_preview;window.dg_lockGuess=dg_lockGuess;window.dg_fold=dg_fold;window.dg_toggleFold=dg_toggleFold;window.dg_advance=dg_advance;window.dg_skipQuestion=dg_skipQuestion;
+    window.dg_openSettings=dg_openSettings;window.dg_closeSettings=dg_closeSettings;window.dg_openSettingsWait=dg_openSettingsWait;window.dg_closeSettingsWait=dg_closeSettingsWait;window.dg_resetGame=dg_resetGame;
   })();
 
   // ============================================================
