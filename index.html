@@ -1846,6 +1846,12 @@
   .dg-rebuy-req button { padding: 0.3rem 0.6rem; border: none; border-radius: 6px; font-family: var(--ui-font); font-size: 0.72rem; font-weight: 700; cursor: pointer; }
   .dg-rebuy-ok { background: #15803d; color: #fff; } .dg-rebuy-no { background: #991b1b; color: #fff; }
 
+  /* Duell Solo (1 Gerät) */
+  .dg-solo { max-width: 1100px; margin: 0 auto; padding: 0.6rem 0.8rem 2rem; }
+  .dg-solo-head { text-align: center; padding: 0.6rem 3rem 0.8rem; }
+  .dg-solo-title { font-family: var(--display-font); font-size: clamp(1.3rem,3vw,2rem); color: #e8c45c; letter-spacing: 0.06em; }
+  .dg-solo-sub { font-family: var(--ui-font); font-size: 0.85rem; color: #9fb8a8; margin-top: 0.2rem; }
+
   /* Duell: Spieler-Status (Handy) */
   .dg-status { border-radius: 16px; padding: 1.1rem 0.9rem; text-align: center; margin: 0.4rem 0 0.6rem; border: 2px solid transparent; }
   .dg-status-big { font-family: var(--ui-font); font-weight: 800; font-size: 1.9rem; letter-spacing: 0.04em; line-height: 1.1; }
@@ -8240,7 +8246,7 @@
 <!-- Admin toggle (hidden by default, shown after 5x title clicks) -->
 <button class="admin-toggle" id="adminToggleBtn" onclick="openAdminPanel()" style="display:none" aria-label="Admin-Panel öffnen" title="Admin-Panel">🔧</button>
 
-<div class="app-version" id="appVersion">v3.12.1</div>
+<div class="app-version" id="appVersion">v3.13.0</div>
 
 <!-- Admin toast -->
 <div class="admin-toast" id="adminToast"></div>
@@ -8423,6 +8429,10 @@
     <button class="menu-item" data-app="pokerSolo" onclick="switchApp('pokerSolo')">
       <span class="icon">🤖</span>
       <span>Poker vs Bots</span>
+    </button>
+    <button class="menu-item" data-app="duellSolo" onclick="switchApp('duellSolo')">
+      <span class="icon">💰</span>
+      <span>Duell um die Geld Solo</span>
     </button>
     <button class="menu-item" data-app="impostorSolo" onclick="switchApp('impostorSolo')">
       <span class="icon">🕵️</span>
@@ -10611,6 +10621,17 @@
   </div>
 </div>
 
+<!-- ============ DUELL UM DIE GELD · SOLO ============ -->
+<div class="app app-dg" id="appDuellSolo">
+  <div class="dg-solo">
+    <div class="dg-solo-head">
+      <div class="dg-solo-title">💰 Duell um die Geld</div>
+      <div class="dg-solo-sub"><span id="dgsCount">Frage 1</span> · <button class="rules-link" style="display:inline;margin:0" onclick="showGameRules('duellSolo')">📖 So wird gespielt</button></div>
+    </div>
+    <div id="dgsContent"></div>
+  </div>
+</div>
+
 <!-- ============ DUELL UM DIE GELD ============ -->
 <div class="app app-multi app-dg" id="appDuell">
   <div class="multi-lobby dg-lobby" id="dgLobby">
@@ -11625,6 +11646,7 @@
     tabu:          { title: 'Tabu',              emoji: '🚫', theme: '#1a0a12' },
     codenames:     { title: 'Codenames',         emoji: '🕶️', theme: '#0f1419' },
     duell:         { title: 'Duell um die Geld', emoji: '💰', theme: '#0b1711' },
+    duellSolo:     { title: 'Duell um die Geld Solo', emoji: '💰', theme: '#0b1711' },
   };
 
   // Launcher / home screen config
@@ -11634,7 +11656,7 @@
     liarsbarMulti: 'Bluff online', alkiMulti: 'Trinken online', pokerMulti: 'Texas Hold\u2019em',
     werwolf: 'Dorf vs. Wölfe', impostor: 'Wer kennt das Wort nicht?', slf: 'Live gegeneinander',
     blackstories: 'Düstere Rätsel', werbinich: 'Errate dich selbst', tabu: 'Erklären ohne Tabu',
-    codenames: 'Rot vs. Blau', duell: 'Schätzen & bluffen',
+    codenames: 'Rot vs. Blau', duell: 'Schätzen & bluffen', duellSolo: 'Schätzfragen, 1 Gerät',
   };
   const TILE_GLOW = {
     liarsbar: 'rgba(212,160,90,0.30)', poker: 'rgba(80,150,255,0.28)', alki: 'rgba(255,80,80,0.28)',
@@ -11642,10 +11664,10 @@
     liarsbarMulti: 'rgba(212,160,90,0.30)', alkiMulti: 'rgba(255,80,80,0.28)', pokerMulti: 'rgba(60,200,140,0.28)',
     werwolf: 'rgba(150,110,255,0.30)', impostor: 'rgba(255,110,60,0.30)', slf: 'rgba(45,212,191,0.30)',
     blackstories: 'rgba(150,90,255,0.30)', werbinich: 'rgba(80,150,255,0.30)', tabu: 'rgba(236,72,153,0.30)',
-    codenames: 'rgba(150,170,200,0.30)', duell: 'rgba(232,182,76,0.30)',
+    codenames: 'rgba(150,170,200,0.30)', duell: 'rgba(232,182,76,0.30)', duellSolo: 'rgba(232,182,76,0.30)',
   };
   const HOME_APPS = [
-    { group: 'SOLO · 1 GERÄT', items: ['liarsbar', 'poker', 'alki', 'pokerSolo', 'impostorSolo'] },
+    { group: 'SOLO · 1 GERÄT', items: ['liarsbar', 'poker', 'alki', 'pokerSolo', 'impostorSolo', 'duellSolo'] },
     { group: 'MULTIPLAYER · MEHRERE HANDYS', items: ['liarsbarMulti', 'alkiMulti', 'pokerMulti', 'werwolf', 'impostor', 'slf', 'blackstories', 'werbinich', 'tabu', 'codenames', 'duell'] },
   ];
   let GLOBAL_VIS = {};
@@ -11709,6 +11731,7 @@
       tabu: 'appTabu',
       codenames: 'appCodenames',
       duell: 'appDuell',
+      duellSolo: 'appDuellSolo',
     };
     const id = idMap[name] || 'appLiarsbar';
     const el = document.getElementById(id);
@@ -12153,6 +12176,18 @@
         <li><b>Attentäter</b> → sofort verloren!</li>
       </ul>
       <p>Wer zuerst alle eigenen Wörter aufgedeckt hat, gewinnt.</p>` },
+    duellSolo: { title: 'Duell um die Geld Solo', body: `
+      <div class="gr-goal"><b>Ziel:</b> Am besten schätzen — oder so setzen, dass alle anderen aussteigen.</div>
+      <p>Ein Gerät liegt in der Mitte und zeigt Fragen und Hinweise. Geschätzt wird auf <b>Zetteln</b>, gesetzt mit <b>echten Chips</b>.</p>
+      <div class="gr-h">Ablauf einer Frage</div>
+      <ul>
+        <li>Frage vorlesen → jeder schreibt <b>verdeckt</b> seine Schätzung auf</li>
+        <li><b>1. Setzrunde</b>, dann den <b>1. Hinweis</b> antippen</li>
+        <li><b>2. Setzrunde</b>, dann <b>2. Hinweis</b></li>
+        <li><b>3. Setzrunde</b>, dann <b>Auflösen</b></li>
+      </ul>
+      <p>Wer von den Verbliebenen am nächsten dran ist, gewinnt den Pot. Wer vorher alle rausblufft, gewinnt sofort und muss seinen Zettel nicht zeigen.</p>
+      <p>Schon gespielte Fragen kommen erst wieder, wenn alle durch sind.</p>` },
     duell: { title: 'Duell um die Geld', body: `
       <div class="gr-goal"><b>Ziel:</b> Am besten schätzen — oder so setzen, dass alle anderen aussteigen.</div>
       <p>Ein <b>Tablet als Spielleiter</b> liegt auf dem Tisch und zeigt Fragen und Hinweise groß. Jeder Spieler gibt am <b>eigenen Handy</b> nur seinen geheimen Tipp ein. Gesetzt wird mit <b>echten Chips</b>.</p>
@@ -22011,7 +22046,150 @@ nextRound();
       {c:"Natur",q:"Wie lang ist das Great Barrier Reef?",h1:"Es besteht aus rund 2.900 Einzelriffen.",h2:"Es ist etwa so lang wie die Strecke Hamburg–Lissabon Luftlinie.",a:"ca. 2.300 km",v:2300},
       {c:"Bauwerke",q:"Wie viele Plätze hat der Große Saal der Elbphilharmonie?",h1:"Die Berliner Philharmonie hat rund 2.400.",h2:"Der Kleine Saal hat 550 Plätze, der Große knapp viermal so viele.",a:"2.100 Plätze",v:2100},
       {c:"Tiere",q:"Wie viele Eier legt ein Legehuhn im Jahr?",h1:"Ein Wildhuhn legt nur rund 20 bis 30.",h2:"Fast jeden Tag eins, mit ein paar Pausentagen im Monat.",a:"ca. 300",v:300},
-      {c:"Essen",q:"Wie viele Eier isst ein Deutscher im Schnitt pro Jahr?",h1:"Rund die Hälfte davon steckt verarbeitet in Nudeln, Kuchen und Co.",h2:"Das sind gut 4 Eier pro Woche.",a:"ca. 240",v:240}
+      {c:"Essen",q:"Wie viele Eier isst ein Deutscher im Schnitt pro Jahr?",h1:"Rund die Hälfte davon steckt verarbeitet in Nudeln, Kuchen und Co.",h2:"Das sind gut 4 Eier pro Woche.",a:"ca. 240",v:240},
+      {c:"Geografie", q:"Wie hoch ist der Mount Everest?", h1:"Der Mont Blanc ist rund 4.800 m hoch.", h2:"Der K2, der zweithöchste Berg der Welt, misst 8.611 m.", a:"8.849 m", v:8849},
+      {c:"Geografie", q:"Wie tief ist der Marianengraben an seiner tiefsten Stelle?", h1:"Der Mount Everest würde komplett darin verschwinden.", h2:"Er ist gut 2 km tiefer, als der Everest hoch ist.", a:"ca. 11.000 m", v:11000},
+      {c:"Geografie", q:"Wie hoch ist die Zugspitze?", h1:"Der Watzmann ist 2.713 m hoch.", h2:"Sie bleibt knapp unter der 3.000er-Marke.", a:"2.962 m", v:2962},
+      {c:"Geografie", q:"Wie lang ist der Rhein?", h1:"Die Donau ist rund 2.850 km lang.", h2:"Etwa 865 km davon fließen durch Deutschland.", a:"ca. 1.230 km", v:1230},
+      {c:"Geografie", q:"Wie viele Staaten gibt es in Afrika?", h1:"Europa hat je nach Zählweise 45 bis 50 Staaten.", h2:"Die Afrikanische Union hat 55 Mitglieder, eines davon ist international umstritten.", a:"54", v:54},
+      {c:"Politik", q:"Wie viele Mitgliedstaaten hat die UNO?", h1:"Bei der Gründung 1945 waren es 51.", h2:"Die FIFA hat mit 211 Verbänden mehr Mitglieder als die UNO.", a:"193", v:193},
+      {c:"Geografie", q:"Wie viele Einwohner hat Island?", h1:"Die Insel ist etwa so groß wie Bayern und Baden-Württemberg zusammen.", h2:"Rund 250.000 davon leben im Großraum Reykjavík.", a:"ca. 390.000", v:390000},
+      {c:"Geografie", q:"Wie viele Millionen Menschen leben im Großraum Tokio?", h1:"Deutschland hat rund 84 Mio. Einwohner.", h2:"Fast jeder dritte Japaner lebt dort – Japan hat rund 124 Mio. Einwohner.", a:"ca. 37 Mio. Einwohner", v:37},
+      {c:"Geografie", q:"Wie viele Zeitzonen hat Russland?", h1:"Die USA haben mit Alaska und Hawaii sechs.", h2:"China würde geografisch fünf umfassen, nutzt aber nur eine.", a:"11", v:11},
+      {c:"Bauwerke", q:"Wie lang ist die Chinesische Mauer mit allen Abschnitten?", h1:"Der Erdumfang beträgt rund 40.000 km.", h2:"Der bekannte Abschnitt aus der Ming-Zeit ist allein rund 8.850 km lang.", a:"ca. 21.200 km", v:21200},
+      {c:"Geografie", q:"Wie viele Millionen Quadratkilometer groß ist die Sahara?", h1:"Ganz Europa ist rund 10 Mio. km² groß.", h2:"Sie ist fast so groß wie die USA (9,8 Mio. km²).", a:"ca. 9,2 Mio. km²", v:9.2},
+      {c:"Bauwerke", q:"Wie viele Stufen führen bis zur Spitze des Eiffelturms?", h1:"Der Turm des Kölner Doms hat 533 Stufen.", h2:"Bis zur zweiten Etage sind es 674 Stufen.", a:"1.665 Stufen", v:1665},
+      {c:"Bauwerke", q:"Wie hoch ist der Eiffelturm mit Antenne?", h1:"Der Kölner Dom ist 157 m hoch.", h2:"Der Berliner Fernsehturm ist mit 368 m etwas höher.", a:"330 m", v:330},
+      {c:"Bauwerke", q:"Wie hoch ist der Burj Khalifa?", h1:"Das Empire State Building misst mit Antenne 443 m.", h2:"Er hat 163 Stockwerke.", a:"828 m", v:828},
+      {c:"Geografie", q:"Wie viele Hektar groß ist die Vatikanstadt?", h1:"Der Central Park in New York hat 341 Hektar.", h2:"Das entspricht gut 60 Fußballfeldern.", a:"44 Hektar", v:44},
+      {c:"Geografie", q:"Wie viele Seen hat Finnland, das „Land der tausend Seen“?", h1:"Der Beiname untertreibt gewaltig.", h2:"Bei 5,6 Mio. Einwohnern kommt ein See auf etwa 30 Menschen.", a:"ca. 188.000 Seen", v:188000},
+      {c:"Geografie", q:"Wie tief ist der Baikalsee, der tiefste See der Erde?", h1:"Der Genfer See ist maximal 310 m tief.", h2:"Er ist über anderthalb Kilometer tief und enthält rund ein Fünftel des flüssigen Süßwassers der Erde.", a:"1.642 m", v:1642},
+      {c:"Geografie", q:"Wie groß ist die Fläche des Bodensees?", h1:"Berlin ist 892 km² groß.", h2:"Der Chiemsee hat rund 80 km².", a:"536 km²", v:536},
+      {c:"Geografie", q:"Wie weit ist es per Luftlinie von Berlin nach New York?", h1:"Von Berlin nach Mallorca sind es rund 1.650 km.", h2:"Ein Direktflug dauert etwa neun Stunden.", a:"ca. 6.400 km", v:6400},
+      {c:"Natur", q:"Wie hoch ist der höchste Wasserfall der Erde, der Salto Ángel in Venezuela?", h1:"Die Niagarafälle sind 57 m hoch.", h2:"Es fehlt nicht viel zu einem ganzen Kilometer.", a:"979 m", v:979},
+      {c:"Geografie", q:"Wie viele Meter unter dem Meeresspiegel liegt das Ufer des Toten Meeres?", h1:"Das Death Valley liegt 86 m unter dem Meeresspiegel.", h2:"Es ist der tiefste Landpunkt der Erde – gut fünfmal so tief wie das Death Valley.", a:"ca. 430 m", v:430},
+      {c:"Geografie", q:"Wie lang ist der Äquator?", h1:"Der Umfang des Mondes beträgt rund 10.900 km.", h2:"Ein Verkehrsflugzeug bräuchte nonstop etwa 45 Stunden.", a:"40.075 km", v:40075},
+      {c:"Sprache", q:"Wie viele Sprachen werden weltweit gesprochen?", h1:"Die EU hat 24 Amtssprachen.", h2:"Allein in Papua-Neuguinea sind es über 800.", a:"ca. 7.000 Sprachen", v:7000},
+      {c:"Weltall", q:"Wie weit ist der Mond im Mittel von der Erde entfernt?", h1:"Der Erdumfang beträgt rund 40.000 km.", h2:"Licht braucht für die Strecke etwa 1,3 Sekunden.", a:"384.400 km", v:384400},
+      {c:"Weltall", q:"Wie viele Menschen haben bisher den Mond betreten?", h1:"Insgesamt flogen 24 Menschen zum Mond.", h2:"Es gab sechs erfolgreiche Landungen.", a:"12", v:12},
+      {c:"Weltall", q:"Wie schnell fliegt die Internationale Raumstation ISS?", h1:"Eine Gewehrkugel schafft rund 3.000 km/h.", h2:"Sie umrundet die Erde in etwa 90 Minuten.", a:"ca. 28.000 km/h", v:28000},
+      {c:"Weltall", q:"In welcher Höhe umkreist die ISS die Erde?", h1:"Der Mount Everest ist knapp 9 km hoch.", h2:"Der Weltraum beginnt nach gängiger Definition bei 100 km.", a:"ca. 400 km", v:400},
+      {c:"Weltall", q:"Wie heiß ist die Oberfläche der Sonne?", h1:"Flüssige Lava hat rund 1.200 °C.", h2:"Im Kern sind es 15 Millionen Grad, außen sehr viel weniger.", a:"ca. 5.500 °C", v:5500},
+      {c:"Weltall", q:"Wie viele Milliarden Jahre ist das Universum alt?", h1:"Die Erde ist rund 4,5 Mrd. Jahre alt.", h2:"Die ältesten bekannten Sterne sind rund 13 Mrd. Jahre alt.", a:"13,8 Mrd. Jahre", v:13.8},
+      {c:"Weltall", q:"Wie lange braucht der Saturn für eine Runde um die Sonne?", h1:"Der Jupiter braucht knapp 12 Jahre.", h2:"Der Uranus braucht 84 Jahre.", a:"ca. 29,5 Jahre", v:29.5},
+      {c:"Weltall", q:"Wie groß ist der Durchmesser der Erde?", h1:"Der Mond hat einen Durchmesser von 3.474 km.", h2:"Der Erdumfang von rund 40.000 km geteilt durch Pi.", a:"12.742 km", v:12742},
+      {c:"Weltall", q:"Wie schnell rast die Erde um die Sonne?", h1:"Die ISS fliegt mit rund 28.000 km/h.", h2:"Das sind etwa 30 Kilometer pro Sekunde.", a:"ca. 107.000 km/h", v:107000},
+      {c:"Weltall", q:"Wie schnell dreht sich die Erde am Äquator?", h1:"Der Schall ist rund 1.235 km/h schnell.", h2:"Rund 40.000 km in 24 Stunden.", a:"ca. 1.670 km/h", v:1670},
+      {c:"Tiere", q:"Wie lang kann ein Blauwal werden?", h1:"Ein Reisebus ist rund 12 m lang.", h2:"Er kann über 150 Tonnen wiegen.", a:"ca. 30 m", v:30},
+      {c:"Tiere", q:"Wie schnell kann ein Gepard sprinten?", h1:"Usain Bolt erreichte in der Spitze 44,7 km/h.", h2:"Ein Windhund schafft rund 70 km/h.", a:"ca. 110 km/h", v:110},
+      {c:"Tiere", q:"Wie viele Monate ist eine Elefantenkuh trächtig?", h1:"Beim Menschen sind es neun Monate.", h2:"Bei der Giraffe sind es rund 15 Monate.", a:"22 Monate", v:22},
+      {c:"Tiere", q:"Wie groß kann eine Giraffe werden?", h1:"Ein Elefant erreicht bis zu 4 m Schulterhöhe.", h2:"Allein der Hals ist rund 2 m lang.", a:"ca. 5,5 m", v:5.5},
+      {c:"Tiere", q:"Wie viele Bienen leben im Sommer in einem Bienenvolk?", h1:"Ein Hummelvolk besteht aus wenigen Hundert Tieren.", h2:"Die Königin legt bis zu 2.000 Eier am Tag.", a:"ca. 50.000 Bienen", v:50000},
+      {c:"Mensch", q:"Wie alt wurde der älteste Mensch, dessen Alter sicher belegt ist?", h1:"Die Französin Jeanne Calment wurde 1875 geboren.", h2:"Sie erlebte noch die 1990er-Jahre.", a:"122 Jahre", v:122},
+      {c:"Mensch", q:"Wie viele Knochen hat ein erwachsener Mensch?", h1:"Ein Baby hat noch rund 300.", h2:"Mehr als die Hälfte davon steckt in Händen und Füßen.", a:"206 Knochen", v:206},
+      {c:"Mensch", q:"Wie viele Liter Blut hat ein Erwachsener im Schnitt?", h1:"Bei einer Blutspende wird ein halber Liter entnommen.", h2:"Es sind etwa 7 bis 8 Prozent des Körpergewichts.", a:"ca. 5,5 Liter", v:5.5},
+      {c:"Mensch", q:"Wie oft schlägt das Herz an einem Tag?", h1:"Der Ruhepuls liegt bei 60 bis 80 Schlägen pro Minute.", h2:"Ein Tag hat 1.440 Minuten.", a:"ca. 100.000 Schläge", v:100000},
+      {c:"Mensch", q:"Wie viele Haare hat ein Mensch im Schnitt auf dem Kopf?", h1:"Pro Tag fallen etwa 100 aus.", h2:"Blonde haben rund 150.000, Rothaarige rund 90.000.", a:"ca. 100.000 Haare", v:100000},
+      {c:"Mensch", q:"Wie oft atmet ein Mensch an einem Tag?", h1:"In Ruhe sind es 12 bis 18 Atemzüge pro Minute.", h2:"Ein Tag hat 1.440 Minuten.", a:"ca. 20.000 Atemzüge", v:20000},
+      {c:"Mensch", q:"Wie viel wiegt das Gehirn eines Erwachsenen?", h1:"Es macht etwa 2 Prozent des Körpergewichts aus.", h2:"Es verbraucht trotzdem rund 20 Prozent der Energie.", a:"ca. 1,4 kg", v:1.4},
+      {c:"Mensch", q:"Wie viele Milliarden Nervenzellen hat das menschliche Gehirn?", h1:"Die Milchstraße hat 100 bis 400 Mrd. Sterne.", h2:"Lange ging man von 100 Mrd. aus, neuere Zählungen liegen darunter.", a:"ca. 86 Mrd. Nervenzellen", v:86},
+      {c:"Mensch", q:"Wie groß ist die Hautoberfläche eines Erwachsenen?", h1:"Die Haut ist das größte Organ des Menschen.", h2:"Etwa so groß wie ein Türblatt.", a:"ca. 1,8 m²", v:1.8},
+      {c:"Mensch", q:"Wie viele Muskeln hat der Mensch?", h1:"Allein zum Lächeln braucht man ein gutes Dutzend.", h2:"Es sind rund dreimal so viele wie Knochen.", a:"ca. 650 Muskeln", v:650},
+      {c:"Mensch", q:"Zu wie viel Prozent besteht ein Erwachsener aus Wasser?", h1:"Bei einem Neugeborenen sind es rund 75 Prozent.", h2:"Mehr als die Hälfte, aber weniger als zwei Drittel.", a:"ca. 60 %", v:60},
+      {c:"Mensch", q:"Wie groß war der größte Mensch, der je gemessen wurde?", h1:"Der größte lebende Mensch misst 2,51 m.", h2:"Die größten NBA-Spieler der Geschichte waren 2,31 m.", a:"2,72 m", v:2.72},
+      {c:"Natur", q:"Wie hoch ist der höchste Baum der Welt?", h1:"Der Kölner Dom ist 157 m hoch.", h2:"Er überragt die Freiheitsstatue samt Sockel (93 m).", a:"ca. 116 m", v:116},
+      {c:"Natur", q:"Wie alt ist der älteste bekannte Baum, eine Kiefer in Kalifornien?", h1:"Die Cheops-Pyramide ist rund 4.500 Jahre alt.", h2:"Er keimte schon, bevor die Pyramide gebaut wurde.", a:"ca. 4.850 Jahre", v:4850},
+      {c:"Natur", q:"Wie viele Grad unter Null betrug die tiefste je auf der Erde gemessene Lufttemperatur?", h1:"Der deutsche Kälterekord liegt bei 37,8 °C unter Null.", h2:"Trockeneis ist 78,5 °C kalt – in der Antarktis war es noch kälter.", a:"89,2 °C unter Null", v:89.2},
+      {c:"Natur", q:"Wie hoch war die höchste je gemessene Lufttemperatur?", h1:"Der deutsche Hitzerekord liegt bei 41,2 °C.", h2:"Gemessen 1913 im Death Valley, deutlich über 50 °C.", a:"56,7 °C", v:56.7},
+      {c:"Natur", q:"Wie heiß wird ein Blitz?", h1:"Die Sonnenoberfläche hat rund 5.500 °C.", h2:"Etwa fünfmal so heiß wie die Sonnenoberfläche.", a:"ca. 30.000 °C", v:30000},
+      {c:"Physik", q:"Wie schnell ist der Schall in der Luft?", h1:"Ein Verkehrsflugzeug fliegt rund 900 km/h.", h2:"Das sind 343 Meter pro Sekunde.", a:"ca. 1.235 km/h", v:1235},
+      {c:"Physik", q:"Bei welcher Temperatur kocht Wasser auf dem Gipfel des Mount Everest?", h1:"Auf Meereshöhe sind es 100 °C.", h2:"Pro 300 Höhenmeter sinkt der Siedepunkt um etwa ein Grad.", a:"ca. 71 °C", v:71},
+      {c:"Physik", q:"Bei welcher Temperatur schmilzt Eisen?", h1:"Aluminium schmilzt bei 660 °C.", h2:"Gold schmilzt bei 1.064 °C.", a:"1.538 °C", v:1538},
+      {c:"Chemie", q:"Wie viele Elemente stehen im Periodensystem?", h1:"In der Natur kommen rund 94 davon vor.", h2:"Das schwerste heißt Oganesson.", a:"118 Elemente", v:118},
+      {c:"Natur", q:"Wie viel Prozent der Erdoberfläche sind von Wasser bedeckt?", h1:"Es sind mehr als zwei Drittel.", h2:"Allein der Pazifik bedeckt rund ein Drittel der Erde.", a:"71 %", v:71},
+      {c:"Natur", q:"Wie viel Prozent des Wassers auf der Erde sind Süßwasser?", h1:"Der größte Teil davon ist in Eis gebunden.", h2:"Es sind weniger als 5 Prozent.", a:"ca. 2,5 %", v:2.5},
+      {c:"Natur", q:"Zu wie viel Prozent besteht die Luft aus Stickstoff?", h1:"Sauerstoff macht 21 Prozent aus.", h2:"Argon und andere Gase kommen zusammen auf rund 1 Prozent.", a:"78 %", v:78},
+      {c:"Geschichte", q:"In welchem Jahr sank die Titanic?", h1:"Es war vor dem Ersten Weltkrieg.", h2:"Zwei Jahre später brach der Krieg aus.", a:"1912", v:1912},
+      {c:"Geschichte", q:"Wie viele Menschen starben beim Untergang der Titanic?", h1:"An Bord waren rund 2.200 Menschen.", h2:"Etwa 700 überlebten.", a:"ca. 1.500 Menschen", v:1500},
+      {c:"Geschichte", q:"Wie lang war die Titanic?", h1:"Das größte Kreuzfahrtschiff von heute ist rund 365 m lang.", h2:"Sie hatte vier Schornsteine und war knapp 30 m breit.", a:"269 m", v:269},
+      {c:"Geschichte", q:"Wie viele Jahre stand die Berliner Mauer?", h1:"Gebaut wurde sie unter Walter Ulbricht.", h2:"Seit 2018 ist sie länger weg, als sie stand.", a:"28 Jahre", v:28},
+      {c:"Geschichte", q:"Wie lang war die Berliner Mauer rund um West-Berlin insgesamt?", h1:"43 km davon verliefen zwischen Ost- und West-Berlin.", h2:"Der Berliner Autobahnring ist 196 km lang.", a:"ca. 155 km", v:155},
+      {c:"Technik", q:"In welchem Jahr wurde das erste iPhone vorgestellt?", h1:"Der erste iPod kam 2001.", h2:"Das erste iPad kam 2010.", a:"2007", v:2007},
+      {c:"Geschichte", q:"In welchem Jahr flog der erste Mensch ins All?", h1:"Der Satellit Sputnik startete 1957.", h2:"Die erste Mondlandung war 1969.", a:"1961", v:1961},
+      {c:"Geschichte", q:"In welchem Jahr wurde der Mount Everest zum ersten Mal bestiegen?", h1:"Es war nach dem Zweiten Weltkrieg.", h2:"Im selben Jahr wurde Elisabeth II. gekrönt.", a:"1953", v:1953},
+      {c:"Geschichte", q:"Wie viele Jahre dauerte der Hundertjährige Krieg?", h1:"Der Name untertreibt.", h2:"Er begann 1337 und endete Mitte des 15. Jahrhunderts.", a:"116 Jahre", v:116},
+      {c:"Bauwerke", q:"Wie viele Jahre vergingen vom Baubeginn bis zur Fertigstellung des Kölner Doms?", h1:"Der Grundstein wurde 1248 gelegt.", h2:"Fast 300 Jahre ruhte der Bau, fertig wurde er im Kaiserreich.", a:"632 Jahre", v:632},
+      {c:"Geschichte", q:"Wie viele Jahre saß Queen Elizabeth II. auf dem Thron?", h1:"Queen Victoria regierte 63 Jahre.", h2:"Sie wurde 1952 Königin.", a:"70 Jahre", v:70},
+      {c:"Geschichte", q:"Wie viele Milliarden Menschen lebten um das Jahr 1900 auf der Erde?", h1:"Heute sind es über 8 Mrd.", h2:"Um 1800 wurde die erste Milliarde erreicht.", a:"ca. 1,6 Mrd. Menschen", v:1.6},
+      {c:"Technik", q:"In welchem Jahr meldete Carl Benz das erste Automobil zum Patent an?", h1:"Die erste deutsche Eisenbahn fuhr 1835.", h2:"Das Deutsche Kaiserreich wurde 1871 gegründet, das Patent kam danach.", a:"1886", v:1886},
+      {c:"Geschichte", q:"Wie alt ist Stonehenge ungefähr?", h1:"Die Cheops-Pyramide ist rund 4.500 Jahre alt.", h2:"Die ersten Bauphasen sind etwas älter als die Pyramiden.", a:"ca. 5.000 Jahre", v:5000},
+      {c:"Geschichte", q:"Wie viele Krieger umfasst die Terrakotta-Armee in China?", h1:"Entdeckt wurde sie 1974 von Bauern.", h2:"Jede Figur hat ein eigenes Gesicht, die Armee ist über 2.200 Jahre alt.", a:"ca. 8.000 Krieger", v:8000},
+      {c:"Technik", q:"Aus wie vielen Millionen Einzelteilen besteht eine Boeing 747?", h1:"Ein Auto besteht aus rund 30.000 Teilen.", h2:"Etwa die Hälfte davon sind Nieten und Schrauben.", a:"ca. 6 Mio. Teile", v:6},
+      {c:"Technik", q:"Wie groß ist die Spannweite eines Airbus A380?", h1:"Der Rumpf ist 73 m lang.", h2:"Ein Fußballfeld ist 68 m breit.", a:"ca. 80 m", v:80},
+      {c:"Bauwerke", q:"Wie lang ist der Gotthard-Basistunnel?", h1:"Der Eurotunnel unter dem Ärmelkanal ist 50 km lang.", h2:"Er ist der längste Eisenbahntunnel der Welt, gebaut in 17 Jahren.", a:"57 km", v:57},
+      {c:"Verkehr", q:"Wie viele Kilometer Autobahn gibt es in Deutschland?", h1:"Das Schienennetz der Bahn ist rund 33.000 km lang.", h2:"Die A7 ist mit 962 km die längste.", a:"ca. 13.200 km", v:13200},
+      {c:"Technik", q:"In welchem Jahr wurde die erste SMS verschickt?", h1:"Die erste E-Mail ging 1971 raus.", h2:"Der Text lautete „Merry Christmas“, verschickt Anfang der 90er.", a:"1992", v:1992},
+      {c:"Technik", q:"In welchem Jahr wurde Google gegründet?", h1:"Amazon wurde 1994 gegründet.", h2:"Facebook kam 2004.", a:"1998", v:1998},
+      {c:"Technik", q:"Wie viele Megabyte fasste die erste Festplatte der Welt von 1956?", h1:"Sie wog fast eine Tonne.", h2:"Ein einziges Handyfoto hätte nicht draufgepasst.", a:"ca. 5 MB", v:5},
+      {c:"Bauwerke", q:"Wie hoch ist die Freiheitsstatue samt Sockel?", h1:"Die Figur allein misst 46 m.", h2:"Der Kölner Dom ist 157 m hoch.", a:"93 m", v:93},
+      {c:"Bauwerke", q:"Wie viele Fenster hat das Empire State Building?", h1:"Es hat 102 Stockwerke.", h2:"Das sind im Schnitt gut 60 pro Stockwerk.", a:"6.514 Fenster", v:6514},
+      {c:"Bauwerke", q:"Wie schwer ist die große Glocke „Big Ben“ in London?", h1:"Sie wiegt mehr als zwei ausgewachsene Elefanten.", h2:"Etwa so viel wie zehn Kleinwagen.", a:"13,7 Tonnen", v:13.7},
+      {c:"Bauwerke", q:"Wie hoch ist das höchste Hochhaus Deutschlands?", h1:"Es steht in Frankfurt.", h2:"Es überragt den Kölner Dom (157 m) um rund 100 m.", a:"259 m", v:259},
+      {c:"Bauwerke", q:"Wie hoch ist die Christusstatue in Rio de Janeiro ohne Sockel?", h1:"Der Sockel misst 8 m.", h2:"Die Figur der Freiheitsstatue ist 46 m hoch.", a:"30 m", v:30},
+      {c:"Bauwerke", q:"Wie hoch ist der Schiefe Turm von Pisa?", h1:"Bis oben sind es knapp 300 Stufen.", h2:"Er neigt sich um knapp 4 Grad, oben hängt er rund 4 m über.", a:"ca. 56 m", v:56},
+      {c:"Essen & Trinken", q:"Wie viele Liter Bier trinkt ein Deutscher im Schnitt pro Jahr?", h1:"1980 waren es noch rund 145 Liter.", h2:"In Tschechien sind es rund 130 Liter.", a:"ca. 88 Liter", v:88},
+      {c:"Essen & Trinken", q:"Wie viele Liter Kaffee trinkt ein Deutscher im Schnitt pro Jahr?", h1:"Es ist mehr als Bier.", h2:"Das sind gut drei Tassen am Tag.", a:"ca. 165 Liter", v:165},
+      {c:"Essen & Trinken", q:"Wie viel wiegt ein Liter Honig?", h1:"Ein Liter Wasser wiegt 1 kg.", h2:"Ein Liter Milch wiegt 1,03 kg.", a:"ca. 1,4 kg", v:1.4},
+      {c:"Essen & Trinken", q:"Wie viele Brauereien gibt es in Deutschland?", h1:"Fast die Hälfte davon steht in Bayern.", h2:"In Bayern sind es rund 600.", a:"ca. 1.500 Brauereien", v:1500},
+      {c:"Essen & Trinken", q:"Wie viele Brotsorten sind im Deutschen Brotregister erfasst?", h1:"Die deutsche Brotkultur ist immaterielles Kulturerbe.", h2:"Frankreich kommt auf über 1.000 Käsesorten, beim Brot liegt Deutschland deutlich darüber.", a:"ca. 3.200 Brotsorten", v:3200},
+      {c:"Sport", q:"In wie vielen Sekunden lief Usain Bolt seinen 100-Meter-Weltrekord?", h1:"Der Weltrekord der Frauen liegt bei 10,49 Sekunden.", h2:"Er blieb als Erster unter 9,6 Sekunden.", a:"9,58 Sekunden", v:9.58},
+      {c:"Sport", q:"Wo liegt der Weltrekord im Hochsprung der Männer?", h1:"Der Rekord der Frauen liegt bei 2,10 m.", h2:"Ein Fußballtor ist 2,44 m hoch.", a:"2,45 m", v:2.45},
+      {c:"Sport", q:"Wo liegt der Weltrekord im Weitsprung der Männer?", h1:"Bob Beamon sprang 1968 sagenhafte 8,90 m.", h2:"Der Rekord der Frauen liegt bei 7,52 m.", a:"8,95 m", v:8.95},
+      {c:"Sport", q:"Wo liegt der Weltrekord im Speerwurf der Männer?", h1:"Der Rekord der Frauen liegt bei 72,28 m.", h2:"Mit dem alten Speermodell wurden über 104 m geworfen, danach wurde der Speer entschärft.", a:"98,48 m", v:98.48},
+      {c:"Sport", q:"Wie viele Zuschauer sahen 1950 offiziell das entscheidende WM-Spiel im Maracanã?", h1:"Heute fasst das Stadion rund 78.000.", h2:"Inoffiziell sollen es bis zu 200.000 gewesen sein.", a:"ca. 174.000 Zuschauer", v:174000},
+      {c:"Sport", q:"Wie viele Zuschauer fasst das Wembley-Stadion in London?", h1:"Die Allianz Arena fasst rund 75.000.", h2:"Es ist das größte Stadion Großbritanniens.", a:"90.000 Zuschauer", v:90000},
+      {c:"Sport", q:"Wie viel wiegt ein Fußball?", h1:"Ein Basketball wiegt rund 600 g.", h2:"Ein Tennisball wiegt 58 g.", a:"ca. 430 g", v:430},
+      {c:"Sport", q:"Wie viele olympische Goldmedaillen gewann Michael Phelps?", h1:"Insgesamt holte er 28 Medaillen.", h2:"Allein in Peking 2008 waren es acht.", a:"23", v:23},
+      {c:"Sport", q:"Wie viel wiegt ein Tischtennisball?", h1:"Ein Golfball wiegt 46 g.", h2:"Weniger als ein Blatt Druckerpapier (5 g).", a:"2,7 g", v:2.7},
+      {c:"Sport", q:"Wie groß ist der Durchmesser eines Golflochs?", h1:"Ein Golfball hat 4,3 cm Durchmesser.", h2:"Eine CD hat 12 cm Durchmesser.", a:"10,8 cm", v:10.8},
+      {c:"Sport", q:"In welcher Höhe hängt ein Basketballkorb?", h1:"Das Volleyballnetz der Männer hängt auf 2,43 m.", h2:"Es sind genau 10 Fuß.", a:"3,05 m", v:3.05},
+      {c:"Sport", q:"Wie weit steht man beim Darts von der Scheibe entfernt?", h1:"Die Mitte der Scheibe hängt auf 1,73 m Höhe.", h2:"Es sind weniger als zweieinhalb Meter.", a:"2,37 m", v:2.37},
+      {c:"Sport", q:"Wie schwer darf eine Bowlingkugel höchstens sein?", h1:"Der Diskus der Männer wiegt 2 kg.", h2:"Es sind 16 englische Pfund.", a:"ca. 7,3 kg", v:7.3},
+      {c:"Film & Musik", q:"Wie viele Minuten dauert der Film „Titanic“?", h1:"„Avatar“ dauert 162 Minuten.", h2:"Er läuft mehr als drei Stunden.", a:"194 Minuten", v:194},
+      {c:"Film & Musik", q:"Wie viele Milliarden Dollar hat „Avatar“ weltweit eingespielt?", h1:"„Titanic“ kam auf rund 2,3 Mrd. Dollar.", h2:"„Avengers: Endgame“ liegt mit 2,8 Mrd. knapp dahinter.", a:"ca. 2,9 Mrd. Dollar", v:2.9},
+      {c:"Film & Musik", q:"Wie viele Millionen Harry-Potter-Bücher wurden weltweit verkauft?", h1:"„Der Herr der Ringe“ kommt auf rund 150 Mio.", h2:"Es ist die meistverkaufte Buchreihe der Geschichte.", a:"ca. 600 Mio. Bücher", v:600},
+      {c:"Film & Musik", q:"Wie viele offizielle James-Bond-Filme gibt es?", h1:"Der erste kam 1962 ins Kino.", h2:"Sechs Schauspieler haben Bond gespielt.", a:"25 Filme", v:25},
+      {c:"Film & Musik", q:"Wie viele Millionen Mal hat sich Michael Jacksons „Thriller“ verkauft?", h1:"„Back in Black“ von AC/DC kommt auf rund 50 Mio.", h2:"Es ist das meistverkaufte Album aller Zeiten.", a:"ca. 70 Mio. Alben", v:70},
+      {c:"Kunst", q:"Wie hoch ist das Gemälde der Mona Lisa?", h1:"Es ist 53 cm breit.", h2:"Deutlich kleiner, als die meisten denken – keinen Meter hoch.", a:"77 cm", v:77},
+      {c:"Film & Musik", q:"Wie viele nummerierte Sinfonien schrieb Joseph Haydn?", h1:"Beethoven schrieb neun.", h2:"Mozart kam auf 41.", a:"104 Sinfonien", v:104},
+      {c:"Film & Musik", q:"Wie alt wurde Wolfgang Amadeus Mozart?", h1:"Franz Schubert wurde nur 31.", h2:"Er starb 1791 in Wien.", a:"35 Jahre", v:35},
+      {c:"Spiele", q:"Wie viele Felder hat ein Monopoly-Spielbrett?", h1:"Ein Schachbrett hat 64 Felder.", h2:"Darunter sind 22 Straßen und 4 Bahnhöfe.", a:"40 Felder", v:40},
+      {c:"Spiele", q:"Wie viele Millionen mögliche Tipps gibt es beim Lotto „6 aus 49“?", h1:"Mit Superzahl liegt die Chance bei 1 zu 140 Mio.", h2:"49 · 48 · 47 · 46 · 45 · 44, geteilt durch 720.", a:"ca. 14 Mio. Kombinationen", v:14},
+      {c:"Alltag", q:"Wie viele Sekunden hat ein Tag?", h1:"Eine Stunde hat 3.600 Sekunden.", h2:"Ein Tag hat 1.440 Minuten.", a:"86.400 Sekunden", v:86400},
+      {c:"Deutschland", q:"Wie viele Sitze hat der Deutsche Bundestag seit der Wahl 2025?", h1:"2021 waren es noch 736.", h2:"Die frühere Regelgröße lag bei 598.", a:"630 Sitze", v:630},
+      {c:"Deutschland", q:"Wie viele Landkreise gibt es in Deutschland?", h1:"Dazu kommen gut 100 kreisfreie Städte.", h2:"Bayern hat mit 71 die meisten.", a:"294 Landkreise", v:294},
+      {c:"Deutschland", q:"Wie viele Gemeinden gibt es in Deutschland?", h1:"Frankreich hat rund 35.000.", h2:"Allein Rheinland-Pfalz hat rund 2.300.", a:"ca. 10.750 Gemeinden", v:10750},
+      {c:"Geld", q:"Wie viel wiegt eine 1-Euro-Münze?", h1:"Die 2-Euro-Münze wiegt 8,5 g.", h2:"Die 50-Cent-Münze wiegt 7,8 g.", a:"7,5 g", v:7.5},
+      {c:"Geld", q:"Wie viel wiegt eine Million Euro in 100-Euro-Scheinen?", h1:"Ein Schein wiegt rund 1 g.", h2:"Es sind 10.000 Scheine.", a:"ca. 10 kg", v:10},
+      {c:"Geld", q:"Wie schwer ist ein Standard-Goldbarren, wie ihn Zentralbanken lagern?", h1:"Gold ist fast doppelt so dicht wie Blei.", h2:"Er enthält 400 Feinunzen.", a:"ca. 12,4 kg", v:12.4},
+      {c:"Deutschland", q:"Wie viele Millionen Katzen leben in deutschen Haushalten?", h1:"Hunde gibt es rund 10,5 Mio.", h2:"In etwa jedem vierten Haushalt lebt eine Katze.", a:"ca. 15,7 Mio. Katzen", v:15.7},
+      {c:"Deutschland", q:"Wie viele Millionen Fahrräder gibt es in Deutschland?", h1:"Pkw gibt es rund 49 Mio.", h2:"Es ist ungefähr eins pro Einwohner.", a:"ca. 84 Mio. Fahrräder", v:84},
+      {c:"Rekorde", q:"Aus welcher Höhe sprang Felix Baumgartner 2012 aus der Stratosphäre?", h1:"Wetterballons steigen bis in etwa 35 km Höhe.", h2:"Im freien Fall erreichte er 1.357 km/h.", a:"ca. 39 km", v:39},
+      {c:"Rekorde", q:"Wie tief ist das tiefste Bohrloch der Erde auf der Halbinsel Kola?", h1:"Die Erdkruste ist unter Kontinenten rund 35 km dick.", h2:"Es reicht tiefer als der Marianengraben.", a:"12.262 m", v:12262},
+      {c:"Geografie", q:"Wie tief ist Loch Ness an der tiefsten Stelle?", h1:"Der Chiemsee ist maximal 73 m tief.", h2:"Der See enthält mehr Wasser als alle Seen in England und Wales zusammen.", a:"ca. 230 m", v:230},
+      {c:"Geografie", q:"Wie tief ist der Grand Canyon an der tiefsten Stelle?", h1:"Er ist rund 446 km lang.", h2:"Der Burj Khalifa würde gut zweimal übereinander hineinpassen.", a:"ca. 1.800 m", v:1800},
+      {c:"Geografie", q:"Auf wie vielen Inseln ist Venedig erbaut?", h1:"Die Stadt hat rund 400 Brücken.", h2:"Dazwischen liegen etwa 150 Kanäle.", a:"118 Inseln", v:118},
+      {c:"Kunst", q:"Wie viele Millionen Besucher hat der Louvre pro Jahr?", h1:"Schloss Neuschwanstein kommt auf rund 1,4 Mio.", h2:"Das sind an einem Öffnungstag etwa 30.000 Menschen.", a:"ca. 8,7 Mio. Besucher", v:8.7},
+      {c:"Geografie", q:"Wie tief ist die Ostsee an ihrer tiefsten Stelle?", h1:"Im Schnitt ist sie nur 52 m tief.", h2:"Die Nordsee ist an der tiefsten Stelle rund 700 m tief.", a:"459 m", v:459},
+      {c:"Geografie", q:"Wie hoch ist der Kilimandscharo?", h1:"Der Mont Blanc ist rund 4.800 m hoch.", h2:"Er ist der höchste frei stehende Berg der Welt und bleibt knapp unter 6.000 m.", a:"5.895 m", v:5895},
+      {c:"Geografie", q:"Wie hoch ist das Matterhorn?", h1:"Der Mont Blanc ist höher.", h2:"Erstbestiegen 1865, über 4.400 m hoch.", a:"4.478 m", v:4478},
+      {c:"Verkehr", q:"Wie lang ist die Route 66 von Chicago nach Santa Monica?", h1:"Sie führt durch acht Bundesstaaten.", h2:"Von Berlin nach Lissabon sind es auf der Straße rund 2.850 km.", a:"ca. 3.940 km", v:3940},
+      {c:"Geografie", q:"Wie lang ist die Wolga, der längste Fluss Europas?", h1:"Die Donau ist rund 2.850 km lang.", h2:"Sie ist rund 700 km länger als die Donau.", a:"ca. 3.530 km", v:3530},
+      {c:"Geografie", q:"Wie viele Millionen Quadratkilometer groß ist Russland?", h1:"Kanada hat knapp 10 Mio. km².", h2:"Es ist gut ein Neuntel der gesamten Landfläche der Erde.", a:"ca. 17 Mio. km²", v:17},
+      {c:"Geografie", q:"Wie viele Milliarden Einwohner hat Indien?", h1:"Seit 2023 ist es das bevölkerungsreichste Land der Erde.", h2:"China hat rund 1,41 Mrd.", a:"ca. 1,45 Mrd. Einwohner", v:1.45},
+      {c:"Geografie", q:"Aus wie vielen Inseln besteht Indonesien?", h1:"Die Philippinen haben rund 7.600.", h2:"Nur etwa 6.000 davon sind bewohnt.", a:"ca. 17.000 Inseln", v:17000},
+      {c:"Geografie", q:"Wie viele Einwohner hat Monaco?", h1:"Das Land ist nur 2 km² groß.", h2:"Liechtenstein hat ähnlich viele, rund 40.000.", a:"ca. 39.000 Einwohner", v:39000},
+      {c:"Mensch", q:"Wie viele Tage dauert eine Schwangerschaft im Schnitt?", h1:"Gerechnet wird ab der letzten Periode.", h2:"Es sind 40 Wochen.", a:"ca. 280 Tage", v:280}
     ];
 
     function getSelfId(){let id=localStorage.getItem('mp-self-id');if(!id){id='d_'+Math.random().toString(36).slice(2,10)+Math.random().toString(36).slice(2,6);localStorage.setItem('mp-self-id',id);}return id;}
@@ -22027,7 +22205,7 @@ nextRound();
     function parseNum(raw,q){
       raw=String(raw);
       let mult=1;
-      if(!(q&&/Wie viele Millionen/.test(q.q))){
+      if(!(q&&(/Wie viele (Millionen|Milliarden)/.test(q.q)||/^(Mio|Mrd)/.test(unitOf(q))))){
         if(/mrd|milliard/i.test(raw))mult=1e9;else if(/mio|million/i.test(raw))mult=1e6;else if(/tsd|tausend/i.test(raw))mult=1e3;
       }
       let s=raw.trim().replace(/\s/g,'').replace(/[^0-9,.\-]/g,'').replace(/^[.,]+|[.,]+$/g,'');
@@ -22041,6 +22219,17 @@ nextRound();
     function dec(s){if(!s)return NaN;try{return parseFloat(atob(String(s).split('').reverse().join('')));}catch(e){return NaN;}}
     function clone(o){return JSON.parse(JSON.stringify(o));}
 
+    // Schon gespielte Fragen kommen erst wieder, wenn alle durch sind (pro Gerät gemerkt)
+    const SEEN_KEY='duell-seen-v1';
+    function qKey(i){const t=Q[i].q;let h=0;for(let k=0;k<t.length;k++)h=(h*31+t.charCodeAt(k))|0;return String(h);}
+    function getSeen(){try{return new Set(JSON.parse(localStorage.getItem(SEEN_KEY)||'[]'));}catch(e){return new Set();}}
+    function markSeen(i){try{const s=getSeen();s.add(qKey(i));localStorage.setItem(SEEN_KEY,JSON.stringify([...s]));}catch(e){}}
+    function freshOrder(){
+      let seen=getSeen();const all=Q.map((_,i)=>i);
+      let fresh=all.filter(i=>!seen.has(qKey(i)));
+      if(!fresh.length){try{localStorage.removeItem(SEEN_KEY);}catch(e){}return shuffle(all);}
+      return shuffle(fresh).concat(shuffle(all.filter(i=>seen.has(qKey(i)))));
+    }
     let state={app:'duell',phase:'lobby',players:{},seatOrder:[]};
     let mySelfId=getSelfId(),gmId='gm_'+getSelfId(),isGMDevice=false,myCode=null,amHost=false,inSession=false,inWaiting=true;
     let unsubSession=null,sessionRef=null,peerRef=null;
@@ -22058,7 +22247,7 @@ nextRound();
       if(ci&&!code){showError('Code: 3–6 Zeichen');return;}
       const{db,ref,get,set}=window.FB;
       try{const ex=await get(ref(db,'sessions/'+code));if(ex.exists()){const v=ex.val();if(Object.keys(v.peers||{}).length===0)await window.FB.remove(ref(db,'sessions/'+code));else{showError(`Code ${code} ist aktiv`);return;}}}catch(e){showError('Fehler');return;}
-      const initial={app:'duell',host:gmId,phase:'lobby',players:{},seatOrder:[],qOrder:shuffle(Q.map((_,i)=>i)),qPos:-1,dealerIdx:-1,stage:0,handNo:0,createdAt:Date.now()};
+      const initial={app:'duell',host:gmId,phase:'lobby',players:{},seatOrder:[],qOrder:freshOrder(),qPos:-1,dealerIdx:-1,stage:0,handNo:0,createdAt:Date.now()};
       try{await set(ref(db,'sessions/'+code),{state:initial,writerId:mySelfId});myCode=code;amHost=true;isGMDevice=true;await joinListeners(code,name);switchToWaiting();}catch(e){showError('Fehlgeschlagen: '+(e.message||e));}
     }
     async function dg_join(){
@@ -22153,7 +22342,8 @@ nextRound();
       if(S.seatOrder.length<2){S.phase='lobby';return S;}
       S.handNo=(S.handNo||0)+1;
       S.qPos=(S.qPos==null?-1:S.qPos)+1;
-      if(S.qPos>=S.qOrder.length){S.qOrder=shuffle(Q.map((_,i)=>i));S.qPos=0;}
+      if(S.qPos>=S.qOrder.length){S.qOrder=freshOrder();S.qPos=0;}
+      markSeen(S.qOrder[S.qPos]);
       S.dealerIdx=((S.dealerIdx==null?-1:S.dealerIdx)+1)%S.seatOrder.length;
       S.phase='guess';
       return S;
@@ -22170,7 +22360,7 @@ nextRound();
     // ---------------- Aktionen ----------------
     function dg_startGame(){
       if(!amHost)return;const ids=lobbyOrder();if(ids.length<MIN_PLAYERS){showError(`Min. ${MIN_PLAYERS}`);return;}
-      const S=clone(state);S.seatOrder=ids;S.qOrder=shuffle(Q.map((_,i)=>i));S.qPos=-1;S.dealerIdx=-1;S.handNo=0;
+      const S=clone(state);S.seatOrder=ids;S.qOrder=freshOrder();S.qPos=-1;S.dealerIdx=-1;S.handNo=0;
       broadcast(startHand(S));
     }
     function dg_next(){if(!amHost)return;broadcast(startHand(clone(state)));}
@@ -22340,6 +22530,7 @@ nextRound();
       broadcast(S);dg_closeSettings();
     }
 
+    window.DG={Q,freshOrder,markSeen,unitOf,esc};
     function dg_init(){document.getElementById('dgName').value=getStoredName();if(!inSession)switchToLobby();}
     const origSwitch=window.switchApp;window.switchApp=function(n){const r=origSwitch(n);if(n==='duell')dg_init();return r;};
     document.addEventListener('DOMContentLoaded',()=>{const e=document.getElementById('appDuell');if(e&&e.classList.contains('visible'))dg_init();});
@@ -22347,6 +22538,46 @@ nextRound();
     window.dg_create=dg_create;window.dg_join=dg_join;window.dg_leave=dg_leave;window.dg_startGame=dg_startGame;window.dg_copyCode=dg_copyCode;window.dg_moveSeat=dg_moveSeat;
     window.dg_next=dg_next;window.dg_preview=dg_preview;window.dg_lockGuess=dg_lockGuess;window.dg_fold=dg_fold;window.dg_unfold=dg_unfold;window.dg_toggleFold=dg_toggleFold;window.dg_advance=dg_advance;window.dg_skipQuestion=dg_skipQuestion;
     window.dg_openSettings=dg_openSettings;window.dg_closeSettings=dg_closeSettings;window.dg_openSettingsWait=dg_openSettingsWait;window.dg_closeSettingsWait=dg_closeSettingsWait;window.dg_resetGame=dg_resetGame;
+  })();
+
+
+  // ============================================================
+  // ============ DUELL UM DIE GELD · SOLO (1 Gerät) ============
+  // ============================================================
+  (function() {
+    const KEY='duell-solo-v1';
+    let order=[],pos=0,stage=0,count=1;
+    function save(){try{localStorage.setItem(KEY,JSON.stringify({order,pos,stage,count}));}catch(e){}}
+    function load(){try{const d=JSON.parse(localStorage.getItem(KEY)||'null');const n=window.DG.Q.length;if(d&&Array.isArray(d.order)&&d.order.length===n&&d.pos<n){order=d.order;pos=d.pos;stage=d.stage||0;count=d.count||1;return true;}}catch(e){}return false;}
+    function fresh(){order=window.DG.freshOrder();pos=0;stage=0;}
+    function cur(){return window.DG.Q[order[pos]];}
+    function render(){
+      const {esc,unitOf}=window.DG;const q=cur();
+      document.getElementById('dgsCount').textContent='Frage '+count;
+      const hint=(n,txt)=>{
+        if(stage>=n)return `<div class="dg-gm-hint open"><div class="dg-hint-label">${n}. Hinweis</div><div class="dg-gm-hinttext">${esc(txt)}</div></div>`;
+        const can=stage===n-1;
+        return `<button class="dg-gm-hint closed" ${can?'onclick="dgs_advance()"':'disabled'}><div class="dg-hint-label">${n}. Hinweis</div><div class="dg-gm-hinttext">${can?'👆 Tippen zum Aufdecken':'🔒'}</div></button>`;
+      };
+      let h=`<div class="dg-gm-q"><span class="dg-qcat">${esc(q.c)}</span><div class="dg-gm-qtext">${esc(q.q)}</div>${unitOf(q)&&stage<3?`<div class="dg-gm-unit">Antwort in <b>${esc(unitOf(q))}</b></div>`:''}</div>`;
+      h+=`<div class="dg-gm-hints">${hint(1,q.h1)}${hint(2,q.h2)}</div>`;
+      if(stage<3){
+        h+=`<div class="dg-gm-status">${stage===0?'Jeder schreibt verdeckt seine Schätzung auf · dann <b>Setzrunde 1</b>':'<b>Setzrunde '+(stage+1)+'</b>'}</div>`;
+        if(stage===2)h+=`<button class="dg-gm-reveal" onclick="dgs_advance()">AUFLÖSEN</button>`;
+      } else {
+        h+=`<div class="dg-gm-answer"><div class="dg-answer-label">Auflösung</div><div class="dg-gm-answerval">${esc(q.a)}</div></div>`;
+        h+=`<div class="dg-gm-status">Wer von den Verbliebenen am nächsten dran ist, kassiert den Pot</div>`;
+        h+=`<button class="dg-gm-reveal" onclick="dgs_next()">NÄCHSTE FRAGE</button>`;
+      }
+      if(stage<3)h+=`<div class="dg-gm-foot"><button class="pm-mini-btn" onclick="dgs_next()">⏭ Frage überspringen</button></div>`;
+      document.getElementById('dgsContent').innerHTML=h;
+    }
+    function dgs_advance(){if(stage<3){stage++;save();render();}}
+    function dgs_next(){pos++;count++;if(pos>=order.length){fresh();}stage=0;window.DG.markSeen(order[pos]);save();render();window.scrollTo(0,0);}
+    function dgs_init(){if(!order.length){if(!load()){fresh();count=1;}window.DG.markSeen(order[pos]);save();}render();}
+    const origSwitch=window.switchApp;window.switchApp=function(n){const r=origSwitch(n);if(n==='duellSolo')dgs_init();return r;};
+    document.addEventListener('DOMContentLoaded',()=>{const e=document.getElementById('appDuellSolo');if(e&&e.classList.contains('visible'))dgs_init();});
+    window.dgs_advance=dgs_advance;window.dgs_next=dgs_next;
   })();
 
   // ============================================================
